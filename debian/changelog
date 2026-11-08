@@ -1,3 +1,12 @@
+plugin-db (0.3.0) unstable; urgency=medium
+
+  * The reader's TypeScript twin, and plugin-db query --json: the records a
+    console reads, the same answer from C and from TypeScript.
+  * A failed RPM job publishes no DEB.
+  * Builds against plugin-hostd-protocol-devel >= 0.5.0 and < 0.6.
+
+ -- Pau Aliagas <linuxnow@gmail.com>  Sun, 08 Nov 2026 17:40:07 +0100
+
 plugin-db (0.2.1) unstable; urgency=medium
 
   * A bundle directory with a space is matched against its own file:// IRI:
