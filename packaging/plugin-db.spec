@@ -1,5 +1,5 @@
 Name: plugin-db
-Version: 0.2.1
+Version: 0.3.0
 Release: 1%{?dist}
 License: GPL-3.0-or-later
 Summary: The plugin database: the pin, the address form, the store and the state
@@ -12,7 +12,7 @@ BuildRequires: make
 BuildRequires: pkgconfig
 BuildRequires: python3
 BuildRequires: pkgconfig(libcrypto)
-BuildRequires: (plugin-hostd-protocol-devel >= 0.4.1 with plugin-hostd-protocol-devel < 0.5)
+BuildRequires: (plugin-hostd-protocol-devel >= 0.5.0 with plugin-hostd-protocol-devel < 0.6)
 # install-contract writes the contract directory's package with omx-contract's script
 BuildRequires: (omx-contract-devel >= 3.4.0 with omx-contract-devel < 4)
 
@@ -84,6 +84,12 @@ make test
 %{_datadir}/omx-contract/contract.d/3/plugin-db
 
 %changelog
+* Sun Nov 08 2026 Pau Aliagas <linuxnow@gmail.com> - 0.3.0-1
+- The reader's TypeScript twin, and plugin-db query --json: the records a
+  console reads, the same answer from C and from TypeScript
+- A failed RPM job publishes no DEB
+- Builds against plugin-hostd-protocol-devel >= 0.5.0 and < 0.6
+
 * Fri Nov 06 2026 Pau Aliagas <linuxnow@gmail.com> - 0.2.1-1
 - A bundle directory with a space is matched against its own file:// IRI:
   the IRI is decoded once before the match ("my amp.lv2" is my%20amp.lv2)
