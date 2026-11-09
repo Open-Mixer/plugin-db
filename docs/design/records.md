@@ -64,11 +64,10 @@ Built: the reader's answer (state, run, reason, source, the record's tier, the f
 word `alone`, the bar words, `query --json` and the twin, held equal by `tests/golden/`. What a menu still cannot have
 from it:
 
-1. **No owner text.** A word of the `words` kind takes no `text` in omx-contract 3.11.0: its schema gives `text` (en,
-   ca) to a code only. So `data/` cannot hold the sentence of a state, run or reason, and neither reader emits one.
-   `tools/render-ts.py` folds a word's `text` when it has one; the C tables and `query --json` do not yet. The order:
-   an omx-contract minor gives a word `text` under a code's rules, then plugin-db writes its words' sentences, then
-   both readers carry them.
+1. **Owner text: written.** omx-contract 3.12.0 gives a word `text` (en, ca) under a code's rules, and every word a
+   menu says (state, run, reason, source, record, change, action, bar, standing) carries plugin-db's sentence in
+   `data/db.json`. The C vocabulary header has it as `OMX_<ITEM>_<WORD>_TEXT_EN` and `_TEXT_CA`, the twin's vocabulary
+   as `<item>Text`, keyed by the word. The answer stays words: a menu shows the sentence of the word the reader gives.
 2. **No judged layer is written.** plugin-qualify writes `plugin-qualify.qualification-record/1` files to its own
    directory and packages them as `plugin-db-qualification-*`; it puts no judged or reference layer in the store.
    On every machine the reader answers `unqualified` with `never-pinned` or `measurement-pending`. A record given to
