@@ -123,24 +123,21 @@
         "word": "current",
         "doc": "it was written for the pinned bytes and layout, and nothing of PLUGIN_DB_RECORD_CHANGES makes it stale",
         "text": {
-          "en": "Its record is current.",
-          "ca": "El seu registre és vigent."
+          "en": "Its record is current."
         }
       },
       "stale": {
         "word": "stale",
         "doc": "it exists, and a change of PLUGIN_DB_RECORD_CHANGES, or files that could not be tested, keep it from answering",
         "text": {
-          "en": "Its record no longer applies.",
-          "ca": "El seu registre ja no s'aplica."
+          "en": "Its record no longer applies."
         }
       },
       "none": {
         "word": "none",
         "doc": "there is no judged layer",
         "text": {
-          "en": "It has no record.",
-          "ca": "No té registre."
+          "en": "It has no record."
         }
       }
     }
@@ -156,8 +153,7 @@
         "group": "stale",
         "doc": "scan, pin, measure and judge again",
         "text": {
-          "en": "Scan, measure and judge it again.",
-          "ca": "Cal escanejar-lo, mesurar-lo i jutjar-lo de nou."
+          "en": "Scan, measure and judge it again."
         }
       },
       "measureHere": {
@@ -165,8 +161,7 @@
         "group": "stale",
         "doc": "measure and judge on this class of machine; the record stays valid for its own class",
         "text": {
-          "en": "Measure it on this machine.",
-          "ca": "Cal mesurar-lo en aquesta màquina."
+          "en": "Measure it on this machine."
         }
       },
       "convert": {
@@ -174,8 +169,7 @@
         "group": "stale",
         "doc": "convert the record to the schema in force, with no new measurement",
         "text": {
-          "en": "Convert the record; nothing is measured again.",
-          "ca": "Cal convertir el registre; no es torna a mesurar res."
+          "en": "Convert the record; nothing is measured again."
         }
       },
       "rejudge": {
@@ -183,8 +177,7 @@
         "group": "stale",
         "doc": "judge the measurements again, automatically, with no new measurement",
         "text": {
-          "en": "Judge the measurements again; nothing is measured again.",
-          "ca": "Cal tornar a jutjar les mesures; no es torna a mesurar res."
+          "en": "Judge the measurements again; nothing is measured again."
         }
       },
       "remeasureBackground": {
@@ -192,8 +185,7 @@
         "group": "current",
         "doc": "the record stays current, shown as measured under the host it names, and is measured again in the background",
         "text": {
-          "en": "The record still applies; it is measured again in the background.",
-          "ca": "El registre encara s'aplica; es torna a mesurar en segon pla."
+          "en": "The record still applies; it is measured again in the background."
         }
       }
     }
@@ -209,8 +201,7 @@
         "group": "full-path",
         "doc": "the plugin's files are not the bytes the record was written for, or could not be tested",
         "text": {
-          "en": "Its files changed.",
-          "ca": "Els seus fitxers han canviat."
+          "en": "Its files changed."
         }
       },
       "layout": {
@@ -218,8 +209,7 @@
         "group": "full-path",
         "doc": "the parameter layout is not the one the record was written for, or is not yet known",
         "text": {
-          "en": "Its parameters changed.",
-          "ca": "Els seus paràmetres han canviat."
+          "en": "Its parameters changed."
         }
       },
       "hostingChange": {
@@ -227,8 +217,7 @@
         "group": "full-path",
         "doc": "the host is a release that declares a hosting change: its hosting epoch is past the record's. The host's owner declares it in the contract; no reader guesses",
         "text": {
-          "en": "The host changed how it hosts plugins.",
-          "ca": "L'amfitrió ha canviat com allotja els connectors."
+          "en": "The host changed how it hosts plugins."
         }
       },
       "machineClass": {
@@ -236,8 +225,7 @@
         "group": "measure-here",
         "doc": "this machine is of another class than the record's",
         "text": {
-          "en": "This is another kind of machine.",
-          "ca": "Aquesta és un altre tipus de màquina."
+          "en": "This is another kind of machine."
         }
       },
       "schema": {
@@ -245,8 +233,7 @@
         "group": "convert",
         "doc": "the record schema in force is not the record's",
         "text": {
-          "en": "The record format changed.",
-          "ca": "El format del registre ha canviat."
+          "en": "The record format changed."
         }
       },
       "rules": {
@@ -254,8 +241,7 @@
         "group": "rejudge",
         "doc": "the judgement rules in force are not the ones the record was judged by",
         "text": {
-          "en": "The qualification rules changed.",
-          "ca": "Les regles de qualificació han canviat."
+          "en": "The qualification rules changed."
         }
       },
       "hostVersion": {
@@ -263,8 +249,7 @@
         "group": "remeasure-background",
         "doc": "the host is a normal release other than the one the record was measured under",
         "text": {
-          "en": "The host is another release.",
-          "ca": "L'amfitrió és una altra versió."
+          "en": "The host is another release."
         }
       }
     }
@@ -280,8 +265,7 @@
         "group": "alone",
         "doc": "no current record, for any reason: runs alone in its own limited worker, never grouped; shown as not qualified, with the reason",
         "text": {
-          "en": "Not qualified: it runs alone, in a worker of its own.",
-          "ca": "No qualificat: s'executa sol, en un procés propi."
+          "en": "Not qualified: it runs alone, in a worker of its own."
         }
       },
       "qualified": {
@@ -289,8 +273,7 @@
         "group": "shared",
         "doc": "a current record whose verdict allows it and whose conditions are met here: runs as the verdict and the placement rules allow",
         "text": {
-          "en": "Qualified: it runs as its record allows.",
-          "ca": "Qualificat: s'executa com permet el seu registre."
+          "en": "Qualified: it runs as its record allows."
         }
       },
       "isolatedOnly": {
@@ -298,8 +281,7 @@
         "group": "alone",
         "doc": "a current record that says it is safe only alone: runs alone",
         "text": {
-          "en": "Qualified to run alone only.",
-          "ca": "Qualificat només per executar-se sol."
+          "en": "Qualified to run alone only."
         }
       },
       "conditionsUnmet": {
@@ -307,8 +289,7 @@
         "group": "alone",
         "doc": "a current record with no cell for this rate or quantum, or a condition that fails here: runs alone, as unqualified",
         "text": {
-          "en": "Its record does not cover this machine's settings: it runs alone.",
-          "ca": "El seu registre no cobreix la configuració d'aquesta màquina: s'executa sol."
+          "en": "Its record does not cover this machine's settings: it runs alone."
         }
       },
       "refused": {
@@ -316,8 +297,7 @@
         "group": "not-loaded",
         "doc": "a current record or a shipped refusal says refused: not loaded, unless a warned override says run alone",
         "text": {
-          "en": "Refused: it is not loaded.",
-          "ca": "Refusat: no es carrega."
+          "en": "Refused: it is not loaded."
         }
       },
       "absent": {
@@ -325,8 +305,7 @@
         "group": "not-loaded",
         "doc": "the files are gone: not loaded",
         "text": {
-          "en": "Its files are gone: it is not loaded.",
-          "ca": "Els seus fitxers ja no hi són: no es carrega."
+          "en": "Its files are gone: it is not loaded."
         }
       }
     }
@@ -340,24 +319,21 @@
         "word": "shared",
         "doc": "as the verdict and the placement rules allow, in a worker other plugins may share",
         "text": {
-          "en": "Runs in a shared worker.",
-          "ca": "S'executa en un procés compartit."
+          "en": "Runs in a shared worker."
         }
       },
       "alone": {
         "word": "alone",
         "doc": "in its own limited worker, never grouped",
         "text": {
-          "en": "Runs alone, in a worker of its own.",
-          "ca": "S'executa sol, en un procés propi."
+          "en": "Runs alone, in a worker of its own."
         }
       },
       "notLoaded": {
         "word": "not-loaded",
         "doc": "not loaded: shown with its reason and its saved values kept; an effect passes audio through, an instrument is silent",
         "text": {
-          "en": "Not loaded: an effect passes audio through, an instrument is silent.",
-          "ca": "No es carrega: un efecte deixa passar l'àudio, un instrument queda en silenci."
+          "en": "Not loaded: an effect passes audio through, an instrument is silent."
         }
       }
     }
@@ -373,8 +349,7 @@
         "group": "unqualified",
         "doc": "there is no pinned layer: never scanned or never pinned",
         "text": {
-          "en": "It has never been scanned.",
-          "ca": "No s'ha escanejat mai."
+          "en": "It has never been scanned."
         }
       },
       "measurementPending": {
@@ -382,8 +357,7 @@
         "group": "unqualified",
         "doc": "pinned, and there is no record yet",
         "text": {
-          "en": "It has not been measured yet.",
-          "ca": "Encara no s'ha mesurat."
+          "en": "It has not been measured yet."
         }
       },
       "couldNotTest": {
@@ -391,8 +365,7 @@
         "group": "unqualified",
         "doc": "the files or the pin could not be read",
         "text": {
-          "en": "Its files could not be read.",
-          "ca": "No s'han pogut llegir els seus fitxers."
+          "en": "Its files could not be read."
         }
       },
       "filesChanged": {
@@ -400,8 +373,7 @@
         "group": "unqualified",
         "doc": "the files are not the pinned bytes",
         "text": {
-          "en": "Its files have changed since they were scanned.",
-          "ca": "Els seus fitxers han canviat des que es van escanejar."
+          "en": "Its files have changed since they were scanned."
         }
       },
       "layoutChanged": {
@@ -409,8 +381,7 @@
         "group": "unqualified",
         "doc": "the layout is not the pinned one",
         "text": {
-          "en": "Its parameters have changed since they were scanned.",
-          "ca": "Els seus paràmetres han canviat des que es van escanejar."
+          "en": "Its parameters have changed since they were scanned."
         }
       },
       "layoutNotYetKnown": {
@@ -418,8 +389,7 @@
         "group": "unqualified",
         "doc": "the pin holds no layout, so a record cannot bind one",
         "text": {
-          "en": "Its parameters are not known yet.",
-          "ca": "Encara no se'n coneixen els paràmetres."
+          "en": "Its parameters are not known yet."
         }
       },
       "recordStale": {
@@ -427,8 +397,7 @@
         "group": "unqualified",
         "doc": "the record is stale for a change of PLUGIN_DB_RECORD_CHANGES, which show names with its action",
         "text": {
-          "en": "Its record no longer applies and it needs measuring again.",
-          "ca": "El seu registre ja no s'aplica i cal tornar-lo a mesurar."
+          "en": "Its record no longer applies and it needs measuring again."
         }
       },
       "notMeasuredUnderHost": {
@@ -436,8 +405,7 @@
         "group": "unqualified",
         "doc": "the verdict says alone, and the record was not measured under plugin-hostd, which isolated only needs",
         "text": {
-          "en": "Its record says alone, but it was not measured under plugin-hostd.",
-          "ca": "El seu registre diu sol, però no es va mesurar amb plugin-hostd."
+          "en": "Its record says alone, but it was not measured under plugin-hostd."
         }
       },
       "verdictAllows": {
@@ -445,8 +413,7 @@
         "group": "qualified",
         "doc": "the record's verdict allows a shared worker and its conditions are met here",
         "text": {
-          "en": "Its record allows a shared worker.",
-          "ca": "El seu registre permet un procés compartit."
+          "en": "Its record allows a shared worker."
         }
       },
       "verdictIsolated": {
@@ -454,8 +421,7 @@
         "group": "isolated-only",
         "doc": "the record's verdict says it is safe only alone",
         "text": {
-          "en": "Its record says it is safe only alone.",
-          "ca": "El seu registre diu que només és segur sol."
+          "en": "Its record says it is safe only alone."
         }
       },
       "referenceOnly": {
@@ -463,8 +429,7 @@
         "group": "isolated-only",
         "doc": "a shipped record matches the pin and was measured on another class of machine: reference figures only, until measured here",
         "text": {
-          "en": "Measured on another kind of machine: reference figures only.",
-          "ca": "Mesurat en un altre tipus de màquina: només xifres de referència."
+          "en": "Measured on another kind of machine: reference figures only."
         }
       },
       "noCell": {
@@ -472,8 +437,7 @@
         "group": "conditions-unmet",
         "doc": "the record has no cell for this rate and quantum",
         "text": {
-          "en": "Its record has no measurement at this rate and quantum.",
-          "ca": "El seu registre no té cap mesura a aquesta freqüència i quàntum."
+          "en": "Its record has no measurement at this rate and quantum."
         }
       },
       "conditionFails": {
@@ -481,8 +445,7 @@
         "group": "conditions-unmet",
         "doc": "a condition of the record does not hold here, or is not known here",
         "text": {
-          "en": "A condition of its record does not hold on this machine.",
-          "ca": "Una condició del seu registre no es compleix en aquesta màquina."
+          "en": "A condition of its record does not hold on this machine."
         }
       },
       "recordRefused": {
@@ -490,8 +453,7 @@
         "group": "refused",
         "doc": "the record says refused; the way back is a rescan, a requalification or a warned override that runs it alone",
         "text": {
-          "en": "Its record says refused.",
-          "ca": "El seu registre diu refusat."
+          "en": "Its record says refused."
         }
       },
       "shippedRefusal": {
@@ -499,8 +461,7 @@
         "group": "refused",
         "doc": "a shipped record of these bytes says refused, which wins over everything and no warned override overrides",
         "text": {
-          "en": "These files are refused by the record shipped with them.",
-          "ca": "Aquests fitxers els refusa el registre distribuït amb ells."
+          "en": "These files are refused by the record shipped with them."
         }
       },
       "filesGone": {
@@ -508,8 +469,7 @@
         "group": "absent",
         "doc": "the plugin's files are gone; show names the path that was pinned",
         "text": {
-          "en": "Its files are gone.",
-          "ca": "Els seus fitxers ja no hi són."
+          "en": "Its files are gone."
         }
       }
     }
@@ -534,24 +494,21 @@
         "word": "none",
         "doc": "no record answers",
         "text": {
-          "en": "No record.",
-          "ca": "Sense registre."
+          "en": "No record."
         }
       },
       "local": {
         "word": "local",
         "doc": "the judged layer: measured here",
         "text": {
-          "en": "Measured on this machine.",
-          "ca": "Mesurat en aquesta màquina."
+          "en": "Measured on this machine."
         }
       },
       "reference": {
         "word": "reference",
         "doc": "the reference layer: a shipped record, measured on a reference machine",
         "text": {
-          "en": "Measured on a reference machine.",
-          "ca": "Mesurat en una màquina de referència."
+          "en": "Measured on a reference machine."
         }
       }
     }
@@ -565,24 +522,21 @@
         "word": "qualified-only",
         "doc": "only plugins whose state is qualified are offered by default",
         "text": {
-          "en": "Offer qualified plugins only.",
-          "ca": "Oferir només connectors qualificats."
+          "en": "Offer qualified plugins only."
         }
       },
       "warnOnCrashes": {
         "word": "warn-on-crashes",
         "doc": "every plugin that is not refused or absent is offered, and only a crash is asked about",
         "text": {
-          "en": "Offer every plugin that is not refused; ask only after a crash.",
-          "ca": "Oferir tots els connectors no refusats; preguntar només després d'una fallada."
+          "en": "Offer every plugin that is not refused; ask only after a crash."
         }
       },
       "loadAll": {
         "word": "load-all",
         "doc": "every plugin is offered, the way back from a refusal included",
         "text": {
-          "en": "Offer every plugin, refused ones included.",
-          "ca": "Oferir tots els connectors, també els refusats."
+          "en": "Offer every plugin, refused ones included."
         }
       }
     }
@@ -596,24 +550,21 @@
         "word": "within",
         "doc": "the figure is at or under the line",
         "text": {
-          "en": "Latency within the line.",
-          "ca": "Latència dins del límit."
+          "en": "Latency within the line."
         }
       },
       "over": {
         "word": "over",
         "doc": "the figure is over the line: shown by the owner's text, and the plugin loads",
         "text": {
-          "en": "Latency over the line; it still loads.",
-          "ca": "Latència per sobre del límit; es carrega igualment."
+          "en": "Latency over the line; it still loads."
         }
       },
       "unmeasured": {
         "word": "unmeasured",
         "doc": "the record has no line, or the cell has no figure",
         "text": {
-          "en": "Latency not measured.",
-          "ca": "Latència no mesurada."
+          "en": "Latency not measured."
         }
       }
     }

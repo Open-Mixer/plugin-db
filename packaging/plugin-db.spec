@@ -82,6 +82,7 @@ make test
 %files contract
 %license COPYING
 %{_datadir}/omx-contract/contract.d/3/plugin-db
+%{_datadir}/plugin-db/catalogs/
 
 %changelog
 * Sun Nov 08 2026 Pau Aliagas <linuxnow@gmail.com> - 0.3.0-1

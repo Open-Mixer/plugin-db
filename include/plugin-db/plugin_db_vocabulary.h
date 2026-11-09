@@ -52,144 +52,104 @@
 /* PLUGIN_DB_RECORD (data/db.json) */
 #define OMX_PLUGIN_DB_RECORD_CURRENT "current" ///< it was written for the pinned bytes and layout, and nothing of PLUGIN_DB_RECORD_CHANGES makes it stale
 #define OMX_PLUGIN_DB_RECORD_CURRENT_TEXT_EN "Its record is current."
-#define OMX_PLUGIN_DB_RECORD_CURRENT_TEXT_CA "El seu registre \303\251s vigent."
 #define OMX_PLUGIN_DB_RECORD_STALE "stale" ///< it exists, and a change of PLUGIN_DB_RECORD_CHANGES, or files that could not be tested, keep it from answering
 #define OMX_PLUGIN_DB_RECORD_STALE_TEXT_EN "Its record no longer applies."
-#define OMX_PLUGIN_DB_RECORD_STALE_TEXT_CA "El seu registre ja no s'aplica."
 #define OMX_PLUGIN_DB_RECORD_NONE "none" ///< there is no judged layer
 #define OMX_PLUGIN_DB_RECORD_NONE_TEXT_EN "It has no record."
-#define OMX_PLUGIN_DB_RECORD_NONE_TEXT_CA "No t\303\251 registre."
 #define OMX_PLUGIN_DB_RECORD_COUNT 3u
 #define OMX_PLUGIN_DB_RECORD_INIT { "current", "stale", "none" }
 
 /* PLUGIN_DB_RECORD_ACTIONS (data/db.json) */
 #define OMX_PLUGIN_DB_RECORD_ACTIONS_FULL_PATH "full-path" ///< scan, pin, measure and judge again
 #define OMX_PLUGIN_DB_RECORD_ACTIONS_FULL_PATH_TEXT_EN "Scan, measure and judge it again."
-#define OMX_PLUGIN_DB_RECORD_ACTIONS_FULL_PATH_TEXT_CA "Cal escanejar-lo, mesurar-lo i jutjar-lo de nou."
 #define OMX_PLUGIN_DB_RECORD_ACTIONS_MEASURE_HERE "measure-here" ///< measure and judge on this class of machine; the record stays valid for its own class
 #define OMX_PLUGIN_DB_RECORD_ACTIONS_MEASURE_HERE_TEXT_EN "Measure it on this machine."
-#define OMX_PLUGIN_DB_RECORD_ACTIONS_MEASURE_HERE_TEXT_CA "Cal mesurar-lo en aquesta m\303\240quina."
 #define OMX_PLUGIN_DB_RECORD_ACTIONS_CONVERT "convert" ///< convert the record to the schema in force, with no new measurement
 #define OMX_PLUGIN_DB_RECORD_ACTIONS_CONVERT_TEXT_EN "Convert the record; nothing is measured again."
-#define OMX_PLUGIN_DB_RECORD_ACTIONS_CONVERT_TEXT_CA "Cal convertir el registre; no es torna a mesurar res."
 #define OMX_PLUGIN_DB_RECORD_ACTIONS_REJUDGE "rejudge" ///< judge the measurements again, automatically, with no new measurement
 #define OMX_PLUGIN_DB_RECORD_ACTIONS_REJUDGE_TEXT_EN "Judge the measurements again; nothing is measured again."
-#define OMX_PLUGIN_DB_RECORD_ACTIONS_REJUDGE_TEXT_CA "Cal tornar a jutjar les mesures; no es torna a mesurar res."
 #define OMX_PLUGIN_DB_RECORD_ACTIONS_REMEASURE_BACKGROUND "remeasure-background" ///< the record stays current, shown as measured under the host it names, and is measured again in the background
 #define OMX_PLUGIN_DB_RECORD_ACTIONS_REMEASURE_BACKGROUND_TEXT_EN "The record still applies; it is measured again in the background."
-#define OMX_PLUGIN_DB_RECORD_ACTIONS_REMEASURE_BACKGROUND_TEXT_CA "El registre encara s'aplica; es torna a mesurar en segon pla."
 #define OMX_PLUGIN_DB_RECORD_ACTIONS_COUNT 5u
 #define OMX_PLUGIN_DB_RECORD_ACTIONS_INIT { "full-path", "measure-here", "convert", "rejudge", "remeasure-background" }
 
 /* PLUGIN_DB_RECORD_CHANGES (data/db.json) */
 #define OMX_PLUGIN_DB_RECORD_CHANGES_FILES "files" ///< the plugin's files are not the bytes the record was written for, or could not be tested
 #define OMX_PLUGIN_DB_RECORD_CHANGES_FILES_TEXT_EN "Its files changed."
-#define OMX_PLUGIN_DB_RECORD_CHANGES_FILES_TEXT_CA "Els seus fitxers han canviat."
 #define OMX_PLUGIN_DB_RECORD_CHANGES_LAYOUT "layout" ///< the parameter layout is not the one the record was written for, or is not yet known
 #define OMX_PLUGIN_DB_RECORD_CHANGES_LAYOUT_TEXT_EN "Its parameters changed."
-#define OMX_PLUGIN_DB_RECORD_CHANGES_LAYOUT_TEXT_CA "Els seus par\303\240metres han canviat."
 #define OMX_PLUGIN_DB_RECORD_CHANGES_HOSTING_CHANGE "hosting-change" ///< the host is a release that declares a hosting change: its hosting epoch is past the record's. The host's owner declares it in the contract; no reader guesses
 #define OMX_PLUGIN_DB_RECORD_CHANGES_HOSTING_CHANGE_TEXT_EN "The host changed how it hosts plugins."
-#define OMX_PLUGIN_DB_RECORD_CHANGES_HOSTING_CHANGE_TEXT_CA "L'amfitri\303\263 ha canviat com allotja els connectors."
 #define OMX_PLUGIN_DB_RECORD_CHANGES_MACHINE_CLASS "machine-class" ///< this machine is of another class than the record's
 #define OMX_PLUGIN_DB_RECORD_CHANGES_MACHINE_CLASS_TEXT_EN "This is another kind of machine."
-#define OMX_PLUGIN_DB_RECORD_CHANGES_MACHINE_CLASS_TEXT_CA "Aquesta \303\251s un altre tipus de m\303\240quina."
 #define OMX_PLUGIN_DB_RECORD_CHANGES_SCHEMA "schema" ///< the record schema in force is not the record's
 #define OMX_PLUGIN_DB_RECORD_CHANGES_SCHEMA_TEXT_EN "The record format changed."
-#define OMX_PLUGIN_DB_RECORD_CHANGES_SCHEMA_TEXT_CA "El format del registre ha canviat."
 #define OMX_PLUGIN_DB_RECORD_CHANGES_RULES "rules" ///< the judgement rules in force are not the ones the record was judged by
 #define OMX_PLUGIN_DB_RECORD_CHANGES_RULES_TEXT_EN "The qualification rules changed."
-#define OMX_PLUGIN_DB_RECORD_CHANGES_RULES_TEXT_CA "Les regles de qualificaci\303\263 han canviat."
 #define OMX_PLUGIN_DB_RECORD_CHANGES_HOST_VERSION "host-version" ///< the host is a normal release other than the one the record was measured under
 #define OMX_PLUGIN_DB_RECORD_CHANGES_HOST_VERSION_TEXT_EN "The host is another release."
-#define OMX_PLUGIN_DB_RECORD_CHANGES_HOST_VERSION_TEXT_CA "L'amfitri\303\263 \303\251s una altra versi\303\263."
 #define OMX_PLUGIN_DB_RECORD_CHANGES_COUNT 7u
 #define OMX_PLUGIN_DB_RECORD_CHANGES_INIT { "files", "layout", "hosting-change", "machine-class", "schema", "rules", "host-version" }
 
 /* PLUGIN_DB_STATES (data/db.json) */
 #define OMX_PLUGIN_DB_STATES_UNQUALIFIED "unqualified" ///< no current record, for any reason: runs alone in its own limited worker, never grouped; shown as not qualified, with the reason
 #define OMX_PLUGIN_DB_STATES_UNQUALIFIED_TEXT_EN "Not qualified: it runs alone, in a worker of its own."
-#define OMX_PLUGIN_DB_STATES_UNQUALIFIED_TEXT_CA "No qualificat: s'executa sol, en un proc\303\251s propi."
 #define OMX_PLUGIN_DB_STATES_QUALIFIED "qualified" ///< a current record whose verdict allows it and whose conditions are met here: runs as the verdict and the placement rules allow
 #define OMX_PLUGIN_DB_STATES_QUALIFIED_TEXT_EN "Qualified: it runs as its record allows."
-#define OMX_PLUGIN_DB_STATES_QUALIFIED_TEXT_CA "Qualificat: s'executa com permet el seu registre."
 #define OMX_PLUGIN_DB_STATES_ISOLATED_ONLY "isolated-only" ///< a current record that says it is safe only alone: runs alone
 #define OMX_PLUGIN_DB_STATES_ISOLATED_ONLY_TEXT_EN "Qualified to run alone only."
-#define OMX_PLUGIN_DB_STATES_ISOLATED_ONLY_TEXT_CA "Qualificat nom\303\251s per executar-se sol."
 #define OMX_PLUGIN_DB_STATES_CONDITIONS_UNMET "conditions-unmet" ///< a current record with no cell for this rate or quantum, or a condition that fails here: runs alone, as unqualified
 #define OMX_PLUGIN_DB_STATES_CONDITIONS_UNMET_TEXT_EN "Its record does not cover this machine's settings: it runs alone."
-#define OMX_PLUGIN_DB_STATES_CONDITIONS_UNMET_TEXT_CA "El seu registre no cobreix la configuraci\303\263 d'aquesta m\303\240quina: s'executa sol."
 #define OMX_PLUGIN_DB_STATES_REFUSED "refused" ///< a current record or a shipped refusal says refused: not loaded, unless a warned override says run alone
 #define OMX_PLUGIN_DB_STATES_REFUSED_TEXT_EN "Refused: it is not loaded."
-#define OMX_PLUGIN_DB_STATES_REFUSED_TEXT_CA "Refusat: no es carrega."
 #define OMX_PLUGIN_DB_STATES_ABSENT "absent" ///< the files are gone: not loaded
 #define OMX_PLUGIN_DB_STATES_ABSENT_TEXT_EN "Its files are gone: it is not loaded."
-#define OMX_PLUGIN_DB_STATES_ABSENT_TEXT_CA "Els seus fitxers ja no hi s\303\263n: no es carrega."
 #define OMX_PLUGIN_DB_STATES_COUNT 6u
 #define OMX_PLUGIN_DB_STATES_INIT { "unqualified", "qualified", "isolated-only", "conditions-unmet", "refused", "absent" }
 
 /* PLUGIN_DB_RUNS (data/db.json) */
 #define OMX_PLUGIN_DB_RUNS_SHARED "shared" ///< as the verdict and the placement rules allow, in a worker other plugins may share
 #define OMX_PLUGIN_DB_RUNS_SHARED_TEXT_EN "Runs in a shared worker."
-#define OMX_PLUGIN_DB_RUNS_SHARED_TEXT_CA "S'executa en un proc\303\251s compartit."
 #define OMX_PLUGIN_DB_RUNS_ALONE "alone" ///< in its own limited worker, never grouped
 #define OMX_PLUGIN_DB_RUNS_ALONE_TEXT_EN "Runs alone, in a worker of its own."
-#define OMX_PLUGIN_DB_RUNS_ALONE_TEXT_CA "S'executa sol, en un proc\303\251s propi."
 #define OMX_PLUGIN_DB_RUNS_NOT_LOADED "not-loaded" ///< not loaded: shown with its reason and its saved values kept; an effect passes audio through, an instrument is silent
 #define OMX_PLUGIN_DB_RUNS_NOT_LOADED_TEXT_EN "Not loaded: an effect passes audio through, an instrument is silent."
-#define OMX_PLUGIN_DB_RUNS_NOT_LOADED_TEXT_CA "No es carrega: un efecte deixa passar l'\303\240udio, un instrument queda en silenci."
 #define OMX_PLUGIN_DB_RUNS_COUNT 3u
 #define OMX_PLUGIN_DB_RUNS_INIT { "shared", "alone", "not-loaded" }
 
 /* PLUGIN_DB_REASONS (data/db.json) */
 #define OMX_PLUGIN_DB_REASONS_NEVER_PINNED "never-pinned" ///< there is no pinned layer: never scanned or never pinned
 #define OMX_PLUGIN_DB_REASONS_NEVER_PINNED_TEXT_EN "It has never been scanned."
-#define OMX_PLUGIN_DB_REASONS_NEVER_PINNED_TEXT_CA "No s'ha escanejat mai."
 #define OMX_PLUGIN_DB_REASONS_MEASUREMENT_PENDING "measurement-pending" ///< pinned, and there is no record yet
 #define OMX_PLUGIN_DB_REASONS_MEASUREMENT_PENDING_TEXT_EN "It has not been measured yet."
-#define OMX_PLUGIN_DB_REASONS_MEASUREMENT_PENDING_TEXT_CA "Encara no s'ha mesurat."
 #define OMX_PLUGIN_DB_REASONS_COULD_NOT_TEST "could-not-test" ///< the files or the pin could not be read
 #define OMX_PLUGIN_DB_REASONS_COULD_NOT_TEST_TEXT_EN "Its files could not be read."
-#define OMX_PLUGIN_DB_REASONS_COULD_NOT_TEST_TEXT_CA "No s'han pogut llegir els seus fitxers."
 #define OMX_PLUGIN_DB_REASONS_FILES_CHANGED "files-changed" ///< the files are not the pinned bytes
 #define OMX_PLUGIN_DB_REASONS_FILES_CHANGED_TEXT_EN "Its files have changed since they were scanned."
-#define OMX_PLUGIN_DB_REASONS_FILES_CHANGED_TEXT_CA "Els seus fitxers han canviat des que es van escanejar."
 #define OMX_PLUGIN_DB_REASONS_LAYOUT_CHANGED "layout-changed" ///< the layout is not the pinned one
 #define OMX_PLUGIN_DB_REASONS_LAYOUT_CHANGED_TEXT_EN "Its parameters have changed since they were scanned."
-#define OMX_PLUGIN_DB_REASONS_LAYOUT_CHANGED_TEXT_CA "Els seus par\303\240metres han canviat des que es van escanejar."
 #define OMX_PLUGIN_DB_REASONS_LAYOUT_NOT_YET_KNOWN "layout-not-yet-known" ///< the pin holds no layout, so a record cannot bind one
 #define OMX_PLUGIN_DB_REASONS_LAYOUT_NOT_YET_KNOWN_TEXT_EN "Its parameters are not known yet."
-#define OMX_PLUGIN_DB_REASONS_LAYOUT_NOT_YET_KNOWN_TEXT_CA "Encara no se'n coneixen els par\303\240metres."
 #define OMX_PLUGIN_DB_REASONS_RECORD_STALE "record-stale" ///< the record is stale for a change of PLUGIN_DB_RECORD_CHANGES, which show names with its action
 #define OMX_PLUGIN_DB_REASONS_RECORD_STALE_TEXT_EN "Its record no longer applies and it needs measuring again."
-#define OMX_PLUGIN_DB_REASONS_RECORD_STALE_TEXT_CA "El seu registre ja no s'aplica i cal tornar-lo a mesurar."
 #define OMX_PLUGIN_DB_REASONS_NOT_MEASURED_UNDER_HOST "not-measured-under-host" ///< the verdict says alone, and the record was not measured under plugin-hostd, which isolated only needs
 #define OMX_PLUGIN_DB_REASONS_NOT_MEASURED_UNDER_HOST_TEXT_EN "Its record says alone, but it was not measured under plugin-hostd."
-#define OMX_PLUGIN_DB_REASONS_NOT_MEASURED_UNDER_HOST_TEXT_CA "El seu registre diu sol, per\303\262 no es va mesurar amb plugin-hostd."
 #define OMX_PLUGIN_DB_REASONS_VERDICT_ALLOWS "verdict-allows" ///< the record's verdict allows a shared worker and its conditions are met here
 #define OMX_PLUGIN_DB_REASONS_VERDICT_ALLOWS_TEXT_EN "Its record allows a shared worker."
-#define OMX_PLUGIN_DB_REASONS_VERDICT_ALLOWS_TEXT_CA "El seu registre permet un proc\303\251s compartit."
 #define OMX_PLUGIN_DB_REASONS_VERDICT_ISOLATED "verdict-isolated" ///< the record's verdict says it is safe only alone
 #define OMX_PLUGIN_DB_REASONS_VERDICT_ISOLATED_TEXT_EN "Its record says it is safe only alone."
-#define OMX_PLUGIN_DB_REASONS_VERDICT_ISOLATED_TEXT_CA "El seu registre diu que nom\303\251s \303\251s segur sol."
 #define OMX_PLUGIN_DB_REASONS_REFERENCE_ONLY "reference-only" ///< a shipped record matches the pin and was measured on another class of machine: reference figures only, until measured here
 #define OMX_PLUGIN_DB_REASONS_REFERENCE_ONLY_TEXT_EN "Measured on another kind of machine: reference figures only."
-#define OMX_PLUGIN_DB_REASONS_REFERENCE_ONLY_TEXT_CA "Mesurat en un altre tipus de m\303\240quina: nom\303\251s xifres de refer\303\250ncia."
 #define OMX_PLUGIN_DB_REASONS_NO_CELL "no-cell" ///< the record has no cell for this rate and quantum
 #define OMX_PLUGIN_DB_REASONS_NO_CELL_TEXT_EN "Its record has no measurement at this rate and quantum."
-#define OMX_PLUGIN_DB_REASONS_NO_CELL_TEXT_CA "El seu registre no t\303\251 cap mesura a aquesta freq\303\274\303\250ncia i qu\303\240ntum."
 #define OMX_PLUGIN_DB_REASONS_CONDITION_FAILS "condition-fails" ///< a condition of the record does not hold here, or is not known here
 #define OMX_PLUGIN_DB_REASONS_CONDITION_FAILS_TEXT_EN "A condition of its record does not hold on this machine."
-#define OMX_PLUGIN_DB_REASONS_CONDITION_FAILS_TEXT_CA "Una condici\303\263 del seu registre no es compleix en aquesta m\303\240quina."
 #define OMX_PLUGIN_DB_REASONS_RECORD_REFUSED "record-refused" ///< the record says refused; the way back is a rescan, a requalification or a warned override that runs it alone
 #define OMX_PLUGIN_DB_REASONS_RECORD_REFUSED_TEXT_EN "Its record says refused."
-#define OMX_PLUGIN_DB_REASONS_RECORD_REFUSED_TEXT_CA "El seu registre diu refusat."
 #define OMX_PLUGIN_DB_REASONS_SHIPPED_REFUSAL "shipped-refusal" ///< a shipped record of these bytes says refused, which wins over everything and no warned override overrides
 #define OMX_PLUGIN_DB_REASONS_SHIPPED_REFUSAL_TEXT_EN "These files are refused by the record shipped with them."
-#define OMX_PLUGIN_DB_REASONS_SHIPPED_REFUSAL_TEXT_CA "Aquests fitxers els refusa el registre distribu\303\257t amb ells."
 #define OMX_PLUGIN_DB_REASONS_FILES_GONE "files-gone" ///< the plugin's files are gone; show names the path that was pinned
 #define OMX_PLUGIN_DB_REASONS_FILES_GONE_TEXT_EN "Its files are gone."
-#define OMX_PLUGIN_DB_REASONS_FILES_GONE_TEXT_CA "Els seus fitxers ja no hi s\303\263n."
 #define OMX_PLUGIN_DB_REASONS_COUNT 16u
 #define OMX_PLUGIN_DB_REASONS_INIT { "never-pinned", "measurement-pending", "could-not-test", "files-changed", "layout-changed", "layout-not-yet-known", "record-stale", "not-measured-under-host", "verdict-allows", "verdict-isolated", "reference-only", "no-cell", "condition-fails", "record-refused", "shipped-refusal", "files-gone" }
 
@@ -201,39 +161,30 @@
 /* PLUGIN_DB_SOURCES (data/db.json) */
 #define OMX_PLUGIN_DB_SOURCES_NONE "none" ///< no record answers
 #define OMX_PLUGIN_DB_SOURCES_NONE_TEXT_EN "No record."
-#define OMX_PLUGIN_DB_SOURCES_NONE_TEXT_CA "Sense registre."
 #define OMX_PLUGIN_DB_SOURCES_LOCAL "local" ///< the judged layer: measured here
 #define OMX_PLUGIN_DB_SOURCES_LOCAL_TEXT_EN "Measured on this machine."
-#define OMX_PLUGIN_DB_SOURCES_LOCAL_TEXT_CA "Mesurat en aquesta m\303\240quina."
 #define OMX_PLUGIN_DB_SOURCES_REFERENCE "reference" ///< the reference layer: a shipped record, measured on a reference machine
 #define OMX_PLUGIN_DB_SOURCES_REFERENCE_TEXT_EN "Measured on a reference machine."
-#define OMX_PLUGIN_DB_SOURCES_REFERENCE_TEXT_CA "Mesurat en una m\303\240quina de refer\303\250ncia."
 #define OMX_PLUGIN_DB_SOURCES_COUNT 3u
 #define OMX_PLUGIN_DB_SOURCES_INIT { "none", "local", "reference" }
 
 /* PLUGIN_DB_BAR (data/db.json) */
 #define OMX_PLUGIN_DB_BAR_QUALIFIED_ONLY "qualified-only" ///< only plugins whose state is qualified are offered by default
 #define OMX_PLUGIN_DB_BAR_QUALIFIED_ONLY_TEXT_EN "Offer qualified plugins only."
-#define OMX_PLUGIN_DB_BAR_QUALIFIED_ONLY_TEXT_CA "Oferir nom\303\251s connectors qualificats."
 #define OMX_PLUGIN_DB_BAR_WARN_ON_CRASHES "warn-on-crashes" ///< every plugin that is not refused or absent is offered, and only a crash is asked about
 #define OMX_PLUGIN_DB_BAR_WARN_ON_CRASHES_TEXT_EN "Offer every plugin that is not refused; ask only after a crash."
-#define OMX_PLUGIN_DB_BAR_WARN_ON_CRASHES_TEXT_CA "Oferir tots els connectors no refusats; preguntar nom\303\251s despr\303\251s d'una fallada."
 #define OMX_PLUGIN_DB_BAR_LOAD_ALL "load-all" ///< every plugin is offered, the way back from a refusal included
 #define OMX_PLUGIN_DB_BAR_LOAD_ALL_TEXT_EN "Offer every plugin, refused ones included."
-#define OMX_PLUGIN_DB_BAR_LOAD_ALL_TEXT_CA "Oferir tots els connectors, tamb\303\251 els refusats."
 #define OMX_PLUGIN_DB_BAR_COUNT 3u
 #define OMX_PLUGIN_DB_BAR_INIT { "qualified-only", "warn-on-crashes", "load-all" }
 
 /* PLUGIN_DB_LATENCY (data/db.json) */
 #define OMX_PLUGIN_DB_LATENCY_WITHIN "within" ///< the figure is at or under the line
 #define OMX_PLUGIN_DB_LATENCY_WITHIN_TEXT_EN "Latency within the line."
-#define OMX_PLUGIN_DB_LATENCY_WITHIN_TEXT_CA "Lat\303\250ncia dins del l\303\255mit."
 #define OMX_PLUGIN_DB_LATENCY_OVER "over" ///< the figure is over the line: shown by the owner's text, and the plugin loads
 #define OMX_PLUGIN_DB_LATENCY_OVER_TEXT_EN "Latency over the line; it still loads."
-#define OMX_PLUGIN_DB_LATENCY_OVER_TEXT_CA "Lat\303\250ncia per sobre del l\303\255mit; es carrega igualment."
 #define OMX_PLUGIN_DB_LATENCY_UNMEASURED "unmeasured" ///< the record has no line, or the cell has no figure
 #define OMX_PLUGIN_DB_LATENCY_UNMEASURED_TEXT_EN "Latency not measured."
-#define OMX_PLUGIN_DB_LATENCY_UNMEASURED_TEXT_CA "Lat\303\250ncia no mesurada."
 #define OMX_PLUGIN_DB_LATENCY_COUNT 3u
 #define OMX_PLUGIN_DB_LATENCY_INIT { "within", "over", "unmeasured" }
 

@@ -81,7 +81,7 @@ export const record = {
   none: "none",
 } as const;
 /** the owners' text of each word of PLUGIN_DB_RECORD, en and ca */
-export const recordText: Readonly<Record<string, Readonly<Record<string, string>>>> = {"current": {"en": "Its record is current.", "ca": "El seu registre és vigent."}, "stale": {"en": "Its record no longer applies.", "ca": "El seu registre ja no s'aplica."}, "none": {"en": "It has no record.", "ca": "No té registre."}};
+export const recordText: Readonly<Record<string, Readonly<Record<string, string>>>> = {"current": {"en": "Its record is current."}, "stale": {"en": "Its record no longer applies."}, "none": {"en": "It has no record."}};
 
 /** PLUGIN_DB_RECORD_ACTIONS */
 export const recordActions = {
@@ -92,7 +92,7 @@ export const recordActions = {
   remeasureBackground: "remeasure-background",
 } as const;
 /** the owners' text of each word of PLUGIN_DB_RECORD_ACTIONS, en and ca */
-export const recordActionsText: Readonly<Record<string, Readonly<Record<string, string>>>> = {"full-path": {"en": "Scan, measure and judge it again.", "ca": "Cal escanejar-lo, mesurar-lo i jutjar-lo de nou."}, "measure-here": {"en": "Measure it on this machine.", "ca": "Cal mesurar-lo en aquesta màquina."}, "convert": {"en": "Convert the record; nothing is measured again.", "ca": "Cal convertir el registre; no es torna a mesurar res."}, "rejudge": {"en": "Judge the measurements again; nothing is measured again.", "ca": "Cal tornar a jutjar les mesures; no es torna a mesurar res."}, "remeasure-background": {"en": "The record still applies; it is measured again in the background.", "ca": "El registre encara s'aplica; es torna a mesurar en segon pla."}};
+export const recordActionsText: Readonly<Record<string, Readonly<Record<string, string>>>> = {"full-path": {"en": "Scan, measure and judge it again."}, "measure-here": {"en": "Measure it on this machine."}, "convert": {"en": "Convert the record; nothing is measured again."}, "rejudge": {"en": "Judge the measurements again; nothing is measured again."}, "remeasure-background": {"en": "The record still applies; it is measured again in the background."}};
 
 /** PLUGIN_DB_RECORD_CHANGES */
 export const recordChanges = {
@@ -105,7 +105,7 @@ export const recordChanges = {
   hostVersion: "host-version",
 } as const;
 /** the owners' text of each word of PLUGIN_DB_RECORD_CHANGES, en and ca */
-export const recordChangesText: Readonly<Record<string, Readonly<Record<string, string>>>> = {"files": {"en": "Its files changed.", "ca": "Els seus fitxers han canviat."}, "layout": {"en": "Its parameters changed.", "ca": "Els seus paràmetres han canviat."}, "hosting-change": {"en": "The host changed how it hosts plugins.", "ca": "L'amfitrió ha canviat com allotja els connectors."}, "machine-class": {"en": "This is another kind of machine.", "ca": "Aquesta és un altre tipus de màquina."}, "schema": {"en": "The record format changed.", "ca": "El format del registre ha canviat."}, "rules": {"en": "The qualification rules changed.", "ca": "Les regles de qualificació han canviat."}, "host-version": {"en": "The host is another release.", "ca": "L'amfitrió és una altra versió."}};
+export const recordChangesText: Readonly<Record<string, Readonly<Record<string, string>>>> = {"files": {"en": "Its files changed."}, "layout": {"en": "Its parameters changed."}, "hosting-change": {"en": "The host changed how it hosts plugins."}, "machine-class": {"en": "This is another kind of machine."}, "schema": {"en": "The record format changed."}, "rules": {"en": "The qualification rules changed."}, "host-version": {"en": "The host is another release."}};
 
 /** PLUGIN_DB_STATES */
 export const states = {
@@ -117,7 +117,7 @@ export const states = {
   absent: "absent",
 } as const;
 /** the owners' text of each word of PLUGIN_DB_STATES, en and ca */
-export const statesText: Readonly<Record<string, Readonly<Record<string, string>>>> = {"unqualified": {"en": "Not qualified: it runs alone, in a worker of its own.", "ca": "No qualificat: s'executa sol, en un procés propi."}, "qualified": {"en": "Qualified: it runs as its record allows.", "ca": "Qualificat: s'executa com permet el seu registre."}, "isolated-only": {"en": "Qualified to run alone only.", "ca": "Qualificat només per executar-se sol."}, "conditions-unmet": {"en": "Its record does not cover this machine's settings: it runs alone.", "ca": "El seu registre no cobreix la configuració d'aquesta màquina: s'executa sol."}, "refused": {"en": "Refused: it is not loaded.", "ca": "Refusat: no es carrega."}, "absent": {"en": "Its files are gone: it is not loaded.", "ca": "Els seus fitxers ja no hi són: no es carrega."}};
+export const statesText: Readonly<Record<string, Readonly<Record<string, string>>>> = {"unqualified": {"en": "Not qualified: it runs alone, in a worker of its own."}, "qualified": {"en": "Qualified: it runs as its record allows."}, "isolated-only": {"en": "Qualified to run alone only."}, "conditions-unmet": {"en": "Its record does not cover this machine's settings: it runs alone."}, "refused": {"en": "Refused: it is not loaded."}, "absent": {"en": "Its files are gone: it is not loaded."}};
 
 /** PLUGIN_DB_RUNS */
 export const runs = {
@@ -126,7 +126,7 @@ export const runs = {
   notLoaded: "not-loaded",
 } as const;
 /** the owners' text of each word of PLUGIN_DB_RUNS, en and ca */
-export const runsText: Readonly<Record<string, Readonly<Record<string, string>>>> = {"shared": {"en": "Runs in a shared worker.", "ca": "S'executa en un procés compartit."}, "alone": {"en": "Runs alone, in a worker of its own.", "ca": "S'executa sol, en un procés propi."}, "not-loaded": {"en": "Not loaded: an effect passes audio through, an instrument is silent.", "ca": "No es carrega: un efecte deixa passar l'àudio, un instrument queda en silenci."}};
+export const runsText: Readonly<Record<string, Readonly<Record<string, string>>>> = {"shared": {"en": "Runs in a shared worker."}, "alone": {"en": "Runs alone, in a worker of its own."}, "not-loaded": {"en": "Not loaded: an effect passes audio through, an instrument is silent."}};
 
 /** PLUGIN_DB_REASONS */
 export const reasons = {
@@ -148,7 +148,7 @@ export const reasons = {
   filesGone: "files-gone",
 } as const;
 /** the owners' text of each word of PLUGIN_DB_REASONS, en and ca */
-export const reasonsText: Readonly<Record<string, Readonly<Record<string, string>>>> = {"never-pinned": {"en": "It has never been scanned.", "ca": "No s'ha escanejat mai."}, "measurement-pending": {"en": "It has not been measured yet.", "ca": "Encara no s'ha mesurat."}, "could-not-test": {"en": "Its files could not be read.", "ca": "No s'han pogut llegir els seus fitxers."}, "files-changed": {"en": "Its files have changed since they were scanned.", "ca": "Els seus fitxers han canviat des que es van escanejar."}, "layout-changed": {"en": "Its parameters have changed since they were scanned.", "ca": "Els seus paràmetres han canviat des que es van escanejar."}, "layout-not-yet-known": {"en": "Its parameters are not known yet.", "ca": "Encara no se'n coneixen els paràmetres."}, "record-stale": {"en": "Its record no longer applies and it needs measuring again.", "ca": "El seu registre ja no s'aplica i cal tornar-lo a mesurar."}, "not-measured-under-host": {"en": "Its record says alone, but it was not measured under plugin-hostd.", "ca": "El seu registre diu sol, però no es va mesurar amb plugin-hostd."}, "verdict-allows": {"en": "Its record allows a shared worker.", "ca": "El seu registre permet un procés compartit."}, "verdict-isolated": {"en": "Its record says it is safe only alone.", "ca": "El seu registre diu que només és segur sol."}, "reference-only": {"en": "Measured on another kind of machine: reference figures only.", "ca": "Mesurat en un altre tipus de màquina: només xifres de referència."}, "no-cell": {"en": "Its record has no measurement at this rate and quantum.", "ca": "El seu registre no té cap mesura a aquesta freqüència i quàntum."}, "condition-fails": {"en": "A condition of its record does not hold on this machine.", "ca": "Una condició del seu registre no es compleix en aquesta màquina."}, "record-refused": {"en": "Its record says refused.", "ca": "El seu registre diu refusat."}, "shipped-refusal": {"en": "These files are refused by the record shipped with them.", "ca": "Aquests fitxers els refusa el registre distribuït amb ells."}, "files-gone": {"en": "Its files are gone.", "ca": "Els seus fitxers ja no hi són."}};
+export const reasonsText: Readonly<Record<string, Readonly<Record<string, string>>>> = {"never-pinned": {"en": "It has never been scanned."}, "measurement-pending": {"en": "It has not been measured yet."}, "could-not-test": {"en": "Its files could not be read."}, "files-changed": {"en": "Its files have changed since they were scanned."}, "layout-changed": {"en": "Its parameters have changed since they were scanned."}, "layout-not-yet-known": {"en": "Its parameters are not known yet."}, "record-stale": {"en": "Its record no longer applies and it needs measuring again."}, "not-measured-under-host": {"en": "Its record says alone, but it was not measured under plugin-hostd."}, "verdict-allows": {"en": "Its record allows a shared worker."}, "verdict-isolated": {"en": "Its record says it is safe only alone."}, "reference-only": {"en": "Measured on another kind of machine: reference figures only."}, "no-cell": {"en": "Its record has no measurement at this rate and quantum."}, "condition-fails": {"en": "A condition of its record does not hold on this machine."}, "record-refused": {"en": "Its record says refused."}, "shipped-refusal": {"en": "These files are refused by the record shipped with them."}, "files-gone": {"en": "Its files are gone."}};
 
 /** PLUGIN_DB_ISOLATION_HOSTS */
 export const isolationHosts = {
@@ -162,7 +162,7 @@ export const sources = {
   reference: "reference",
 } as const;
 /** the owners' text of each word of PLUGIN_DB_SOURCES, en and ca */
-export const sourcesText: Readonly<Record<string, Readonly<Record<string, string>>>> = {"none": {"en": "No record.", "ca": "Sense registre."}, "local": {"en": "Measured on this machine.", "ca": "Mesurat en aquesta màquina."}, "reference": {"en": "Measured on a reference machine.", "ca": "Mesurat en una màquina de referència."}};
+export const sourcesText: Readonly<Record<string, Readonly<Record<string, string>>>> = {"none": {"en": "No record."}, "local": {"en": "Measured on this machine."}, "reference": {"en": "Measured on a reference machine."}};
 
 /** PLUGIN_DB_BAR */
 export const bar = {
@@ -171,7 +171,7 @@ export const bar = {
   loadAll: "load-all",
 } as const;
 /** the owners' text of each word of PLUGIN_DB_BAR, en and ca */
-export const barText: Readonly<Record<string, Readonly<Record<string, string>>>> = {"qualified-only": {"en": "Offer qualified plugins only.", "ca": "Oferir només connectors qualificats."}, "warn-on-crashes": {"en": "Offer every plugin that is not refused; ask only after a crash.", "ca": "Oferir tots els connectors no refusats; preguntar només després d'una fallada."}, "load-all": {"en": "Offer every plugin, refused ones included.", "ca": "Oferir tots els connectors, també els refusats."}};
+export const barText: Readonly<Record<string, Readonly<Record<string, string>>>> = {"qualified-only": {"en": "Offer qualified plugins only."}, "warn-on-crashes": {"en": "Offer every plugin that is not refused; ask only after a crash."}, "load-all": {"en": "Offer every plugin, refused ones included."}};
 
 /** PLUGIN_DB_LATENCY */
 export const latency = {
@@ -180,7 +180,7 @@ export const latency = {
   unmeasured: "unmeasured",
 } as const;
 /** the owners' text of each word of PLUGIN_DB_LATENCY, en and ca */
-export const latencyText: Readonly<Record<string, Readonly<Record<string, string>>>> = {"within": {"en": "Latency within the line.", "ca": "Latència dins del límit."}, "over": {"en": "Latency over the line; it still loads.", "ca": "Latència per sobre del límit; es carrega igualment."}, "unmeasured": {"en": "Latency not measured.", "ca": "Latència no mesurada."}};
+export const latencyText: Readonly<Record<string, Readonly<Record<string, string>>>> = {"within": {"en": "Latency within the line."}, "over": {"en": "Latency over the line; it still loads."}, "unmeasured": {"en": "Latency not measured."}};
 
 /** the PLUGIN_DB_RECORD word of each word of PLUGIN_DB_RECORD_ACTIONS */
 export const recordActionsGroup = {
