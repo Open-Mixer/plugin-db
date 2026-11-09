@@ -1,4 +1,4 @@
-Breaks the check of fuzz/fuzz_digest.c:83 (`hex[0] = '\0';` is dropped at include/plugin-db/pin.h:91).
+Breaks the check of fuzz/fuzz_digest.c:134 (`hex[0] = '\0';` is dropped at include/plugin-db/pin.h:91).
 Caught by the seed input "abandoned" of fuzz_digest.
 
 diff --git a/include/plugin-db/pin.h b/include/plugin-db/pin.h

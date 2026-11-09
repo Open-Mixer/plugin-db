@@ -1,4 +1,4 @@
-Breaks the check of fuzz/fuzz_digest.c:39 (`data, size` is `data, size / 2` at include/plugin-db/pin.h:108).
+Breaks the check of fuzz/fuzz_digest.c:83 (`data, size` is `data, size / 2` at include/plugin-db/pin.h:108).
 Caught by the seed input "abc" of fuzz_digest.
 
 diff --git a/include/plugin-db/pin.h b/include/plugin-db/pin.h
