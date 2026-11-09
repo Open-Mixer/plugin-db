@@ -1,5 +1,5 @@
 Name: plugin-db
-Version: 0.3.0
+Version: 0.3.1
 Release: 1%{?dist}
 License: GPL-3.0-or-later
 Summary: The plugin database: the pin, the address form, the store and the state
@@ -85,6 +85,10 @@ make test
 %{_datadir}/plugin-db/catalogs/
 
 %changelog
+* Mon Nov 09 2026 Pau Aliagas <linuxnow@gmail.com> - 0.3.1-1
+- plugin-db's words carry their source sentence, the Catalan in its catalog
+  (omx-contract 3.12.0)
+
 * Sun Nov 08 2026 Pau Aliagas <linuxnow@gmail.com> - 0.3.0-1
 - The reader's TypeScript twin, and plugin-db query --json: the records a
   console reads, the same answer from C and from TypeScript
