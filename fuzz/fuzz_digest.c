@@ -16,14 +16,58 @@
  *   - value: the digest of a message is the SHA-256 of it, in one call.
  *   - chunks: it is the same however the message is cut into updates.
  *   - form: it is 64 lowercase hex digits and a NUL, written whole.
- *   - state: a digest finished leaves no context behind.
+ *   - state: a digest finished leaves no context behind: its pointer is NULL and every block
+ *     libcrypto took for it is freed.
  *   - failed: a digest given up before its end is refused with -1 and an empty string, never
- *     with the digest of what it had.
+ *     with the digest of what it had, and it holds no block either.
+ *
+ * The harness counts the blocks libcrypto holds through CRYPTO_set_mem_functions, set in
+ * LLVMFuzzerInitialize before libcrypto allocates anything. A first digest there fills the
+ * caches libcrypto keeps for good, so a run's count changes only by what the digests under
+ * test take and give back. libcrypto is started without its configuration file: the digest
+ * needs none, and the run then opens no file.
  */
 #include <plugin-db/pin.h>
 
+#include <openssl/crypto.h>
+
 #include "fuzz.h"
 #include "spec.h"
+
+/* the blocks libcrypto holds now */
+static long held;
+
+static void *count_malloc(size_t n, const char *file, int line)
+{
+	void *p = malloc(n);
+
+	(void)file;
+	(void)line;
+	if (p)
+		held++;
+	return p;
+}
+
+static void count_free(void *p, const char *file, int line)
+{
+	(void)file;
+	(void)line;
+	if (p) {
+		held--;
+		free(p);
+	}
+}
+
+static void *count_realloc(void *p, size_t n, const char *file, int line)
+{
+	if (!p)
+		return count_malloc(n, file, line);
+	if (n == 0) {
+		count_free(p, file, line);
+		return NULL;
+	}
+	return realloc(p, n);
+}
 
 FUZZ_CHECK check_value(const char *got, const char *want)
 {
@@ -61,26 +105,51 @@ FUZZ_CHECK check_form(const char *hex, int rc)
 		abort();
 }
 
-FUZZ_CHECK check_state(const phd_sha256_t *c)
+FUZZ_CHECK check_state(const phd_sha256_t *c, long kept)
 {
-	/* A finished digest has freed its context and holds none.
+	/* A finished digest has freed its context and holds none: the pointer is NULL, and the
+	 * blocks libcrypto holds are as many as before the digests began (kept is the difference).
 	 * contract: include/plugin-db/pin.h:82
 	 * mutant: include/plugin-db/pin.h:90 `c->ctx = NULL;` -> ``
+	 * input: abc
+	 * mutant: include/plugin-db/pin.h:89 `EVP_MD_CTX_free(c->ctx);` -> ``
 	 * input: abc */
-	if (c->ctx != NULL)
+	if (c->ctx != NULL || kept != 0)
 		abort();
 }
 
-FUZZ_CHECK check_failed(const phd_sha256_t *c, const char *hex, int rc)
+FUZZ_CHECK check_failed(const phd_sha256_t *c, const char *hex, int rc, long kept)
 {
-	/* A digest given up is refused: -1, the string empty, no context kept.
+	/* A digest given up is refused: -1, the string empty, no context kept, and no block of
+	 * libcrypto held for it.
 	 * contract: include/plugin-db/pin.h:81 `0, or -1 (and an empty string) when libcrypto failed`
+	 * contract: include/plugin-db/pin.h:73 (abandon frees the context)
 	 * mutant: include/plugin-db/pin.h:91 `hex[0] = '\0';` -> ``
 	 * input: abandoned
 	 * mutant: include/plugin-db/pin.h:92 `!c->ok` -> `0`
+	 * input: abandoned
+	 * mutant: include/plugin-db/pin.h:76 `EVP_MD_CTX_free(c->ctx);` -> ``
 	 * input: abandoned */
-	if (rc != -1 || hex[0] != '\0' || c->ctx != NULL)
+	if (rc != -1 || hex[0] != '\0' || c->ctx != NULL || kept != 0)
 		abort();
+}
+
+int LLVMFuzzerInitialize(int *argc, char ***argv)
+{
+	char hex[SPEC_HEX_LEN + 1];
+
+	(void)argc;
+	(void)argv;
+	/* not a property: libcrypto allocated before the harness could count its blocks */
+	if (CRYPTO_set_mem_functions(count_malloc, count_realloc, count_free) != 1)
+		abort();
+	/* not a property: libcrypto could not start */
+	if (OPENSSL_init_crypto(OPENSSL_INIT_NO_LOAD_CONFIG, NULL) != 1)
+		abort();
+	/* not a property: the first digest, which fills libcrypto's caches, failed */
+	if (phd_sha256_hex("", 0, hex) != 0)
+		abort();
+	return 0;
 }
 
 int LLVMFuzzerTestOneInput(const uint8_t *data, size_t size)
@@ -92,6 +161,7 @@ int LLVMFuzzerTestOneInput(const uint8_t *data, size_t size)
 	const uint8_t *msg = in.p;
 	phd_sha256_t c;
 	uint8_t *copy;
+	long before;
 	int rc;
 
 	if (size >= FUZZ_INPUT_MAX)
@@ -100,6 +170,8 @@ int LLVMFuzzerTestOneInput(const uint8_t *data, size_t size)
 	if (n)
 		memcpy(copy, msg, n);
 	spec_sha256(copy, n, want);
+
+	before = held;
 
 	/* the message whole */
 	memset(whole, 'x', sizeof whole - 1);
@@ -115,7 +187,7 @@ int LLVMFuzzerTestOneInput(const uint8_t *data, size_t size)
 	for (at = 0; at < n; at += chunk)
 		phd_sha256_update(&c, copy + at, n - at < chunk ? n - at : chunk);
 	rc = phd_sha256_final(&c, got);
-	check_state(&c);
+	check_state(&c, held - before);
 	check_form(got, rc);
 	check_chunks(got, want);
 
@@ -123,11 +195,12 @@ int LLVMFuzzerTestOneInput(const uint8_t *data, size_t size)
 	if (mode & 0x80) {
 		memset(got, 'x', sizeof got - 1);
 		got[sizeof got - 1] = '\0';
+		before = held;
 		phd_sha256_init(&c);
 		phd_sha256_update(&c, copy, n);
 		phd_sha256_abandon(&c);
 		rc = phd_sha256_final(&c, got);
-		check_failed(&c, got, rc);
+		check_failed(&c, got, rc, held - before);
 	}
 
 	free(copy);

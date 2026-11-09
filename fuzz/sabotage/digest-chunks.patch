@@ -1,4 +1,4 @@
-Breaks the check of fuzz/fuzz_digest.c:49 (`data, size` is `data, size > 1 ? size : 0` at include/plugin-db/pin.h:70).
+Breaks the check of fuzz/fuzz_digest.c:93 (`data, size` is `data, size > 1 ? size : 0` at include/plugin-db/pin.h:70).
 Caught by the seed input "chunked-1" of fuzz_digest.
 
 diff --git a/include/plugin-db/pin.h b/include/plugin-db/pin.h
