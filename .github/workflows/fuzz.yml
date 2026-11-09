@@ -6,8 +6,8 @@ name: fuzz
 # reached (make fuzz-coverage). A crashing input is uploaded as the fuzz-findings artifact. make test stays in ci.yml.
 on:
   push:
-    branches: [main]
-  pull_request:
+    tags: ['v*']
+  workflow_dispatch:
 permissions:
   contents: read
 jobs:
