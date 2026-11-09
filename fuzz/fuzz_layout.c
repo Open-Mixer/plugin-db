@@ -24,7 +24,7 @@
  *   - row index: the rows are in order of id (CLAP) or index (LV2), equal ones in the order
  *     given, and the id or index is written in decimal.
  *   - row name: a name or symbol is written with '\', a tab and a newline escaped, every other
- *     byte as given; none is empty.
+ *     byte as given; a NULL one is written empty.
  *   - row number: a number is 16 lowercase hex digits of its binary64 bits, "-" when not
  *     declared (a CLAP number always is).
  *   - row flags: CLAP flags are 8 lowercase hex digits.
@@ -91,7 +91,7 @@ static int eat_str(struct cur *c, const char *s)
 	return eat(c, s, strlen(s));
 }
 
-/* contract: pin.h:30-32 */
+/* contract: pin.h:34 */
 static size_t spec_escape(const char *s, char *out)
 {
 	size_t n = 0;
@@ -115,7 +115,7 @@ static int spec_str_before(const char *a, const char *b)
 FUZZ_CHECK check_scheme_line(struct cur *c, int lv2)
 {
 	/* The layout opens with the scheme and the format on one line.
-	 * contract: pin.h:25-26 `line 1: "omx-layout/1 clap" or "omx-layout/1 lv2"`
+	 * contract: pin.h:29 `line 1: "omx-layout/1 clap" or "omx-layout/1 lv2"`
 	 * mutant: include/plugin-db/pin.h:49 `"omx-layout/1"` -> `"omx-layout/2"`
 	 * input: clap-basic
 	 * mutant: include/plugin-db/pin.h:314 `PHD_PIN_LAYOUT_CLAP "\n"` -> `PHD_PIN_LAYOUT_LV2 "\n"`
@@ -132,7 +132,7 @@ FUZZ_CHECK check_row_index(struct cur *c, uint32_t value)
 
 	snprintf(text, sizeof text, "%u\t", (unsigned)value);
 	/* The rows come in order of id or index, and it is written in decimal and a tab.
-	 * contract: pin.h:27-29 `every parameter, sorted by id`, `every control port, sorted by index`
+	 * contract: pin.h:30-31 `every parameter, sorted by id`, `every control port, sorted by index`
 	 * mutant: include/plugin-db/pin.h:313 `qsort(order, count, sizeof(*order), phd_layout_clap_order);` -> ``
 	 * input: clap-unsorted
 	 * mutant: include/plugin-db/pin.h:286 `x->id < y->id ? -1 : 1` -> `x->id < y->id ? 1 : -1`
@@ -156,7 +156,7 @@ FUZZ_CHECK check_row_name(struct cur *c, const char *name)
 	/* A name is written with the backslash, the tab and the newline escaped, and a NULL one as
 	 * empty.
 	 * Rows with an equal id or index keep the order given, which their names show.
-	 * contract: pin.h:27-29, 31-32 `in a name or symbol: '\' is "\\", a tab "\t", a newline "\n"`
+	 * contract: pin.h:30-31, 34 `in a name or symbol: '\' is "\\", a tab "\t", a newline "\n"`
 	 * mutant: include/plugin-db/pin.h:286 `(x < y ? -1 : x > y)` -> `(x < y ? 1 : x > y)`
 	 * input: clap-tie
 	 * mutant: include/plugin-db/pin.h:294 `(x < y ? -1 : x > y)` -> `(x < y ? 1 : x > y)`
@@ -192,7 +192,7 @@ FUZZ_CHECK check_row_number(struct cur *c, uint64_t bits, int declared)
 		snprintf(text, sizeof text, "-\t");
 	/* A number is the 16 lowercase hex digits of its binary64 bits, or "-" when not declared,
 	 * and a tab.
-	 * contract: pin.h:29-30 `a number: 16 lowercase hex digits of its IEEE-754 binary64 bits, "-" when none is declared`
+	 * contract: pin.h:33 `a number: 16 lowercase hex digits of its IEEE-754 binary64 bits, "-" when none is declared`
 	 * mutant: include/plugin-db/pin.h:231 `!declared` -> `0`
 	 * input: lv2-undeclared
 	 * mutant: include/plugin-db/pin.h:236 `memcpy(&bits, &value, sizeof(bits));` -> `memcpy(&bits, &value, sizeof(bits)); bits ^= 1;`
@@ -219,7 +219,7 @@ FUZZ_CHECK check_row_flags(struct cur *c, uint32_t flags)
 
 	snprintf(text, sizeof text, "%08x", (unsigned)flags);
 	/* The flags of a CLAP parameter are 8 lowercase hex digits.
-	 * contract: pin.h:27 `flags 8 lowercase hex digits`
+	 * contract: pin.h:30 `flags 8 lowercase hex digits`
 	 * mutant: include/plugin-db/pin.h:329 `p->flags, 1` -> `p->flags, 0`
 	 * input: clap-basic
 	 * mutant: include/plugin-db/pin.h:269 `& 15` -> `& 7`
@@ -231,7 +231,7 @@ FUZZ_CHECK check_row_flags(struct cur *c, uint32_t flags)
 FUZZ_CHECK check_row_direction(struct cur *c, int output)
 {
 	/* A control port is "in" or "out", and a tab.
-	 * contract: pin.h:28 `<index>\t<symbol>\t<in|out>`
+	 * contract: pin.h:31 `<index>\t<symbol>\t<in|out>`
 	 * mutant: include/plugin-db/pin.h:369 `p->output ? "out" : "in"` -> `p->output ? "in" : "out"`
 	 * input: lv2-basic */
 	if (!eat_str(c, output ? "out\t" : "in\t"))
@@ -246,7 +246,7 @@ FUZZ_CHECK check_row_props(struct cur *c, const char *const *props, size_t count
 	for (i = 0; ok && i < count; i++)
 		ok = (i == 0 || eat_str(c, " ")) && eat_str(c, props[i]);
 	/* A port's properties are its URIs sorted bytewise, one space between, "-" when none.
-	 * contract: pin.h:28-29 `properties the full URIs sorted bytewise and joined by one space, "-" when none`
+	 * contract: pin.h:31-32 `properties the full URIs sorted bytewise and joined by one space, "-" when none`
 	 * mutant: include/plugin-db/pin.h:363 `qsort(props, p->nproperties, sizeof(*props), phd_layout_bytewise);` -> ``
 	 * input: lv2-props
 	 * mutant: include/plugin-db/pin.h:381 `if (k)` -> `if (!k)`
@@ -262,7 +262,7 @@ FUZZ_CHECK check_row_props(struct cur *c, const char *const *props, size_t count
 FUZZ_CHECK check_row_end(struct cur *c)
 {
 	/* A row ends with one newline.
-	 * contract: pin.h:21 `one '\n' after every line`
+	 * contract: pin.h:28 `one '\n' after every line`
 	 * mutant: include/plugin-db/pin.h:330 `"\n"` -> `" "`
 	 * input: clap-basic
 	 * mutant: include/plugin-db/pin.h:385 `"\n"` -> `" "`
@@ -274,7 +274,7 @@ FUZZ_CHECK check_row_end(struct cur *c)
 FUZZ_CHECK check_end(const struct cur *c)
 {
 	/* Nothing follows the last row.
-	 * contract: pin.h:21
+	 * contract: pin.h:28
 	 * mutant: include/plugin-db/pin.h:332 `free(order);` -> `sink(ctx, "\n", 1); free(order);`
 	 * input: clap-basic
 	 * mutant: include/plugin-db/pin.h:388 `free(order);` -> `sink(ctx, "\n", 1); free(order);`
@@ -289,7 +289,7 @@ FUZZ_CHECK check_digest(const char *got, int rc, const struct out *o)
 
 	spec_sha256((const uint8_t *)o->p, o->n, want);
 	/* The fingerprint of a layout is the SHA-256 of the bytes written, 64 lowercase hex digits.
-	 * contract: pin.h:19 `the fingerprint of a parameter layout in the omx-layout/1 serialisation`
+	 * contract: pin.h:21-22 `the fingerprint of a parameter layout in the omx-layout/1 serialisation`
 	 * mutant: include/plugin-db/pin.h:394 `data, size` -> `data, size > 1 ? size - 1 : size`
 	 * input: clap-basic */
 	if (rc != 0 || strcmp(got, want) != 0)
