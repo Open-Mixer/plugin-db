@@ -57,3 +57,27 @@ answer `query --json` and the twin must both give. They are the examples a reade
 - Whether the measured layer is the probe output as it is, declared here, or a body that carries it.
 - What a judged record keeps once the measured layer is wiped: today a byte copy and its SHA-256.
 - Which word is the machine class, and where the hosting epoch is declared.
+
+## The menu column (spec 7.15), as it stands
+
+Built: the reader's answer (state, run, reason, source, the record's tier, the figures at a rate and quantum), the run
+word `alone`, the bar words, `query --json` and the twin, held equal by `tests/golden/`. What a menu still cannot have
+from it:
+
+1. **No owner text.** A word of the `words` kind takes no `text` in omx-contract 3.11.0: its schema gives `text` (en,
+   ca) to a code only. So `data/` cannot hold the sentence of a state, run or reason, and neither reader emits one.
+   `tools/render-ts.py` folds a word's `text` when it has one; the C tables and `query --json` do not yet. The order:
+   an omx-contract minor gives a word `text` under a code's rules, then plugin-db writes its words' sentences, then
+   both readers carry them.
+2. **No judged layer is written.** plugin-qualify writes `plugin-qualify.qualification-record/1` files to its own
+   directory and packages them as `plugin-db-qualification-*`; it puts no judged or reference layer in the store.
+   On every machine the reader answers `unqualified` with `never-pinned` or `measurement-pending`. A record given to
+   `put` as a judged layer is refused, which is right: the reader never parses a record.
+3. **What a conversion lacks.** With no `hostingEpoch` the record reads as a hosting change, and with no `rules` or
+   `recordSchema` as changed, so a converted record that leaves them out answers `stale`. With no `latencyLineMs` the
+   standing is `unmeasured`. The line is plugin-qualify's to declare (7.15's order puts it before the reader); the
+   epoch, the rules version and the machine class word need their owners too, and the converter is plugin-qualify's,
+   the judged layer's one writer.
+4. **The console's call.** The twin's `read(entry, here)` is given the layers and the files finding; finding the files
+   (the bundle rule) and hashing them is the C library's. Until the twin can be given an entry from the store without
+   the console reading a layer, `plugin-db query --json <address> <here>` is the one complete answer.
