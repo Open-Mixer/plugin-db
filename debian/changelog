@@ -2,6 +2,8 @@ plugin-db (0.3.1) unstable; urgency=medium
 
   * plugin-db's words carry their source sentence beside them, and the
     Catalan in its catalog (omx-contract 3.12.0).
+  * Built against plugin-hostd-protocol >= 0.5.2 and << 0.6, its current
+    release.
 
  -- Pau Aliagas <linuxnow@gmail.com>  Mon, 09 Nov 2026 12:50:42 +0100
 

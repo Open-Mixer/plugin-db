@@ -12,7 +12,7 @@ BuildRequires: make
 BuildRequires: pkgconfig
 BuildRequires: python3
 BuildRequires: pkgconfig(libcrypto)
-BuildRequires: (plugin-hostd-protocol-devel >= 0.5.0 with plugin-hostd-protocol-devel < 0.6)
+BuildRequires: (plugin-hostd-protocol-devel >= 0.5.2 with plugin-hostd-protocol-devel < 0.6)
 # install-contract writes the contract directory's package with omx-contract's script
 BuildRequires: (omx-contract-devel >= 3.12.0 with omx-contract-devel < 4)
 
@@ -88,6 +88,7 @@ make test
 * Mon Nov 09 2026 Pau Aliagas <linuxnow@gmail.com> - 0.3.1-1
 - plugin-db's words carry their source sentence, the Catalan in its catalog
   (omx-contract 3.12.0)
+- built against plugin-hostd-protocol >= 0.5.2 and < 0.6, its current release
 
 * Sun Nov 08 2026 Pau Aliagas <linuxnow@gmail.com> - 0.3.0-1
 - The reader's TypeScript twin, and plugin-db query --json: the records a

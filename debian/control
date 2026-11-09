@@ -6,7 +6,7 @@ Build-Depends: debhelper-compat (= 13),
                gcc,
                libc6-dev,
                libssl-dev,
-               libplugin-hostd-protocol-dev (>= 0.5.0~), libplugin-hostd-protocol-dev (<< 0.6~),
+               libplugin-hostd-protocol-dev (>= 0.5.2~), libplugin-hostd-protocol-dev (<< 0.6~),
                libomx-contract-dev (>= 3.12.0~), libomx-contract-dev (<< 4~),
                pkgconf,
                python3
