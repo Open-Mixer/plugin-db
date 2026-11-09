@@ -18,7 +18,7 @@ permissions:
 
 jobs:
   rpm:
-    uses: Open-Mixer/.github/.github/workflows/build-rpm.yml@main
+    uses: Open-Mixer/.github/.github/workflows/build-rpm.yml@openmixer-v1
     with:
       package-name: plugin-db
       binary-names: plugin-db-devel plugin-db-contract
@@ -32,7 +32,7 @@ jobs:
   # or skipped RPM job skips this one, so no DEB is published after a failed RPM.
   deb:
     needs: rpm
-    uses: Open-Mixer/.github/.github/workflows/build-deb.yml@main
+    uses: Open-Mixer/.github/.github/workflows/build-deb.yml@openmixer-v1
     with:
       package-name: plugin-db
       binary-names: plugin-db-dev plugin-db-contract
