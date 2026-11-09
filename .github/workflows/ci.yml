@@ -7,9 +7,9 @@ on:
 permissions:
   contents: read
 jobs:
-  # the shared checks, from FreeMixer/.github and nowhere else: the commit messages, no private reference, no local copy
+  # the shared checks, from Open-Mixer/.github and nowhere else: the commit messages, no private reference, no local copy
   public-sources:
-    uses: FreeMixer/.github/.github/workflows/public-sources-check.yml@v1
+    uses: Open-Mixer/.github/.github/workflows/public-sources-check.yml@main
 
   test:
     name: build + test (${{ matrix.image }})
@@ -31,7 +31,7 @@ jobs:
           fi
       - uses: actions/checkout@v4
       - name: Add the OpenMixer channel
-        uses: FreeMixer/.github/.github/actions/add-openmixer@v1
+        uses: Open-Mixer/.github/.github/actions/add-openmixer@main
       # the pin path codec is plugin-hostd-protocol's (phd_pin_path_*, header inline)
       - name: plugin-hostd-protocol's headers
         run: |
@@ -58,7 +58,7 @@ jobs:
         run: dnf -y install gcc make pkgconf-pkg-config openssl-devel python3 diffutils nodejs
       - uses: actions/checkout@v4
       - name: Add the OpenMixer channel
-        uses: FreeMixer/.github/.github/actions/add-openmixer@v1
+        uses: Open-Mixer/.github/.github/actions/add-openmixer@main
       - name: plugin-hostd-protocol's headers
         run: dnf -y install 'plugin-hostd-protocol-devel >= 0.5.0' 'plugin-hostd-protocol-devel < 0.6'
       - name: Node is in the twin's range
@@ -80,9 +80,9 @@ jobs:
       - name: Trust the checkout
         run: git config --global --add safe.directory "$GITHUB_WORKSPACE"
       - name: Add the OpenMixer channel
-        uses: FreeMixer/.github/.github/actions/add-openmixer@v1
-      # a dedupe/all run builds on its siblings' dedupe/all (.github/wave-deps); @main until FreeMixer/.github moves v1 past it
-      - uses: FreeMixer/.github/.github/actions/wave-deps@main
+        uses: Open-Mixer/.github/.github/actions/add-openmixer@main
+      # a dedupe/all run builds on its siblings' dedupe/all (.github/wave-deps); @main until Open-Mixer/.github moves v1 past it
+      - uses: Open-Mixer/.github/.github/actions/wave-deps@main
       - name: omx-contract
         run: dnf -y install 'omx-contract >= 3.12.0' 'omx-contract < 4' 'omx-contract-devel >= 3.12.0' 'omx-contract-devel < 4'
       - name: make check-tools
