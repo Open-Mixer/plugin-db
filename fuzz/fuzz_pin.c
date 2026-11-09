@@ -49,7 +49,7 @@ static int spec_member(const char *s, const char *const *words, size_t count)
 FUZZ_CHECK check_digest_charset(const char *s)
 {
 	/* Of 64 characters, it is a digest exactly when each is a lowercase hex digit.
-	 * contract: include/plugin-db/pin.h:48; fuzz/spec.h spec_hex_ok
+	 * contract: include/plugin-db/pin.h:134; fuzz/spec.h spec_hex_ok
 	 * mutant: include/plugin-db/pin.h:140 `s[n] <= 'f'` -> `s[n] <= 'g'`
 	 * input: digest-g
 	 * mutant: include/plugin-db/pin.h:140 `s[n] >= 'a'` -> `s[n] >= 'A'`
@@ -63,7 +63,7 @@ FUZZ_CHECK check_digest_charset(const char *s)
 FUZZ_CHECK check_digest_length(const char *s)
 {
 	/* A string that is not 64 characters long is never a digest.
-	 * contract: include/plugin-db/pin.h:48
+	 * contract: include/plugin-db/pin.h:134
 	 * mutant: include/plugin-db/pin.h:142 `s[n] == '\0'` -> `1`
 	 * input: digest-65
 	 * mutant: include/plugin-db/pin.h:139 `n < PHD_SHA256_HEX_LEN` -> `n < PHD_SHA256_HEX_LEN - 1`

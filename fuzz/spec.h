@@ -13,7 +13,7 @@
 #include <stdio.h>
 #include <string.h>
 
-/* contract: pin.h:48 (a digest is 64 lowercase hex digits) */
+/* contract: pin.h:134 (a digest is 64 lowercase hex digits) */
 #define SPEC_HEX_LEN 64
 
 static inline int spec_is_hex_digit(char c)
