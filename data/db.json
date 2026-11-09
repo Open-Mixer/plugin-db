@@ -1,7 +1,7 @@
 {
   "$schema": "../schema/omx-contract.schema.json",
   "requires": {
-    "omx-contract-schema": ">= 3.3.0"
+    "omx-contract-schema": ">= 3.12.0"
   },
   "PLUGIN_DB_ADDRESS_FORMATS": {
     "kind": "words",
@@ -121,15 +121,24 @@
     "words": {
       "current": {
         "word": "current",
-        "doc": "it was written for the pinned bytes and layout, and nothing of PLUGIN_DB_RECORD_CHANGES makes it stale"
+        "doc": "it was written for the pinned bytes and layout, and nothing of PLUGIN_DB_RECORD_CHANGES makes it stale",
+        "text": {
+          "en": "Its record is current."
+        }
       },
       "stale": {
         "word": "stale",
-        "doc": "it exists, and a change of PLUGIN_DB_RECORD_CHANGES, or files that could not be tested, keep it from answering"
+        "doc": "it exists, and a change of PLUGIN_DB_RECORD_CHANGES, or files that could not be tested, keep it from answering",
+        "text": {
+          "en": "Its record no longer applies."
+        }
       },
       "none": {
         "word": "none",
-        "doc": "there is no judged layer"
+        "doc": "there is no judged layer",
+        "text": {
+          "en": "It has no record."
+        }
       }
     }
   },
@@ -142,27 +151,42 @@
       "fullPath": {
         "word": "full-path",
         "group": "stale",
-        "doc": "scan, pin, measure and judge again"
+        "doc": "scan, pin, measure and judge again",
+        "text": {
+          "en": "Scan, measure and judge it again."
+        }
       },
       "measureHere": {
         "word": "measure-here",
         "group": "stale",
-        "doc": "measure and judge on this class of machine; the record stays valid for its own class"
+        "doc": "measure and judge on this class of machine; the record stays valid for its own class",
+        "text": {
+          "en": "Measure it on this machine."
+        }
       },
       "convert": {
         "word": "convert",
         "group": "stale",
-        "doc": "convert the record to the schema in force, with no new measurement"
+        "doc": "convert the record to the schema in force, with no new measurement",
+        "text": {
+          "en": "Convert the record; nothing is measured again."
+        }
       },
       "rejudge": {
         "word": "rejudge",
         "group": "stale",
-        "doc": "judge the measurements again, automatically, with no new measurement"
+        "doc": "judge the measurements again, automatically, with no new measurement",
+        "text": {
+          "en": "Judge the measurements again; nothing is measured again."
+        }
       },
       "remeasureBackground": {
         "word": "remeasure-background",
         "group": "current",
-        "doc": "the record stays current, shown as measured under the host it names, and is measured again in the background"
+        "doc": "the record stays current, shown as measured under the host it names, and is measured again in the background",
+        "text": {
+          "en": "The record still applies; it is measured again in the background."
+        }
       }
     }
   },
@@ -175,37 +199,58 @@
       "files": {
         "word": "files",
         "group": "full-path",
-        "doc": "the plugin's files are not the bytes the record was written for, or could not be tested"
+        "doc": "the plugin's files are not the bytes the record was written for, or could not be tested",
+        "text": {
+          "en": "Its files changed."
+        }
       },
       "layout": {
         "word": "layout",
         "group": "full-path",
-        "doc": "the parameter layout is not the one the record was written for, or is not yet known"
+        "doc": "the parameter layout is not the one the record was written for, or is not yet known",
+        "text": {
+          "en": "Its parameters changed."
+        }
       },
       "hostingChange": {
         "word": "hosting-change",
         "group": "full-path",
-        "doc": "the host is a release that declares a hosting change: its hosting epoch is past the record's. The host's owner declares it in the contract; no reader guesses"
+        "doc": "the host is a release that declares a hosting change: its hosting epoch is past the record's. The host's owner declares it in the contract; no reader guesses",
+        "text": {
+          "en": "The host changed how it hosts plugins."
+        }
       },
       "machineClass": {
         "word": "machine-class",
         "group": "measure-here",
-        "doc": "this machine is of another class than the record's"
+        "doc": "this machine is of another class than the record's",
+        "text": {
+          "en": "This is another kind of machine."
+        }
       },
       "schema": {
         "word": "schema",
         "group": "convert",
-        "doc": "the record schema in force is not the record's"
+        "doc": "the record schema in force is not the record's",
+        "text": {
+          "en": "The record format changed."
+        }
       },
       "rules": {
         "word": "rules",
         "group": "rejudge",
-        "doc": "the judgement rules in force are not the ones the record was judged by"
+        "doc": "the judgement rules in force are not the ones the record was judged by",
+        "text": {
+          "en": "The qualification rules changed."
+        }
       },
       "hostVersion": {
         "word": "host-version",
         "group": "remeasure-background",
-        "doc": "the host is a normal release other than the one the record was measured under"
+        "doc": "the host is a normal release other than the one the record was measured under",
+        "text": {
+          "en": "The host is another release."
+        }
       }
     }
   },
@@ -218,32 +263,50 @@
       "unqualified": {
         "word": "unqualified",
         "group": "alone",
-        "doc": "no current record, for any reason: runs alone in its own limited worker, never grouped; shown as not qualified, with the reason"
+        "doc": "no current record, for any reason: runs alone in its own limited worker, never grouped; shown as not qualified, with the reason",
+        "text": {
+          "en": "Not qualified: it runs alone, in a worker of its own."
+        }
       },
       "qualified": {
         "word": "qualified",
         "group": "shared",
-        "doc": "a current record whose verdict allows it and whose conditions are met here: runs as the verdict and the placement rules allow"
+        "doc": "a current record whose verdict allows it and whose conditions are met here: runs as the verdict and the placement rules allow",
+        "text": {
+          "en": "Qualified: it runs as its record allows."
+        }
       },
       "isolatedOnly": {
         "word": "isolated-only",
         "group": "alone",
-        "doc": "a current record that says it is safe only alone: runs alone"
+        "doc": "a current record that says it is safe only alone: runs alone",
+        "text": {
+          "en": "Qualified to run alone only."
+        }
       },
       "conditionsUnmet": {
         "word": "conditions-unmet",
         "group": "alone",
-        "doc": "a current record with no cell for this rate or quantum, or a condition that fails here: runs alone, as unqualified"
+        "doc": "a current record with no cell for this rate or quantum, or a condition that fails here: runs alone, as unqualified",
+        "text": {
+          "en": "Its record does not cover this machine's settings: it runs alone."
+        }
       },
       "refused": {
         "word": "refused",
         "group": "not-loaded",
-        "doc": "a current record or a shipped refusal says refused: not loaded, unless a warned override says run alone"
+        "doc": "a current record or a shipped refusal says refused: not loaded, unless a warned override says run alone",
+        "text": {
+          "en": "Refused: it is not loaded."
+        }
       },
       "absent": {
         "word": "absent",
         "group": "not-loaded",
-        "doc": "the files are gone: not loaded"
+        "doc": "the files are gone: not loaded",
+        "text": {
+          "en": "Its files are gone: it is not loaded."
+        }
       }
     }
   },
@@ -254,15 +317,24 @@
     "words": {
       "shared": {
         "word": "shared",
-        "doc": "as the verdict and the placement rules allow, in a worker other plugins may share"
+        "doc": "as the verdict and the placement rules allow, in a worker other plugins may share",
+        "text": {
+          "en": "Runs in a shared worker."
+        }
       },
       "alone": {
         "word": "alone",
-        "doc": "in its own limited worker, never grouped"
+        "doc": "in its own limited worker, never grouped",
+        "text": {
+          "en": "Runs alone, in a worker of its own."
+        }
       },
       "notLoaded": {
         "word": "not-loaded",
-        "doc": "not loaded: shown with its reason and its saved values kept; an effect passes audio through, an instrument is silent"
+        "doc": "not loaded: shown with its reason and its saved values kept; an effect passes audio through, an instrument is silent",
+        "text": {
+          "en": "Not loaded: an effect passes audio through, an instrument is silent."
+        }
       }
     }
   },
@@ -275,82 +347,130 @@
       "neverPinned": {
         "word": "never-pinned",
         "group": "unqualified",
-        "doc": "there is no pinned layer: never scanned or never pinned"
+        "doc": "there is no pinned layer: never scanned or never pinned",
+        "text": {
+          "en": "It has never been scanned."
+        }
       },
       "measurementPending": {
         "word": "measurement-pending",
         "group": "unqualified",
-        "doc": "pinned, and there is no record yet"
+        "doc": "pinned, and there is no record yet",
+        "text": {
+          "en": "It has not been measured yet."
+        }
       },
       "couldNotTest": {
         "word": "could-not-test",
         "group": "unqualified",
-        "doc": "the files or the pin could not be read"
+        "doc": "the files or the pin could not be read",
+        "text": {
+          "en": "Its files could not be read."
+        }
       },
       "filesChanged": {
         "word": "files-changed",
         "group": "unqualified",
-        "doc": "the files are not the pinned bytes"
+        "doc": "the files are not the pinned bytes",
+        "text": {
+          "en": "Its files have changed since they were scanned."
+        }
       },
       "layoutChanged": {
         "word": "layout-changed",
         "group": "unqualified",
-        "doc": "the layout is not the pinned one"
+        "doc": "the layout is not the pinned one",
+        "text": {
+          "en": "Its parameters have changed since they were scanned."
+        }
       },
       "layoutNotYetKnown": {
         "word": "layout-not-yet-known",
         "group": "unqualified",
-        "doc": "the pin holds no layout, so a record cannot bind one"
+        "doc": "the pin holds no layout, so a record cannot bind one",
+        "text": {
+          "en": "Its parameters are not known yet."
+        }
       },
       "recordStale": {
         "word": "record-stale",
         "group": "unqualified",
-        "doc": "the record is stale for a change of PLUGIN_DB_RECORD_CHANGES, which show names with its action"
+        "doc": "the record is stale for a change of PLUGIN_DB_RECORD_CHANGES, which show names with its action",
+        "text": {
+          "en": "Its record no longer applies and it needs measuring again."
+        }
       },
       "notMeasuredUnderHost": {
         "word": "not-measured-under-host",
         "group": "unqualified",
-        "doc": "the verdict says alone, and the record was not measured under plugin-hostd, which isolated only needs"
+        "doc": "the verdict says alone, and the record was not measured under plugin-hostd, which isolated only needs",
+        "text": {
+          "en": "Its record says alone, but it was not measured under plugin-hostd."
+        }
       },
       "verdictAllows": {
         "word": "verdict-allows",
         "group": "qualified",
-        "doc": "the record's verdict allows a shared worker and its conditions are met here"
+        "doc": "the record's verdict allows a shared worker and its conditions are met here",
+        "text": {
+          "en": "Its record allows a shared worker."
+        }
       },
       "verdictIsolated": {
         "word": "verdict-isolated",
         "group": "isolated-only",
-        "doc": "the record's verdict says it is safe only alone"
+        "doc": "the record's verdict says it is safe only alone",
+        "text": {
+          "en": "Its record says it is safe only alone."
+        }
       },
       "referenceOnly": {
         "word": "reference-only",
         "group": "isolated-only",
-        "doc": "a shipped record matches the pin and was measured on another class of machine: reference figures only, until measured here"
+        "doc": "a shipped record matches the pin and was measured on another class of machine: reference figures only, until measured here",
+        "text": {
+          "en": "Measured on another kind of machine: reference figures only."
+        }
       },
       "noCell": {
         "word": "no-cell",
         "group": "conditions-unmet",
-        "doc": "the record has no cell for this rate and quantum"
+        "doc": "the record has no cell for this rate and quantum",
+        "text": {
+          "en": "Its record has no measurement at this rate and quantum."
+        }
       },
       "conditionFails": {
         "word": "condition-fails",
         "group": "conditions-unmet",
-        "doc": "a condition of the record does not hold here, or is not known here"
+        "doc": "a condition of the record does not hold here, or is not known here",
+        "text": {
+          "en": "A condition of its record does not hold on this machine."
+        }
       },
       "recordRefused": {
         "word": "record-refused",
         "group": "refused",
-        "doc": "the record says refused; the way back is a rescan, a requalification or a warned override that runs it alone"
+        "doc": "the record says refused; the way back is a rescan, a requalification or a warned override that runs it alone",
+        "text": {
+          "en": "Its record says refused."
+        }
       },
       "shippedRefusal": {
         "word": "shipped-refusal",
         "group": "refused",
-        "doc": "a shipped record of these bytes says refused, which wins over everything and no warned override overrides"
+        "doc": "a shipped record of these bytes says refused, which wins over everything and no warned override overrides",
+        "text": {
+          "en": "These files are refused by the record shipped with them."
+        }
       },
       "filesGone": {
         "word": "files-gone",
         "group": "absent",
-        "doc": "the plugin's files are gone; show names the path that was pinned"
+        "doc": "the plugin's files are gone; show names the path that was pinned",
+        "text": {
+          "en": "Its files are gone."
+        }
       }
     }
   },
@@ -372,15 +492,24 @@
     "words": {
       "none": {
         "word": "none",
-        "doc": "no record answers"
+        "doc": "no record answers",
+        "text": {
+          "en": "No record."
+        }
       },
       "local": {
         "word": "local",
-        "doc": "the judged layer: measured here"
+        "doc": "the judged layer: measured here",
+        "text": {
+          "en": "Measured on this machine."
+        }
       },
       "reference": {
         "word": "reference",
-        "doc": "the reference layer: a shipped record, measured on a reference machine"
+        "doc": "the reference layer: a shipped record, measured on a reference machine",
+        "text": {
+          "en": "Measured on a reference machine."
+        }
       }
     }
   },
@@ -391,15 +520,24 @@
     "words": {
       "qualifiedOnly": {
         "word": "qualified-only",
-        "doc": "only plugins whose state is qualified are offered by default"
+        "doc": "only plugins whose state is qualified are offered by default",
+        "text": {
+          "en": "Offer qualified plugins only."
+        }
       },
       "warnOnCrashes": {
         "word": "warn-on-crashes",
-        "doc": "every plugin that is not refused or absent is offered, and only a crash is asked about"
+        "doc": "every plugin that is not refused or absent is offered, and only a crash is asked about",
+        "text": {
+          "en": "Offer every plugin that is not refused; ask only after a crash."
+        }
       },
       "loadAll": {
         "word": "load-all",
-        "doc": "every plugin is offered, the way back from a refusal included"
+        "doc": "every plugin is offered, the way back from a refusal included",
+        "text": {
+          "en": "Offer every plugin, refused ones included."
+        }
       }
     }
   },
@@ -410,15 +548,24 @@
     "words": {
       "within": {
         "word": "within",
-        "doc": "the figure is at or under the line"
+        "doc": "the figure is at or under the line",
+        "text": {
+          "en": "Latency within the line."
+        }
       },
       "over": {
         "word": "over",
-        "doc": "the figure is over the line: shown by the owner's text, and the plugin loads"
+        "doc": "the figure is over the line: shown by the owner's text, and the plugin loads",
+        "text": {
+          "en": "Latency over the line; it still loads."
+        }
       },
       "unmeasured": {
         "word": "unmeasured",
-        "doc": "the record has no line, or the cell has no figure"
+        "doc": "the record has no line, or the cell has no figure",
+        "text": {
+          "en": "Latency not measured."
+        }
       }
     }
   }

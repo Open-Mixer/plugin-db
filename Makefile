@@ -139,7 +139,7 @@ version-check:
 # The checks that need tools a package build does not: run by CI (.github/workflows/ci.yml, job words).
 #   check-rendered      plugin_db_vocabulary.h is what omx-contract renders from data/
 #   test-rendered-sabotage  check-rendered fails on a header changed by hand and on data/ not rendered again
-#   check-contract-dir  data/ as a package validates with the installed contract directory
+#   check-contract-dir  data/ as a package validates with the installed contract directory, and catalogs/ against it
 OMX_CONTRACT ?= omx-contract
 CONTRACT_SCHEMA_MAJOR = 3
 CONTRACTDIR = $(or $(shell $(PKG_CONFIG) --variable=contractdir omx-contract 2>/dev/null),$(DATADIR)/omx-contract/contract.d)
@@ -156,12 +156,14 @@ CONTRACT_EXCLUDE = -x store.schema.json
 install-contract:
 	@test -n "$(INSTALL_CONTRACT_DIR)" || { echo "install-contract: no install-contract-dir.sh: install omx-contract-devel, or set OMX_CONTRACT_DIR to a checkout" >&2; exit 1; }
 	sh $(INSTALL_CONTRACT_DIR) $(CONTRACT_EXCLUDE) $(NAME) $(VERSION) $(CONTRACT_SCHEMA_MAJOR) data $(DESTDIR)$(CONTRACTDIR) data
+	install -d $(DESTDIR)$(DATADIR)/$(NAME)/catalogs
+	install -m 644 catalogs/*.json $(DESTDIR)$(DATADIR)/$(NAME)/catalogs/
 
 check-contract-dir:
 	@command -v $(OMX_CONTRACT) >/dev/null || { echo "$@: no $(OMX_CONTRACT) command: install omx-contract" >&2; exit 1; }
 	@set -e; tmp=$$(mktemp -d); trap 'rm -rf $$tmp' EXIT; \
 	$(MAKE) --no-print-directory install-contract DESTDIR=$$tmp >/dev/null; \
-	OMX_CONTRACT_PATH=$$tmp$(CONTRACTDIR)$(if $(OMX_CONTRACT_PATH),:$(OMX_CONTRACT_PATH)):$(CONTRACTDIR) $(OMX_CONTRACT) validate --installed
+	OMX_CONTRACT_PATH=$$tmp$(CONTRACTDIR)$(if $(OMX_CONTRACT_PATH),:$(OMX_CONTRACT_PATH)):$(CONTRACTDIR) $(OMX_CONTRACT) validate --installed --catalogs catalogs
 
 test-rendered-sabotage:
 	sh tests/rendered-sabotage.sh
