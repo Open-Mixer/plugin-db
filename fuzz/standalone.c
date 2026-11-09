@@ -4,7 +4,8 @@
 /* A driver of a harness without libFuzzer (make fuzz-records, make fuzz-static): each file
  * named runs through LLVMFuzzerTestOneInput once, in an allocation of exactly its size, as
  * libFuzzer's -runs=0 runs a corpus and as the OSS Verify driver runs an input with no config
- * bytes. A harness and the library then link as a plain native program, or a fully static
+ * bytes. LLVMFuzzerInitialize, when the harness defines it, runs once before the first input,
+ * with the argument count 1 and the arguments {"fuzz", NULL}, as that driver calls it. A harness and the library then link as a plain native program, or a fully static
  * one, with no library beyond libc. A property that fails aborts (exit 134), as it does under
  * libFuzzer; the driver itself exits 0 when every call returned 0 or -1, 78 for any other
  * return, and 2 when a file cannot be read. Usage: fuzz_<harness> <file>... */
@@ -14,6 +15,7 @@
 #include <string.h>
 
 int LLVMFuzzerTestOneInput(const uint8_t *data, size_t size);
+__attribute__((weak)) int LLVMFuzzerInitialize(int *argc, char ***argv);
 
 static uint8_t *slurp(const char *path, size_t *n)
 {
@@ -55,6 +57,14 @@ int main(int argc, char **argv)
 {
 	int other = 0;
 
+	if (LLVMFuzzerInitialize) {
+		static char name[] = "fuzz";
+		char *fargv[] = { name, NULL };
+		char **pargv = fargv;
+		int fargc = 1;
+
+		LLVMFuzzerInitialize(&fargc, &pargv);
+	}
 	for (int i = 1; i < argc; i++) {
 		size_t n;
 		uint8_t *b = slurp(argv[i], &n);

@@ -1,0 +1,15 @@
+Breaks the check of fuzz/fuzz_digest.c:118 (`EVP_MD_CTX_free(c->ctx);` is dropped at include/plugin-db/pin.h:89).
+Caught by the seed input "abc" of fuzz_digest.
+
+diff --git a/include/plugin-db/pin.h b/include/plugin-db/pin.h
+index e9304ed..3b087a0 100644
+--- a/include/plugin-db/pin.h
++++ b/include/plugin-db/pin.h
+@@ -86,7 +86,6 @@ static inline int phd_sha256_final(phd_sha256_t *c, char hex[PHD_SHA256_HEX_LEN
+     unsigned int got = 0, n;
+ 
+     c->ok = c->ok && EVP_DigestFinal_ex(c->ctx, md, &got) == 1 && got == 32;
+-    EVP_MD_CTX_free(c->ctx);
+     c->ctx = NULL;
+     hex[0] = '\0';
+     if (!c->ok)

@@ -470,3 +470,15 @@ int LLVMFuzzerTestOneInput(const uint8_t *data, size_t size)
 		run_clap(&in, (sel >> 1) & 7);
 	return 0;
 }
+
+/* libcrypto started without its configuration file: the layout's digest needs none, and a run
+ * then opens no file. Defined last, so that no line above it moves. */
+int LLVMFuzzerInitialize(int *argc, char ***argv)
+{
+	(void)argc;
+	(void)argv;
+	/* not a property: libcrypto could not start */
+	if (OPENSSL_init_crypto(OPENSSL_INIT_NO_LOAD_CONFIG, NULL) != 1)
+		abort();
+	return 0;
+}

@@ -1,4 +1,4 @@
-Breaks the check of fuzz/fuzz_digest.c:61 (`hex[PHD_SHA256_HEX_LEN] = '\0';` is dropped at include/plugin-db/pin.h:99).
+Breaks the check of fuzz/fuzz_digest.c:105 (`hex[PHD_SHA256_HEX_LEN] = '\0';` is dropped at include/plugin-db/pin.h:99).
 Caught by the seed input "abc" of fuzz_digest.
 
 diff --git a/include/plugin-db/pin.h b/include/plugin-db/pin.h
