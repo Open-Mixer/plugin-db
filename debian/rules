@@ -4,12 +4,14 @@ DEB_HOST_MULTIARCH ?= $(shell dpkg-architecture -qDEB_HOST_MULTIARCH)
 MAKE_VARS = PREFIX=/usr LIBDIR=/usr/lib/$(DEB_HOST_MULTIARCH)
 
 %:
-	dh $@
+	dh $@ --with python3
 
 override_dh_auto_install:
 	dh_auto_install -- $(MAKE_VARS)
 	# data/pin.json and data/db.json, as the package plugin-db of omx-contract's contract directory
 	$(MAKE) install-contract DESTDIR=$(CURDIR)/debian/tmp PREFIX=/usr
+	# the Python module plugin_db
+	$(MAKE) install-python DESTDIR=$(CURDIR)/debian/tmp PYTHONDIR=/usr/lib/python3/dist-packages
 
 override_dh_auto_test:
 ifeq (,$(filter nocheck,$(DEB_BUILD_OPTIONS)))
