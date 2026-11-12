@@ -2,6 +2,7 @@
 # Copyright (C) 2026 Pau Aliagas <linuxnow@gmail.com>
 """The sentence of a word. The answer of the reader stays words; a menu shows the sentence of the word, from the
 catalog of its language, else the owners' source sentence in English (data/, in the generated vocabulary)."""
+import importlib.util
 import json
 import os
 import sys
@@ -11,6 +12,19 @@ from . import vocabulary as v
 #: where the contract package installs the catalogs (<lang>.json, messages keyed <ITEM>.<word>)
 CATALOGS = os.path.join(sys.prefix, "share", "plugin-db", "catalogs")
 SOURCE = "en"
+#: omx-contract's catalog reader (omx-contract-data, 3.16.0 or later): a catalog's entry is the sentence or
+#: {text, by[, model, source]}, and one made from another English sentence is stale and gives the English
+READER = os.path.join(sys.prefix, "share", "omx-contract", "omx_contract_catalog.py")
+_reader = None
+
+
+def _catalog_reader():
+    global _reader
+    if _reader is None:
+        spec = importlib.util.spec_from_file_location("omx_contract_catalog", READER)
+        _reader = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(_reader)
+    return _reader
 
 
 def _item(words):
@@ -29,9 +43,10 @@ def text(words, word, lang=SOURCE, catalogs=None):
         return source
     try:
         with open(os.path.join(CATALOGS if catalogs is None else catalogs, lang + ".json"), encoding="utf-8") as f:
-            said = json.load(f)["messages"].get(f"{item}.{word}")
-    except (OSError, ValueError, KeyError, TypeError, AttributeError):
+            catalog = json.load(f)
+    except (OSError, ValueError):
         return source
+    said = _catalog_reader().sentence_of(catalog if isinstance(catalog, dict) else None, f"{item}.{word}", source)
     return said if isinstance(said, str) and said else source
 
 
