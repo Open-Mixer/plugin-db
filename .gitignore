@@ -1,3 +1,4 @@
 /build/
 /tests/pin_test
 fuzz/findings/
+__pycache__/

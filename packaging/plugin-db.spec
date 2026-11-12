@@ -1,5 +1,5 @@
 Name: plugin-db
-Version: 0.3.1
+Version: 0.3.2
 Release: 1%{?dist}
 License: GPL-3.0-or-later
 Summary: The plugin database: the pin, the address form, the store and the state
@@ -11,6 +11,7 @@ BuildRequires: gcc
 BuildRequires: make
 BuildRequires: pkgconfig
 BuildRequires: python3
+BuildRequires: python3-devel
 BuildRequires: pkgconfig(libcrypto)
 BuildRequires: (plugin-hostd-protocol-devel >= 0.5.2 with plugin-hostd-protocol-devel < 0.6)
 # install-contract writes the contract directory's package with omx-contract's script
@@ -47,6 +48,22 @@ omx-contract's contract directory, under
 share/omx-contract/contract.d/3/plugin-db.
 Its documentation is on openmixer.org.
 
+%package -n python3-plugin-db
+Summary: The plugin database's reader for Python
+BuildArch: noarch
+Requires: python3
+# query() asks the command; the catalogs of the sentences come with the contract package
+Requires: plugin-db = %{version}-%{release}
+Requires: plugin-db-contract = %{version}-%{release}
+
+%description -n python3-plugin-db
+The Python module plugin_db: query() gives the answer of plugin-db query --json
+for a plugin of the store, read() is the Python twin of the reader for layers
+in hand, and text() gives the sentence of a word from the catalog of a
+language. Its words are generated from data/, and the fixtures of the C reader
+and of the TypeScript twin hold it to the same answers.
+Its documentation is on openmixer.org.
+
 %prep
 %autosetup -p1
 
@@ -56,6 +73,7 @@ Its documentation is on openmixer.org.
 %install
 %make_install PREFIX=%{_prefix} BINDIR=%{_bindir} INCLUDEDIR=%{_includedir} LIBDIR=%{_libdir} DATADIR=%{_datadir} MANDIR=%{_mandir}
 %make_build install-contract DESTDIR=%{buildroot} PREFIX=%{_prefix}
+%make_build install-python DESTDIR=%{buildroot} PYTHONDIR=%{python3_sitelib}
 
 %check
 make test
@@ -84,7 +102,15 @@ make test
 %{_datadir}/omx-contract/contract.d/3/plugin-db
 %{_datadir}/plugin-db/catalogs/
 
+%files -n python3-plugin-db
+%license COPYING
+%{python3_sitelib}/plugin_db/
+
 %changelog
+* Thu Nov 12 2026 Pau Aliagas <linuxnow@gmail.com> - 0.3.2-1
+- python3-plugin-db: the reader in Python, the same records and verdict
+  tiers as the C and TypeScript readers
+
 * Mon Nov 09 2026 Pau Aliagas <linuxnow@gmail.com> - 0.3.1-1
 - plugin-db's words carry their source sentence, the Catalan in its catalog
   (omx-contract 3.12.0)

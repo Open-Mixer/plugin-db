@@ -59,10 +59,18 @@ install: all
 	  -e 's,@VERSION@,$(VERSION),g' $(NAME).pc.in > $(DESTDIR)$(LIBDIR)/pkgconfig/$(NAME).pc
 	chmod 644 $(DESTDIR)$(LIBDIR)/pkgconfig/$(NAME).pc
 
+# the Python twin, the module plugin_db: PYTHONDIR is where this python3 keeps pure modules under PREFIX, and a
+# package build names its own (the spec's python3_sitelib, Debian's dist-packages)
+PYTHONDIR = $(shell python3 -c 'import sysconfig; print(sysconfig.get_path("purelib", vars={"base": "$(PREFIX)"}))')
+
+install-python:
+	install -d $(DESTDIR)$(PYTHONDIR)/plugin_db
+	install -m 644 python/plugin_db/*.py $(DESTDIR)$(PYTHONDIR)/plugin_db/
+
 # ---------------------------------------------------------------------------------------------------------------------
 # tests: no plugin, no daemon
 
-test: test-pin check-tables check-ts test-state test-collect test-store test-golden test-install test-sabotage test-db-sabotage test-abi version-check
+test: test-pin check-tables check-ts test-py test-state test-collect test-store test-golden test-install test-sabotage test-db-sabotage test-abi version-check
 
 tests/pin_test: tests/pin_test.c $(HEADERS)
 	$(CC) -Iinclude $(CRYPTO_CFLAGS) $(CFLAGS) -Werror -o $@ tests/pin_test.c $(CRYPTO_LIBS)
@@ -109,6 +117,19 @@ render-ts:
 test-twin: $(BIN) check-ts
 	cd ts && node --test "test/*.test.ts"
 	sh tests/twin-sabotage.sh
+
+# python/plugin_db/vocabulary.py is what tools/render-py.py derives from data/
+check-py:
+	python3 tools/render-py.py --check data python/plugin_db/vocabulary.py
+
+render-py:
+	python3 tools/render-py.py data python/plugin_db/vocabulary.py
+
+# the Python twin of the reader (python3 only, no package is installed: part of make test): its tests over the golden
+# fixtures, the sentences and the conformance check, then the arms that must turn them red
+test-py: check-py
+	PYTHONPATH=python python3 -W error -m unittest discover -s python/tests
+	sh tests/py-sabotage.sh
 
 # every rule of the state function, the bundle rule, the collection and the store has an arm that must go red
 test-db-sabotage:
@@ -285,6 +306,6 @@ fuzz-corpus-check: $(FUZZ_GEN)
 clean:
 	rm -rf build tests/pin_test
 
-.PHONY: all install test test-pin check-tables render-tables test-state test-collect test-store test-db-sabotage test-asan test-golden check-ts render-ts test-twin \
+.PHONY: all install test test-pin check-tables render-tables test-state test-collect test-store test-db-sabotage test-asan test-golden check-ts render-ts test-twin check-py render-py test-py install-python \
         test-install test-sabotage test-abi abi-layout abi-baseline abi-check version-check check-tools install-contract check-contract-dir \
         test-rendered-sabotage render-words check-rendered fuzz fuzz-run fuzz-sabotage fuzz-records fuzz-coverage fuzz-corpus fuzz-corpus-check clean

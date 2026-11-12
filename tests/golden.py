@@ -10,6 +10,9 @@ files, so the twins are held equal by the files and by nothing else.
 """
 import json, os, shutil, subprocess, sys, tempfile
 
+sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "python"))
+import plugin_db
+
 AMP = "http://example.org/plugins/amp"
 LAYOUT = "omx-layout/1:" + "a" * 64
 OTHER_LAYOUT = "omx-layout/1:" + "b" * 64
@@ -74,6 +77,11 @@ def one(pdb, fx):
         if r.returncode:
             return f"query exits {r.returncode}: {r.stderr}"
         got = json.loads(r.stdout)
+        # the Python module asks the same command: its query() must give what the command printed
+        asked = plugin_db.query(address, fx["here"], store=store, command=pdb,
+                                layout={"match": LAYOUT, "other": OTHER_LAYOUT}.get(fx["currentLayout"]))
+        if asked != got:
+            return "plugin_db.query says\n  %s\nquery --json says\n  %s" % (json.dumps(asked, sort_keys=True), json.dumps(got, sort_keys=True))
         got.pop("address", None)
         if got != fx["expect"]:
             return "query --json says\n  %s\nthe fixture says\n  %s" % (json.dumps(got, sort_keys=True), json.dumps(fx["expect"], sort_keys=True))

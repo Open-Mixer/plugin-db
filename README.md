@@ -94,6 +94,23 @@ answers as the C reader does. `tests/golden/` holds one fixture for each state o
 answer exactly. No source types a state, run, reason, tier, bar or standing word, or a sentence of `data/`; the
 conformance test in `ts/test/` refuses it.
 
+Zynthian and other Python surfaces read the module `plugin_db` in `python/` (the package python3-plugin-db), with its
+words generated from `data/` into `python/plugin_db/vocabulary.py` by `make render-py`:
+
+```python
+from plugin_db import query, read, why, vocabulary as v
+
+answer = query("lv2:http://example.org/plugins/amp", here)   # asks the command plugin-db
+if answer["state"] == v.states.qualified: ...
+why(answer, "ca")                                            # the sentence of its reason, in Catalan
+```
+
+`query()` runs `plugin-db query --json`, the complete answer for a plugin of this machine. `read(entry, here)` is the
+Python twin of the reader, for layers already in hand; the same fixtures hold it to the C reader and to the TypeScript
+twin (`make test-py`), and a rule one of them reads differently is red. `text()` and `why()` give the sentence of a
+word from the catalog of a language (`/usr/share/plugin-db/catalogs`), else the source sentence in English. The
+module has no words of its own: a surface shows the reader's state and reason, never a verdict it computed.
+
 A C program includes `<plugin-db/db.h>` (and `<plugin-db/pin.h>`, which it includes) and links `libplugin-db.a`:
 
 ```
@@ -129,7 +146,8 @@ make install PREFIX=/usr/local
 derived from `data/`, the state function by table (every state, reason, change and action reached by a fixture), the
 address form, the bundle rule and the collection over fixture bundles, the store, `show` and `verify` through the
 command, a consumer of an install, and the sabotage arms, each of which breaks one rule and must go red.
-`make test-twin` runs the twin's tests and the arms that must turn them red.
+`make test-twin` runs the TypeScript twin's tests and the arms that must turn them red; the Python twin's, which need
+python3 only, are part of `make test` (`make test-py`).
 `make test-asan` runs the C tests and the command under AddressSanitizer and UBSan. `make check-tools` also holds the
 rendered vocabulary header to `data/` and validates the package against the contract directory; it needs omx-contract
 and omx-contract-devel. After a change to `data/`, `make render-words render-tables` renders both headers again.

@@ -14,7 +14,7 @@ fail=0
 arm() { # <what> <file> <text => replacement> <make targets>
     rm -rf "$tmp/t"
     mkdir "$tmp/t"
-    cp -r Makefile VERSION data include src tests tools "$tmp/t/"
+    cp -r Makefile VERSION data include python src tests tools "$tmp/t/"
     if ! python3 - "$tmp/t/$2" "$3" <<'PY'
 import sys
 path, before_after = sys.argv[1:]

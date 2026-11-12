@@ -9,7 +9,8 @@ Build-Depends: debhelper-compat (= 13),
                libplugin-hostd-protocol-dev (>= 0.5.2~), libplugin-hostd-protocol-dev (<< 0.6~),
                libomx-contract-dev (>= 3.12.0~), libomx-contract-dev (<< 4~),
                pkgconf,
-               python3
+               python3,
+               dh-python
 Standards-Version: 4.6.2
 Homepage: https://github.com/FreeMixer/plugin-db
 Vcs-Git: https://github.com/FreeMixer/plugin-db.git
@@ -51,5 +52,19 @@ Description: words of the plugin database in omx-contract's contract directory
  their actions, the states and the reasons, as the package plugin-db of
  omx-contract's contract directory, under
  /usr/share/omx-contract/contract.d/3/plugin-db.
+ .
+ Its documentation is on openmixer.org.
+
+Package: python3-plugin-db
+Section: python
+Architecture: all
+Depends: plugin-db (>= ${source:Version}), plugin-db-contract (= ${source:Version}),
+         ${python3:Depends}, ${misc:Depends}
+Description: plugin database: reader for Python
+ The Python module plugin_db: query() gives the answer of plugin-db query
+ --json for a plugin of the store, read() is the Python twin of the reader for
+ layers in hand, and text() gives the sentence of a word from the catalog of a
+ language. Its words are generated from data/, and the fixtures of the C reader
+ and of the TypeScript twin hold it to the same answers.
  .
  Its documentation is on openmixer.org.
