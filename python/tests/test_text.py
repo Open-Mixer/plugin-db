@@ -2,6 +2,7 @@
 # Copyright (C) 2026 Pau Aliagas <linuxnow@gmail.com>
 """The sentence of a word: the owners' English from data/ (in the generated vocabulary), another language from its
 catalog, and the English where a catalog has no sentence for the word."""
+import hashlib
 import json
 import os
 import tempfile
@@ -26,7 +27,8 @@ def write(path, said):
 class Text(unittest.TestCase):
     def setUp(self):
         self.db = load(ROOT, "data", "db.json")
-        self.ca = load(CATALOGS, "ca.json")["messages"]
+        # an entry is the sentence or {text, by[, model, source]} (omx-contract 3.16.0): the sentence is its text
+        self.ca = {k: e if isinstance(e, str) else e["text"] for k, e in load(CATALOGS, "ca.json")["messages"].items()}
 
     def test_english_is_the_sentence_of_data(self):
         for key, w in self.db["PLUGIN_DB_REASONS"]["words"].items():
@@ -58,6 +60,18 @@ class Text(unittest.TestCase):
             text(v.reasons, v.states.qualified)
         with self.assertRaises(KeyError):
             text({"a": "b"}, "b")
+
+    def test_a_stale_machine_entry_gives_the_english(self):
+        """an entry made from another English sentence (its source hash) is stale: omx-contract's reader skips it"""
+        word = v.reasons.filesGone
+        key = f"PLUGIN_DB_REASONS.{word}"
+        with tempfile.TemporaryDirectory() as d:
+            entry = {"text": "Una frase vella.", "by": "machine", "model": "draft-prose", "source": "0" * 64}
+            write(os.path.join(d, "es.json"), json.dumps({"kind": "catalog", "lang": "es", "messages": {key: entry}}))
+            self.assertEqual(text(v.reasons, word, "es", d), text(v.reasons, word))
+            entry["source"] = hashlib.sha256(text(v.reasons, word).encode("utf-8")).hexdigest()
+            write(os.path.join(d, "es.json"), json.dumps({"kind": "catalog", "lang": "es", "messages": {key: entry}}))
+            self.assertEqual(text(v.reasons, word, "es", d), "Una frase vella.", "a current machine entry is read")
 
     def test_why_is_the_sentence_of_the_answer_s_reason(self):
         answer = {"reason": v.reasons.filesGone}
