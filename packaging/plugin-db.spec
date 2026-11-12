@@ -1,5 +1,5 @@
 Name: plugin-db
-Version: 0.3.2
+Version: 0.4.0
 Release: 1%{?dist}
 License: GPL-3.0-or-later
 Summary: The plugin database: the pin, the address form, the store and the state
@@ -195,9 +195,17 @@ English source sentence.
 # END langpacks
 
 %changelog
-* Thu Nov 12 2026 Pau Aliagas <linuxnow@gmail.com> - 0.3.2-1
-- python3-plugin-db: the reader in Python, the same records and verdict
-  tiers as the C and TypeScript readers
+* Thu Nov 12 2026 Pau Aliagas <linuxnow@gmail.com> - 0.4.0-1
+- python3-plugin-db, a new package: the reader in Python, the same records
+  and verdict tiers as the C and TypeScript readers
+- catalogs: the Catalan entries are a person's (by: human); es, fr, de, it and
+  pt are made from the English source sentences; text() reads them through
+  omx-contract's own catalog reader
+- one language pack per listed language, plugin-db-langpack-<lang>, each its
+  one catalog
+- the release builds the DEBs beside the RPMs; a staged run publishes to the
+  staging channel
+- built against and requires omx-contract >= 3.17.0 and < 4
 
 * Mon Nov 09 2026 Pau Aliagas <linuxnow@gmail.com> - 0.3.1-1
 - plugin-db's words carry their source sentence, the Catalan in its catalog
