@@ -1,5 +1,5 @@
 Name: plugin-db
-Version: 0.3.2
+Version: 0.4.0
 Release: 1%{?dist}
 License: GPL-3.0-or-later
 Summary: The plugin database: the pin, the address form, the store and the state
@@ -15,7 +15,7 @@ BuildRequires: python3-devel
 BuildRequires: pkgconfig(libcrypto)
 BuildRequires: (plugin-hostd-protocol-devel >= 0.5.2 with plugin-hostd-protocol-devel < 0.6)
 # install-contract writes the contract directory's package with omx-contract's script
-BuildRequires: (omx-contract-devel >= 3.16.0 with omx-contract-devel < 4)
+BuildRequires: (omx-contract-devel >= 3.17.0 with omx-contract-devel < 4)
 
 %description
 plugin-db is the plugin database, in layers: the pin of a plugin, the one
@@ -38,7 +38,7 @@ Its documentation is on openmixer.org.
 
 %package contract
 Summary: The words of the plugin database in omx-contract's contract directory
-Requires: (omx-contract >= 3.16.0 with omx-contract < 4)
+Requires: (omx-contract >= 3.17.0 with omx-contract < 4)
 
 %description contract
 data/pin.json of plugin-db, the words of a pin, and data/db.json, the address
@@ -56,7 +56,7 @@ Requires: python3
 Requires: plugin-db = %{version}-%{release}
 Requires: plugin-db-contract = %{version}-%{release}
 # the catalog reader of text() (a catalog entry with its provenance, a stale one skipped)
-Requires: (omx-contract-data >= 3.16.0 with omx-contract-data < 4)
+Requires: (omx-contract-data >= 3.17.0 with omx-contract-data < 4)
 
 %description -n python3-plugin-db
 The Python module plugin_db: query() gives the answer of plugin-db query --json
@@ -195,9 +195,17 @@ English source sentence.
 # END langpacks
 
 %changelog
-* Thu Nov 12 2026 Pau Aliagas <linuxnow@gmail.com> - 0.3.2-1
-- python3-plugin-db: the reader in Python, the same records and verdict
-  tiers as the C and TypeScript readers
+* Thu Nov 12 2026 Pau Aliagas <linuxnow@gmail.com> - 0.4.0-1
+- python3-plugin-db, a new package: the reader in Python, the same records
+  and verdict tiers as the C and TypeScript readers
+- catalogs: the Catalan entries are a person's (by: human); es, fr, de, it and
+  pt are made from the English source sentences; text() reads them through
+  omx-contract's own catalog reader
+- one language pack per listed language, plugin-db-langpack-<lang>, each its
+  one catalog
+- the release builds the DEBs beside the RPMs; a staged run publishes to the
+  staging channel
+- built against and requires omx-contract >= 3.17.0 and < 4
 
 * Mon Nov 09 2026 Pau Aliagas <linuxnow@gmail.com> - 0.3.1-1
 - plugin-db's words carry their source sentence, the Catalan in its catalog

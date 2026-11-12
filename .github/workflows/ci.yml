@@ -55,13 +55,13 @@ jobs:
             dpkg --compare-versions "$v" ge 0.5.0~ && dpkg --compare-versions "$v" lt 0.6~ || { echo "libplugin-hostd-protocol-dev $v is outside 0.5.0..0.6"; exit 1; }
           fi
       # text() reads the catalogs through omx-contract's reader, /usr/share/omx-contract/omx_contract_catalog.py, which
-      # omx-contract-data ships: python3-plugin-db's floor, >= 3.16.0 and < 4
+      # omx-contract-data ships: python3-plugin-db's floor, >= 3.17.0 and < 4
       - name: omx-contract's catalog reader
         run: |
-          if command -v dnf >/dev/null; then dnf -y install 'omx-contract-data >= 3.16.0' 'omx-contract-data < 4'
+          if command -v dnf >/dev/null; then dnf -y install 'omx-contract-data >= 3.17.0' 'omx-contract-data < 4'
           else apt-get -y install --no-install-recommends omx-contract-data
             v=$(dpkg-query -W -f='${Version}' omx-contract-data)
-            dpkg --compare-versions "$v" ge 3.16.0~ && dpkg --compare-versions "$v" lt 4~ || { echo "omx-contract-data $v is outside 3.16.0..4"; exit 1; }
+            dpkg --compare-versions "$v" ge 3.17.0~ && dpkg --compare-versions "$v" lt 4~ || { echo "omx-contract-data $v is outside 3.17.0..4"; exit 1; }
           fi
           test -f /usr/share/omx-contract/omx_contract_catalog.py
       - name: Tests (known answers, the derived tables, the state by table, the collection, the store, a consumer of an install, the sabotage arms, the version)
@@ -105,13 +105,10 @@ jobs:
         run: git config --global --add safe.directory "$GITHUB_WORKSPACE"
       - name: Add the OpenMixer channel
         uses: Open-Mixer/.github/.github/actions/add-openmixer@openmixer-v1
-        with:
-          # omx-contract 3.16 (catalog provenance, the language list, translate) is staged and not yet served
-          staging: 'true'
       # a dedupe/all run builds on its siblings' dedupe/all (.github/wave-deps); @main until Open-Mixer/.github moves v1 past it
       - uses: Open-Mixer/.github/.github/actions/wave-deps@openmixer-v1
       - name: omx-contract
-        run: dnf -y install 'omx-contract >= 3.16.0' 'omx-contract < 4' 'omx-contract-devel >= 3.16.0' 'omx-contract-devel < 4'
+        run: dnf -y install 'omx-contract >= 3.17.0' 'omx-contract < 4' 'omx-contract-devel >= 3.17.0' 'omx-contract-devel < 4'
       - name: make check-tools
         run: make check-tools
       # one pack per listed language from the spec and debian/control, and the catalogs through omx-contract's release
