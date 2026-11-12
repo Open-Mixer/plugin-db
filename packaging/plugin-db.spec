@@ -1,5 +1,5 @@
 Name: plugin-db
-Version: 0.3.1
+Version: 0.3.2
 Release: 1%{?dist}
 License: GPL-3.0-or-later
 Summary: The plugin database: the pin, the address form, the store and the state
@@ -107,6 +107,10 @@ make test
 %{python3_sitelib}/plugin_db/
 
 %changelog
+* Thu Nov 12 2026 Pau Aliagas <linuxnow@gmail.com> - 0.3.2-1
+- python3-plugin-db: the reader in Python, the same records and verdict
+  tiers as the C and TypeScript readers
+
 * Mon Nov 09 2026 Pau Aliagas <linuxnow@gmail.com> - 0.3.1-1
 - plugin-db's words carry their source sentence, the Catalan in its catalog
   (omx-contract 3.12.0)

@@ -1,3 +1,10 @@
+plugin-db (0.3.2) unstable; urgency=medium
+
+  * python3-plugin-db: the reader in Python, the same records and verdict
+    tiers as the C and TypeScript readers.
+
+ -- Pau Aliagas <linuxnow@gmail.com>  Thu, 12 Nov 2026 12:05:00 +0100
+
 plugin-db (0.3.1) unstable; urgency=medium
 
   * plugin-db's words carry their source sentence beside them, and the
