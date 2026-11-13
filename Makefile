@@ -324,5 +324,5 @@ clean:
 	rm -rf build tests/pin_test
 
 .PHONY: all install test test-pin check-tables render-tables test-state test-collect test-store test-db-sabotage test-asan test-golden check-ts render-ts test-twin check-py render-py test-py install-python \
-        test-install test-sabotage test-abi abi-layout abi-baseline abi-check version-check check-tools install-contract check-contract-dir \
+        test-install test-sabotage test-abi abi-layout abi-baseline abi-check version-check check-tools check-ci-matrix install-contract check-contract-dir \
         test-rendered-sabotage render-words check-rendered fuzz fuzz-run fuzz-sabotage fuzz-records fuzz-coverage fuzz-corpus fuzz-corpus-check clean
