@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://github.com/FreeMixer/plugin-db/raw/main/data/store.schema.json",
+  "$id": "https://github.com/Open-Mixer/plugin-db/raw/main/data/store.schema.json",
   "title": "plugin-db layer file",
   "description": "One layer of one entry of the plugin-db store, as a file. The store is a directory, per machine for system services and per user otherwise; it holds one directory per entry, and an entry holds one file per layer, named the layer's word of PLUGIN_DB_LAYERS (data/db.json) and .json. Every file is written to a temporary name in its entry's directory and renamed over its name, so a reader sees the old file or the new one, never a part. Each file records the pin it was written for, so a layer written for other bytes is found stale and never trusted. The entry is the join of its files at read time; no file holds it, and an index, if one is ever added, is derived and disposable. x-plugin-db-store states the layout; tools/render-db.py derives include/plugin-db/plugin_db_tables.h from this file and data/db.json.",
   "x-plugin-db-store": {

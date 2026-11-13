@@ -12,9 +12,9 @@ Build-Depends: debhelper-compat (= 13),
                python3,
                dh-python
 Standards-Version: 4.6.2
-Homepage: https://github.com/FreeMixer/plugin-db
-Vcs-Git: https://github.com/FreeMixer/plugin-db.git
-Vcs-Browser: https://github.com/FreeMixer/plugin-db
+Homepage: https://github.com/Open-Mixer/plugin-db
+Vcs-Git: https://github.com/Open-Mixer/plugin-db.git
+Vcs-Browser: https://github.com/Open-Mixer/plugin-db
 Rules-Requires-Root: no
 
 Package: plugin-db

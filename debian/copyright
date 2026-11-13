@@ -1,7 +1,7 @@
 Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
 Upstream-Name: plugin-db
-Upstream-Contact: https://github.com/FreeMixer/plugin-db
-Source: https://github.com/FreeMixer/plugin-db
+Upstream-Contact: https://github.com/Open-Mixer/plugin-db
+Source: https://github.com/Open-Mixer/plugin-db
 
 Files: *
 Copyright: 2026 Pau Aliagas <linuxnow@gmail.com>
