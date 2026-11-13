@@ -58,7 +58,7 @@ Description: words of the plugin database in omx-contract's contract directory
 Package: python3-plugin-db
 Section: python
 Architecture: all
-Depends: plugin-db (>= ${source:Version}), plugin-db-contract (= ${source:Version}),
+Depends: plugin-db (>= ${source:Version}), plugin-db (<< 0.5~), plugin-db-contract (= ${source:Version}),
          omx-contract-data (>= 3.17.0~), omx-contract-data (<< 4~), ${python3:Depends}, ${misc:Depends}
 Description: plugin database: reader for Python
  The Python module plugin_db: query() gives the answer of plugin-db query

@@ -70,7 +70,7 @@ install-python:
 # ---------------------------------------------------------------------------------------------------------------------
 # tests: no plugin, no daemon
 
-test: test-constants-alone test-pin check-tables check-ts test-py test-state test-collect test-store test-golden test-install test-sabotage test-db-sabotage test-abi version-check
+test: test-constants-alone test-pin check-tables check-ts test-py test-state test-collect test-store test-golden test-install test-sabotage test-db-sabotage test-abi version-check check-control
 
 tests/pin_test: tests/pin_test.c $(HEADERS)
 	$(CC) -Iinclude $(CRYPTO_CFLAGS) $(CFLAGS) -Werror -o $@ tests/pin_test.c $(CRYPTO_LIBS)
@@ -150,6 +150,10 @@ test-constants-alone:
 	@echo "ok   the constants header alone gives a digest's hex length, with no OpenSSL; it is SHA-256's, as pin.h names it"
 
 # a consumer compiled and linked with what pkg-config plugin-db says of a scratch install, and nothing else
+# every dependency between this source's packages carries a ceiling (R-107), self-tested
+check-control:
+	sh tests/control-ceilings.sh --self-test
+
 test-install:
 	sh tests/install-check.sh
 

@@ -1,5 +1,5 @@
 Name: plugin-db
-Version: 0.4.2
+Version: 0.4.3
 Release: 1%{?dist}
 License: GPL-3.0-or-later
 Summary: The plugin database: the pin, the address form, the store and the state
@@ -196,6 +196,10 @@ English source sentence.
 # END langpacks
 
 %changelog
+* Fri Nov 13 2026 Pau Aliagas <linuxnow@gmail.com> - 0.4.3-1
+- debian: python3-plugin-db's dependency on plugin-db has its ceiling (<< 0.5)
+  beside its floor, as every dependency between this source's packages does
+
 * Fri Nov 13 2026 Pau Aliagas <linuxnow@gmail.com> - 0.4.2-1
 - python3-plugin-db: the catalogs and omx-contract's catalog reader are the
   venv's when the venv holds them, else the system prefix's: the reader works
