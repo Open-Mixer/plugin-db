@@ -1,5 +1,5 @@
 Name: plugin-db
-Version: 0.4.1
+Version: 0.4.2
 Release: 1%{?dist}
 License: GPL-3.0-or-later
 Summary: The plugin database: the pin, the address form, the store and the state
@@ -196,6 +196,11 @@ English source sentence.
 # END langpacks
 
 %changelog
+* Fri Nov 13 2026 Pau Aliagas <linuxnow@gmail.com> - 0.4.2-1
+- python3-plugin-db: the catalogs and omx-contract's catalog reader are the
+  venv's when the venv holds them, else the system prefix's: the reader works
+  under a venv (Zynthian's)
+
 * Fri Nov 13 2026 Pau Aliagas <linuxnow@gmail.com> - 0.4.1-1
 - plugin_db_constants.h, a new header rendered from data/constants.json: the
   length of a digest in hex, PLUGIN_DB_PIN_SHA256_HEX_LEN, for a consumer that
