@@ -174,12 +174,16 @@ version-check:
 #   check-rendered      plugin_db_vocabulary.h is what omx-contract renders from data/
 #   test-rendered-sabotage  check-rendered fails on a header changed by hand and on data/ not rendered again
 #   check-contract-dir  data/ as a package validates with the installed contract directory, and catalogs/ against it
+#   check-ci-matrix     no CI matrix names bookworm by hand: the cells follow OMX_RELEASE_MATRIX (ruling D25), self-tested
 OMX_CONTRACT ?= omx-contract
 CONTRACT_SCHEMA_MAJOR = 3
 CONTRACTDIR = $(or $(shell $(PKG_CONFIG) --variable=contractdir omx-contract 2>/dev/null),$(DATADIR)/omx-contract/contract.d)
 INSTALL_CONTRACT_DIR = $(firstword $(wildcard $(shell $(PKG_CONFIG) --variable=datadir omx-contract 2>/dev/null)/install-contract-dir.sh) $(wildcard $(OMX_CONTRACT_DIR)/tools/install-contract-dir.sh))
 
-check-tools: check-rendered test-rendered-sabotage check-contract-dir
+check-tools: check-rendered test-rendered-sabotage check-contract-dir check-ci-matrix
+
+check-ci-matrix:
+	sh tests/ci-matrix-follows-set.sh --self-test
 
 # data/store.schema.json is a JSON Schema of the store, not a file of omx-contract's: it is installed to
 # $(DATADIR)/plugin-db/, never into the contract directory
