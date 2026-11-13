@@ -9,12 +9,23 @@ import sys
 
 from . import vocabulary as v
 
+
+def _installed(*parts):
+    """an installed file or directory: the venv's when the venv holds it (the package installed into the venv), else
+    the system prefix's, where the packages install it (#14); outside a venv the two prefixes are one"""
+    for prefix in (sys.prefix, sys.base_prefix):
+        path = os.path.join(prefix, *parts)
+        if os.path.exists(path):
+            return path
+    return os.path.join(sys.base_prefix, *parts)
+
+
 #: where the contract package installs the catalogs (<lang>.json, messages keyed <ITEM>.<word>)
-CATALOGS = os.path.join(sys.prefix, "share", "plugin-db", "catalogs")
+CATALOGS = _installed("share", "plugin-db", "catalogs")
 SOURCE = "en"
 #: omx-contract's catalog reader (omx-contract-data, 3.16.0 or later): a catalog's entry is the sentence or
 #: {text, by[, model, source]}, and one made from another English sentence is stale and gives the English
-READER = os.path.join(sys.prefix, "share", "omx-contract", "omx_contract_catalog.py")
+READER = _installed("share", "omx-contract", "omx_contract_catalog.py")
 _reader = None
 
 
