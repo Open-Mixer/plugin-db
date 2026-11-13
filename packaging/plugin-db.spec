@@ -13,7 +13,7 @@ BuildRequires: pkgconfig
 BuildRequires: python3
 BuildRequires: python3-devel
 BuildRequires: pkgconfig(libcrypto)
-BuildRequires: (plugin-hostd-protocol-devel >= 0.5.7 with plugin-hostd-protocol-devel < 0.6)
+BuildRequires: (plugin-hostd-protocol-devel >= 0.5.8 with plugin-hostd-protocol-devel < 0.6)
 # install-contract writes the contract directory's package with omx-contract's script
 BuildRequires: (omx-contract-devel >= 3.18.0 with omx-contract-devel < 4)
 
@@ -198,7 +198,7 @@ English source sentence.
 %changelog
 * Fri Nov 13 2026 Pau Aliagas <linuxnow@gmail.com> - 0.4.4-1
 - Built against omx-contract >= 3.18.0 and below 4 (was 3.17.0), and plugin-
-  hostd-protocol >= 0.5.7 and below 0.6 (was 0.5.2): every dependency at its
+  hostd-protocol >= 0.5.8 and below 0.6 (was 0.5.2): every dependency at its
   newest served version, with its ceiling (D30). The CI jobs state the same.
 - The organisation's name: FreeMixer becomes Open-Mixer and OpenMixer.
 
