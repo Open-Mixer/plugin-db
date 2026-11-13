@@ -1,5 +1,5 @@
 Name: plugin-db
-Version: 0.4.0
+Version: 0.4.1
 Release: 1%{?dist}
 License: GPL-3.0-or-later
 Summary: The plugin database: the pin, the address form, the store and the state
@@ -196,6 +196,11 @@ English source sentence.
 # END langpacks
 
 %changelog
+* Fri Nov 13 2026 Pau Aliagas <linuxnow@gmail.com> - 0.4.1-1
+- plugin_db_constants.h, a new header rendered from data/constants.json: the
+  length of a digest in hex, PLUGIN_DB_PIN_SHA256_HEX_LEN, for a consumer that
+  needs it without OpenSSL; pin.h names it PHD_SHA256_HEX_LEN as before
+
 * Thu Nov 12 2026 Pau Aliagas <linuxnow@gmail.com> - 0.4.0-1
 - python3-plugin-db, a new package: the reader in Python, the same records
   and verdict tiers as the C and TypeScript readers
