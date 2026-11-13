@@ -3,7 +3,7 @@ Version: 0.4.2
 Release: 1%{?dist}
 License: GPL-3.0-or-later
 Summary: The plugin database: the pin, the address form, the store and the state
-URL: https://github.com/FreeMixer/plugin-db
+URL: https://github.com/Open-Mixer/plugin-db
 
 Source0: %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 
