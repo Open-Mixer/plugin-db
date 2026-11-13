@@ -1,0 +1,32 @@
+{
+  "$schema": "../schema/omx-contract.schema.json",
+  "requires": {
+    "omx-contract-schema": ">= 3.3.0"
+  },
+  "render": {
+    "c": [
+      {
+        "header": "plugin_db_constants.h",
+        "guard": "PLUGIN_DB_CONSTANTS_H",
+        "project": "plugin-db",
+        "banner": [
+          "Rendered by `omx-contract render --target c --package plugin-db` from data/constants.json, the numbers",
+          "plugin-db declares. It includes nothing, so a consumer that needs a number and no digest builds without OpenSSL;",
+          "the values are changed where they are declared and the file is rendered again, never edited here."
+        ],
+        "brief": "The numbers plugin-db declares: the length of a digest written in hex.",
+        "scope": "file",
+        "scalars": {
+          "comment": "the numbers plugin-db declares"
+        }
+      }
+    ]
+  },
+  "PLUGIN_DB_PIN_SHA256_HEX_LEN": {
+    "kind": "scalar",
+    "since": "0.4.1",
+    "doc": "The characters of a SHA-256 digest written in hex, two a byte: the length of every file digest a pin records and of the buffer a reader writes one into. Declared here so that a consumer that needs the length and no digest (plugin-hostd's command parser) reads it without OpenSSL; pin.h names it PHD_SHA256_HEX_LEN.",
+    "unit": "",
+    "value": 64
+  }
+}
