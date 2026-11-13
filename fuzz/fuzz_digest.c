@@ -72,12 +72,12 @@ static void *count_realloc(void *p, size_t n, const char *file, int line)
 FUZZ_CHECK check_value(const char *got, const char *want)
 {
 	/* The digest of the message is its SHA-256.
-	 * contract: include/plugin-db/pin.h:81; FIPS 180-4 section 6.2
-	 * mutant: include/plugin-db/pin.h:108 `data, size` -> `data, size / 2`
+	 * contract: include/plugin-db/pin.h:82; FIPS 180-4 section 6.2
+	 * mutant: include/plugin-db/pin.h:109 `data, size` -> `data, size / 2`
 	 * input: abc
-	 * mutant: include/plugin-db/pin.h:96 `md[n] >> 4` -> `md[n] & 15`
+	 * mutant: include/plugin-db/pin.h:97 `md[n] >> 4` -> `md[n] & 15`
 	 * input: abc
-	 * mutant: include/plugin-db/pin.h:97 `md[n] & 15` -> `md[n] & 7`
+	 * mutant: include/plugin-db/pin.h:98 `md[n] & 15` -> `md[n] & 7`
 	 * input: abc */
 	if (strcmp(got, want) != 0)
 		abort();
@@ -86,8 +86,8 @@ FUZZ_CHECK check_value(const char *got, const char *want)
 FUZZ_CHECK check_chunks(const char *got, const char *want)
 {
 	/* Feeding the message in pieces gives the same digest as feeding it whole.
-	 * contract: include/plugin-db/pin.h:68 (update appends)
-	 * mutant: include/plugin-db/pin.h:70 `data, size` -> `data, size > 1 ? size : 0`
+	 * contract: include/plugin-db/pin.h:69 (update appends)
+	 * mutant: include/plugin-db/pin.h:71 `data, size` -> `data, size > 1 ? size : 0`
 	 * input: chunked-1 */
 	if (strcmp(got, want) != 0)
 		abort();
@@ -96,10 +96,10 @@ FUZZ_CHECK check_chunks(const char *got, const char *want)
 FUZZ_CHECK check_form(const char *hex, int rc)
 {
 	/* A digest is 64 lowercase hex digits and a NUL, and the call that wrote it returned 0.
-	 * contract: include/plugin-db/pin.h:81
-	 * mutant: include/plugin-db/pin.h:99 `hex[PHD_SHA256_HEX_LEN] = '\0';` -> ``
+	 * contract: include/plugin-db/pin.h:82
+	 * mutant: include/plugin-db/pin.h:100 `hex[PHD_SHA256_HEX_LEN] = '\0';` -> ``
 	 * input: abc
-	 * mutant: include/plugin-db/pin.h:84 `0123456789abcdef` -> `0123456789ABCDEF`
+	 * mutant: include/plugin-db/pin.h:85 `0123456789abcdef` -> `0123456789ABCDEF`
 	 * input: abc */
 	if (rc != 0 || !spec_hex_ok(hex))
 		abort();
@@ -109,10 +109,10 @@ FUZZ_CHECK check_state(const phd_sha256_t *c, long kept)
 {
 	/* A finished digest has freed its context and holds none: the pointer is NULL, and the
 	 * blocks libcrypto holds are as many as before the digests began (kept is the difference).
-	 * contract: include/plugin-db/pin.h:82
-	 * mutant: include/plugin-db/pin.h:90 `c->ctx = NULL;` -> ``
+	 * contract: include/plugin-db/pin.h:83
+	 * mutant: include/plugin-db/pin.h:91 `c->ctx = NULL;` -> ``
 	 * input: abc
-	 * mutant: include/plugin-db/pin.h:89 `EVP_MD_CTX_free(c->ctx);` -> ``
+	 * mutant: include/plugin-db/pin.h:90 `EVP_MD_CTX_free(c->ctx);` -> ``
 	 * input: abc */
 	if (c->ctx != NULL || kept != 0)
 		abort();
@@ -122,13 +122,13 @@ FUZZ_CHECK check_failed(const phd_sha256_t *c, const char *hex, int rc, long kep
 {
 	/* A digest given up is refused: -1, the string empty, no context kept, and no block of
 	 * libcrypto held for it.
-	 * contract: include/plugin-db/pin.h:81 `0, or -1 (and an empty string) when libcrypto failed`
-	 * contract: include/plugin-db/pin.h:73 (abandon frees the context)
-	 * mutant: include/plugin-db/pin.h:91 `hex[0] = '\0';` -> ``
+	 * contract: include/plugin-db/pin.h:82 `0, or -1 (and an empty string) when libcrypto failed`
+	 * contract: include/plugin-db/pin.h:74 (abandon frees the context)
+	 * mutant: include/plugin-db/pin.h:92 `hex[0] = '\0';` -> ``
 	 * input: abandoned
-	 * mutant: include/plugin-db/pin.h:92 `!c->ok` -> `0`
+	 * mutant: include/plugin-db/pin.h:93 `!c->ok` -> `0`
 	 * input: abandoned
-	 * mutant: include/plugin-db/pin.h:76 `EVP_MD_CTX_free(c->ctx);` -> ``
+	 * mutant: include/plugin-db/pin.h:77 `EVP_MD_CTX_free(c->ctx);` -> ``
 	 * input: abandoned */
 	if (rc != -1 || hex[0] != '\0' || c->ctx != NULL || kept != 0)
 		abort();

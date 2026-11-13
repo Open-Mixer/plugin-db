@@ -45,8 +45,8 @@ carries one or more records, as OSS Verify's `tools/check` reads them:
 
 ```
 /* A digest of any other length is never a digest.
- * contract: include/plugin-db/pin.h:48
- * mutant: include/plugin-db/pin.h:142 `s[n] == '\0'` -> `1`
+ * contract: include/plugin-db/pin.h:49
+ * mutant: include/plugin-db/pin.h:143 `s[n] == '\0'` -> `1`
  * input: digest-65 */
 ```
 

@@ -1,11 +1,11 @@
-Breaks the check of fuzz/fuzz_layout.c:296 (`data, size` is `data, size > 1 ? size - 1 : size` at include/plugin-db/pin.h:394).
+Breaks the check of fuzz/fuzz_layout.c:296 (`data, size` is `data, size > 1 ? size - 1 : size` at include/plugin-db/pin.h:395).
 Caught by the seed input "clap-basic" of fuzz_layout.
 
 diff --git a/include/plugin-db/pin.h b/include/plugin-db/pin.h
-index e9304ed..d27e52a 100644
+index bf3024f..16c95e6 100644
 --- a/include/plugin-db/pin.h
 +++ b/include/plugin-db/pin.h
-@@ -391,7 +391,7 @@ static inline int phd_layout_lv2_write(const phd_layout_lv2_port_t *ports, size_
+@@ -392,7 +392,7 @@ static inline int phd_layout_lv2_write(const phd_layout_lv2_port_t *ports, size_
  
  static inline void phd_layout_hash_sink(void *ctx, const char *data, size_t size)
  {

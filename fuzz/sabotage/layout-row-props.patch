@@ -1,11 +1,11 @@
-Breaks the check of fuzz/fuzz_layout.c:259 (`qsort(props, p->nproperties, sizeof(*props), phd_layout_bytewise);` is dropped at include/plugin-db/pin.h:363).
+Breaks the check of fuzz/fuzz_layout.c:259 (`qsort(props, p->nproperties, sizeof(*props), phd_layout_bytewise);` is dropped at include/plugin-db/pin.h:364).
 Caught by the seed input "lv2-props" of fuzz_layout.
 
 diff --git a/include/plugin-db/pin.h b/include/plugin-db/pin.h
-index e9304ed..6809bb5 100644
+index bf3024f..ed1278b 100644
 --- a/include/plugin-db/pin.h
 +++ b/include/plugin-db/pin.h
-@@ -360,7 +360,7 @@ static inline int phd_layout_lv2_write(const phd_layout_lv2_port_t *ports, size_
+@@ -361,7 +361,7 @@ static inline int phd_layout_lv2_write(const phd_layout_lv2_port_t *ports, size_
                  return -1;
              }
              memcpy(props, p->properties, p->nproperties * sizeof(*props));

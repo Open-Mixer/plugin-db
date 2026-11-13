@@ -1,11 +1,11 @@
-Breaks the check of fuzz/fuzz_pin.c:103 (`token` is `token + 1` at include/plugin-db/pin.h:157).
+Breaks the check of fuzz/fuzz_pin.c:103 (`token` is `token + 1` at include/plugin-db/pin.h:158).
 Caught by the seed input "token-ok" of fuzz_pin.
 
 diff --git a/include/plugin-db/pin.h b/include/plugin-db/pin.h
-index e9304ed..9d05faf 100644
+index bf3024f..6245869 100644
 --- a/include/plugin-db/pin.h
 +++ b/include/plugin-db/pin.h
-@@ -154,7 +154,7 @@ static inline int phd_pin_layout_parse(const char *token, char *scheme, size_t s
+@@ -155,7 +155,7 @@ static inline int phd_pin_layout_parse(const char *token, char *scheme, size_t s
      n = (size_t)(colon - token);
      if (n >= scheme_size)
          return -1;

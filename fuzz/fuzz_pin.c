@@ -49,12 +49,12 @@ static int spec_member(const char *s, const char *const *words, size_t count)
 FUZZ_CHECK check_digest_charset(const char *s)
 {
 	/* Of 64 characters, it is a digest exactly when each is a lowercase hex digit.
-	 * contract: include/plugin-db/pin.h:134; fuzz/spec.h spec_hex_ok
-	 * mutant: include/plugin-db/pin.h:140 `s[n] <= 'f'` -> `s[n] <= 'g'`
+	 * contract: include/plugin-db/pin.h:135; fuzz/spec.h spec_hex_ok
+	 * mutant: include/plugin-db/pin.h:141 `s[n] <= 'f'` -> `s[n] <= 'g'`
 	 * input: digest-g
-	 * mutant: include/plugin-db/pin.h:140 `s[n] >= 'a'` -> `s[n] >= 'A'`
+	 * mutant: include/plugin-db/pin.h:141 `s[n] >= 'a'` -> `s[n] >= 'A'`
 	 * input: digest-upper
-	 * mutant: include/plugin-db/pin.h:140 `s[n] <= '9'` -> `s[n] <= ':'`
+	 * mutant: include/plugin-db/pin.h:141 `s[n] <= '9'` -> `s[n] <= ':'`
 	 * input: digest-colon */
 	if (strlen(s) == SPEC_HEX_LEN && phd_pin_hex_valid(s) != spec_hex_ok(s))
 		abort();
@@ -63,10 +63,10 @@ FUZZ_CHECK check_digest_charset(const char *s)
 FUZZ_CHECK check_digest_length(const char *s)
 {
 	/* A string that is not 64 characters long is never a digest.
-	 * contract: include/plugin-db/pin.h:134
-	 * mutant: include/plugin-db/pin.h:142 `s[n] == '\0'` -> `1`
+	 * contract: include/plugin-db/pin.h:135
+	 * mutant: include/plugin-db/pin.h:143 `s[n] == '\0'` -> `1`
 	 * input: digest-65
-	 * mutant: include/plugin-db/pin.h:139 `n < PHD_SHA256_HEX_LEN` -> `n < PHD_SHA256_HEX_LEN - 1`
+	 * mutant: include/plugin-db/pin.h:140 `n < PHD_SHA256_HEX_LEN` -> `n < PHD_SHA256_HEX_LEN - 1`
 	 * input: digest-63 */
 	if (strlen(s) != SPEC_HEX_LEN && phd_pin_hex_valid(s))
 		abort();
@@ -78,14 +78,14 @@ FUZZ_CHECK check_token_refusal(const char *s, const char *colon, int rc)
 
 	/* A layout pin is refused exactly when it is not "<scheme>:<digest>" with a scheme that is
 	 * not empty and fits, split at the LAST ':'.
-	 * contract: include/plugin-db/pin.h:145 `split at its last ':'; 0, or -1 when it is not one`
-	 * mutant: include/plugin-db/pin.h:152 `colon == token || ` -> ``
+	 * contract: include/plugin-db/pin.h:146 `split at its last ':'; 0, or -1 when it is not one`
+	 * mutant: include/plugin-db/pin.h:153 `colon == token || ` -> ``
 	 * input: token-empty-scheme
-	 * mutant: include/plugin-db/pin.h:152 `phd_pin_hex_valid(colon + 1)` -> `phd_pin_hex_valid(colon)`
+	 * mutant: include/plugin-db/pin.h:153 `phd_pin_hex_valid(colon + 1)` -> `phd_pin_hex_valid(colon)`
 	 * input: token-ok
-	 * mutant: include/plugin-db/pin.h:149 `strrchr` -> `strchr`
+	 * mutant: include/plugin-db/pin.h:150 `strrchr` -> `strchr`
 	 * input: token-two-colons
-	 * mutant: include/plugin-db/pin.h:155 `n >= scheme_size` -> `n > scheme_size`
+	 * mutant: include/plugin-db/pin.h:156 `n >= scheme_size` -> `n > scheme_size`
 	 * input: token-scheme-32 */
 	if ((rc == 0) != accept)
 		abort();
@@ -94,10 +94,10 @@ FUZZ_CHECK check_token_refusal(const char *s, const char *colon, int rc)
 FUZZ_CHECK check_token_scheme(const char *s, const char *colon, const char *scheme)
 {
 	/* What the reader gives as the scheme is the characters before the last ':', then a NUL.
-	 * contract: include/plugin-db/pin.h:145
-	 * mutant: include/plugin-db/pin.h:157 `token` -> `token + 1`
+	 * contract: include/plugin-db/pin.h:146
+	 * mutant: include/plugin-db/pin.h:158 `token` -> `token + 1`
 	 * input: token-ok
-	 * mutant: include/plugin-db/pin.h:158 `'\0'` -> `'x'`
+	 * mutant: include/plugin-db/pin.h:159 `'\0'` -> `'x'`
 	 * input: token-ok */
 	if (strlen(scheme) != (size_t)(colon - s) || memcmp(scheme, s, (size_t)(colon - s)) != 0)
 		abort();
@@ -106,10 +106,10 @@ FUZZ_CHECK check_token_scheme(const char *s, const char *colon, const char *sche
 FUZZ_CHECK check_token_digest(const char *colon, const char *hex)
 {
 	/* What the reader gives as the digest is the 64 characters after the last ':', then a NUL.
-	 * contract: include/plugin-db/pin.h:145
-	 * mutant: include/plugin-db/pin.h:159 `colon + 1` -> `colon`
+	 * contract: include/plugin-db/pin.h:146
+	 * mutant: include/plugin-db/pin.h:160 `colon + 1` -> `colon`
 	 * input: token-ok
-	 * mutant: include/plugin-db/pin.h:159 `PHD_SHA256_HEX_LEN + 1` -> `PHD_SHA256_HEX_LEN`
+	 * mutant: include/plugin-db/pin.h:160 `PHD_SHA256_HEX_LEN + 1` -> `PHD_SHA256_HEX_LEN`
 	 * input: token-ok */
 	if (memcmp(hex, colon + 1, SPEC_HEX_LEN + 1) != 0)
 		abort();
@@ -119,11 +119,11 @@ FUZZ_CHECK check_verdict(const char *s)
 {
 	/* A verdict is one of the declared words, whole: not a prefix of one, not an extension.
 	 * contract: data/pin.json PLUGIN_DB_PIN_VERDICTS
-	 * mutant: include/plugin-db/pin.h:179 `phd_pin_word_in(s, words, OMX_PLUGIN_DB_PIN_VERDICTS_COUNT)` -> `1`
+	 * mutant: include/plugin-db/pin.h:180 `phd_pin_word_in(s, words, OMX_PLUGIN_DB_PIN_VERDICTS_COUNT)` -> `1`
 	 * input: verdict-bogus
-	 * mutant: include/plugin-db/pin.h:179 `OMX_PLUGIN_DB_PIN_VERDICTS_COUNT` -> `OMX_PLUGIN_DB_PIN_VERDICTS_COUNT - 1`
+	 * mutant: include/plugin-db/pin.h:180 `OMX_PLUGIN_DB_PIN_VERDICTS_COUNT` -> `OMX_PLUGIN_DB_PIN_VERDICTS_COUNT - 1`
 	 * input: verdict-refused
-	 * mutant: include/plugin-db/pin.h:169 `!strcmp(s, words[n])` -> `!strncmp(s, words[n], strlen(s))`
+	 * mutant: include/plugin-db/pin.h:170 `!strcmp(s, words[n])` -> `!strncmp(s, words[n], strlen(s))`
 	 * input: verdict-prefix */
 	if (phd_pin_verdict_valid(s) != spec_member(s, spec_verdicts, 3))
 		abort();
@@ -133,9 +133,9 @@ FUZZ_CHECK check_pool(const char *s)
 {
 	/* A pool word is one of the declared words, whole.
 	 * contract: data/pin.json PLUGIN_DB_PIN_POOLS
-	 * mutant: include/plugin-db/pin.h:187 `phd_pin_word_in(s, words, OMX_PLUGIN_DB_PIN_POOLS_COUNT)` -> `1`
+	 * mutant: include/plugin-db/pin.h:188 `phd_pin_word_in(s, words, OMX_PLUGIN_DB_PIN_POOLS_COUNT)` -> `1`
 	 * input: pool-bogus
-	 * mutant: include/plugin-db/pin.h:187 `OMX_PLUGIN_DB_PIN_POOLS_COUNT` -> `OMX_PLUGIN_DB_PIN_POOLS_COUNT - 1`
+	 * mutant: include/plugin-db/pin.h:188 `OMX_PLUGIN_DB_PIN_POOLS_COUNT` -> `OMX_PLUGIN_DB_PIN_POOLS_COUNT - 1`
 	 * input: pool-off */
 	if (phd_pin_pool_valid(s) != spec_member(s, spec_pools, 2))
 		abort();
