@@ -1,11 +1,11 @@
-Breaks the check of fuzz/fuzz_digest.c:93 (`data, size` is `data, size > 1 ? size : 0` at include/plugin-db/pin.h:70).
+Breaks the check of fuzz/fuzz_digest.c:93 (`data, size` is `data, size > 1 ? size : 0` at include/plugin-db/pin.h:71).
 Caught by the seed input "chunked-1" of fuzz_digest.
 
 diff --git a/include/plugin-db/pin.h b/include/plugin-db/pin.h
-index e9304ed..beb5464 100644
+index bf3024f..2ede9d2 100644
 --- a/include/plugin-db/pin.h
 +++ b/include/plugin-db/pin.h
-@@ -67,7 +67,7 @@ static inline void phd_sha256_init(phd_sha256_t *c)
+@@ -68,7 +68,7 @@ static inline void phd_sha256_init(phd_sha256_t *c)
  
  static inline void phd_sha256_update(phd_sha256_t *c, const void *data, size_t size)
  {

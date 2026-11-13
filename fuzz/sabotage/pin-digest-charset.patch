@@ -1,11 +1,11 @@
-Breaks the check of fuzz/fuzz_pin.c:60 (`s[n] <= 'f'` is `s[n] <= 'g'` at include/plugin-db/pin.h:140).
+Breaks the check of fuzz/fuzz_pin.c:60 (`s[n] <= 'f'` is `s[n] <= 'g'` at include/plugin-db/pin.h:141).
 Caught by the seed input "digest-g" of fuzz_pin.
 
 diff --git a/include/plugin-db/pin.h b/include/plugin-db/pin.h
-index e9304ed..aeb1579 100644
+index bf3024f..ece121b 100644
 --- a/include/plugin-db/pin.h
 +++ b/include/plugin-db/pin.h
-@@ -137,7 +137,7 @@ static inline int phd_pin_hex_valid(const char *s)
+@@ -138,7 +138,7 @@ static inline int phd_pin_hex_valid(const char *s)
      int n;
  
      for (n = 0; n < PHD_SHA256_HEX_LEN; n++)

@@ -1,11 +1,11 @@
-Breaks the check of fuzz/fuzz_layout.c:213 (`!declared` is `0` at include/plugin-db/pin.h:231).
+Breaks the check of fuzz/fuzz_layout.c:213 (`!declared` is `0` at include/plugin-db/pin.h:232).
 Caught by the seed input "lv2-undeclared" of fuzz_layout.
 
 diff --git a/include/plugin-db/pin.h b/include/plugin-db/pin.h
-index e9304ed..c69f9ef 100644
+index bf3024f..59304d9 100644
 --- a/include/plugin-db/pin.h
 +++ b/include/plugin-db/pin.h
-@@ -228,7 +228,7 @@ static inline void phd_layout_number(phd_layout_sink_t sink, void *ctx, double v
+@@ -229,7 +229,7 @@ static inline void phd_layout_number(phd_layout_sink_t sink, void *ctx, double v
      uint64_t bits;
      int n;
  

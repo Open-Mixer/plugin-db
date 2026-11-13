@@ -1,11 +1,11 @@
-Breaks the check of fuzz/fuzz_digest.c:134 (`EVP_MD_CTX_free(c->ctx);` is dropped at include/plugin-db/pin.h:76).
+Breaks the check of fuzz/fuzz_digest.c:134 (`EVP_MD_CTX_free(c->ctx);` is dropped at include/plugin-db/pin.h:77).
 Caught by the seed input "abandoned" of fuzz_digest.
 
 diff --git a/include/plugin-db/pin.h b/include/plugin-db/pin.h
-index e9304ed..93bd62c 100644
+index bf3024f..1f64455 100644
 --- a/include/plugin-db/pin.h
 +++ b/include/plugin-db/pin.h
-@@ -73,7 +73,6 @@ static inline void phd_sha256_update(phd_sha256_t *c, const void *data, size_t s
+@@ -74,7 +74,6 @@ static inline void phd_sha256_update(phd_sha256_t *c, const void *data, size_t s
  /* a digest given up before its end: its context freed */
  static inline void phd_sha256_abandon(phd_sha256_t *c)
  {
