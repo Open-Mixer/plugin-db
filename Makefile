@@ -16,7 +16,7 @@ DATADIR = $(PREFIX)/share
 MANDIR = $(DATADIR)/man
 
 HEADERS = include/plugin-db/pin.h include/plugin-db/plugin_db_vocabulary.h include/plugin-db/db.h \
-          include/plugin-db/plugin_db_tables.h
+          include/plugin-db/plugin_db_tables.h include/plugin-db/plugin_db_constants.h
 
 CFLAGS ?= -O2 -g
 CFLAGS += -Wall -Wextra -std=gnu99 -D_GNU_SOURCE
@@ -70,7 +70,7 @@ install-python:
 # ---------------------------------------------------------------------------------------------------------------------
 # tests: no plugin, no daemon
 
-test: test-pin check-tables check-ts test-py test-state test-collect test-store test-golden test-install test-sabotage test-db-sabotage test-abi version-check
+test: test-constants-alone test-pin check-tables check-ts test-py test-state test-collect test-store test-golden test-install test-sabotage test-db-sabotage test-abi version-check
 
 tests/pin_test: tests/pin_test.c $(HEADERS)
 	$(CC) -Iinclude $(CRYPTO_CFLAGS) $(CFLAGS) -Werror -o $@ tests/pin_test.c $(CRYPTO_LIBS)
@@ -139,6 +139,15 @@ test-db-sabotage:
 test-asan:
 	$(MAKE) --no-print-directory BUILD=build/asan CFLAGS="-O1 -g -fsanitize=address,undefined -fno-omit-frame-pointer \
 	  -fno-sanitize-recover=all" LDFLAGS="-fsanitize=address,undefined" test-state test-collect test-store test-golden
+
+# the constants header alone, with an OpenSSL header that fails put before the system's: a consumer that needs a digest's
+# hex length and no digest builds without OpenSSL; and that length is SHA-256's, under the name pin.h gives it too
+test-constants-alone:
+	@mkdir -p $(BUILD)
+	$(CC) -Iinclude -Itests/no-openssl $(CFLAGS) -Werror -o $(BUILD)/constants_alone tests/constants_alone.c
+	$(BUILD)/constants_alone
+	$(CC) -Iinclude $(CRYPTO_CFLAGS) $(CFLAGS) -Werror -fsyntax-only tests/sha256_hex_len.c
+	@echo "ok   the constants header alone gives a digest's hex length, with no OpenSSL; it is SHA-256's, as pin.h names it"
 
 # a consumer compiled and linked with what pkg-config plugin-db says of a scratch install, and nothing else
 test-install:
