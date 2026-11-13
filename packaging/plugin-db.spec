@@ -95,6 +95,7 @@ make test
 %{_includedir}/plugin-db/pin.h
 %{_includedir}/plugin-db/db.h
 %{_includedir}/plugin-db/plugin_db_vocabulary.h
+%{_includedir}/plugin-db/plugin_db_constants.h
 %{_includedir}/plugin-db/plugin_db_tables.h
 %{_libdir}/libplugin-db.a
 %{_libdir}/pkgconfig/plugin-db.pc

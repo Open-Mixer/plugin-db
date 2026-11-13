@@ -44,12 +44,13 @@
 
 #include <openssl/evp.h>
 
+#include <plugin-db/plugin_db_constants.h>
 #include <plugin-db/plugin_db_vocabulary.h>
 
 #define PHD_PIN_LAYOUT_SCHEME "omx-layout/1"
 #define PHD_PIN_LAYOUT_CLAP   OMX_PLUGIN_DB_PIN_LAYOUT_FORMATS_CLAP
 #define PHD_PIN_LAYOUT_LV2    OMX_PLUGIN_DB_PIN_LAYOUT_FORMATS_LV2
-#define PHD_SHA256_HEX_LEN    64
+#define PHD_SHA256_HEX_LEN    OMX_PLUGIN_DB_PIN_SHA256_HEX_LEN
 
 /* ---------------------------------------------------------------- SHA-256 (OpenSSL's libcrypto) */
 

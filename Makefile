@@ -16,7 +16,7 @@ DATADIR = $(PREFIX)/share
 MANDIR = $(DATADIR)/man
 
 HEADERS = include/plugin-db/pin.h include/plugin-db/plugin_db_vocabulary.h include/plugin-db/db.h \
-          include/plugin-db/plugin_db_tables.h
+          include/plugin-db/plugin_db_tables.h include/plugin-db/plugin_db_constants.h
 
 CFLAGS ?= -O2 -g
 CFLAGS += -Wall -Wextra -std=gnu99 -D_GNU_SOURCE
