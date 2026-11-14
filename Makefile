@@ -174,12 +174,16 @@ version-check:
 #   check-rendered      plugin_db_vocabulary.h is what omx-contract renders from data/
 #   test-rendered-sabotage  check-rendered fails on a header changed by hand and on data/ not rendered again
 #   check-contract-dir  data/ as a package validates with the installed contract directory, and catalogs/ against it
+#   check-ci-matrix     no CI matrix names bookworm by hand: the cells follow OMX_RELEASE_MATRIX (ruling D25), self-tested
 OMX_CONTRACT ?= omx-contract
 CONTRACT_SCHEMA_MAJOR = 3
 CONTRACTDIR = $(or $(shell $(PKG_CONFIG) --variable=contractdir omx-contract 2>/dev/null),$(DATADIR)/omx-contract/contract.d)
 INSTALL_CONTRACT_DIR = $(firstword $(wildcard $(shell $(PKG_CONFIG) --variable=datadir omx-contract 2>/dev/null)/install-contract-dir.sh) $(wildcard $(OMX_CONTRACT_DIR)/tools/install-contract-dir.sh))
 
-check-tools: check-rendered test-rendered-sabotage check-contract-dir
+check-tools: check-rendered test-rendered-sabotage check-contract-dir check-ci-matrix
+
+check-ci-matrix:
+	sh tests/ci-matrix-follows-set.sh --self-test
 
 # data/store.schema.json is a JSON Schema of the store, not a file of omx-contract's: it is installed to
 # $(DATADIR)/plugin-db/, never into the contract directory
@@ -320,5 +324,5 @@ clean:
 	rm -rf build tests/pin_test
 
 .PHONY: all install test test-pin check-tables render-tables test-state test-collect test-store test-db-sabotage test-asan test-golden check-ts render-ts test-twin check-py render-py test-py install-python \
-        test-install test-sabotage test-abi abi-layout abi-baseline abi-check version-check check-tools install-contract check-contract-dir \
+        test-install test-sabotage test-abi abi-layout abi-baseline abi-check version-check check-tools check-ci-matrix install-contract check-contract-dir \
         test-rendered-sabotage render-words check-rendered fuzz fuzz-run fuzz-sabotage fuzz-records fuzz-coverage fuzz-corpus fuzz-corpus-check clean

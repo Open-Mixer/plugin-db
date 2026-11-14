@@ -1,5 +1,5 @@
 Name: plugin-db
-Version: 0.4.3
+Version: 0.4.4
 Release: 1%{?dist}
 License: GPL-3.0-or-later
 Summary: The plugin database: the pin, the address form, the store and the state
@@ -13,9 +13,9 @@ BuildRequires: pkgconfig
 BuildRequires: python3
 BuildRequires: python3-devel
 BuildRequires: pkgconfig(libcrypto)
-BuildRequires: (plugin-hostd-protocol-devel >= 0.5.2 with plugin-hostd-protocol-devel < 0.6)
+BuildRequires: (plugin-hostd-protocol-devel >= 0.5.8 with plugin-hostd-protocol-devel < 0.6)
 # install-contract writes the contract directory's package with omx-contract's script
-BuildRequires: (omx-contract-devel >= 3.17.0 with omx-contract-devel < 4)
+BuildRequires: (omx-contract-devel >= 3.18.0 with omx-contract-devel < 4)
 
 %description
 plugin-db is the plugin database, in layers: the pin of a plugin, the one
@@ -38,7 +38,7 @@ Its documentation is on openmixer.org.
 
 %package contract
 Summary: The words of the plugin database in omx-contract's contract directory
-Requires: (omx-contract >= 3.17.0 with omx-contract < 4)
+Requires: (omx-contract >= 3.18.0 with omx-contract < 4)
 
 %description contract
 data/pin.json of plugin-db, the words of a pin, and data/db.json, the address
@@ -56,7 +56,7 @@ Requires: python3
 Requires: plugin-db = %{version}-%{release}
 Requires: plugin-db-contract = %{version}-%{release}
 # the catalog reader of text() (a catalog entry with its provenance, a stale one skipped)
-Requires: (omx-contract-data >= 3.17.0 with omx-contract-data < 4)
+Requires: (omx-contract-data >= 3.18.0 with omx-contract-data < 4)
 
 %description -n python3-plugin-db
 The Python module plugin_db: query() gives the answer of plugin-db query --json
@@ -196,6 +196,12 @@ English source sentence.
 # END langpacks
 
 %changelog
+* Fri Nov 13 2026 Pau Aliagas <linuxnow@gmail.com> - 0.4.4-1
+- Built against omx-contract >= 3.18.0 and below 4 (was 3.17.0), and plugin-
+  hostd-protocol >= 0.5.8 and below 0.6 (was 0.5.2): every dependency at its
+  newest served version, with its ceiling (D30). The CI jobs state the same.
+- The organisation's name: FreeMixer becomes Open-Mixer and OpenMixer.
+
 * Fri Nov 13 2026 Pau Aliagas <linuxnow@gmail.com> - 0.4.3-1
 - debian: python3-plugin-db's dependency on plugin-db has its ceiling (<< 0.5)
   beside its floor, as every dependency between this source's packages does

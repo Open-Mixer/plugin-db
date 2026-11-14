@@ -25,7 +25,9 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        image: ['fedora:44', 'debian:bookworm', 'debian:trixie']
+        # ruling D25: while the org's OMX_RELEASE_MATRIX is quick, CI covers the quick cells only; bookworm is a full
+        # cell, served its floors only at the wave-end full release, so it joins the matrix when the variable is full
+        image: ${{ fromJSON(vars.OMX_RELEASE_MATRIX == 'full' && '["fedora:44", "debian:bookworm", "debian:trixie"]' || '["fedora:44", "debian:trixie"]') }}
     # privileged only to lower the runner kernel's mmap_rnd_bits: with the hosted image's 32 bits, bookworm's gcc 12
     # AddressSanitizer dies in DEADLYSIGNAL loops until the timeout (newer libasan copes)
     container:
@@ -49,19 +51,19 @@ jobs:
       # the pin path codec is plugin-hostd-protocol's (phd_pin_path_*, header inline)
       - name: plugin-hostd-protocol's headers
         run: |
-          if command -v dnf >/dev/null; then dnf -y install 'plugin-hostd-protocol-devel >= 0.5.0' 'plugin-hostd-protocol-devel < 0.6'
+          if command -v dnf >/dev/null; then dnf -y install 'plugin-hostd-protocol-devel >= 0.5.8' 'plugin-hostd-protocol-devel < 0.6'
           else apt-get -y install --no-install-recommends libplugin-hostd-protocol-dev
             v=$(dpkg-query -W -f='${Version}' libplugin-hostd-protocol-dev)
-            dpkg --compare-versions "$v" ge 0.5.0~ && dpkg --compare-versions "$v" lt 0.6~ || { echo "libplugin-hostd-protocol-dev $v is outside 0.5.0..0.6"; exit 1; }
+            dpkg --compare-versions "$v" ge 0.5.8~ && dpkg --compare-versions "$v" lt 0.6~ || { echo "libplugin-hostd-protocol-dev $v is outside 0.5.8..0.6"; exit 1; }
           fi
       # text() reads the catalogs through omx-contract's reader, /usr/share/omx-contract/omx_contract_catalog.py, which
-      # omx-contract-data ships: python3-plugin-db's floor, >= 3.17.0 and < 4
+      # omx-contract-data ships: python3-plugin-db's floor, >= 3.18.0 and < 4
       - name: omx-contract's catalog reader
         run: |
-          if command -v dnf >/dev/null; then dnf -y install 'omx-contract-data >= 3.17.0' 'omx-contract-data < 4'
+          if command -v dnf >/dev/null; then dnf -y install 'omx-contract-data >= 3.18.0' 'omx-contract-data < 4'
           else apt-get -y install --no-install-recommends omx-contract-data
             v=$(dpkg-query -W -f='${Version}' omx-contract-data)
-            dpkg --compare-versions "$v" ge 3.17.0~ && dpkg --compare-versions "$v" lt 4~ || { echo "omx-contract-data $v is outside 3.17.0..4"; exit 1; }
+            dpkg --compare-versions "$v" ge 3.18.0~ && dpkg --compare-versions "$v" lt 4~ || { echo "omx-contract-data $v is outside 3.18.0..4"; exit 1; }
           fi
           test -f /usr/share/omx-contract/omx_contract_catalog.py
       - name: Tests (known answers, the derived tables, the state by table, the collection, the store, a consumer of an install, the sabotage arms, the version)
@@ -84,7 +86,7 @@ jobs:
       - name: Add the OpenMixer channel
         uses: Open-Mixer/.github/.github/actions/add-openmixer@openmixer-v1
       - name: plugin-hostd-protocol's headers
-        run: dnf -y install 'plugin-hostd-protocol-devel >= 0.5.0' 'plugin-hostd-protocol-devel < 0.6'
+        run: dnf -y install 'plugin-hostd-protocol-devel >= 0.5.8' 'plugin-hostd-protocol-devel < 0.6'
       - name: Node is in the twin's range
         run: node -e 'const [a,b]=process.versions.node.split(".").map(Number); if (a>=25 || a<22 || (a==22 && b<18)) { console.error("node " + process.version + " is outside 22.18 .. 24"); process.exit(1) }'
       - name: make test-twin
@@ -108,7 +110,7 @@ jobs:
       # a dedupe/all run builds on its siblings' dedupe/all (.github/wave-deps); @main until Open-Mixer/.github moves v1 past it
       - uses: Open-Mixer/.github/.github/actions/wave-deps@openmixer-v1
       - name: omx-contract
-        run: dnf -y install 'omx-contract >= 3.17.0' 'omx-contract < 4' 'omx-contract-devel >= 3.17.0' 'omx-contract-devel < 4'
+        run: dnf -y install 'omx-contract >= 3.18.0' 'omx-contract < 4' 'omx-contract-devel >= 3.18.0' 'omx-contract-devel < 4'
       - name: make check-tools
         run: make check-tools
       # one pack per listed language from the spec and debian/control, and the catalogs through omx-contract's release
