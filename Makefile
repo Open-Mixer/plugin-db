@@ -153,6 +153,7 @@ test-constants-alone:
 # no dependency of debian/control carries a ceiling (floors only), self-tested
 check-control:
 	sh tests/control-ceilings.sh --self-test
+	sh tests/dep-shape.sh --self-test
 
 test-install:
 	sh tests/install-check.sh
