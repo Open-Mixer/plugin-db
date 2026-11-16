@@ -155,6 +155,18 @@ check-control:
 	sh tests/control-ceilings.sh --self-test
 	sh tests/dep-shape.sh --self-test
 
+# the dependency floors are declared once, in packaging/deps.txt (floors only); the engine is Open-Mixer/.github's
+# deps-render (CI runs it as that action): locally name a checkout of it, make deps-check DOTGITHUB=<dir>;
+# make deps writes the floors into the spec and debian/control
+DOTGITHUB ?=
+.PHONY: deps deps-check
+deps:
+	@test -n "$(DOTGITHUB)" || { echo "$@: name a checkout of Open-Mixer/.github: make $@ DOTGITHUB=<dir>" >&2; exit 2; }
+	$(DOTGITHUB)/.github/actions/deps-render/render.sh --write .
+deps-check:
+	@test -n "$(DOTGITHUB)" || { echo "$@: name a checkout of Open-Mixer/.github: make $@ DOTGITHUB=<dir>" >&2; exit 2; }
+	$(DOTGITHUB)/.github/actions/deps-render/render.sh --check .
+
 test-install:
 	sh tests/install-check.sh
 

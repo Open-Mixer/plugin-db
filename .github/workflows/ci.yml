@@ -99,6 +99,8 @@ jobs:
       - uses: actions/checkout@v4
       - name: Trust the checkout
         run: git config --global --add safe.directory "$GITHUB_WORKSPACE"
+      # the floors packaging/deps.txt declares are the ones the spec and debian/control state, with no ceiling
+      - uses: Open-Mixer/.github/.github/actions/deps-render@openmixer-v1
       - name: Add the OpenMixer channel
         uses: Open-Mixer/.github/.github/actions/add-openmixer@openmixer-v1
       # a dedupe/all run builds on its siblings' dedupe/all (.github/wave-deps); @main until Open-Mixer/.github moves v1 past it
