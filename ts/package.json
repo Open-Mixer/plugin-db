@@ -1,5 +1,5 @@
 {
-  "name": "@freemixer/plugin-db",
+  "name": "@openmixer/plugin-db",
   "private": true,
   "description": "The TypeScript twin of plugin-db's reader: the same answer as the C reader and `plugin-db query --json`, held equal by tests/golden/.",
   "license": "GPL-3.0-or-later",
