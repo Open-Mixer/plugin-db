@@ -13,9 +13,9 @@ BuildRequires: pkgconfig
 BuildRequires: python3
 BuildRequires: python3-devel
 BuildRequires: pkgconfig(libcrypto)
-BuildRequires: (plugin-hostd-protocol-devel >= 0.5.8 with plugin-hostd-protocol-devel < 0.6)
+BuildRequires: plugin-hostd-protocol-devel >= 0.5.8
 # install-contract writes the contract directory's package with omx-contract's script
-BuildRequires: (omx-contract-devel >= 3.18.0 with omx-contract-devel < 4)
+BuildRequires: omx-contract-devel >= 3.18.0
 
 %description
 plugin-db is the plugin database, in layers: the pin of a plugin, the one
@@ -38,7 +38,7 @@ Its documentation is on openmixer.org.
 
 %package contract
 Summary: The words of the plugin database in omx-contract's contract directory
-Requires: (omx-contract >= 3.18.0 with omx-contract < 4)
+Requires: omx-contract >= 3.18.0
 
 %description contract
 data/pin.json of plugin-db, the words of a pin, and data/db.json, the address
@@ -56,7 +56,7 @@ Requires: python3
 Requires: plugin-db = %{version}-%{release}
 Requires: plugin-db-contract = %{version}-%{release}
 # the catalog reader of text() (a catalog entry with its provenance, a stale one skipped)
-Requires: (omx-contract-data >= 3.18.0 with omx-contract-data < 4)
+Requires: omx-contract-data >= 3.18.0
 
 %description -n python3-plugin-db
 The Python module plugin_db: query() gives the answer of plugin-db query --json
