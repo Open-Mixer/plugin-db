@@ -153,6 +153,7 @@ test-constants-alone:
 # every dependency between this source's packages carries a ceiling (R-107), self-tested
 check-control:
 	sh tests/control-ceilings.sh --self-test
+	sh tests/dep-shape.sh --self-test
 
 test-install:
 	sh tests/install-check.sh
