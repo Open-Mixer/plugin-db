@@ -150,7 +150,7 @@ test-constants-alone:
 	@echo "ok   the constants header alone gives a digest's hex length, with no OpenSSL; it is SHA-256's, as pin.h names it"
 
 # a consumer compiled and linked with what pkg-config plugin-db says of a scratch install, and nothing else
-# every dependency between this source's packages carries a ceiling (R-107), self-tested
+# no dependency of debian/control carries a ceiling (floors only), self-tested
 check-control:
 	sh tests/control-ceilings.sh --self-test
 	sh tests/dep-shape.sh --self-test

@@ -13,7 +13,7 @@ BuildRequires: pkgconfig
 BuildRequires: python3
 BuildRequires: python3-devel
 BuildRequires: pkgconfig(libcrypto)
-BuildRequires: (plugin-hostd-protocol-devel >= 0.5.8 with plugin-hostd-protocol-devel < 0.6)
+BuildRequires: plugin-hostd-protocol-devel >= 0.5.8
 # install-contract writes the contract directory's package with omx-contract's script
 BuildRequires: omx-contract-devel >= 3.19.0
 
