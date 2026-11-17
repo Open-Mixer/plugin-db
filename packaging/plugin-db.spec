@@ -1,5 +1,5 @@
 Name: plugin-db
-Version: 0.4.4
+Version: 0.4.5
 Release: 1%{?dist}
 License: GPL-3.0-or-later
 Summary: The plugin database: the pin, the address form, the store and the state
@@ -15,7 +15,7 @@ BuildRequires: python3-devel
 BuildRequires: pkgconfig(libcrypto)
 BuildRequires: (plugin-hostd-protocol-devel >= 0.5.8 with plugin-hostd-protocol-devel < 0.6)
 # install-contract writes the contract directory's package with omx-contract's script
-BuildRequires: (omx-contract-devel >= 3.18.0 with omx-contract-devel < 4)
+BuildRequires: omx-contract-devel >= 3.19.0
 
 %description
 plugin-db is the plugin database, in layers: the pin of a plugin, the one
@@ -38,7 +38,7 @@ Its documentation is on openmixer.org.
 
 %package contract
 Summary: The words of the plugin database in omx-contract's contract directory
-Requires: (omx-contract >= 3.18.0 with omx-contract < 4)
+Requires: omx-contract >= 3.19.0
 
 %description contract
 data/pin.json of plugin-db, the words of a pin, and data/db.json, the address
@@ -56,7 +56,7 @@ Requires: python3
 Requires: plugin-db = %{version}-%{release}
 Requires: plugin-db-contract = %{version}-%{release}
 # the catalog reader of text() (a catalog entry with its provenance, a stale one skipped)
-Requires: (omx-contract-data >= 3.18.0 with omx-contract-data < 4)
+Requires: omx-contract-data >= 3.19.0
 
 %description -n python3-plugin-db
 The Python module plugin_db: query() gives the answer of plugin-db query --json
@@ -196,6 +196,15 @@ English source sentence.
 # END langpacks
 
 %changelog
+* Tue Nov 17 2026 Pau Aliagas <linuxnow@gmail.com> - 0.4.5-1
+- Built against and requires omx-contract >= 3.19.0, a floor with no ceiling.
+- CI: fast checks alone on a pull request, the heavy workflows by dispatch and
+  tags (#27).
+- A dependency between this source's packages has one shape in the spec and in
+  debian/control (#29): python3-plugin-db depends on plugin-db exactly.
+- The Python sabotage arm of the English read bites against omx-contract 3.19.0,
+  whose reader gives a bare-string entry no sentence (#35).
+
 * Fri Nov 13 2026 Pau Aliagas <linuxnow@gmail.com> - 0.4.4-1
 - Built against omx-contract >= 3.18.0 and below 4 (was 3.17.0), and plugin-
   hostd-protocol >= 0.5.8 and below 0.6 (was 0.5.2): every dependency at its
