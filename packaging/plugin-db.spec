@@ -38,7 +38,7 @@ Its documentation is on openmixer.org.
 
 %package contract
 Summary: The words of the plugin database in omx-contract's contract directory
-Requires: omx-contract >= 3.18.0
+Requires: omx-contract >= 3.18.0, omx-contract < 4
 
 %description contract
 data/pin.json of plugin-db, the words of a pin, and data/db.json, the address
