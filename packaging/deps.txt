@@ -8,6 +8,5 @@
 #
 # <rpm name>                  <deb name>                   <floor>
 omx-contract                  omx-contract                 3.18.0
-omx-contract-data             omx-contract-data            3.18.0
 omx-contract-devel            libomx-contract-dev          3.18.0
 plugin-hostd-protocol-devel   libplugin-hostd-protocol-dev 0.5.8
