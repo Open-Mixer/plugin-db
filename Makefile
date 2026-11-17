@@ -150,10 +150,21 @@ test-constants-alone:
 	@echo "ok   the constants header alone gives a digest's hex length, with no OpenSSL; it is SHA-256's, as pin.h names it"
 
 # a consumer compiled and linked with what pkg-config plugin-db says of a scratch install, and nothing else
-# every dependency between this source's packages carries a ceiling (R-107), self-tested
+# a dependency between this source's packages has one shape in both formats, self-tested
 check-control:
-	sh tests/control-ceilings.sh --self-test
 	sh tests/dep-shape.sh --self-test
+
+# the dependency floors are declared once, in packaging/deps.txt (floors only); the engine is Open-Mixer/.github's
+# deps-render (CI runs it as that action): locally name a checkout of it, make deps-check DOTGITHUB=<dir>;
+# make deps writes the floors into the spec and debian/control
+DOTGITHUB ?=
+.PHONY: deps deps-check
+deps:
+	@test -n "$(DOTGITHUB)" || { echo "$@: name a checkout of Open-Mixer/.github: make $@ DOTGITHUB=<dir>" >&2; exit 2; }
+	$(DOTGITHUB)/.github/actions/deps-render/render.sh --write .
+deps-check:
+	@test -n "$(DOTGITHUB)" || { echo "$@: name a checkout of Open-Mixer/.github: make $@ DOTGITHUB=<dir>" >&2; exit 2; }
+	$(DOTGITHUB)/.github/actions/deps-render/render.sh --check .
 
 test-install:
 	sh tests/install-check.sh
