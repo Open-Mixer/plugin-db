@@ -51,13 +51,13 @@ jobs:
             dpkg --compare-versions "$v" ge 0.5.9~ || { echo "libplugin-hostd-protocol-dev $v is below 0.5.9"; exit 1; }
           fi
       # text() reads the catalogs through omx-contract's reader, /usr/share/omx-contract/omx_contract_catalog.py, which
-      # omx-contract-data ships: python3-plugin-db's floor, >= 3.19.0
+      # omx-contract-data ships: python3-plugin-db's floor, >= 3.20.0
       - name: omx-contract's catalog reader
         run: |
-          if command -v dnf >/dev/null; then dnf -y install 'omx-contract-data >= 3.19.0'
+          if command -v dnf >/dev/null; then dnf -y install 'omx-contract-data >= 3.20.0'
           else apt-get -y install --no-install-recommends omx-contract-data
             v=$(dpkg-query -W -f='${Version}' omx-contract-data)
-            dpkg --compare-versions "$v" ge 3.19.0~ || { echo "omx-contract-data $v is below 3.19.0"; exit 1; }
+            dpkg --compare-versions "$v" ge 3.20.0~ || { echo "omx-contract-data $v is below 3.20.0"; exit 1; }
           fi
           test -f /usr/share/omx-contract/omx_contract_catalog.py
       - name: Tests (known answers, the derived tables, the state by table, the collection, the store, a consumer of an install, the sabotage arms, the version)
@@ -104,7 +104,7 @@ jobs:
       # a dedupe/all run builds on its siblings' dedupe/all (.github/wave-deps); @main until Open-Mixer/.github moves v1 past it
       - uses: Open-Mixer/.github/.github/actions/wave-deps@openmixer-v1
       - name: omx-contract
-        run: dnf -y install 'omx-contract >= 3.19.0' 'omx-contract-devel >= 3.19.0'
+        run: dnf -y install 'omx-contract >= 3.20.0' 'omx-contract-devel >= 3.20.0'
       - name: make check-tools
         run: make check-tools
       # one pack per listed language from the spec and debian/control, and the catalogs through omx-contract's release
