@@ -52,7 +52,12 @@ class Text(unittest.TestCase):
     def test_english_is_never_a_catalog_s(self):
         with tempfile.TemporaryDirectory() as d:
             key = f"PLUGIN_DB_REASONS.{v.reasons.noCell}"
-            write(os.path.join(d, "en.json"), json.dumps({"kind": "catalog", "lang": "en", "messages": {key: "other"}}))
+            # an entry is {text, by} (omx-contract 3.16.0); the reader gives a bare string no sentence, so only an entry
+            # the reader would read makes the catalog differ from the source
+            write(os.path.join(d, "en.json"), json.dumps({"kind": "catalog", "lang": "en", "messages": {key: {"text": "other", "by": "owner"}}}))
+            self.assertEqual(text(v.reasons, v.reasons.noCell, "xx", d), text(v.reasons, v.reasons.noCell))
+            write(os.path.join(d, "xx.json"), json.dumps({"kind": "catalog", "lang": "xx", "messages": {key: {"text": "other", "by": "owner"}}}))
+            self.assertEqual(text(v.reasons, v.reasons.noCell, "xx", d), "other", "the fixture entry is one the reader reads")
             self.assertEqual(text(v.reasons, v.reasons.noCell, "en", d), self.db["PLUGIN_DB_REASONS"]["words"]["noCell"]["text"]["en"])
 
     def test_a_word_that_is_not_the_item_s_is_refused(self):
