@@ -1,5 +1,5 @@
 Name: plugin-db
-Version: 0.4.6
+Version: 0.4.7
 Release: 1%{?dist}
 License: GPL-3.0-or-later
 Summary: The plugin database: the pin, the address form, the store and the state
@@ -207,6 +207,13 @@ English source sentence.
 # END langpacks
 
 %changelog
+* Thu Nov 19 2026 Pau Aliagas <linuxnow@gmail.com> - 0.4.7-1
+- Everything merged since 0.4.6: the store schema $id moves to
+  https://openmixer.org/schema/plugin-db/store.schema.json (#41); the address
+  formats are published as the plugin-db domain, read through libomx-domain
+  (#47). Floors unchanged from main: omx-contract 3.20.0, libomx-domain 3.20.0,
+  plugin-hostd-protocol 0.5.8
+
 * Thu Nov 19 2026 Pau Aliagas <linuxnow@gmail.com> - 0.4.6-1
 - Built against omx-contract >= 3.19.1 (was 3.19.0); plugin-hostd-protocol
   stays at >= 0.5.8. The floors are declared once, in packaging/deps.txt, and
