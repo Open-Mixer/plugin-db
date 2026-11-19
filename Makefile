@@ -192,7 +192,7 @@ CONTRACT_SCHEMA_MAJOR = 3
 CONTRACTDIR = $(or $(shell $(PKG_CONFIG) --variable=contractdir omx-contract 2>/dev/null),$(DATADIR)/omx-contract/contract.d)
 INSTALL_CONTRACT_DIR = $(firstword $(wildcard $(shell $(PKG_CONFIG) --variable=datadir omx-contract 2>/dev/null)/install-contract-dir.sh) $(wildcard $(OMX_CONTRACT_DIR)/tools/install-contract-dir.sh))
 
-check-tools: check-rendered test-rendered-sabotage check-contract-dir test-domain check-ci-matrix
+check-tools: check-rendered check-domain test-rendered-sabotage check-contract-dir test-domain check-ci-matrix
 
 check-ci-matrix:
 	sh tests/ci-matrix-follows-set.sh --self-test
@@ -206,6 +206,7 @@ CONTRACT_EXCLUDE = -x store.schema.json
 install-contract:
 	@test -n "$(INSTALL_CONTRACT_DIR)" || { echo "install-contract: no install-contract-dir.sh: install omx-contract-devel, or set OMX_CONTRACT_DIR to a checkout" >&2; exit 1; }
 	sh $(INSTALL_CONTRACT_DIR) $(CONTRACT_EXCLUDE) $(NAME) $(VERSION) $(CONTRACT_SCHEMA_MAJOR) data $(DESTDIR)$(CONTRACTDIR) data
+	sh $(INSTALL_CONTRACT_DIR) --domain contract.d/plugin-db $(DESTDIR)$(CONTRACTDIR)
 	install -d $(DESTDIR)$(DATADIR)/$(NAME)/catalogs
 	install -m 644 catalogs/*.json $(DESTDIR)$(DATADIR)/$(NAME)/catalogs/
 
@@ -217,6 +218,16 @@ check-contract-dir:
 
 test-rendered-sabotage:
 	sh tests/rendered-sabotage.sh
+
+# contract.d/plugin-db/plugin-db.json is what tools/render-domain.py derives from data/db.json (python3 only)
+check-domain:
+	python3 tools/render-domain.py --check data contract.d/plugin-db/plugin-db.json
+	$(OMX_CONTRACT) fmt --check --contract-dir contract.d
+	$(OMX_CONTRACT) validate --contract-dir contract.d
+
+render-domain:
+	@mkdir -p contract.d/plugin-db
+	python3 tools/render-domain.py data contract.d/plugin-db/plugin-db.json
 
 # the formats domain: installed, opened by the loader (omx-domain), clap and lv2; check-domain's arms
 test-domain:
@@ -341,4 +352,4 @@ clean:
 
 .PHONY: all install test test-pin check-tables render-tables test-state test-collect test-store test-db-sabotage test-asan test-golden check-ts render-ts test-twin check-py render-py test-py install-python \
         test-install test-sabotage test-abi abi-layout abi-baseline abi-check version-check check-tools check-ci-matrix install-contract check-contract-dir \
-        test-rendered-sabotage test-domain render-words check-rendered fuzz fuzz-run fuzz-sabotage fuzz-records fuzz-coverage fuzz-corpus fuzz-corpus-check clean
+        test-rendered-sabotage test-domain check-domain render-domain render-words check-rendered fuzz fuzz-run fuzz-sabotage fuzz-records fuzz-coverage fuzz-corpus fuzz-corpus-check clean

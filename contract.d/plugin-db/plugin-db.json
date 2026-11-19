@@ -1,0 +1,32 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://openmixer.org/contract/plugin-db",
+  "info": {
+    "title": "The words of the plugin database",
+    "version": "1.0.0",
+    "x-owner": "plugin-db",
+    "x-stability": "experimental"
+  },
+  "components": {
+    "schemas": {
+      "PLUGIN_DB_ADDRESS_FORMATS": {
+        "description": "The one address form of a plugin: <format>:<id>, or clap@<sha256>:<id> when several files share one CLAP id, the sha256 that of the .clap file. An LV2 address carries no sha256: the bundle rule makes one bundle the plugin. A path is never part of an address, so a session keeps its plugins on another machine. The format is one of these words; an id is the plugin's own, its CLAP id or its LV2 URI, and a CLAP id that begins with '/' is a path and no address.",
+        "x-since": "0.2.0",
+        "oneOf": [
+          {
+            "const": "clap",
+            "title": "clap",
+            "description": "a CLAP plugin: the id is the plugin descriptor's id",
+            "x-code": 0
+          },
+          {
+            "const": "lv2",
+            "title": "lv2",
+            "description": "an LV2 plugin: the id is the plugin's URI",
+            "x-code": 1
+          }
+        ]
+      }
+    }
+  }
+}
