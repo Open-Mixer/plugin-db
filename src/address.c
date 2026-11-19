@@ -3,6 +3,8 @@
 
 /* The one address form of PLUGIN_DB_ADDRESS_FORMATS: <format>:<id> or <format>@<sha256>:<id>. */
 
+#include <pthread.h>
+#include <stdio.h>
 #include <string.h>
 
 #include <plugin-db/db.h>
@@ -31,20 +33,37 @@ int pdb_formats_load(const omx_domain *domain)
     return 0;
 }
 
-/* the library entry: the installed directory, never OMX_CONTRACT_PATH */
-static int formats_ready(void)
+/* the library entry: the installed directory, never OMX_CONTRACT_PATH, opened once whatever the number of threads; what
+ * pdb_formats_load already took is kept, and the reason of a failure is kept for pdb_formats_why */
+static pthread_once_t g_once = PTHREAD_ONCE_INIT;
+static char g_why[320];
+
+static void open_installed(void)
 {
     omx_domain *d = NULL;
     omx_domain_error err;
-    int rc;
 
     if (g_formats[0][0])
-        return 1;
+        return;
     if (omx_domain_open("plugin-db", "1.0.0", &d, &err) != 0)
-        return 0;
-    rc = pdb_formats_load(d) == 0;
+    {
+        snprintf(g_why, sizeof(g_why), "%s: %s", err.code, err.message);
+        return;
+    }
+    if (pdb_formats_load(d) != 0)
+        snprintf(g_why, sizeof(g_why), "it does not hold PLUGIN_DB_ADDRESS_FORMATS as two words, in the order of its codes");
     omx_domain_close(d);
-    return rc;
+}
+
+static int formats_ready(void)
+{
+    pthread_once(&g_once, open_installed);
+    return g_formats[0][0] != '\0';
+}
+
+const char *pdb_formats_why(void)
+{
+    return g_why[0] ? g_why : "no reason: the formats were handed over";
 }
 
 const char *pdb_format_word(int format)
@@ -65,8 +84,10 @@ int pdb_address_parse(const char *text, pdb_address_t *a)
 
     memset(a, 0, sizeof(*a));
     a->format = -1;
-    if (!colon || !formats_ready())
+    if (!colon)
         return -1;
+    if (!formats_ready())
+        return PDB_ERR_FORMATS;
     at = memchr(text, '@', (size_t)(colon - text));
     len = (size_t)((at ? at : colon) - text);
     for (n = 0; n < (int)OMX_PLUGIN_DB_ADDRESS_FORMATS_COUNT; n++)

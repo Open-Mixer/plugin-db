@@ -504,6 +504,8 @@ static int find_clap(void *ctx, const char *address)
     find_t *f = ctx;
     pdb_address_t a;
 
+    /* resolve parsed the address asked for first, so the formats are read: a non-zero result here is only an entry whose
+     * name is no address, and it is skipped */
     if (pdb_address_parse(address, &a) == 0 && a.format == OMX_PLUGIN_DB_ADDRESS_FORMATS_CLAP && a.pin[0] &&
         !strcmp(a.id, f->id))
     {
@@ -511,6 +513,13 @@ static int find_clap(void *ctx, const char *address)
             snprintf(f->address, sizeof(f->address), "%s", address);
     }
     return 0;
+}
+
+/* the words of the formats could not be read: PDB_ERR_FORMATS, with the reason naming the domain */
+static int formats_down(char *why, size_t size)
+{
+    say(why, size, "the domain plugin-db could not be read: %s", pdb_formats_why());
+    return PDB_ERR_FORMATS;
 }
 
 /* the entry of an address: its own, or for clap:<id> with no entry of its own the one entry clap@<sha256>:<id> */
@@ -521,7 +530,11 @@ static int resolve(const char *store, const char *text, char *address, size_t si
     struct stat st;
     find_t f;
 
-    if (pdb_address_parse(text, &a) != 0)
+    int rc = pdb_address_parse(text, &a);
+
+    if (rc == PDB_ERR_FORMATS)
+        return formats_down(why, why_size);
+    if (rc != 0)
         return say(why, why_size, "%s is no address: <format>:<id> or <format>@<sha256>:<id>, a format of %s", text,
                    "PLUGIN_DB_ADDRESS_FORMATS, and never a path");
     if (entry_dir(store, text, entry, entry_size) != 0)
@@ -577,8 +590,12 @@ int pdb_pin(const char *store, const char *address, const char *where, const cha
     buf_t b = { NULL, 0, 0, 0 };
     int n, rc = -1, err;
 
-    if (pdb_address_parse(address, &a) != 0)
+    rc = pdb_address_parse(address, &a);
+    if (rc == PDB_ERR_FORMATS)
+        return formats_down(why, why_size);
+    if (rc != 0)
         return say(why, why_size, "%s is no address", address);
+    rc = -1;
     if (layout && !layout_valid(layout))
         return say(why, why_size, "%s is not a layout pin %s:<sha256>", layout, PHD_PIN_LAYOUT_SCHEME);
     if (entry_dir(store, address, entry, sizeof(entry)) != 0)
@@ -686,8 +703,9 @@ int pdb_layer_put(const char *store, const char *address, int layer, const char 
         return say(why, why_size, "no layer of PLUGIN_DB_LAYERS");
     if (layer == PDB_LAYERS_PINNED)
         return say(why, why_size, "the pinned layer is written by pdb_pin, from the files");
-    if (resolve(store, address, resolved, sizeof(resolved), entry, sizeof(entry), why, why_size) != 0)
-        return -1;
+    rc = resolve(store, address, resolved, sizeof(resolved), entry, sizeof(entry), why, why_size);
+    if (rc != 0)
+        return rc;
     tree = pdb_json_parse(body, strlen(body));
     rc = body_valid(layer, tree, why, why_size);
     pdb_json_free(tree);
@@ -836,6 +854,8 @@ static int files_check(const char *address, const layer_t *pinned, char *problem
     int verdict = PDB_FILES_SAME, n;
     size_t k;
 
+    /* pdb_check resolved the address first, so the formats are read: a non-zero result is a pinned layer that is not the
+     * schema's */
     if (pdb_address_parse(address, &a) != 0 || !format || strcmp(format, pdb_format_word(a.format)) || !root || !files ||
         files->type != PDB_JSON_ARRAY)
     {
@@ -914,8 +934,9 @@ int pdb_check(const char *store, const char *text, const pdb_here_t *here, const
     pdb_state_in_t in;
     int rc;
 
-    if (resolve(store, text, address, sizeof(address), entry, sizeof(entry), why, why_size) != 0)
-        return -1;
+    rc = resolve(store, text, address, sizeof(address), entry, sizeof(entry), why, why_size);
+    if (rc != 0)
+        return rc;
     memset(&in, 0, sizeof(in));
     rc = layer_read(entry, PDB_LAYERS_PINNED, address, &pinned, problem, sizeof(problem));
     in.pinned = rc <= 0;

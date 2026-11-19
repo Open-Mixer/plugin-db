@@ -42,6 +42,14 @@ static int usage(void)
     return 2;
 }
 
+/* a library call failed with rc: PDB_ERR_FORMATS is the domain plugin-db that could not be read, a refusal of the
+ * install (78, naming the domain in why), not an answer about the address; any other failure is 1 */
+static int refused(int rc, const char *why)
+{
+    fprintf(stderr, "plugin-db: %s\n", why);
+    return rc == PDB_ERR_FORMATS ? 78 : 1;
+}
+
 typedef struct OPTS_T {
     pdb_here_t here;
     const char *facts[64];
@@ -130,12 +138,10 @@ static int show(const char *store, const char *address, const opts_t *o)
     char why[PDB_PATH_MAX];
     pdb_answer_t a;
     pdb_detail_t d;
+    int rc;
 
-    if (pdb_check(store, address, &o->here, o->layout, &a, &d, why, sizeof(why)) != 0)
-    {
-        fprintf(stderr, "plugin-db: %s\n", why);
-        return 1;
-    }
+    if ((rc = pdb_check(store, address, &o->here, o->layout, &a, &d, why, sizeof(why))) != 0)
+        return refused(rc, why);
     printf("address  %s\n", d.address);
     printf("entry    %s\n", d.entry);
     printf("files    %s\n", WORD(g_files, FILES, a.files));
@@ -200,13 +206,10 @@ static int query(const char *store, const char *address, const opts_t *o)
     const char *tier = NULL;
     pdb_answer_t a;
     pdb_detail_t d;
-    int k;
+    int k, rc;
 
-    if (pdb_check(store, address, &o->here, o->layout, &a, &d, why, sizeof(why)) != 0)
-    {
-        fprintf(stderr, "plugin-db: %s\n", why);
-        return 1;
-    }
+    if ((rc = pdb_check(store, address, &o->here, o->layout, &a, &d, why, sizeof(why))) != 0)
+        return refused(rc, why);
     /* the tier is the answering record's verdict when it says where the plugin runs; a refusal has none */
     for (k = 0; k < PDB_PIN_VERDICTS_COUNT; k++)
         if (a.source != PDB_SOURCES_NONE && k != PDB_PIN_VERDICTS_REFUSED && !strcmp(d.verdict, g_verdicts[k]))
@@ -250,12 +253,11 @@ static int verify_one(void *ctx, const char *address)
     char why[PDB_PATH_MAX];
     pdb_answer_t a;
     pdb_detail_t d;
-    int clean;
+    int clean, rc;
 
-    if (pdb_check(v->store, address, &v->o->here, NULL, &a, &d, why, sizeof(why)) != 0)
+    if ((rc = pdb_check(v->store, address, &v->o->here, NULL, &a, &d, why, sizeof(why))) != 0)
     {
-        fprintf(stderr, "plugin-db: %s\n", why);
-        v->failed = 1;
+        v->failed = refused(rc, why) == 78 ? 78 : 1;
         return 0;
     }
     clean = a.files == PDB_FILES_SAME && a.layout == PDB_LAYOUT_SAME && a.record == PDB_RECORD_CURRENT;
@@ -329,12 +331,9 @@ int main(int argc, char **argv)
 
         if (options(argc - n, argv + n, &o) != 0)
             return usage();
-        if (pdb_pin(store, address, o.file ? o.file : o.lv2_path, o.layout, why, sizeof(why)) != 0)
-        {
-            fprintf(stderr, "plugin-db: %s\n", why);
-            return 1;
-        }
-        return 0;
+        int rc = pdb_pin(store, address, o.file ? o.file : o.lv2_path, o.layout, why, sizeof(why));
+
+        return rc != 0 ? refused(rc, why) : 0;
     }
     if (!strcmp(verb, "put") && n + 1 < argc)
     {
@@ -350,12 +349,7 @@ int main(int argc, char **argv)
             return 2;
         rc = pdb_layer_put(store, address, layer, o.writer, body, why, sizeof(why));
         free(body);
-        if (rc != 0)
-        {
-            fprintf(stderr, "plugin-db: %s\n", why);
-            return 1;
-        }
-        return 0;
+        return rc != 0 ? refused(rc, why) : 0;
     }
     if (!strcmp(verb, "show") && n < argc)
     {
@@ -385,7 +379,7 @@ int main(int argc, char **argv)
             fprintf(stderr, "plugin-db: the store %s can't be read\n", store);
             return 2;
         }
-        return v.failed ? 2 : v.dirty ? 1 : 0;
+        return v.failed == 78 ? 78 : v.failed ? 2 : v.dirty ? 1 : 0;
     }
     return usage();
 }
