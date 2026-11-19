@@ -1,3 +1,12 @@
+plugin-db (0.4.7) unstable; urgency=medium
+
+  * The store schema $id moves from the code-hosting raw URL to
+    https://openmixer.org/schema/plugin-db/store.schema.json (#41); no code,
+    floor or ABI change.
+  * Published before the schema-URL gate in .github 134 lands.
+
+ -- Pau Aliagas <linuxnow@gmail.com>  Thu, 19 Nov 2026 12:00:00 +0100
+
 plugin-db (0.4.6) unstable; urgency=medium
 
   * Built against omx-contract >= 3.19.1 (was 3.19.0); plugin-hostd-protocol
