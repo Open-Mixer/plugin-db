@@ -34,7 +34,7 @@ PROTOCOL_CFLAGS = $(shell $(PKG_CONFIG) --cflags plugin-hostd-protocol)
 
 # libplugin-db.a and the command plugin-db; pin.h stays header-only
 BUILD = build
-LIB_SRC = src/address.c src/collect.c src/json.c src/manifest.c src/state.c src/store.c
+LIB_SRC = src/address.c src/collect.c src/json.c src/manifest.c src/pinpath.c src/state.c src/store.c
 LIB_OBJ = $(LIB_SRC:src/%.c=$(BUILD)/%.o)
 LIB = $(BUILD)/lib$(NAME).a
 BIN = $(BUILD)/$(NAME)

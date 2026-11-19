@@ -5,7 +5,9 @@
 
 omx-contract's reader refuses one item name in two owners, except when the domain has the name of an installed package:
 it then skips the domain without a word. The domain here is called plugin-db, as the package is, so this repository
-holds the rule itself: an item is declared once, and the domain document is its only declaration.
+holds the rule itself: an item is declared once, and the domain document is its only declaration. The check belongs in
+omx-contract's reader, which refuses a duplicate item in every other case (Open-Mixer/omx-contract#125); this file goes
+when the reader says so for a domain named like a package.
 
     one-source.py <data dir> <contract.d>
 """

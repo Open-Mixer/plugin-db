@@ -13,10 +13,9 @@
 #include <string.h>
 #include <sys/stat.h>
 
-#include <plugin-hostd/protocol.h>
-
 #include "collect.h"
 #include "manifest.h"
+#include "pinpath.h"
 
 int pdb_full_path(const char *root, const char *path, char *full, size_t size)
 {
@@ -24,7 +23,7 @@ int pdb_full_path(const char *root, const char *path, char *full, size_t size)
     const char *c;
     int slashes = 0, decoded = 0;
 
-    if (phd_pin_path_decode(path, name, sizeof(name)) != 0)
+    if (pdb_pin_path_decode(path, name, sizeof(name)) != 0)
         return -1;
     for (c = path; *c; c++)
         slashes += *c == '/';
@@ -229,7 +228,7 @@ static int lv2_collect(const char *uri, const char *search, pdb_collection_t *ou
     {
         char decoded[PATH_MAX];
 
-        if (phd_pin_path_decode(m.files.name[n], decoded, sizeof(decoded)) != 0)
+        if (pdb_pin_path_decode(m.files.name[n], decoded, sizeof(decoded)) != 0)
             rc = refuse(why, why_size, m.files.name[n], "is not a percent-encoded name");
         else if (!pdb_path_valid(m.files.name[n]))
             rc = refuse(why, why_size, m.files.name[n], "is not a file of the bundle");
@@ -256,7 +255,7 @@ static int clap_collect(const char *file, pdb_collection_t *out, char *why, size
             snprintf(why, why_size, "%s is gone or no file", file);
         return PDB_COLLECT_ABSENT;
     }
-    if ((size_t)(slash - file) >= sizeof(out->root) || phd_pin_path_encode(slash + 1, encoded, sizeof(encoded)) != 0)
+    if ((size_t)(slash - file) >= sizeof(out->root) || pdb_pin_path_encode(slash + 1, encoded, sizeof(encoded)) != 0)
         return refuse(why, why_size, file, "is too long a name");
     snprintf(out->root, sizeof(out->root), "%.*s", slash == file ? 1 : (int)(slash - file), file);
     return pdb_names_add(&out->files, encoded) == 0 ? PDB_COLLECT_OK : PDB_COLLECT_ERROR;
