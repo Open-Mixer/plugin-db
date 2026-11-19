@@ -34,7 +34,27 @@ int main(int argc, char **argv)
 
     if (argc == 2 && !strcmp(argv[1], "unloaded"))
     {
+        pdb_address_t a;
+        pdb_here_t here;
+        pdb_answer_t answer;
+        char why[PDB_PATH_MAX];
+        const char *valid = "lv2:http://example.org/amp";
+
         CHECK(!parses("lv2", NULL) && !parses("clap", NULL), "an address is refused when no format was loaded and OMX_CONTRACT_PATH is not read");
+        /* the installed domain cannot be read, and the library was handed none: that is its own result, never the one
+         * of a text that is no address, and a valid address is never reported invalid or absent */
+        CHECK(pdb_address_parse(valid, &a) == PDB_ERR_FORMATS, "a valid address is PDB_ERR_FORMATS when the domain cannot be read");
+        CHECK(pdb_address_parse("no-colon-here", &a) == -1, "a text with no format is no address, whatever the domain");
+        memset(&here, 0, sizeof(here));
+        why[0] = '\0';
+        CHECK(pdb_check("/nonexistent-store", valid, &here, NULL, &answer, NULL, why, sizeof(why)) == PDB_ERR_FORMATS &&
+              strstr(why, "plugin-db"), "pdb_check passes the domain failure up, naming the domain");
+        why[0] = '\0';
+        CHECK(pdb_pin("/nonexistent-store", valid, "/nonexistent", NULL, why, sizeof(why)) == PDB_ERR_FORMATS && strstr(why, "plugin-db"),
+              "pdb_pin passes the domain failure up, naming the domain");
+        why[0] = '\0';
+        CHECK(pdb_layer_put("/nonexistent-store", valid, PDB_LAYERS_MEASURED, "t", "{}", why, sizeof(why)) == PDB_ERR_FORMATS &&
+              strstr(why, "plugin-db"), "pdb_layer_put passes the domain failure up, naming the domain");
     }
     else if (argc == 5 && !strcmp(argv[1], "load"))
     {
