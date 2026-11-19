@@ -39,4 +39,46 @@ if $MAKE --no-print-directory -C "$tmp/t" check-domain >/dev/null 2>&1; then ech
 fresh
 sed -i 's/"word": "lv2"/"word": "lv3"/' "$tmp/t/data/db.json"
 if $MAKE --no-print-directory -C "$tmp/t" check-domain >/dev/null 2>&1; then echo "FAIL data/db.json changed and not rendered again stays green"; exit 1; fi
-echo "ok   domain formats: installed, opened by the loader, clap and lv2; check-domain red on missing, stale and unrendered"
+
+# the domain's version and codes are stable: the version is plugin-db's VERSION, a word added or removed under the same
+# version is refused by name, and an existing word keeps its code (a new word is appended). The render refuses to
+# overwrite the file with such a document, and check-domain stays red on it.
+refused() { # <label> <expected text>: make render-domain fails with that text and the file is untouched, check-domain red
+  if out=$($MAKE --no-print-directory -C "$tmp/t" render-domain 2>&1); then echo "FAIL $1: render-domain wrote it"; exit 1; fi
+  printf '%s\n' "$out" | grep -q "$2" || { echo "FAIL $1: refused without naming it ($2): $out"; exit 1; }
+  cmp -s "$tmp/t/contract.d/plugin-db/plugin-db.json" contract.d/plugin-db/plugin-db.json || { echo "FAIL $1: the file was overwritten"; exit 1; }
+  if $MAKE --no-print-directory -C "$tmp/t" check-domain >/dev/null 2>&1; then echo "FAIL $1: check-domain is green"; exit 1; fi
+}
+fresh
+python3 - "$tmp/t/data/db.json" <<'P'
+import json, sys
+p = sys.argv[1]
+d = json.load(open(p))
+d["PLUGIN_DB_ADDRESS_FORMATS"]["words"]["vst3"] = {"word": "vst3", "doc": "a VST3 plugin"}
+json.dump(d, open(p, "w"), indent=2)
+P
+refused "a word added, the version unchanged" "words added or removed while the version is unchanged"
+fresh
+python3 - "$tmp/t/data/db.json" <<'P'
+import json, sys
+p = sys.argv[1]
+d = json.load(open(p))
+w = d["PLUGIN_DB_ADDRESS_FORMATS"]["words"]
+d["PLUGIN_DB_ADDRESS_FORMATS"]["words"] = {"lv2": w["lv2"], "clap": w["clap"]}
+json.dump(d, open(p, "w"), indent=2)
+P
+refused "two keys swapped" "x-code moved"
+# a new version with the word appended renders, and the codes of clap and lv2 stay 0 and 1
+fresh
+python3 - "$tmp/t/data/db.json" <<'P'
+import json, sys
+p = sys.argv[1]
+d = json.load(open(p))
+d["PLUGIN_DB_ADDRESS_FORMATS"]["words"]["vst3"] = {"word": "vst3", "doc": "a VST3 plugin"}
+json.dump(d, open(p, "w"), indent=2)
+P
+echo 9.9.9 > "$tmp/t/VERSION"
+$MAKE --no-print-directory -C "$tmp/t" render-domain >/dev/null || { echo "FAIL a word appended under a new version is refused"; exit 1; }
+$MAKE --no-print-directory -C "$tmp/t" check-domain >/dev/null || { echo "FAIL check-domain is red after a render under a new version"; exit 1; }
+grep -q '"version": "9.9.9"' "$tmp/t/contract.d/plugin-db/plugin-db.json" || { echo "FAIL the domain's version is not VERSION"; exit 1; }
+echo "ok   domain formats: installed, opened by the loader, clap and lv2; check-domain red on missing, stale and unrendered; a word added or moved under the same version refused"
