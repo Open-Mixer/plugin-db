@@ -152,6 +152,11 @@ python3 only, are part of `make test` (`make test-py`).
 rendered vocabulary header to `data/` and validates the package against the contract directory; it needs omx-contract
 and omx-contract-devel. After a change to `data/`, `make render-words render-tables` renders both headers again.
 
+**Release steps.** The domain document `contract.d/plugin-db/plugin-db.json` (the address formats, read by the
+omx-contract loader) takes its version from `VERSION`. After the `VERSION` bump and before the release commit, run
+`make render-domain` and commit the file: `make check-domain`, which `make check-tools` runs, stays red until it is run,
+and a word added to or removed from the domain under an unchanged `VERSION` is refused by name.
+
 ## Licence
 
 GPL-3.0-or-later. See [COPYING](COPYING).
