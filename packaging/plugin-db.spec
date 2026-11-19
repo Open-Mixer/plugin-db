@@ -211,8 +211,10 @@ English source sentence.
 - Everything merged since 0.4.6: the store schema $id moves to
   https://openmixer.org/schema/plugin-db/store.schema.json (#41); the address
   formats are published as the plugin-db domain, read through libomx-domain
-  (#47). Floors unchanged from main: omx-contract 3.20.0, libomx-domain 3.20.0,
-  plugin-hostd-protocol 0.5.8
+  (#47). Built against omx-contract >= 3.20.0 (was 3.19.1), libomx-domain
+  >= 3.20.0 (new) and plugin-hostd-protocol >= 0.5.8 (unchanged). The floors
+  are declared once, in packaging/deps.txt, and the spec and debian/control are
+  rendered from it; no dependency carries a ceiling.
 
 * Thu Nov 19 2026 Pau Aliagas <linuxnow@gmail.com> - 0.4.6-1
 - Built against omx-contract >= 3.19.1 (was 3.19.0); plugin-hostd-protocol
