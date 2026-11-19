@@ -65,8 +65,6 @@ Package: plugin-db-l10n-ca
 Section: localization
 Architecture: all
 Depends: plugin-db-contract (= ${source:Version}), ${misc:Depends}
-Breaks: plugin-db-contract (<< 0.3.3~)
-Replaces: plugin-db-contract (<< 0.3.3~)
 Description: ca catalog of plugin-db's codes
  The sentences of plugin-db's codes in the language ca, read by every surface
  that shows them on a host in that locale; without it a surface shows the

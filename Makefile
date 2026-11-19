@@ -81,7 +81,7 @@ install-python:
 test-tu-split:
 	CC='$(CC)' CFLAGS='$(PROTOCOL_CFLAGS) $(DOMAIN_CFLAGS) $(CRYPTO_CFLAGS)' sh tests/tu-split.sh
 
-test: test-tu-split test-constants-alone test-pin check-tables check-ts test-py test-state test-collect test-store test-golden test-install test-sabotage test-db-sabotage test-abi version-check check-control
+test: test-tu-split test-constants-alone test-pin check-tables check-ts test-py test-state test-collect test-store test-golden test-install test-sabotage test-db-sabotage version-check check-control
 
 tests/pin_test: tests/pin_test.c $(HEADERS)
 	$(CC) -Iinclude $(CRYPTO_CFLAGS) $(CFLAGS) -Werror -o $@ tests/pin_test.c $(CRYPTO_LIBS)
@@ -100,8 +100,9 @@ $(BUILD)/%_test: tests/%_test.c $(LIB)
 	$(CC) $(ALL_CFLAGS) $(LDFLAGS) -o $@ $< $(LIB) $(CRYPTO_LIBS) $(DOMAIN_LIBS)
 
 # the state function by table: every state, reason, change, action, run and source of data/db.json reached
-test-state: $(BUILD)/state_test
+test-state: $(BUILD)/state_test $(BUILD)/state_door_test
 	$(BUILD)/state_test
+	$(BUILD)/state_door_test
 
 # the address form, the bundle rule and the file collection, over fixture bundles
 test-collect: $(BUILD)/collect_test
@@ -163,6 +164,7 @@ test-constants-alone:
 # a consumer compiled and linked with what pkg-config plugin-db says of a scratch install, and nothing else
 # a dependency between this source's packages has one shape in both formats, self-tested
 check-control:
+	sh tests/no-backcompat.sh
 	sh tests/dep-shape.sh --self-test
 
 # the dependency floors are declared once, in packaging/deps.txt (floors only); the engine is Open-Mixer/.github's
@@ -253,39 +255,6 @@ render-words check-rendered:
 	  $(OMX_CONTRACT) render --target c --package $(NAME) --installed --out include/plugin-db $(if $(filter check-rendered,$@),--check)
 
 # ---------------------------------------------------------------------------------------------------------------------
-# ABI. The library is header-only: its functions are static inline and compile into the consumer, so no symbol is
-# exported. What a host and the library share at run time is the layout of the records a host fills (the digest context,
-# the CLAP parameter, the LV2 port, the sink) and the constants beside them.
-#   test-abi        abi/plugin-db.layout is what tests/abi-layout.c prints (needs the compiler only)
-#   abi-layout      write abi/plugin-db.layout again
-#   abi-baseline    write abi/plugin-db.abi again: abidw over tests/abi-probe.c, built into a shared object that
-#                   exports one object of each of those types and is never installed
-#   abi-check       abidiff of that baseline against the tree (needs libabigail); red on a change of a type
-ABI_LAYOUT = abi/$(NAME).layout
-ABI_BASELINE = abi/$(NAME).abi
-ABI_PROBE = build/abi/libplugin-db-abi.so
-
-build/abi/abi-layout: tests/abi-layout.c $(HEADERS)
-	@mkdir -p $(@D)
-	$(CC) -Iinclude $(CRYPTO_CFLAGS) $(CFLAGS) -Werror -o $@ tests/abi-layout.c
-
-$(ABI_PROBE): tests/abi-probe.c $(HEADERS)
-	@mkdir -p $(@D)
-	$(CC) -Iinclude $(CRYPTO_CFLAGS) $(CFLAGS) -Werror -fPIC -shared -Wl,-soname,libplugin-db-abi.so -o $@ tests/abi-probe.c
-
-test-abi: build/abi/abi-layout
-	@build/abi/abi-layout | diff -u $(ABI_LAYOUT) - && echo "abi: the records are laid out as $(ABI_LAYOUT) says"
-
-abi-layout: build/abi/abi-layout
-	build/abi/abi-layout > $(ABI_LAYOUT)
-
-abi-baseline: $(ABI_PROBE)
-	abidw --headers-dir include/$(NAME) --out-file $(ABI_BASELINE) $(ABI_PROBE)
-
-abi-check: $(ABI_PROBE)
-	abidiff --headers-dir2 include/$(NAME) $(ABI_BASELINE) $(ABI_PROBE)
-
-# ---------------------------------------------------------------------------------------------------------------------
 # fuzz (fuzz/README.md): one libFuzzer harness per input surface of pin.h (the text of a pin, the bytes of a layout, the
 # digest), built with clang, AddressSanitizer and UndefinedBehaviorSanitizer into build/fuzz. None is part of `make test`.
 #   make fuzz                   build every harness
@@ -362,5 +331,5 @@ clean:
 	rm -rf build tests/pin_test
 
 .PHONY: all install test test-pin check-tables render-tables test-state test-collect test-store test-db-sabotage test-asan test-golden check-ts render-ts test-twin check-py render-py test-py install-python \
-        test-install test-sabotage test-abi abi-layout abi-baseline abi-check version-check check-tools check-ci-matrix install-contract check-contract-dir \
+        test-install test-sabotage version-check check-tools check-ci-matrix install-contract check-contract-dir \
         test-rendered-sabotage test-domain test-tu-split check-codes render-codes render-words check-rendered fuzz fuzz-run fuzz-sabotage fuzz-records fuzz-coverage fuzz-corpus fuzz-corpus-check clean
