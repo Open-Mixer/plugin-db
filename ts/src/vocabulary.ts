@@ -35,12 +35,6 @@ export const pinLayoutFormats = {
   lv2: "lv2",
 } as const;
 
-/** PLUGIN_DB_ADDRESS_FORMATS */
-export const addressFormats = {
-  clap: "clap",
-  lv2: "lv2",
-} as const;
-
 /** PLUGIN_DB_BUNDLE_RULES */
 export const bundleRules = {
   newestVersion: "newest-version",

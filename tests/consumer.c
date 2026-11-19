@@ -6,6 +6,7 @@
 
 #include <fcntl.h>
 #include <stdio.h>
+#include <stdlib.h>
 #include <unistd.h>
 
 #include <plugin-db/db.h>
@@ -15,10 +16,12 @@ int main(int argc, char **argv)
     static const char *const props[] = { "http://lv2plug.in/ns/lv2core#integer" };
     const phd_layout_clap_param_t param = { 1, "Gain", 0.0, 1.0, 0.5, 0x1 };
     const phd_layout_lv2_port_t port = { 0, "gain", 0, PHD_LAYOUT_HAS_MIN | PHD_LAYOUT_HAS_MAX, 0.0, 1.0, 0.0, props, 1 };
-    static const char *const formats[] = OMX_PLUGIN_DB_ADDRESS_FORMATS_INIT;
     char hex[PHD_SHA256_HEX_LEN + 1];
     pdb_address_t address;
     int fd = argc > 1 ? open(argv[1], O_RDONLY) : -1;
+    const char *dir = getenv("OMX_CONTRACT_PATH");
+    omx_domain *domain = NULL;
+    omx_domain_error err;
 
     if (fd < 0 || phd_pin_fd_digest(fd, hex) != 0 || !phd_pin_hex_valid(hex))
         return 1;
@@ -30,8 +33,12 @@ int main(int argc, char **argv)
     if (phd_layout_lv2_digest(&port, 1, hex) != 0)
         return 1;
     printf("%s\n", hex);
+    /* a test harness reads OMX_CONTRACT_PATH and hands the domain over; the library entry never does */
+    if (!dir || omx_domain_open_at(dir, "plugin-db", "1.0.0", &domain, &err) != 0 || pdb_formats_load(domain) != 0)
+        return 1;
+    omx_domain_close(domain);
     if (pdb_address_parse("lv2:http://example.org/amp", &address) != 0)
         return 1;
-    printf("%s\n", pdb_word(formats, PDB_ADDRESS_FORMATS_COUNT, address.format));
+    printf("%s\n", pdb_format_word(address.format));
     return 0;
 }

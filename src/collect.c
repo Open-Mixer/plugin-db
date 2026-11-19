@@ -274,7 +274,7 @@ int pdb_collect(const pdb_address_t *a, const char *where, pdb_collection_t *out
     memset(out, 0, sizeof(*out));
     if (why && why_size)
         why[0] = '\0';
-    if (a->format == PDB_ADDRESS_FORMATS_LV2)
+    if (a->format == OMX_PLUGIN_DB_ADDRESS_FORMATS_LV2)
         return lv2_collect(a->id, pdb_lv2_search(where), out, why, why_size);
     return clap_collect(where, out, why, why_size);
 }

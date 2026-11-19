@@ -36,7 +36,8 @@ static int usage(void)
           "  <address>  <format>:<id> or <format>@<sha256>:<id>, a format of PLUGIN_DB_ADDRESS_FORMATS\n"
           "  <here>     --machine-class <class> --host <name> --host-version <version> --hosting-epoch <n>\n"
           "             --rules <version> --record-schema <version> --rate <hz> --quantum <frames>\n"
-          "             --fact <key>=<value> ...; a fact not given is not known here, and no record matches it\n",
+          "             --fact <key>=<value> ...; a fact not given is not known here, and no record matches it\n"
+          "  OMX_CONTRACT_PATH  a ':' list of directories standing where the contract directory stands: the domain plugin-db is read from the first that holds it\n",
           stderr);
     return 2;
 }
@@ -266,6 +267,29 @@ static int verify_one(void *ctx, const char *address)
     return 0;
 }
 
+/* the formats of PLUGIN_DB_ADDRESS_FORMATS, read from the domain plugin-db at start-up. A command-line program reads
+ * OMX_CONTRACT_PATH (the directories standing where the contract directory stands) and passes it to omx_domain_open_at;
+ * without it the installed directory is read. A domain that is absent or below 1.0.0 is refused by name: exit 78 */
+static int formats_open(char *why, size_t size)
+{
+    const char *path = getenv("OMX_CONTRACT_PATH");
+    omx_domain *d = NULL;
+    omx_domain_error err;
+    int rc = path && *path ? omx_domain_open_at(path, "plugin-db", "1.0.0", &d, &err)
+                           : omx_domain_open("plugin-db", "1.0.0", &d, &err);
+
+    if (rc != 0)
+    {
+        snprintf(why, size, "the domain plugin-db: %s: %s", err.code, err.message);
+        return -1;
+    }
+    rc = pdb_formats_load(d);
+    omx_domain_close(d);
+    if (rc != 0)
+        snprintf(why, size, "the domain plugin-db does not hold PLUGIN_DB_ADDRESS_FORMATS as two words, in the order of its codes");
+    return rc;
+}
+
 int main(int argc, char **argv)
 {
     char store[PDB_PATH_MAX], why[PDB_PATH_MAX];
@@ -292,6 +316,11 @@ int main(int argc, char **argv)
     {
         fprintf(stderr, "plugin-db: no store: set %s, or HOME\n", PDB_STORE_ENV);
         return 2;
+    }
+    if (formats_open(why, sizeof(why)) != 0)
+    {
+        fprintf(stderr, "plugin-db: %s\n", why);
+        return 78;
     }
     verb = argv[n++];
     if (!strcmp(verb, "pin") && n < argc)

@@ -10,10 +10,15 @@ loads no plugin: it reads LV2 manifests as text and hashes files.
 Everything a reader compares is declared once in `data/` and derived from there, never typed twice:
 
 - `data/pin.json`: the words of a pin (verdicts, pool words, optional keys, what counts as changed, layout formats).
-- `data/db.json`: the address formats, the bundle rule, the layers, the attributes the check reports (files, layout,
+- `data/db.json`: the bundle rule, the layers, the attributes the check reports (files, layout,
   record), what changes a record and the action each change asks for, the states with how each runs, the reasons, the
   sources, and the hosts an isolated verdict must be measured under.
 - `data/store.schema.json`: the JSON Schema of a layer file, with the store's layout in `x-plugin-db-store`.
+- `contract.d/plugin-db/plugin-db.json`: the domain `plugin-db`, kept by hand at its own version: the address formats
+  (`PLUGIN_DB_ADDRESS_FORMATS`, `clap` and `lv2`). They are in no other file: the command reads the words at start-up
+  through omx-contract's loader (`libomx-domain`, `OMX_CONTRACT_PATH` for a test), and the C that switches on a format
+  reads the codes in `<plugin-db/plugin_db_codes.h>`, which `make render-codes` renders from the domain and
+  `make check-codes` (part of `make check-tools`) holds to it.
 
 omx-contract renders the words of `pin.json` and `db.json` to `<plugin-db/plugin_db_vocabulary.h>`, and the package
 `plugin-db-contract` puts them in its contract directory. `tools/render-db.py` derives
@@ -23,7 +28,7 @@ every key the schema names. `make test` holds that header to `data/`; `make chec
 
 ## The one address form
 
-`<format>:<id>`, or `clap@<sha256>:<id>` when several files share one CLAP id. The format is `clap` or `lv2`; the id is
+`<format>:<id>`, or `clap@<sha256>:<id>` when several files share one CLAP id. The format is a word of `PLUGIN_DB_ADDRESS_FORMATS` in the domain, `clap` or `lv2`; the id is
 the CLAP plugin's id or the LV2 plugin's URI; the sha256 is that of the `.clap` file. An LV2 address carries none: the
 bundle rule makes one bundle the plugin. A path is never part of an address, so a session keeps its plugins on another machine: `clap:<path>#<id>` and `urn:clap:<id>`
 are not addresses.
@@ -151,11 +156,6 @@ python3 only, are part of `make test` (`make test-py`).
 `make test-asan` runs the C tests and the command under AddressSanitizer and UBSan. `make check-tools` also holds the
 rendered vocabulary header to `data/` and validates the package against the contract directory; it needs omx-contract
 and omx-contract-devel. After a change to `data/`, `make render-words render-tables` renders both headers again.
-
-**Release steps.** The domain document `contract.d/plugin-db/plugin-db.json` (the address formats, read by the
-omx-contract loader) takes its version from `VERSION`. After the `VERSION` bump and before the release commit, run
-`make render-domain` and commit the file: `make check-domain`, which `make check-tools` runs, stays red until it is run,
-and a word added to or removed from the domain under an unchanged `VERSION` is refused by name.
 
 ## Licence
 

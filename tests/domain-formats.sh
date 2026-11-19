@@ -55,8 +55,8 @@ done
 ! grep -q "ADDRESS_FORMATS" include/plugin-db/plugin_db_vocabulary.h || bad "plugin_db_vocabulary.h still renders the formats"
 ! grep -rq "PDB_ADDRESS_FORMATS\|OMX_PLUGIN_DB_ADDRESS_FORMATS_INIT" src include tests/*.c || bad "an old name of the formats is still used"
 test -f include/plugin-db/plugin_db_codes.h || bad "no codes header of the domain"
-n=$(grep -c "^#define OMX_" include/plugin-db/plugin_db_codes.h)
-[ "$(grep -c "^#define OMX_PLUGIN_DB_ADDRESS_FORMATS_" include/plugin-db/plugin_db_codes.h)" -eq "$n" ] || bad "the codes header holds more than the x-c-codes item"
+n=$(grep "^#define OMX_" include/plugin-db/plugin_db_codes.h | grep -vc "_CODES_H$")
+[ "$(grep -c "^#define OMX_PLUGIN_DB_ADDRESS_FORMATS_" include/plugin-db/plugin_db_codes.h)" -eq "$n" ] && [ "$n" -gt 0 ] || bad "the codes header holds more than the x-c-codes item"
 $MAKE --no-print-directory check-codes >/dev/null || bad "check-codes is red on a clean tree"
 fresh
 sed -i 's/ADDRESS_FORMATS_LV2 1u/ADDRESS_FORMATS_LV2 7u/' "$tmp/t/include/plugin-db/plugin_db_codes.h"
@@ -65,7 +65,8 @@ fresh
 sed -i 's/"const": "lv2"/"const": "lv3"/' "$tmp/t/contract.d/plugin-db/plugin-db.json"
 $OMX_CONTRACT validate --contract-dir "$tmp/t/contract.d" >/dev/null || bad "the fixture domain does not validate"
 
-# the classic item put back beside the domain is refused: one name, one owner
+# the classic item put back beside the domain is refused by name: one item, one declaration (omx-contract's reader skips
+# a domain that has the name of an installed package, so it cannot say so itself)
 fresh
 python3 - "$tmp/t" <<'P'
 import json, sys
@@ -74,11 +75,8 @@ d = json.load(open(p))
 d["PLUGIN_DB_ADDRESS_FORMATS"] = {"kind": "words", "since": "0.2.0", "doc": "again", "words": {"clap": {"word": "clap", "doc": "x"}}}
 json.dump(d, open(p, "w"), indent=2)
 P
-mkdir -p "$tmp/t/both"
-sh "$INSTALL_CONTRACT_DIR" plugin-db "$(cat VERSION)" 3 "$tmp/t/data" "$tmp/t/both" >/dev/null
-sh "$INSTALL_CONTRACT_DIR" --domain "$tmp/t/contract.d/plugin-db" "$tmp/t/both" >/dev/null
-if out=$($OMX_CONTRACT validate --contract-dir "$tmp/t/both" 2>&1); then bad "the classic item beside the domain stays green"; fi
-printf '%s\n' "$out" | grep -q "duplicate" || bad "the classic item beside the domain is refused, but not as a duplicate: $out"
+if out=$($MAKE --no-print-directory -C "$tmp/t" check-codes 2>&1); then bad "the classic item beside the domain stays green"; fi
+printf '%s\n' "$out" | grep -q "PLUGIN_DB_ADDRESS_FORMATS is declared by" || bad "the classic item beside the domain is refused, but not by name: $out"
 
 # the words are read at start-up: a fixture directory with one word changed reaches the command and the library
 fixture="$tmp/fx"

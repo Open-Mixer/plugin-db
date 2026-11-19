@@ -25,7 +25,6 @@
 static const char *const g_layers[] = OMX_PLUGIN_DB_LAYERS_INIT;
 static const char *const g_verdicts[] = OMX_PLUGIN_DB_PIN_VERDICTS_INIT;
 static const char *const g_rules[] = OMX_PLUGIN_DB_BUNDLE_RULES_INIT;
-static const char *const g_formats[] = OMX_PLUGIN_DB_ADDRESS_FORMATS_INIT;
 static const char *const g_envelope_required[] = PDB_ENVELOPE_REQUIRED_INIT;
 static const char *const g_pin_required[] = PDB_PIN_REQUIRED_INIT;
 static const char *const g_pinned_required[] = PDB_PINNED_BODY_REQUIRED_INIT;
@@ -505,7 +504,7 @@ static int find_clap(void *ctx, const char *address)
     find_t *f = ctx;
     pdb_address_t a;
 
-    if (pdb_address_parse(address, &a) == 0 && a.format == PDB_ADDRESS_FORMATS_CLAP && a.pin[0] &&
+    if (pdb_address_parse(address, &a) == 0 && a.format == OMX_PLUGIN_DB_ADDRESS_FORMATS_CLAP && a.pin[0] &&
         !strcmp(a.id, f->id))
     {
         if (!f->found++)
@@ -529,7 +528,7 @@ static int resolve(const char *store, const char *text, char *address, size_t si
         return say(why, why_size, "the store's path is too long");
     if (stat(entry, &st) == 0 && S_ISDIR(st.st_mode))
         return snprintf(address, size, "%s", text) < (int)size ? 0 : -1;
-    if (a.format != PDB_ADDRESS_FORMATS_CLAP || a.pin[0])
+    if (a.format != OMX_PLUGIN_DB_ADDRESS_FORMATS_CLAP || a.pin[0])
         return say(why, why_size, "%s has no entry in %s", text, store);
     memset(&f, 0, sizeof(f));
     f.id = a.id;
@@ -584,7 +583,7 @@ int pdb_pin(const char *store, const char *address, const char *where, const cha
         return say(why, why_size, "%s is not a layout pin %s:<sha256>", layout, PHD_PIN_LAYOUT_SCHEME);
     if (entry_dir(store, address, entry, sizeof(entry)) != 0)
         return say(why, why_size, "the store's path is too long");
-    if (a.format == PDB_ADDRESS_FORMATS_CLAP)
+    if (a.format == OMX_PLUGIN_DB_ADDRESS_FORMATS_CLAP)
     {
         layer_t old;
 
@@ -622,7 +621,7 @@ int pdb_pin(const char *store, const char *address, const char *where, const cha
         }
         files[n].path = c.files.name[n];
     }
-    if (a.format == PDB_ADDRESS_FORMATS_CLAP && a.pin[0] && strcmp(a.pin, files[0].sha256))
+    if (a.format == OMX_PLUGIN_DB_ADDRESS_FORMATS_CLAP && a.pin[0] && strcmp(a.pin, files[0].sha256))
     {
         say(why, why_size, "%s is not the file of %s: its sha256 is %s", where, address, files[0].sha256);
         goto out;
@@ -631,10 +630,10 @@ int pdb_pin(const char *store, const char *address, const char *where, const cha
         goto out;
     puts_(&b, "{");
     key(&b, PDB_KEY_FORMAT, 1);
-    quoted(&b, g_formats[a.format]);
+    quoted(&b, pdb_format_word(a.format));
     key(&b, PDB_KEY_ROOT, 0);
     quoted(&b, c.root);
-    if (a.format == PDB_ADDRESS_FORMATS_LV2)
+    if (a.format == OMX_PLUGIN_DB_ADDRESS_FORMATS_LV2)
     {
         key(&b, PDB_KEY_SEARCH, 0);
         quoted(&b, pdb_lv2_search(where));
@@ -837,20 +836,20 @@ static int files_check(const char *address, const layer_t *pinned, char *problem
     int verdict = PDB_FILES_SAME, n;
     size_t k;
 
-    if (pdb_address_parse(address, &a) != 0 || !format || strcmp(format, g_formats[a.format]) || !root || !files ||
+    if (pdb_address_parse(address, &a) != 0 || !format || strcmp(format, pdb_format_word(a.format)) || !root || !files ||
         files->type != PDB_JSON_ARRAY)
     {
         say(problem, size, "the pinned layer is not the schema's");
         return PDB_FILES_COULD_NOT_TEST;
     }
-    where = pdb_json_string(pinned->body, a.format == PDB_ADDRESS_FORMATS_LV2 ? PDB_KEY_SEARCH : PDB_KEY_BINARY);
+    where = pdb_json_string(pinned->body, a.format == OMX_PLUGIN_DB_ADDRESS_FORMATS_LV2 ? PDB_KEY_SEARCH : PDB_KEY_BINARY);
     switch (pdb_collect(&a, where, &c, problem, size))
     {
     case PDB_COLLECT_OK:
         break;
     case PDB_COLLECT_ABSENT:
         pdb_collection_free(&c);
-        if (a.format == PDB_ADDRESS_FORMATS_LV2)
+        if (a.format == OMX_PLUGIN_DB_ADDRESS_FORMATS_LV2)
             say(problem, size, "no bundle of %s names the plugin; it was %s", where ? where : "", root);
         return PDB_FILES_ABSENT;
     default:

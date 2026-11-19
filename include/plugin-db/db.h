@@ -28,7 +28,10 @@
 
 #include <stddef.h>
 
+#include <omxcontract/omx_domain.h>
+
 #include <plugin-db/pin.h>
+#include <plugin-db/plugin_db_codes.h>
 #include <plugin-db/plugin_db_tables.h>
 
 #define PDB_PATH_MAX 4096
@@ -37,7 +40,7 @@
 
 /* <format>:<id>, or clap@<sha256>:<id> when several files share one CLAP id */
 typedef struct PDB_ADDRESS_T {
-    int format;                         /* PDB_ADDRESS_FORMATS_* */
+    int format;                         /* OMX_PLUGIN_DB_ADDRESS_FORMATS_* */
     char pin[PHD_SHA256_HEX_LEN + 1];   /* the sha256 of the file of the plugin's code, or "" */
     const char *id;                     /* into the text parsed */
 } pdb_address_t;
@@ -46,6 +49,18 @@ typedef struct PDB_ADDRESS_T {
  * digits, an empty id, a CLAP id that begins with '/' (a path: clap:<path>#<id> is no address) or a byte below 0x21
  * in the id */
 int pdb_address_parse(const char *text, pdb_address_t *address);
+
+/* The words of the formats are plugin-db's domain item PLUGIN_DB_ADDRESS_FORMATS, read at start-up through
+ * omx-contract's loader, never copied here; the codes (OMX_PLUGIN_DB_ADDRESS_FORMATS_CLAP, _LV2) are the header rendered
+ * from the domain. A program opens the domain "plugin-db" (floor 1.0.0) once and hands it over: 0, or -1 when the domain
+ * does not hold exactly OMX_PLUGIN_DB_ADDRESS_FORMATS_COUNT words. The library never reads OMX_CONTRACT_PATH: only a
+ * command-line program or a test harness may, and it passes the directory to omx_domain_open_at. A program that never
+ * hands one over has pdb_address_parse open the installed directory (omx_domain_open) on its first call, and an address
+ * is refused when that fails. Not for an audio thread. */
+int pdb_formats_load(const omx_domain *domain);
+
+/* the word of a format code, or "?" */
+const char *pdb_format_word(int format);
 
 /* ---------------------------------------------------------------- which files are a plugin */
 
