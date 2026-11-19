@@ -118,10 +118,10 @@ static void test_address(void)
     for (n = 0; n < sizeof(bad) / sizeof(bad[0]); n++)
         CHECK(pdb_address_parse(bad[n], &a) != 0, "address \"%s\" is taken", bad[n]);
     pdb_address_parse("lv2:urn:example:amp#stereo", &a);
-    CHECK(a.format == PDB_ADDRESS_FORMATS_LV2 && !strcmp(a.id, "urn:example:amp#stereo") && !a.pin[0],
+    CHECK(a.format == OMX_PLUGIN_DB_ADDRESS_FORMATS_LV2 && !strcmp(a.id, "urn:example:amp#stereo") && !a.pin[0],
           "an LV2 id keeps every ':' and '#' after the format");
     pdb_address_parse(good[2], &a);
-    CHECK(a.format == PDB_ADDRESS_FORMATS_CLAP && !strcmp(a.id, "com.example.synth") &&
+    CHECK(a.format == OMX_PLUGIN_DB_ADDRESS_FORMATS_CLAP && !strcmp(a.id, "com.example.synth") &&
           !strcmp(a.pin, "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef"),
           "a CLAP address with a pin parses to its format, pin and id");
 }
@@ -296,8 +296,17 @@ static void test_collect(void)
 int main(void)
 {
     char cmd[PDB_PATH_MAX + 16];
-    const char *base = getenv("TMPDIR");
+    const char *base = getenv("TMPDIR"), *dir = getenv("OMX_CONTRACT_PATH");
+    omx_domain *domain = NULL;
+    omx_domain_error err;
 
+    /* a test harness reads OMX_CONTRACT_PATH (make test sets it to contract.d) and hands the domain to the library */
+    if (!dir || omx_domain_open_at(dir, "plugin-db", "1.0.0", &domain, &err) != 0 || pdb_formats_load(domain) != 0)
+    {
+        fprintf(stderr, "collect_test: OMX_CONTRACT_PATH does not hold the domain plugin-db >= 1.0.0\n");
+        return 2;
+    }
+    omx_domain_close(domain);
     snprintf(g_tmp, sizeof(g_tmp), "%s/plugin-db-collect-XXXXXX", base && *base ? base : "/tmp");
     if (!mkdtemp(g_tmp))
     {

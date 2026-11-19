@@ -27,7 +27,7 @@ function vocabulary(): { words: Set<string>; sentences: Set<string> } {
   return { words, sentences };
 }
 
-const GENERATED = new Set(["ts/src/vocabulary.ts", "include/plugin-db/plugin_db_vocabulary.h", "include/plugin-db/plugin_db_tables.h"]);
+const GENERATED = new Set(["ts/src/vocabulary.ts", "include/plugin-db/plugin_db_vocabulary.h", "include/plugin-db/plugin_db_tables.h", "include/plugin-db/plugin_db_codes.h"]);
 
 function sources(): string[] {
   const out: string[] = [];

@@ -14,7 +14,7 @@ fail=0
 arm() { # <what> <file> <text => replacement> <make targets>
     rm -rf "$tmp/t"
     mkdir "$tmp/t"
-    cp -r Makefile VERSION data include python src tests tools "$tmp/t/"
+    cp -r Makefile VERSION data include python src tests tools contract.d "$tmp/t/"
     if ! python3 - "$tmp/t/$2" "$3" <<'PY'
 import sys
 path, before_after = sys.argv[1:]
@@ -43,8 +43,8 @@ arm "the version a manifest gives is not read" src/manifest.c "                o
 # the collection
 arm "a manifest's base is resolved as if none" $C "    if (m.based) => if (0)" test-collect
 arm "a name that climbs out of the bundle is taken" $C "        else if (!pdb_path_valid(m.files.name[n])) => else if (0)" test-collect
-arm "a bundle's own file:// IRI is matched as written, not decoded" src/manifest.c "    if (!strncmp(iri, \"file://\", 7) && phd_pin_path_decode(iri, decoded, sizeof(decoded)) == 0 && => if (0 &&" test-collect
-arm "a CLAP id that is a path is an address" src/address.c "(a->format == PDB_ADDRESS_FORMATS_CLAP && a->id[0] == '/') => 0" test-collect
+arm "a bundle's own file:// IRI is matched as written, not decoded" src/manifest.c "    if (!strncmp(iri, \"file://\", 7) && pdb_pin_path_decode(iri, decoded, sizeof(decoded)) == 0 && => if (0 &&" test-collect
+arm "a CLAP id that is a path is an address" src/address.c "(a->format == OMX_PLUGIN_DB_ADDRESS_FORMATS_CLAP && a->id[0] == '/') => 0" test-collect
 # the state function
 arm "a shipped refusal is not read" $S "        in->reference.verdict == PDB_PIN_VERDICTS_REFUSED) => 0)" test-state
 arm "a warned override is not read" $S "        if (in->warned_override) => if (0)" test-state
@@ -63,7 +63,7 @@ arm "another bundle is the same plugin" $T "    if (strcmp(c.root, root)) => if 
 arm "a record binds no layout" $T "    r->pin_layout = pinned->tree && => r->pin_layout = 1 ||" test-store
 arm "a layer is written in place" $T "    if (rename(temp, path) != 0) => if (0)" test-store
 arm "an entry is named by its address as written" $T "    if (phd_sha256_hex(address, strlen(address), hex) != 0) => snprintf(hex, sizeof(hex), \"%.64s\", address); if (0)" test-store
-arm "a pin a CLAP address gives is not checked" $T "    if (a.format == PDB_ADDRESS_FORMATS_CLAP && a.pin[0] && strcmp(a.pin, files[0].sha256)) => if (0)" test-store
+arm "a pin a CLAP address gives is not checked" $T "    if (a.format == OMX_PLUGIN_DB_ADDRESS_FORMATS_CLAP && a.pin[0] && strcmp(a.pin, files[0].sha256)) => if (0)" test-store
 # the reader's answer through `query --json`
 arm "a figure at the line is over it" $S "    return latency_ms > line_ms ? => return latency_ms >= line_ms ?" test-golden
 arm "a missing line is guessed within" $S "    if (!has_latency || !has_line) => if (!has_latency)" test-golden

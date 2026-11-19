@@ -28,7 +28,10 @@
 
 #include <stddef.h>
 
+#include <omxcontract/omx_domain.h>
+
 #include <plugin-db/pin.h>
+#include <plugin-db/plugin_db_codes.h>
 #include <plugin-db/plugin_db_tables.h>
 
 #define PDB_PATH_MAX 4096
@@ -37,15 +40,40 @@
 
 /* <format>:<id>, or clap@<sha256>:<id> when several files share one CLAP id */
 typedef struct PDB_ADDRESS_T {
-    int format;                         /* PDB_ADDRESS_FORMATS_* */
+    int format;                         /* OMX_PLUGIN_DB_ADDRESS_FORMATS_* */
     char pin[PHD_SHA256_HEX_LEN + 1];   /* the sha256 of the file of the plugin's code, or "" */
     const char *id;                     /* into the text parsed */
 } pdb_address_t;
 
-/* 0, or -1 when text is not an address: an unknown format, a pin on an LV2 address or one that is not 64 lowercase hex
- * digits, an empty id, a CLAP id that begins with '/' (a path: clap:<path>#<id> is no address) or a byte below 0x21
- * in the id */
+/* 0; -1 when text is not an address: no format, an unknown format, a pin on an LV2 address or one that is not 64
+ * lowercase hex digits, an empty id, a CLAP id that begins with '/' (a path: clap:<path>#<id> is no address) or a byte
+ * below 0x21 in the id; or PDB_ERR_FORMATS when the words of the formats could not be read (see pdb_formats_load), in
+ * which case nothing is known of text */
 int pdb_address_parse(const char *text, pdb_address_t *address);
+
+/* The result of a function of this library that needs the words of the formats when they could not be read: the domain
+ * plugin-db is absent, below 1.0.0 or does not hold the formats. It is never the result of an address that is merely
+ * wrong (-1): pdb_address_parse, pdb_pin, pdb_layer_put and pdb_check return it, with the reason in why naming the
+ * domain, and a caller must not report such an address as invalid or absent. */
+#define PDB_ERR_FORMATS (-2)
+
+/* The words of the formats are plugin-db's domain item PLUGIN_DB_ADDRESS_FORMATS, read at start-up through
+ * omx-contract's loader, never copied here; the codes (OMX_PLUGIN_DB_ADDRESS_FORMATS_CLAP, _LV2) are the header rendered
+ * from the domain. A program opens the domain "plugin-db" (floor 1.0.0) once and hands it over: 0, or -1 when the domain
+ * does not hold exactly OMX_PLUGIN_DB_ADDRESS_FORMATS_COUNT words. The library never reads OMX_CONTRACT_PATH: only a
+ * command-line program or a test harness may, and it passes the directory to omx_domain_open_at. A program that never
+ * hands one over has the library open the installed directory (omx_domain_open) on its first need, once, through
+ * pthread_once, so any number of threads may call pdb_address_parse; when that fails the result is PDB_ERR_FORMATS.
+ * pdb_formats_load itself is not thread-safe: a threaded program calls it before it starts its threads. Not for an
+ * audio thread. */
+int pdb_formats_load(const omx_domain *domain);
+
+/* the reason the installed domain could not be read (the loader's code and message), for a message; only meaningful after
+ * PDB_ERR_FORMATS */
+const char *pdb_formats_why(void);
+
+/* the word of a format code, or "?" */
+const char *pdb_format_word(int format);
 
 /* ---------------------------------------------------------------- which files are a plugin */
 
@@ -83,12 +111,12 @@ int pdb_store_default(int system, char *out, size_t size);
 /* the layer written for the current pin: the files pin and the layout of the entry's pinned layer, which must be
  * there (except to write the pinned layer itself, which pdb_pin does). 0, or -1 with the reason in why: no pinned
  * layer, a body that is not a JSON object or lacks a field the schema requires of its layer, a layer outside
- * PLUGIN_DB_LAYERS, or the file could not be written and renamed */
+ * PLUGIN_DB_LAYERS, or the file could not be written and renamed; PDB_ERR_FORMATS when the formats could not be read */
 int pdb_layer_put(const char *store, const char *address, int layer, const char *writer, const char *body, char *why,
                   size_t why_size);
 
 /* collect the plugin's files, hash them and write the entry's pinned layer, with layout ("<scheme>:<sha256>") or
- * NULL when no host has found it yet. 0, or -1 with the reason in why */
+ * NULL when no host has found it yet. 0, or -1 with the reason in why; PDB_ERR_FORMATS when the formats could not be read */
 int pdb_pin(const char *store, const char *address, const char *where, const char *layout, char *why, size_t why_size);
 
 /* ---------------------------------------------------------------- the state */
@@ -158,7 +186,8 @@ int pdb_latency_standing(int has_latency, double latency_ms, int has_line, doubl
 
 /* the check of one entry: its pinned files collected and hashed again, its layout against current_layout (what a host
  * found, or NULL), its records, then pdb_state. 0, or -1 when address is no address or names no entry (why says
- * which, and that a CLAP id several entries share needs its pin). detail may be NULL */
+ * which, and that a CLAP id several entries share needs its pin); PDB_ERR_FORMATS when the formats could not be read,
+ * which says nothing of the address. detail may be NULL */
 int pdb_check(const char *store, const char *address, const pdb_here_t *here, const char *current_layout,
               pdb_answer_t *out, pdb_detail_t *detail, char *why, size_t why_size);
 

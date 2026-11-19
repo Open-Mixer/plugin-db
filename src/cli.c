@@ -36,9 +36,18 @@ static int usage(void)
           "  <address>  <format>:<id> or <format>@<sha256>:<id>, a format of PLUGIN_DB_ADDRESS_FORMATS\n"
           "  <here>     --machine-class <class> --host <name> --host-version <version> --hosting-epoch <n>\n"
           "             --rules <version> --record-schema <version> --rate <hz> --quantum <frames>\n"
-          "             --fact <key>=<value> ...; a fact not given is not known here, and no record matches it\n",
+          "             --fact <key>=<value> ...; a fact not given is not known here, and no record matches it\n"
+          "  OMX_CONTRACT_PATH  a ':' list of directories standing where the contract directory stands: the domain plugin-db is read from the first that holds it\n",
           stderr);
     return 2;
+}
+
+/* a library call failed with rc: PDB_ERR_FORMATS is the domain plugin-db that could not be read, a refusal of the
+ * install (78, naming the domain in why), not an answer about the address; any other failure is 1 */
+static int refused(int rc, const char *why)
+{
+    fprintf(stderr, "plugin-db: %s\n", why);
+    return rc == PDB_ERR_FORMATS ? 78 : 1;
 }
 
 typedef struct OPTS_T {
@@ -129,12 +138,10 @@ static int show(const char *store, const char *address, const opts_t *o)
     char why[PDB_PATH_MAX];
     pdb_answer_t a;
     pdb_detail_t d;
+    int rc;
 
-    if (pdb_check(store, address, &o->here, o->layout, &a, &d, why, sizeof(why)) != 0)
-    {
-        fprintf(stderr, "plugin-db: %s\n", why);
-        return 1;
-    }
+    if ((rc = pdb_check(store, address, &o->here, o->layout, &a, &d, why, sizeof(why))) != 0)
+        return refused(rc, why);
     printf("address  %s\n", d.address);
     printf("entry    %s\n", d.entry);
     printf("files    %s\n", WORD(g_files, FILES, a.files));
@@ -199,13 +206,10 @@ static int query(const char *store, const char *address, const opts_t *o)
     const char *tier = NULL;
     pdb_answer_t a;
     pdb_detail_t d;
-    int k;
+    int k, rc;
 
-    if (pdb_check(store, address, &o->here, o->layout, &a, &d, why, sizeof(why)) != 0)
-    {
-        fprintf(stderr, "plugin-db: %s\n", why);
-        return 1;
-    }
+    if ((rc = pdb_check(store, address, &o->here, o->layout, &a, &d, why, sizeof(why))) != 0)
+        return refused(rc, why);
     /* the tier is the answering record's verdict when it says where the plugin runs; a refusal has none */
     for (k = 0; k < PDB_PIN_VERDICTS_COUNT; k++)
         if (a.source != PDB_SOURCES_NONE && k != PDB_PIN_VERDICTS_REFUSED && !strcmp(d.verdict, g_verdicts[k]))
@@ -249,12 +253,11 @@ static int verify_one(void *ctx, const char *address)
     char why[PDB_PATH_MAX];
     pdb_answer_t a;
     pdb_detail_t d;
-    int clean;
+    int clean, rc;
 
-    if (pdb_check(v->store, address, &v->o->here, NULL, &a, &d, why, sizeof(why)) != 0)
+    if ((rc = pdb_check(v->store, address, &v->o->here, NULL, &a, &d, why, sizeof(why))) != 0)
     {
-        fprintf(stderr, "plugin-db: %s\n", why);
-        v->failed = 1;
+        v->failed = refused(rc, why) == 78 ? 78 : 1;
         return 0;
     }
     clean = a.files == PDB_FILES_SAME && a.layout == PDB_LAYOUT_SAME && a.record == PDB_RECORD_CURRENT;
@@ -264,6 +267,29 @@ static int verify_one(void *ctx, const char *address)
                WORD(g_layout, LAYOUT, a.layout), WORD(g_record, RECORD, a.record), WORD(g_states, STATES, a.state),
                address, d.problem[0] ? "\t" : "", d.problem);
     return 0;
+}
+
+/* the formats of PLUGIN_DB_ADDRESS_FORMATS, read from the domain plugin-db at start-up. A command-line program reads
+ * OMX_CONTRACT_PATH (the directories standing where the contract directory stands) and passes it to omx_domain_open_at;
+ * without it the installed directory is read. A domain that is absent or below 1.0.0 is refused by name: exit 78 */
+static int formats_open(char *why, size_t size)
+{
+    const char *path = getenv("OMX_CONTRACT_PATH");
+    omx_domain *d = NULL;
+    omx_domain_error err;
+    int rc = path && *path ? omx_domain_open_at(path, "plugin-db", "1.0.0", &d, &err)
+                           : omx_domain_open("plugin-db", "1.0.0", &d, &err);
+
+    if (rc != 0)
+    {
+        snprintf(why, size, "the domain plugin-db: %s: %s", err.code, err.message);
+        return -1;
+    }
+    rc = pdb_formats_load(d);
+    omx_domain_close(d);
+    if (rc != 0)
+        snprintf(why, size, "the domain plugin-db does not hold PLUGIN_DB_ADDRESS_FORMATS as two words, in the order of its codes");
+    return rc;
 }
 
 int main(int argc, char **argv)
@@ -293,6 +319,11 @@ int main(int argc, char **argv)
         fprintf(stderr, "plugin-db: no store: set %s, or HOME\n", PDB_STORE_ENV);
         return 2;
     }
+    if (formats_open(why, sizeof(why)) != 0)
+    {
+        fprintf(stderr, "plugin-db: %s\n", why);
+        return 78;
+    }
     verb = argv[n++];
     if (!strcmp(verb, "pin") && n < argc)
     {
@@ -300,12 +331,9 @@ int main(int argc, char **argv)
 
         if (options(argc - n, argv + n, &o) != 0)
             return usage();
-        if (pdb_pin(store, address, o.file ? o.file : o.lv2_path, o.layout, why, sizeof(why)) != 0)
-        {
-            fprintf(stderr, "plugin-db: %s\n", why);
-            return 1;
-        }
-        return 0;
+        int rc = pdb_pin(store, address, o.file ? o.file : o.lv2_path, o.layout, why, sizeof(why));
+
+        return rc != 0 ? refused(rc, why) : 0;
     }
     if (!strcmp(verb, "put") && n + 1 < argc)
     {
@@ -321,12 +349,7 @@ int main(int argc, char **argv)
             return 2;
         rc = pdb_layer_put(store, address, layer, o.writer, body, why, sizeof(why));
         free(body);
-        if (rc != 0)
-        {
-            fprintf(stderr, "plugin-db: %s\n", why);
-            return 1;
-        }
-        return 0;
+        return rc != 0 ? refused(rc, why) : 0;
     }
     if (!strcmp(verb, "show") && n < argc)
     {
@@ -356,7 +379,7 @@ int main(int argc, char **argv)
             fprintf(stderr, "plugin-db: the store %s can't be read\n", store);
             return 2;
         }
-        return v.failed ? 2 : v.dirty ? 1 : 0;
+        return v.failed == 78 ? 78 : v.failed ? 2 : v.dirty ? 1 : 0;
     }
     return usage();
 }

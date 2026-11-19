@@ -15,7 +15,13 @@ BuildRequires: python3-devel
 BuildRequires: pkgconfig(libcrypto)
 BuildRequires: plugin-hostd-protocol-devel >= 0.5.8
 # install-contract writes the contract directory's package with omx-contract's script
-BuildRequires: omx-contract-devel >= 3.19.1
+BuildRequires: omx-contract-devel >= 3.20.0
+# the format words are read from the domain plugin-db through libomx-domain (omxcontract/omx_domain.h)
+BuildRequires: libomx-domain-devel >= 3.20.0
+
+# the command reads the domain plugin-db at start-up and refuses by name without it
+Requires: libomx-domain >= 3.20.0
+Requires: plugin-db-contract = %{version}-%{release}
 
 %description
 plugin-db is the plugin database, in layers: the pin of a plugin, the one
@@ -28,6 +34,9 @@ Its documentation is on openmixer.org.
 %package devel
 Summary: The plugin database: headers, a static library and its pkg-config file
 Requires: pkgconfig(libcrypto)
+# db.h includes omxcontract/omx_domain.h, and libplugin-db.a opens the domain plugin-db
+Requires: libomx-domain-devel >= 3.20.0
+Requires: plugin-db-contract = %{version}-%{release}
 
 %description devel
 <plugin-db/pin.h>, header-only, on libc and libcrypto; <plugin-db/db.h> and
@@ -38,7 +47,7 @@ Its documentation is on openmixer.org.
 
 %package contract
 Summary: The words of the plugin database in omx-contract's contract directory
-Requires: omx-contract >= 3.19.1
+Requires: omx-contract >= 3.20.0
 
 %description contract
 data/pin.json of plugin-db, the words of a pin, and data/db.json, the address
@@ -56,7 +65,7 @@ Requires: python3
 Requires: plugin-db = %{version}-%{release}
 Requires: plugin-db-contract = %{version}-%{release}
 # the catalog reader of text() (a catalog entry with its provenance, a stale one skipped)
-Requires: omx-contract-data >= 3.19.1
+Requires: omx-contract-data >= 3.20.0
 
 %description -n python3-plugin-db
 The Python module plugin_db: query() gives the answer of plugin-db query --json
@@ -95,6 +104,7 @@ make test
 %{_includedir}/plugin-db/pin.h
 %{_includedir}/plugin-db/db.h
 %{_includedir}/plugin-db/plugin_db_vocabulary.h
+%{_includedir}/plugin-db/plugin_db_codes.h
 %{_includedir}/plugin-db/plugin_db_constants.h
 %{_includedir}/plugin-db/plugin_db_tables.h
 %{_libdir}/libplugin-db.a
@@ -103,6 +113,7 @@ make test
 %files contract
 %license COPYING
 %{_datadir}/omx-contract/contract.d/3/plugin-db
+%{omx_contract_domain_dir}/plugin-db/
 %dir %{_datadir}/plugin-db/catalogs
 
 %files -n python3-plugin-db

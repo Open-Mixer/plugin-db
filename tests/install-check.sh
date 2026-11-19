@@ -26,7 +26,9 @@ for d in $(cc -E -xc -v /dev/null 2>&1 | sed -n '/^#include <...> search starts 
     SHIELD="$SHIELD -isystem $d"
 done
 
-build() { # <PKG_CONFIG_PATH> <output> [shield flags]
+base_pc=${PKG_CONFIG_PATH:-}
+build() { # <PKG_CONFIG_PATH> <output> [shield flags]; the caller's own path stays after it
+    set -- "$1${base_pc:+:$base_pc}" "$2" "${3:-}"
     # shellcheck disable=SC2046,SC2086 # the flags are words
     PKG_CONFIG_PATH=$1 cc -std=gnu99 -Wall -Wextra -Werror ${3:-} $(PKG_CONFIG_PATH=$1 pkg-config --cflags plugin-db) \
         -o "$2" tests/consumer.c $(PKG_CONFIG_PATH=$1 pkg-config --libs plugin-db) 2>"$tmp/cc.log"
@@ -53,6 +55,8 @@ PY
 mkdir "$tmp/bad"
 sed '/^Requires:/d' "$pcdir/plugin-db.pc" > "$tmp/bad/plugin-db.pc"
 if build "$tmp/bad" "$tmp/bad/consumer"; then echo "FAIL a pc file without libcrypto still links the consumer"; exit 1; fi
+sed 's/^Requires:.*/Requires: libcrypto/' "$pcdir/plugin-db.pc" > "$tmp/bad/plugin-db.pc"
+if build "$tmp/bad" "$tmp/bad/consumer"; then echo "FAIL a pc file without libomx-domain still builds the consumer"; exit 1; fi
 sed '/^Libs:/d' "$pcdir/plugin-db.pc" > "$tmp/bad/plugin-db.pc"
 if build "$tmp/bad" "$tmp/bad/consumer"; then echo "FAIL a pc file without Libs still links the consumer"; exit 1; fi
 sed '/^Cflags:/d' "$pcdir/plugin-db.pc" > "$tmp/bad/plugin-db.pc"

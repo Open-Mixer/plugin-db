@@ -13,9 +13,8 @@
 #include <sys/stat.h>
 #include <unistd.h>
 
-#include <plugin-hostd/protocol.h>
-
 #include "manifest.h"
+#include "pinpath.h"
 
 #define LV2_BINARY       "http://lv2plug.in/ns/lv2core#binary"
 #define LV2_MINOR        "http://lv2plug.in/ns/lv2core#minorVersion"
@@ -229,10 +228,10 @@ static void bundle_path(const scan_t *s, const char *bundle, const char *iri, ch
     char file[PATH_MAX + 8], decoded[PATH_MAX * 3];
 
     snprintf(file, sizeof(file), "file://%s/", bundle);
-    if (!strncmp(iri, "file://", 7) && phd_pin_path_decode(iri, decoded, sizeof(decoded)) == 0 &&
+    if (!strncmp(iri, "file://", 7) && pdb_pin_path_decode(iri, decoded, sizeof(decoded)) == 0 &&
         !strncmp(decoded, file, strlen(file)))
     {
-        if (phd_pin_path_encode(decoded + strlen(file), out, size) != 0)
+        if (pdb_pin_path_encode(decoded + strlen(file), out, size) != 0)
             snprintf(out, size, "%s", iri);
         return;
     }

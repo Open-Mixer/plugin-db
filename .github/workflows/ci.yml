@@ -48,6 +48,12 @@ jobs:
           if command -v dnf >/dev/null; then dnf -y install plugin-hostd-protocol-devel
           else apt-get -y install --no-install-recommends libplugin-hostd-protocol-dev
           fi
+      # the format words are read from the domain plugin-db through libomx-domain: its header, pkg-config file and the omx-domain command
+      - name: libomx-domain's headers
+        run: |
+          if command -v dnf >/dev/null; then dnf -y install libomx-domain-devel
+          else apt-get -y install --no-install-recommends libomx-domain-dev
+          fi
       # text() reads the catalogs through omx-contract's reader, /usr/share/omx-contract/omx_contract_catalog.py, which
       # omx-contract-data ships: python3-plugin-db's floor, packaging/deps.txt
       - name: omx-contract's catalog reader
@@ -77,6 +83,8 @@ jobs:
         uses: Open-Mixer/.github/.github/actions/add-openmixer@openmixer-v1
       - name: plugin-hostd-protocol's headers
         run: dnf -y install plugin-hostd-protocol-devel
+      - name: libomx-domain's headers
+        run: dnf -y install libomx-domain-devel
       - name: Node is in the twin's range
         run: node -e 'const [a,b]=process.versions.node.split(".").map(Number); if (a>=25 || a<22 || (a==22 && b<18)) { console.error("node " + process.version + " is outside 22.18 .. 24"); process.exit(1) }'
       - name: make test-twin
@@ -91,7 +99,7 @@ jobs:
     container: fedora:44
     steps:
       - name: Toolchain
-        run: dnf -y install git make pkgconf-pkg-config diffutils
+        run: dnf -y install git make gcc pkgconf-pkg-config openssl-devel python3 diffutils
       - uses: actions/checkout@v4
       - name: Trust the checkout
         run: git config --global --add safe.directory "$GITHUB_WORKSPACE"
@@ -99,8 +107,10 @@ jobs:
         uses: Open-Mixer/.github/.github/actions/add-openmixer@openmixer-v1
       # a dedupe/all run builds on its siblings' dedupe/all (.github/wave-deps); @main until Open-Mixer/.github moves v1 past it
       - uses: Open-Mixer/.github/.github/actions/wave-deps@openmixer-v1
-      - name: omx-contract
-        run: dnf -y install omx-contract omx-contract-devel
+      # libomx-domain-devel ships omx-domain, the loader's command (make test-domain opens the plugin-db domain with it), and
+      # the header the command and the tests build on; the installer's --domain mode (3.20.0) comes with omx-contract-devel
+      - name: omx-contract and the loader
+        run: dnf -y install omx-contract omx-contract-devel libomx-domain-devel plugin-hostd-protocol-devel
       - name: make check-tools
         run: make check-tools
       # one pack per listed language from the spec and debian/control, and the catalogs through omx-contract's release

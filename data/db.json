@@ -3,21 +3,6 @@
   "requires": {
     "omx-contract-schema": ">= 3.12.0"
   },
-  "PLUGIN_DB_ADDRESS_FORMATS": {
-    "kind": "words",
-    "since": "0.2.0",
-    "doc": "The one address form of a plugin: <format>:<id>, or clap@<sha256>:<id> when several files share one CLAP id, the sha256 that of the .clap file. An LV2 address carries no sha256: the bundle rule makes one bundle the plugin. A path is never part of an address, so a session keeps its plugins on another machine. The format is one of these words; an id is the plugin's own, its CLAP id or its LV2 URI, and a CLAP id that begins with '/' is a path and no address.",
-    "words": {
-      "clap": {
-        "word": "clap",
-        "doc": "a CLAP plugin: the id is the plugin descriptor's id"
-      },
-      "lv2": {
-        "word": "lv2",
-        "doc": "an LV2 plugin: the id is the plugin's URI"
-      }
-    }
-  },
   "PLUGIN_DB_BUNDLE_RULES": {
     "kind": "words",
     "since": "0.2.0",
