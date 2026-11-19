@@ -99,8 +99,10 @@ jobs:
         uses: Open-Mixer/.github/.github/actions/add-openmixer@openmixer-v1
       # a dedupe/all run builds on its siblings' dedupe/all (.github/wave-deps); @main until Open-Mixer/.github moves v1 past it
       - uses: Open-Mixer/.github/.github/actions/wave-deps@openmixer-v1
+      # libomx-domain ships omx-domain, the loader's command: make test-domain opens the installed plugin-db domain with it;
+      # the installer's --domain mode (3.20.0) comes with omx-contract-devel
       - name: omx-contract
-        run: dnf -y install omx-contract omx-contract-devel
+        run: dnf -y install omx-contract omx-contract-devel libomx-domain
       - name: make check-tools
         run: make check-tools
       # one pack per listed language from the spec and debian/control, and the catalogs through omx-contract's release
