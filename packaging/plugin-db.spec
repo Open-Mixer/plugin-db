@@ -1,5 +1,5 @@
 Name: plugin-db
-Version: 0.4.5
+Version: 0.4.6
 Release: 1%{?dist}
 License: GPL-3.0-or-later
 Summary: The plugin database: the pin, the address form, the store and the state
@@ -15,7 +15,7 @@ BuildRequires: python3-devel
 BuildRequires: pkgconfig(libcrypto)
 BuildRequires: plugin-hostd-protocol-devel >= 0.5.8
 # install-contract writes the contract directory's package with omx-contract's script
-BuildRequires: omx-contract-devel >= 3.19.0
+BuildRequires: omx-contract-devel >= 3.19.1
 
 %description
 plugin-db is the plugin database, in layers: the pin of a plugin, the one
@@ -38,7 +38,7 @@ Its documentation is on openmixer.org.
 
 %package contract
 Summary: The words of the plugin database in omx-contract's contract directory
-Requires: omx-contract >= 3.19.0
+Requires: omx-contract >= 3.19.1
 
 %description contract
 data/pin.json of plugin-db, the words of a pin, and data/db.json, the address
@@ -56,7 +56,7 @@ Requires: python3
 Requires: plugin-db = %{version}-%{release}
 Requires: plugin-db-contract = %{version}-%{release}
 # the catalog reader of text() (a catalog entry with its provenance, a stale one skipped)
-Requires: omx-contract-data >= 3.19.0
+Requires: omx-contract-data >= 3.19.1
 
 %description -n python3-plugin-db
 The Python module plugin_db: query() gives the answer of plugin-db query --json
@@ -196,6 +196,14 @@ English source sentence.
 # END langpacks
 
 %changelog
+* Thu Nov 19 2026 Pau Aliagas <linuxnow@gmail.com> - 0.4.6-1
+- Built against omx-contract >= 3.19.1 (was 3.19.0); plugin-hostd-protocol
+  stays at >= 0.5.8. The floors are declared once, in packaging/deps.txt, and
+  the spec and debian/control are rendered from it and refused when they
+  differ; no dependency carries a ceiling
+- The declared words re-rendered by omx-contract 3.19.1: the constants and the
+  vocabulary headers, additive only; check-rendered is green (#43)
+
 * Tue Nov 17 2026 Pau Aliagas <linuxnow@gmail.com> - 0.4.5-1
 - Built against omx-contract >= 3.19.0 (was 3.18.0); plugin-hostd-protocol
   stays at >= 0.5.8. The floors are declared once, in packaging/deps.txt, and

@@ -1,3 +1,14 @@
+plugin-db (0.4.6) unstable; urgency=medium
+
+  * Built against omx-contract >= 3.19.1 (was 3.19.0); plugin-hostd-protocol
+    stays at >= 0.5.8. The floors are declared once, in packaging/deps.txt, and
+    the spec and debian/control are rendered from it and refused when they
+    differ; no dependency carries a ceiling.
+  * The declared words re-rendered by omx-contract 3.19.1: the constants and the
+    vocabulary headers, additive only; check-rendered is green (#43).
+
+ -- Pau Aliagas <linuxnow@gmail.com>  Thu, 19 Nov 2026 12:00:00 +0100
+
 plugin-db (0.4.5) unstable; urgency=medium
 
   * Built against omx-contract >= 3.19.0 (was 3.18.0); plugin-hostd-protocol
