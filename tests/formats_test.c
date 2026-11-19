@@ -2,7 +2,9 @@
 /* Copyright (C) 2026 Pau Aliagas <linuxnow@gmail.com> */
 /* The address formats are plugin-db's domain item PLUGIN_DB_ADDRESS_FORMATS, read at start-up through the loader:
  *   formats_test unloaded          no format is loaded: the library entry reads the installed directory and never
- *                                  OMX_CONTRACT_PATH, so with that variable naming a good tree an address is still refused
+ *                                  OMX_CONTRACT_PATH, so with that variable naming a good tree an address is still refused;
+ *                                  it assumes no plugin-db domain is installed (as in CI): where one is, this arm goes red,
+ *                                  never falsely green, since the library reads no path a test could redirect
  *   formats_test load <dir> <word> <other>
  *                                  this harness opens <dir> (a test may) and hands the domain to the library: <word>
  *                                  is then an address format (code 1, the second word) and <other> is not */
