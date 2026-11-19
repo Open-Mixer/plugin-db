@@ -77,7 +77,11 @@ install-python:
 # ---------------------------------------------------------------------------------------------------------------------
 # tests: no plugin, no daemon
 
-test: test-constants-alone test-pin check-tables check-ts test-py test-state test-collect test-store test-golden test-install test-sabotage test-db-sabotage test-abi version-check check-control
+# no translation unit sees both plugin-hostd/protocol.h and plugin_db_codes.h (tests/tu-split.sh)
+test-tu-split:
+	CC='$(CC)' CFLAGS='$(PROTOCOL_CFLAGS) $(DOMAIN_CFLAGS) $(CRYPTO_CFLAGS)' sh tests/tu-split.sh
+
+test: test-tu-split test-constants-alone test-pin check-tables check-ts test-py test-state test-collect test-store test-golden test-install test-sabotage test-db-sabotage test-abi version-check check-control
 
 tests/pin_test: tests/pin_test.c $(HEADERS)
 	$(CC) -Iinclude $(CRYPTO_CFLAGS) $(CFLAGS) -Werror -o $@ tests/pin_test.c $(CRYPTO_LIBS)
@@ -359,4 +363,4 @@ clean:
 
 .PHONY: all install test test-pin check-tables render-tables test-state test-collect test-store test-db-sabotage test-asan test-golden check-ts render-ts test-twin check-py render-py test-py install-python \
         test-install test-sabotage test-abi abi-layout abi-baseline abi-check version-check check-tools check-ci-matrix install-contract check-contract-dir \
-        test-rendered-sabotage test-domain check-codes render-codes render-words check-rendered fuzz fuzz-run fuzz-sabotage fuzz-records fuzz-coverage fuzz-corpus fuzz-corpus-check clean
+        test-rendered-sabotage test-domain test-tu-split check-codes render-codes render-words check-rendered fuzz fuzz-run fuzz-sabotage fuzz-records fuzz-coverage fuzz-corpus fuzz-corpus-check clean
