@@ -164,6 +164,12 @@ typedef struct PDB_ANSWER_T {
  * computes this for itself. */
 void pdb_state(const pdb_state_in_t *in, const pdb_here_t *here, pdb_answer_t *out);
 
+/* THE door of pdb_state: a NULL in, here or out, an enum outside its declared range (files, layout, a record's verdict
+ * but -1, which is a word that is none), a present record with no host name, or cells/conditions NULL with a count above 0 is
+ * REFUSED: never a crash, an abort or a table read past its end, and counted here. A refused call with an out answers
+ * state unqualified (it runs nothing), source none, reason could-not-test. The count since the process began. */
+long pdb_state_refusals(void);
+
 /* what show and verify print beside the answer */
 typedef struct PDB_DETAIL_T {
     char address[PDB_PATH_MAX];         /* the entry's, resolved */

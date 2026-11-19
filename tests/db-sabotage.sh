@@ -46,6 +46,9 @@ arm "a name that climbs out of the bundle is taken" $C "        else if (!pdb_pa
 arm "a bundle's own file:// IRI is matched as written, not decoded" src/manifest.c "    if (!strncmp(iri, \"file://\", 7) && pdb_pin_path_decode(iri, decoded, sizeof(decoded)) == 0 && => if (0 &&" test-collect
 arm "a CLAP id that is a path is an address" src/address.c "(a->format == OMX_PLUGIN_DB_ADDRESS_FORMATS_CLAP && a->id[0] == '/') => 0" test-collect
 # the state function
+arm "the door lets a layout past its range through" $S "           in->layout < PDB_LAYOUT_COUNT && => 1 &&" test-state
+arm "the door lets a NULL answer through" $S "    if (out == NULL || !door(in, here)) => if (out != NULL && !door(in, here))" test-state
+arm "the door does not count a refusal" $S "        g_refusals++; => ;" test-state
 arm "a shipped refusal is not read" $S "        in->reference.verdict == PDB_PIN_VERDICTS_REFUSED) => 0)" test-state
 arm "a warned override is not read" $S "        if (in->warned_override) => if (0)" test-state
 arm "isolated only without plugin-hostd" $S "    if (isolation_host(r->host_name)) => if (1)" test-state
