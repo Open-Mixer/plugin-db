@@ -192,7 +192,7 @@ CONTRACT_SCHEMA_MAJOR = 3
 CONTRACTDIR = $(or $(shell $(PKG_CONFIG) --variable=contractdir omx-contract 2>/dev/null),$(DATADIR)/omx-contract/contract.d)
 INSTALL_CONTRACT_DIR = $(firstword $(wildcard $(shell $(PKG_CONFIG) --variable=datadir omx-contract 2>/dev/null)/install-contract-dir.sh) $(wildcard $(OMX_CONTRACT_DIR)/tools/install-contract-dir.sh))
 
-check-tools: check-rendered test-rendered-sabotage check-contract-dir check-ci-matrix
+check-tools: check-rendered test-rendered-sabotage check-contract-dir test-domain check-ci-matrix
 
 check-ci-matrix:
 	sh tests/ci-matrix-follows-set.sh --self-test
@@ -217,6 +217,10 @@ check-contract-dir:
 
 test-rendered-sabotage:
 	sh tests/rendered-sabotage.sh
+
+# the formats domain: installed, opened by the loader (omx-domain), clap and lv2; check-domain's arms
+test-domain:
+	INSTALL_CONTRACT_DIR='$(INSTALL_CONTRACT_DIR)' MAKE='$(MAKE)' sh tests/domain-formats.sh
 
 render-words check-rendered:
 	@command -v $(OMX_CONTRACT) >/dev/null || { echo "$@: no $(OMX_CONTRACT) command: install omx-contract" >&2; exit 1; }
@@ -337,4 +341,4 @@ clean:
 
 .PHONY: all install test test-pin check-tables render-tables test-state test-collect test-store test-db-sabotage test-asan test-golden check-ts render-ts test-twin check-py render-py test-py install-python \
         test-install test-sabotage test-abi abi-layout abi-baseline abi-check version-check check-tools check-ci-matrix install-contract check-contract-dir \
-        test-rendered-sabotage render-words check-rendered fuzz fuzz-run fuzz-sabotage fuzz-records fuzz-coverage fuzz-corpus fuzz-corpus-check clean
+        test-rendered-sabotage test-domain render-words check-rendered fuzz fuzz-run fuzz-sabotage fuzz-records fuzz-coverage fuzz-corpus fuzz-corpus-check clean
