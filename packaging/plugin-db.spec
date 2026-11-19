@@ -1,5 +1,5 @@
 Name: plugin-db
-Version: 0.4.5
+Version: 0.4.6
 Release: 1%{?dist}
 License: GPL-3.0-or-later
 Summary: The plugin database: the pin, the address form, the store and the state
@@ -196,6 +196,14 @@ English source sentence.
 # END langpacks
 
 %changelog
+* Thu Nov 19 2026 Pau Aliagas <linuxnow@gmail.com> - 0.4.6-1
+- Built against omx-contract >= 3.19.1 (was 3.19.0); plugin-hostd-protocol
+  stays at >= 0.5.8. The floors are declared once, in packaging/deps.txt, and
+  the spec and debian/control are rendered from it and refused when they
+  differ; no dependency carries a ceiling
+- The declared words re-rendered by omx-contract 3.19.1: the constants and the
+  vocabulary headers, additive only; check-rendered is green (#43)
+
 * Tue Nov 17 2026 Pau Aliagas <linuxnow@gmail.com> - 0.4.5-1
 - Built against omx-contract >= 3.19.0 (was 3.18.0); plugin-hostd-protocol
   stays at >= 0.5.8. The floors are declared once, in packaging/deps.txt, and
