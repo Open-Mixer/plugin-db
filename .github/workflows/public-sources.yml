@@ -35,3 +35,5 @@ jobs:
   # the shared checks, from Open-Mixer/.github and nowhere else: the commit messages, no private reference, no local copy
   public-sources:
     uses: Open-Mixer/.github/.github/workflows/public-sources-check.yml@openmixer-v1
+    with:
+      commit-identity: true
