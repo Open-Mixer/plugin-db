@@ -11,21 +11,41 @@ concurrency:
   cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
 jobs:
-  test:
-    name: build + test (${{ matrix.image }})
+  # the cells the test job runs: check-matrix's answer (ruling D25: the quick set while a release wave is open, the whole
+  # matrix declared here otherwise). Each cell names its container image and the runner of its own architecture: the
+  # channel's development debs are trixie arm64 only, and an amd64 container resolves an arm64 -dev package that dpkg
+  # then refuses
+  checks:
     runs-on: ubuntu-latest
+    timeout-minutes: 5
+    outputs:
+      cells: ${{ steps.m.outputs.cells }}
+      count: ${{ steps.m.outputs.count }}
+    steps:
+      - id: m
+        uses: Open-Mixer/.github/.github/actions/check-matrix@openmixer-v1
+        with:
+          wave: ${{ vars.OMX_RELEASE_MATRIX }}
+          rpm-releases: '["44", "45"]'
+          rpm-arches: '["x86_64"]'
+          deb-releases: '["trixie"]'
+          deb-arches: '["amd64", "arm64"]'
+
+  test:
+    name: build + test (${{ matrix.cell.image }}, ${{ matrix.cell.arch }})
+    needs: checks
+    if: needs.checks.outputs.count != '0'
+    runs-on: ${{ matrix.cell.runner }}
     # A backstop only.
     timeout-minutes: 15
     strategy:
       fail-fast: false
       matrix:
-        # ruling D25: while the org's OMX_RELEASE_MATRIX is quick, CI covers the quick cells only; bookworm is a full
-        # cell, served its floors only at the wave-end full release, so it joins the matrix when the variable is full
-        image: ${{ fromJSON(vars.OMX_RELEASE_MATRIX == 'full' && '["fedora:44", "debian:bookworm", "debian:trixie"]' || '["fedora:44", "debian:trixie"]') }}
+        cell: ${{ fromJSON(needs.checks.outputs.cells) }}
     # privileged only to lower the runner kernel's mmap_rnd_bits: with the hosted image's 32 bits, bookworm's gcc 12
     # AddressSanitizer dies in DEADLYSIGNAL loops until the timeout (newer libasan copes)
     container:
-      image: ${{ matrix.image }}
+      image: ${{ matrix.cell.image }}
       options: --privileged
     steps:
       - name: Address space randomisation AddressSanitizer can run under
