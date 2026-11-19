@@ -3,7 +3,7 @@
   "$id": "https://openmixer.org/contract/plugin-db",
   "info": {
     "title": "The words of the plugin database",
-    "version": "1.0.0",
+    "version": "0.4.6",
     "x-owner": "plugin-db",
     "x-stability": "experimental"
   },

@@ -221,13 +221,13 @@ test-rendered-sabotage:
 
 # contract.d/plugin-db/plugin-db.json is what tools/render-domain.py derives from data/db.json (python3 only)
 check-domain:
-	python3 tools/render-domain.py --check data contract.d/plugin-db/plugin-db.json
+	python3 tools/render-domain.py --check data VERSION contract.d/plugin-db/plugin-db.json
 	$(OMX_CONTRACT) fmt --check --contract-dir contract.d
 	$(OMX_CONTRACT) validate --contract-dir contract.d
 
 render-domain:
 	@mkdir -p contract.d/plugin-db
-	python3 tools/render-domain.py data contract.d/plugin-db/plugin-db.json
+	python3 tools/render-domain.py data VERSION contract.d/plugin-db/plugin-db.json
 
 # the formats domain: installed, opened by the loader (omx-domain), clap and lv2; check-domain's arms
 test-domain:
