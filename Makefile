@@ -230,8 +230,9 @@ render-domain:
 	python3 tools/render-domain.py data VERSION contract.d/plugin-db/plugin-db.json
 
 # the formats domain: installed, opened by the loader (omx-domain), clap and lv2; check-domain's arms
-test-domain:
-	INSTALL_CONTRACT_DIR='$(INSTALL_CONTRACT_DIR)' MAKE='$(MAKE)' sh tests/domain-formats.sh
+test-domain: $(BIN) $(BUILD)/formats_test
+	INSTALL_CONTRACT_DIR='$(INSTALL_CONTRACT_DIR)' MAKE='$(MAKE)' OMX_CONTRACT='$(OMX_CONTRACT)' PDB='$(BIN)' \
+	  FORMATS_TEST='$(BUILD)/formats_test' sh tests/domain-formats.sh
 
 render-words check-rendered:
 	@command -v $(OMX_CONTRACT) >/dev/null || { echo "$@: no $(OMX_CONTRACT) command: install omx-contract" >&2; exit 1; }

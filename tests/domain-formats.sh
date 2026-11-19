@@ -2,83 +2,108 @@
 # SPDX-License-Identifier: GPL-3.0-or-later
 # Copyright (C) 2026 Pau Aliagas <linuxnow@gmail.com>
 #
-# plugin-db publishes its address formats (clap, lv2) as a domain item the omx-contract loader opens: the installed tree
-# holds contract.d/plugin-db/plugin-db.json, the loader (omx-domain, over omx_domain_open_at) opens it and lists
-# clap and lv2 in PLUGIN_DB_ADDRESS_FORMATS, and `make check-domain` is red on a domain file that is missing or stale.
-# data/db.json stays the one source; the domain file is what tools/render-domain.py derives from it.
-#   env: INSTALL_CONTRACT_DIR (install-contract-dir.sh, 3.20.0 or later), OMX_DOMAIN (the omx-domain command)
+# plugin-db owns the domain `plugin-db`, hand-kept in contract.d/plugin-db/plugin-db.json, and its item
+# PLUGIN_DB_ADDRESS_FORMATS (clap, lv2) lives only there: data/db.json no longer declares it, the C that switches on
+# a format reads the codes header rendered from the domain, and the format words are read at start-up through the
+# loader (omx-contract's docs/consumer-move.md).
+#   env: INSTALL_CONTRACT_DIR (install-contract-dir.sh, 3.20.0 or later), OMX_DOMAIN (the omx-domain command),
+#        OMX_CONTRACT (the omx-contract command), PDB (the plugin-db command), FORMATS_TEST (tests/formats_test.c, built)
 set -eu
 : "${MAKE:=make}"
 : "${OMX_DOMAIN:=omx-domain}"
-[ -n "${INSTALL_CONTRACT_DIR:-}" ] || { echo "FAIL domain-formats: INSTALL_CONTRACT_DIR is not set: no install-contract-dir.sh" >&2; exit 1; }
-command -v "$OMX_DOMAIN" >/dev/null || { echo "FAIL domain-formats: no $OMX_DOMAIN command: install libomx-domain (3.20.0 or later)" >&2; exit 1; }
+: "${OMX_CONTRACT:=omx-contract}"
+for v in INSTALL_CONTRACT_DIR PDB FORMATS_TEST; do
+  eval "[ -n \"\${$v:-}\" ]" || { echo "FAIL domain-formats: $v is not set" >&2; exit 1; }
+done
+command -v "$OMX_DOMAIN" >/dev/null || { echo "FAIL domain-formats: no $OMX_DOMAIN command: install libomx-domain-devel (3.20.0 or later)" >&2; exit 1; }
 tmp=$(mktemp -d)
 trap 'rm -rf "$tmp"' EXIT
-fresh() { rm -rf "$tmp/t"; mkdir "$tmp/t"; cp -r Makefile VERSION data tools contract.d "$tmp/t/" 2>/dev/null || true; }
+bad() { echo "FAIL $1"; exit 1; }
+fresh() { rm -rf "$tmp/t"; mkdir "$tmp/t"; cp -r Makefile VERSION data tools contract.d include "$tmp/t/"; }
+
+# the domain is the source: hand-kept, not rendered, and the classic item is gone
+test ! -e tools/render-domain.py || bad "tools/render-domain.py still derives the domain"
+! grep -q "render-domain\|check-domain" Makefile || bad "the Makefile still renders or checks a derived domain"
+python3 - <<'P' || bad "the domain document is not the source of PLUGIN_DB_ADDRESS_FORMATS"
+import json, sys
+db = json.load(open("data/db.json"))
+if "PLUGIN_DB_ADDRESS_FORMATS" in db:
+    sys.exit("data/db.json still declares PLUGIN_DB_ADDRESS_FORMATS")
+doc = json.load(open("contract.d/plugin-db/plugin-db.json"))
+item = doc["components"]["schemas"]["PLUGIN_DB_ADDRESS_FORMATS"]
+if doc["info"]["version"] != "1.0.0" or item.get("x-since") != "1.0.0":
+    sys.exit("the domain's own version is 1.0.0 and the item's x-since 1.0.0")
+if item.get("x-c-codes") is not True:
+    sys.exit("the item is not marked x-c-codes: C switches on its words")
+if [w["const"] for w in item["oneOf"]] != ["clap", "lv2"]:
+    sys.exit("the words are not clap and lv2")
+P
+$OMX_CONTRACT fmt --check --contract-dir contract.d >/dev/null || bad "the domain is not in the one formatting"
+$OMX_CONTRACT validate --contract-dir contract.d >/dev/null || bad "the domain does not validate"
 
 # the installed tree holds the domain, and the loader opens it
 mkdir -p "$tmp/dest/contractdir"
-sh "$INSTALL_CONTRACT_DIR" --domain contract.d/plugin-db "$tmp/dest/contractdir"
-test -f "$tmp/dest/contractdir/plugin-db/plugin-db.json" || { echo "FAIL the installed tree has no plugin-db/plugin-db.json"; exit 1; }
-words=$(OMX_CONTRACT_PATH="$tmp/dest/contractdir" "$OMX_DOMAIN" plugin-db "" PLUGIN_DB_ADDRESS_FORMATS) \
-  || { echo "FAIL the loader does not open plugin-db"; exit 1; }
+sh "$INSTALL_CONTRACT_DIR" --domain contract.d/plugin-db "$tmp/dest/contractdir" >/dev/null
+test -f "$tmp/dest/contractdir/plugin-db/plugin-db.json" || bad "the installed tree has no plugin-db/plugin-db.json"
+words=$(OMX_CONTRACT_PATH="$tmp/dest/contractdir" "$OMX_DOMAIN" plugin-db "" PLUGIN_DB_ADDRESS_FORMATS) || bad "the loader does not open plugin-db"
 for w in clap lv2; do
-  printf '%s\n' "$words" | grep -q "^word=$w " || { echo "FAIL PLUGIN_DB_ADDRESS_FORMATS lacks $w: $words"; exit 1; }
+  printf '%s\n' "$words" | grep -q "^word=$w " || bad "PLUGIN_DB_ADDRESS_FORMATS lacks $w: $words"
 done
-[ "$(printf '%s\n' "$words" | wc -l)" -eq 2 ] || { echo "FAIL PLUGIN_DB_ADDRESS_FORMATS is not exactly clap and lv2: $words"; exit 1; }
+[ "$(printf '%s\n' "$words" | wc -l)" -eq 2 ] || bad "PLUGIN_DB_ADDRESS_FORMATS is not exactly clap and lv2: $words"
 
-# the gate: green on a clean tree, red on a missing file and on a stale one
+# no vocabulary render of the item, and no second header: C reads the codes header of the domain
+! grep -q "ADDRESS_FORMATS" include/plugin-db/plugin_db_vocabulary.h || bad "plugin_db_vocabulary.h still renders the formats"
+! grep -rq "PDB_ADDRESS_FORMATS\|OMX_PLUGIN_DB_ADDRESS_FORMATS_INIT" src include tests/*.c || bad "an old name of the formats is still used"
+test -f include/plugin-db/plugin_db_codes.h || bad "no codes header of the domain"
+n=$(grep -c "^#define OMX_" include/plugin-db/plugin_db_codes.h)
+[ "$(grep -c "^#define OMX_PLUGIN_DB_ADDRESS_FORMATS_" include/plugin-db/plugin_db_codes.h)" -eq "$n" ] || bad "the codes header holds more than the x-c-codes item"
+$MAKE --no-print-directory check-codes >/dev/null || bad "check-codes is red on a clean tree"
 fresh
-$MAKE --no-print-directory -C "$tmp/t" check-domain >/dev/null || { echo "FAIL check-domain is red on a clean tree"; exit 1; }
+sed -i 's/ADDRESS_FORMATS_LV2 1u/ADDRESS_FORMATS_LV2 7u/' "$tmp/t/include/plugin-db/plugin_db_codes.h"
+if $MAKE --no-print-directory -C "$tmp/t" check-codes >/dev/null 2>&1; then bad "a codes header changed by hand stays green"; fi
 fresh
-rm "$tmp/t/contract.d/plugin-db/plugin-db.json"
-if $MAKE --no-print-directory -C "$tmp/t" check-domain >/dev/null 2>&1; then echo "FAIL a missing domain file stays green"; exit 1; fi
-fresh
-sed -i 's/"const": "lv2"/"const": "lv-2"/' "$tmp/t/contract.d/plugin-db/plugin-db.json"
-if $MAKE --no-print-directory -C "$tmp/t" check-domain >/dev/null 2>&1; then echo "FAIL a domain file changed by hand stays green"; exit 1; fi
-fresh
-sed -i 's/"word": "lv2"/"word": "lv3"/' "$tmp/t/data/db.json"
-if $MAKE --no-print-directory -C "$tmp/t" check-domain >/dev/null 2>&1; then echo "FAIL data/db.json changed and not rendered again stays green"; exit 1; fi
+sed -i 's/"const": "lv2"/"const": "lv3"/' "$tmp/t/contract.d/plugin-db/plugin-db.json"
+$OMX_CONTRACT validate --contract-dir "$tmp/t/contract.d" >/dev/null || bad "the fixture domain does not validate"
 
-# the domain's version and codes are stable: the version is plugin-db's VERSION, a word added or removed under the same
-# version is refused by name, and an existing word keeps its code (a new word is appended). The render refuses to
-# overwrite the file with such a document, and check-domain stays red on it.
-refused() { # <label> <expected text>: make render-domain fails with that text and the file is untouched, check-domain red
-  if out=$($MAKE --no-print-directory -C "$tmp/t" render-domain 2>&1); then echo "FAIL $1: render-domain wrote it"; exit 1; fi
-  printf '%s\n' "$out" | grep -q "$2" || { echo "FAIL $1: refused without naming it ($2): $out"; exit 1; }
-  cmp -s "$tmp/t/contract.d/plugin-db/plugin-db.json" contract.d/plugin-db/plugin-db.json || { echo "FAIL $1: the file was overwritten"; exit 1; }
-  if $MAKE --no-print-directory -C "$tmp/t" check-domain >/dev/null 2>&1; then echo "FAIL $1: check-domain is green"; exit 1; fi
-}
+# the classic item put back beside the domain is refused: one name, one owner
 fresh
-python3 - "$tmp/t/data/db.json" <<'P'
+python3 - "$tmp/t" <<'P'
 import json, sys
-p = sys.argv[1]
+p = sys.argv[1] + "/data/db.json"
 d = json.load(open(p))
-d["PLUGIN_DB_ADDRESS_FORMATS"]["words"]["vst3"] = {"word": "vst3", "doc": "a VST3 plugin"}
+d["PLUGIN_DB_ADDRESS_FORMATS"] = {"kind": "words", "since": "0.2.0", "doc": "again", "words": {"clap": {"word": "clap", "doc": "x"}}}
 json.dump(d, open(p, "w"), indent=2)
 P
-refused "a word added, the version unchanged" "words added or removed while the version is unchanged"
-fresh
-python3 - "$tmp/t/data/db.json" <<'P'
-import json, sys
-p = sys.argv[1]
-d = json.load(open(p))
-w = d["PLUGIN_DB_ADDRESS_FORMATS"]["words"]
-d["PLUGIN_DB_ADDRESS_FORMATS"]["words"] = {"lv2": w["lv2"], "clap": w["clap"]}
-json.dump(d, open(p, "w"), indent=2)
-P
-refused "two keys swapped" "x-code moved"
-# a new version with the word appended renders, and the codes of clap and lv2 stay 0 and 1
-fresh
-python3 - "$tmp/t/data/db.json" <<'P'
-import json, sys
-p = sys.argv[1]
-d = json.load(open(p))
-d["PLUGIN_DB_ADDRESS_FORMATS"]["words"]["vst3"] = {"word": "vst3", "doc": "a VST3 plugin"}
-json.dump(d, open(p, "w"), indent=2)
-P
-echo 9.9.9 > "$tmp/t/VERSION"
-$MAKE --no-print-directory -C "$tmp/t" render-domain >/dev/null || { echo "FAIL a word appended under a new version is refused"; exit 1; }
-$MAKE --no-print-directory -C "$tmp/t" check-domain >/dev/null || { echo "FAIL check-domain is red after a render under a new version"; exit 1; }
-grep -q '"version": "9.9.9"' "$tmp/t/contract.d/plugin-db/plugin-db.json" || { echo "FAIL the domain's version is not VERSION"; exit 1; }
-echo "ok   domain formats: installed, opened by the loader, clap and lv2; check-domain red on missing, stale and unrendered; a word added or moved under the same version refused"
+mkdir -p "$tmp/t/both"
+sh "$INSTALL_CONTRACT_DIR" plugin-db "$(cat VERSION)" 3 "$tmp/t/data" "$tmp/t/both" >/dev/null
+sh "$INSTALL_CONTRACT_DIR" --domain "$tmp/t/contract.d/plugin-db" "$tmp/t/both" >/dev/null
+if out=$($OMX_CONTRACT validate --contract-dir "$tmp/t/both" 2>&1); then bad "the classic item beside the domain stays green"; fi
+printf '%s\n' "$out" | grep -q "duplicate" || bad "the classic item beside the domain is refused, but not as a duplicate: $out"
+
+# the words are read at start-up: a fixture directory with one word changed reaches the command and the library
+fixture="$tmp/fx"
+mkdir -p "$fixture"
+cp -r contract.d/plugin-db "$fixture/"
+sed -i 's/"const": "lv2"/"const": "lv3"/' "$fixture/plugin-db/plugin-db.json"
+store="$tmp/store"
+AMP=http://example.org/plugins/amp
+real=$(OMX_CONTRACT_PATH="$PWD/contract.d" "$PDB" --store "$store" show "lv2:$AMP" 2>&1 || true)
+printf '%s\n' "$real" | grep -q "has no entry" || bad "the command does not read lv2 from the domain: $real"
+changed=$(OMX_CONTRACT_PATH="$fixture" "$PDB" --store "$store" show "lv3:$AMP" 2>&1 || true)
+printf '%s\n' "$changed" | grep -q "has no entry" || bad "the command does not see the changed word: $changed"
+old=$(OMX_CONTRACT_PATH="$fixture" "$PDB" --store "$store" show "lv2:$AMP" 2>&1 || true)
+printf '%s\n' "$old" | grep -q "is no address" || bad "the command still accepts the old word: $old"
+"$FORMATS_TEST" load "$fixture" lv3 lv2 >/dev/null || bad "the library does not see the changed word"
+OMX_CONTRACT_PATH="$PWD/contract.d" "$FORMATS_TEST" unloaded >/dev/null || bad "the library entry read OMX_CONTRACT_PATH"
+
+# an absent or too-old domain is refused by name at start-up, exit 78
+mkdir "$tmp/empty"
+rc=0; out=$(OMX_CONTRACT_PATH="$tmp/empty" "$PDB" --store "$store" show "lv2:$AMP" 2>&1) || rc=$?
+[ "$rc" = 78 ] && printf '%s\n' "$out" | grep -q "plugin-db" || bad "an absent domain is not refused by name with 78 ($rc): $out"
+mkdir -p "$tmp/old"
+cp -r contract.d/plugin-db "$tmp/old/"
+sed -i 's/"version": "1.0.0"/"version": "0.9.0"/' "$tmp/old/plugin-db/plugin-db.json"
+rc=0; out=$(OMX_CONTRACT_PATH="$tmp/old" "$PDB" --store "$store" show "lv2:$AMP" 2>&1) || rc=$?
+[ "$rc" = 78 ] && printf '%s\n' "$out" | grep -q "too-old" || bad "a too-old domain is not refused by name with 78 ($rc): $out"
+
+echo "ok   domain formats: the domain is the source, installed, opened by the loader; the codes header and the start-up read hold; an absent, too-old or doubled domain is refused"
