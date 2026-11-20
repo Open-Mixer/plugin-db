@@ -1,5 +1,5 @@
 Name: plugin-db
-Version: 0.4.7
+Version: 0.5.0
 Release: 1%{?dist}
 License: GPL-3.0-or-later
 Summary: The plugin database: the pin, the address form, the store and the state
@@ -212,6 +212,20 @@ English source sentence.
 # END langpacks
 
 %changelog
+* Sun Nov 22 2026 Pau Aliagas <linuxnow@gmail.com> - 0.5.0-1
+- The sorting pass: plugin-db's words live in its own domains. V12: the pin
+  verdict and pool words are read from plugin-hostd-protocol's domain pin
+  (#57, #58). V11, V13 (#60): the 18 PLUGIN_DB_* items move into the domain
+  plugin-db; data/db.json, pin.json and constants.json are removed, every
+  render is rebuilt from the domain byte for byte, and the contract package
+  plugin-db is gone (the domains are installed). V24 (#61): the plugin
+  features are the domain plugin-feature, naming no CLAP domain. V27a, F1, O1
+  (#62, #63, #64): the LV2 terms are the domain lv2 and the words of format
+  terms the domain format, folded from omx-formats; F1 maps LV2 units,
+  designations, port properties and resource kinds to the standard words;
+  the LV2 inventory and its coverage check come with the terms. Floors:
+  omx-contract >= 3.21.0, plugin-hostd-protocol-contract >= 0.8.0.
+
 * Thu Nov 19 2026 Pau Aliagas <linuxnow@gmail.com> - 0.4.7-1
 - Everything merged since 0.4.6: the store schema $id moves to
   https://openmixer.org/schema/plugin-db/store.schema.json (#41); the address
