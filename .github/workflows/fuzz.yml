@@ -22,7 +22,7 @@ jobs:
     runs-on: ubuntu-latest
     # A backstop: fuzz-run spends 60 s on each of three harnesses.
     timeout-minutes: 20
-    container: fedora:44
+    container: fedora:45
     steps:
       - name: clang, libFuzzer, llvm-cov and libcrypto
         run: |
