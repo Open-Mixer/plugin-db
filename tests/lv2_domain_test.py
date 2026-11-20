@@ -4,7 +4,7 @@
 (contract.d/format/format.json), sorting pass rows V27a, F1 and O1.
 
 (a) golden: the 24 LV2_*_TERMS of the domain lv2, read as a reader reads them (each item's terms by key), have the
-    digest of tests/golden/lv2-terms.digest, frozen from omx-contract 3.20.2's data/formats/lv2; the domain format's
+    digest of tests/golden/lv2-terms.digest, frozen from omx-contract 3.20.2 (each item's since left out)'s data/formats/lv2; the domain format's
     two items have their golden words; the F1 lookups (an LV2 unit, designation or port property -> its standard word)
     give the golden standard words.
 (b) both sources: while the installed omx-contract still holds data/formats/lv2, its terms are the domain's, item for
@@ -72,8 +72,9 @@ def terms_of(item):
 
 
 def data_form(name, item):
-    """the item as omx-contract's data/formats/lv2 holds it, the shape the golden digest hashes"""
-    out = {"kind": "terms", "since": item["x-since"], "doc": item["description"], "format": item["x-format"],
+    """the item as omx-contract's data/formats/lv2 holds it, the shape the golden digest hashes; its since is left out, a
+    version of the domain that holds it (1.0.0 in lv2, omx-contract's own release before)"""
+    out = {"kind": "terms", "doc": item["description"], "format": item["x-format"],
            "spec": item["x-spec"], "version": item["x-version"]}
     if "x-deprecated" in item:
         out["deprecated"] = item["x-deprecated"]
@@ -186,7 +187,7 @@ def main():
         for p in sorted(glob.glob(os.path.join(classic, "*.json"))):
             for k, v in json.load(open(p)).items():
                 if k.endswith("_TERMS"):
-                    old[k] = {kk: vv for kk, vv in v.items() if kk not in ("source", "why")}
+                    old[k] = {kk: vv for kk, vv in v.items() if kk not in ("source", "why", "since")}
         check(old == mine, f"the installed omx-contract's data/formats/lv2 holds the domain's terms ({len(old)} items)")
         check(digest(old) == open(GOLDEN_DIGEST).read().strip(), "the golden digest is that of the installed classic terms")
     else:
