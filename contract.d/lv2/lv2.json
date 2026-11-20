@@ -12,19 +12,15 @@
       "LV2_ATOM_TERMS": {
         "description": "The terms of the LV2 Atom specification (atom.lv2, from lv2 1.18.10), each mapped under its own name with its status for us (docs/data-layout.md).",
         "x-since": "1.0.0",
+        "x-kind": "terms",
         "x-format": "lv2",
         "x-spec": "http://lv2plug.in/ns/ext/atom",
         "x-version": "2.4",
-        "x-kinds": {
-          "$ref": "https://openmixer.org/contract/format#/components/schemas/FORMAT_TERM_KINDS"
-        },
-        "x-statuses": {
-          "$ref": "https://openmixer.org/contract/format#/components/schemas/FORMAT_TERM_STATUSES"
-        },
         "oneOf": [
           {
             "const": "Atom",
-            "title": "http://lv2plug.in/ns/ext/atom#Atom",
+            "title": "Atom",
+            "x-code": 0,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/atom#Atom",
               "kind": "class",
@@ -34,7 +30,8 @@
           },
           {
             "const": "AtomPort",
-            "title": "http://lv2plug.in/ns/ext/atom#AtomPort",
+            "title": "AtomPort",
+            "x-code": 1,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/atom#AtomPort",
               "kind": "class",
@@ -44,7 +41,8 @@
           },
           {
             "const": "Blank",
-            "title": "http://lv2plug.in/ns/ext/atom#Blank",
+            "title": "Blank",
+            "x-code": 2,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/atom#Blank",
               "kind": "class",
@@ -57,7 +55,8 @@
           },
           {
             "const": "Bool",
-            "title": "http://lv2plug.in/ns/ext/atom#Bool",
+            "title": "Bool",
+            "x-code": 3,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/atom#Bool",
               "kind": "class",
@@ -69,7 +68,8 @@
           },
           {
             "const": "Chunk",
-            "title": "http://lv2plug.in/ns/ext/atom#Chunk",
+            "title": "Chunk",
+            "x-code": 4,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/atom#Chunk",
               "kind": "class",
@@ -79,7 +79,8 @@
           },
           {
             "const": "Double",
-            "title": "http://lv2plug.in/ns/ext/atom#Double",
+            "title": "Double",
+            "x-code": 5,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/atom#Double",
               "kind": "class",
@@ -91,7 +92,8 @@
           },
           {
             "const": "Event",
-            "title": "http://lv2plug.in/ns/ext/atom#Event",
+            "title": "Event",
+            "x-code": 6,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/atom#Event",
               "kind": "class",
@@ -101,7 +103,8 @@
           },
           {
             "const": "Float",
-            "title": "http://lv2plug.in/ns/ext/atom#Float",
+            "title": "Float",
+            "x-code": 7,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/atom#Float",
               "kind": "class",
@@ -113,7 +116,8 @@
           },
           {
             "const": "Int",
-            "title": "http://lv2plug.in/ns/ext/atom#Int",
+            "title": "Int",
+            "x-code": 8,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/atom#Int",
               "kind": "class",
@@ -125,7 +129,8 @@
           },
           {
             "const": "Literal",
-            "title": "http://lv2plug.in/ns/ext/atom#Literal",
+            "title": "Literal",
+            "x-code": 9,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/atom#Literal",
               "kind": "class",
@@ -135,7 +140,8 @@
           },
           {
             "const": "Long",
-            "title": "http://lv2plug.in/ns/ext/atom#Long",
+            "title": "Long",
+            "x-code": 10,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/atom#Long",
               "kind": "class",
@@ -147,7 +153,8 @@
           },
           {
             "const": "Number",
-            "title": "http://lv2plug.in/ns/ext/atom#Number",
+            "title": "Number",
+            "x-code": 11,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/atom#Number",
               "kind": "class",
@@ -157,7 +164,8 @@
           },
           {
             "const": "Object",
-            "title": "http://lv2plug.in/ns/ext/atom#Object",
+            "title": "Object",
+            "x-code": 12,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/atom#Object",
               "kind": "class",
@@ -169,7 +177,8 @@
           },
           {
             "const": "Path",
-            "title": "http://lv2plug.in/ns/ext/atom#Path",
+            "title": "Path",
+            "x-code": 13,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/atom#Path",
               "kind": "class",
@@ -183,7 +192,8 @@
           },
           {
             "const": "Property",
-            "title": "http://lv2plug.in/ns/ext/atom#Property",
+            "title": "Property",
+            "x-code": 14,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/atom#Property",
               "kind": "class",
@@ -193,7 +203,8 @@
           },
           {
             "const": "Resource",
-            "title": "http://lv2plug.in/ns/ext/atom#Resource",
+            "title": "Resource",
+            "x-code": 15,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/atom#Resource",
               "kind": "class",
@@ -204,7 +215,8 @@
           },
           {
             "const": "Sequence",
-            "title": "http://lv2plug.in/ns/ext/atom#Sequence",
+            "title": "Sequence",
+            "x-code": 16,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/atom#Sequence",
               "kind": "class",
@@ -217,7 +229,8 @@
           },
           {
             "const": "Sound",
-            "title": "http://lv2plug.in/ns/ext/atom#Sound",
+            "title": "Sound",
+            "x-code": 17,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/atom#Sound",
               "kind": "class",
@@ -227,7 +240,8 @@
           },
           {
             "const": "String",
-            "title": "http://lv2plug.in/ns/ext/atom#String",
+            "title": "String",
+            "x-code": 18,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/atom#String",
               "kind": "class",
@@ -241,7 +255,8 @@
           },
           {
             "const": "Tuple",
-            "title": "http://lv2plug.in/ns/ext/atom#Tuple",
+            "title": "Tuple",
+            "x-code": 19,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/atom#Tuple",
               "kind": "class",
@@ -251,7 +266,8 @@
           },
           {
             "const": "URI",
-            "title": "http://lv2plug.in/ns/ext/atom#URI",
+            "title": "URI",
+            "x-code": 20,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/atom#URI",
               "kind": "class",
@@ -261,7 +277,8 @@
           },
           {
             "const": "URID",
-            "title": "http://lv2plug.in/ns/ext/atom#URID",
+            "title": "URID",
+            "x-code": 21,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/atom#URID",
               "kind": "class",
@@ -273,7 +290,8 @@
           },
           {
             "const": "Vector",
-            "title": "http://lv2plug.in/ns/ext/atom#Vector",
+            "title": "Vector",
+            "x-code": 22,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/atom#Vector",
               "kind": "class",
@@ -283,7 +301,8 @@
           },
           {
             "const": "atom.lv2",
-            "title": "http://lv2plug.in/ns/ext/atom",
+            "title": "atom.lv2",
+            "x-code": 23,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/atom",
               "kind": "specification",
@@ -296,7 +315,8 @@
           },
           {
             "const": "atomTransfer",
-            "title": "http://lv2plug.in/ns/ext/atom#atomTransfer",
+            "title": "atomTransfer",
+            "x-code": 24,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/atom#atomTransfer",
               "kind": "port-protocol",
@@ -306,7 +326,8 @@
           },
           {
             "const": "beatTime",
-            "title": "http://lv2plug.in/ns/ext/atom#beatTime",
+            "title": "beatTime",
+            "x-code": 25,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/atom#beatTime",
               "kind": "property",
@@ -316,7 +337,8 @@
           },
           {
             "const": "bufferType",
-            "title": "http://lv2plug.in/ns/ext/atom#bufferType",
+            "title": "bufferType",
+            "x-code": 26,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/atom#bufferType",
               "kind": "property",
@@ -328,7 +350,8 @@
           },
           {
             "const": "cType",
-            "title": "http://lv2plug.in/ns/ext/atom#cType",
+            "title": "cType",
+            "x-code": 27,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/atom#cType",
               "kind": "property",
@@ -338,7 +361,8 @@
           },
           {
             "const": "childType",
-            "title": "http://lv2plug.in/ns/ext/atom#childType",
+            "title": "childType",
+            "x-code": 28,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/atom#childType",
               "kind": "property",
@@ -348,7 +372,8 @@
           },
           {
             "const": "eventTransfer",
-            "title": "http://lv2plug.in/ns/ext/atom#eventTransfer",
+            "title": "eventTransfer",
+            "x-code": 29,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/atom#eventTransfer",
               "kind": "port-protocol",
@@ -358,7 +383,8 @@
           },
           {
             "const": "frameTime",
-            "title": "http://lv2plug.in/ns/ext/atom#frameTime",
+            "title": "frameTime",
+            "x-code": 30,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/atom#frameTime",
               "kind": "property",
@@ -368,7 +394,8 @@
           },
           {
             "const": "supports",
-            "title": "http://lv2plug.in/ns/ext/atom#supports",
+            "title": "supports",
+            "x-code": 31,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/atom#supports",
               "kind": "property",
@@ -384,19 +411,15 @@
       "LV2_BUF_SIZE_TERMS": {
         "description": "The terms of the LV2 Buf Size specification (buf-size.lv2, from lv2 1.18.10), each mapped under its own name with its status for us (docs/data-layout.md).",
         "x-since": "1.0.0",
+        "x-kind": "terms",
         "x-format": "lv2",
         "x-spec": "http://lv2plug.in/ns/ext/buf-size",
         "x-version": "1.4",
-        "x-kinds": {
-          "$ref": "https://openmixer.org/contract/format#/components/schemas/FORMAT_TERM_KINDS"
-        },
-        "x-statuses": {
-          "$ref": "https://openmixer.org/contract/format#/components/schemas/FORMAT_TERM_STATUSES"
-        },
         "oneOf": [
           {
             "const": "boundedBlockLength",
-            "title": "http://lv2plug.in/ns/ext/buf-size#boundedBlockLength",
+            "title": "boundedBlockLength",
+            "x-code": 0,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/buf-size#boundedBlockLength",
               "kind": "feature",
@@ -410,7 +433,8 @@
           },
           {
             "const": "buf-size.lv2",
-            "title": "http://lv2plug.in/ns/ext/buf-size",
+            "title": "buf-size.lv2",
+            "x-code": 1,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/buf-size",
               "kind": "specification",
@@ -424,7 +448,8 @@
           },
           {
             "const": "coarseBlockLength",
-            "title": "http://lv2plug.in/ns/ext/buf-size#coarseBlockLength",
+            "title": "coarseBlockLength",
+            "x-code": 2,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/buf-size#coarseBlockLength",
               "kind": "feature",
@@ -434,7 +459,8 @@
           },
           {
             "const": "fixedBlockLength",
-            "title": "http://lv2plug.in/ns/ext/buf-size#fixedBlockLength",
+            "title": "fixedBlockLength",
+            "x-code": 3,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/buf-size#fixedBlockLength",
               "kind": "feature",
@@ -447,7 +473,8 @@
           },
           {
             "const": "maxBlockLength",
-            "title": "http://lv2plug.in/ns/ext/buf-size#maxBlockLength",
+            "title": "maxBlockLength",
+            "x-code": 4,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/buf-size#maxBlockLength",
               "kind": "option",
@@ -461,7 +488,8 @@
           },
           {
             "const": "minBlockLength",
-            "title": "http://lv2plug.in/ns/ext/buf-size#minBlockLength",
+            "title": "minBlockLength",
+            "x-code": 5,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/buf-size#minBlockLength",
               "kind": "option",
@@ -475,7 +503,8 @@
           },
           {
             "const": "nominalBlockLength",
-            "title": "http://lv2plug.in/ns/ext/buf-size#nominalBlockLength",
+            "title": "nominalBlockLength",
+            "x-code": 6,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/buf-size#nominalBlockLength",
               "kind": "option",
@@ -489,7 +518,8 @@
           },
           {
             "const": "powerOf2BlockLength",
-            "title": "http://lv2plug.in/ns/ext/buf-size#powerOf2BlockLength",
+            "title": "powerOf2BlockLength",
+            "x-code": 7,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/buf-size#powerOf2BlockLength",
               "kind": "feature",
@@ -502,7 +532,8 @@
           },
           {
             "const": "sequenceSize",
-            "title": "http://lv2plug.in/ns/ext/buf-size#sequenceSize",
+            "title": "sequenceSize",
+            "x-code": 8,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/buf-size#sequenceSize",
               "kind": "option",
@@ -515,19 +546,15 @@
       "LV2_CORE_TERMS": {
         "description": "The terms of the LV2 specification (core.lv2, from lv2 1.18.10), each mapped under its own name with its status for us (docs/data-layout.md).",
         "x-since": "1.0.0",
+        "x-kind": "terms",
         "x-format": "lv2",
         "x-spec": "http://lv2plug.in/ns/lv2core",
         "x-version": "18.6",
-        "x-kinds": {
-          "$ref": "https://openmixer.org/contract/format#/components/schemas/FORMAT_TERM_KINDS"
-        },
-        "x-statuses": {
-          "$ref": "https://openmixer.org/contract/format#/components/schemas/FORMAT_TERM_STATUSES"
-        },
         "oneOf": [
           {
             "const": "AllpassPlugin",
-            "title": "http://lv2plug.in/ns/lv2core#AllpassPlugin",
+            "title": "AllpassPlugin",
+            "x-code": 0,
             "x-term": {
               "uri": "http://lv2plug.in/ns/lv2core#AllpassPlugin",
               "kind": "plugin-class",
@@ -539,7 +566,8 @@
           },
           {
             "const": "AmplifierPlugin",
-            "title": "http://lv2plug.in/ns/lv2core#AmplifierPlugin",
+            "title": "AmplifierPlugin",
+            "x-code": 1,
             "x-term": {
               "uri": "http://lv2plug.in/ns/lv2core#AmplifierPlugin",
               "kind": "plugin-class",
@@ -551,7 +579,8 @@
           },
           {
             "const": "AnalyserPlugin",
-            "title": "http://lv2plug.in/ns/lv2core#AnalyserPlugin",
+            "title": "AnalyserPlugin",
+            "x-code": 2,
             "x-term": {
               "uri": "http://lv2plug.in/ns/lv2core#AnalyserPlugin",
               "kind": "plugin-class",
@@ -564,7 +593,8 @@
           },
           {
             "const": "AudioPort",
-            "title": "http://lv2plug.in/ns/lv2core#AudioPort",
+            "title": "AudioPort",
+            "x-code": 3,
             "x-term": {
               "uri": "http://lv2plug.in/ns/lv2core#AudioPort",
               "kind": "class",
@@ -579,7 +609,8 @@
           },
           {
             "const": "BandpassPlugin",
-            "title": "http://lv2plug.in/ns/lv2core#BandpassPlugin",
+            "title": "BandpassPlugin",
+            "x-code": 4,
             "x-term": {
               "uri": "http://lv2plug.in/ns/lv2core#BandpassPlugin",
               "kind": "plugin-class",
@@ -591,7 +622,8 @@
           },
           {
             "const": "CVPort",
-            "title": "http://lv2plug.in/ns/lv2core#CVPort",
+            "title": "CVPort",
+            "x-code": 5,
             "x-term": {
               "uri": "http://lv2plug.in/ns/lv2core#CVPort",
               "kind": "class",
@@ -605,7 +637,8 @@
           },
           {
             "const": "Channel",
-            "title": "http://lv2plug.in/ns/lv2core#Channel",
+            "title": "Channel",
+            "x-code": 6,
             "x-term": {
               "uri": "http://lv2plug.in/ns/lv2core#Channel",
               "kind": "class",
@@ -615,7 +648,8 @@
           },
           {
             "const": "ChorusPlugin",
-            "title": "http://lv2plug.in/ns/lv2core#ChorusPlugin",
+            "title": "ChorusPlugin",
+            "x-code": 7,
             "x-term": {
               "uri": "http://lv2plug.in/ns/lv2core#ChorusPlugin",
               "kind": "plugin-class",
@@ -627,7 +661,8 @@
           },
           {
             "const": "CombPlugin",
-            "title": "http://lv2plug.in/ns/lv2core#CombPlugin",
+            "title": "CombPlugin",
+            "x-code": 8,
             "x-term": {
               "uri": "http://lv2plug.in/ns/lv2core#CombPlugin",
               "kind": "plugin-class",
@@ -639,7 +674,8 @@
           },
           {
             "const": "CompressorPlugin",
-            "title": "http://lv2plug.in/ns/lv2core#CompressorPlugin",
+            "title": "CompressorPlugin",
+            "x-code": 9,
             "x-term": {
               "uri": "http://lv2plug.in/ns/lv2core#CompressorPlugin",
               "kind": "plugin-class",
@@ -652,7 +688,8 @@
           },
           {
             "const": "ConstantPlugin",
-            "title": "http://lv2plug.in/ns/lv2core#ConstantPlugin",
+            "title": "ConstantPlugin",
+            "x-code": 10,
             "x-term": {
               "uri": "http://lv2plug.in/ns/lv2core#ConstantPlugin",
               "kind": "plugin-class",
@@ -664,7 +701,8 @@
           },
           {
             "const": "ControlPort",
-            "title": "http://lv2plug.in/ns/lv2core#ControlPort",
+            "title": "ControlPort",
+            "x-code": 11,
             "x-term": {
               "uri": "http://lv2plug.in/ns/lv2core#ControlPort",
               "kind": "class",
@@ -678,7 +716,8 @@
           },
           {
             "const": "ConverterPlugin",
-            "title": "http://lv2plug.in/ns/lv2core#ConverterPlugin",
+            "title": "ConverterPlugin",
+            "x-code": 12,
             "x-term": {
               "uri": "http://lv2plug.in/ns/lv2core#ConverterPlugin",
               "kind": "plugin-class",
@@ -690,7 +729,8 @@
           },
           {
             "const": "DelayPlugin",
-            "title": "http://lv2plug.in/ns/lv2core#DelayPlugin",
+            "title": "DelayPlugin",
+            "x-code": 13,
             "x-term": {
               "uri": "http://lv2plug.in/ns/lv2core#DelayPlugin",
               "kind": "plugin-class",
@@ -703,7 +743,8 @@
           },
           {
             "const": "Designation",
-            "title": "http://lv2plug.in/ns/lv2core#Designation",
+            "title": "Designation",
+            "x-code": 14,
             "x-term": {
               "uri": "http://lv2plug.in/ns/lv2core#Designation",
               "kind": "class",
@@ -713,7 +754,8 @@
           },
           {
             "const": "DistortionPlugin",
-            "title": "http://lv2plug.in/ns/lv2core#DistortionPlugin",
+            "title": "DistortionPlugin",
+            "x-code": 15,
             "x-term": {
               "uri": "http://lv2plug.in/ns/lv2core#DistortionPlugin",
               "kind": "plugin-class",
@@ -725,7 +767,8 @@
           },
           {
             "const": "DynamicsPlugin",
-            "title": "http://lv2plug.in/ns/lv2core#DynamicsPlugin",
+            "title": "DynamicsPlugin",
+            "x-code": 16,
             "x-term": {
               "uri": "http://lv2plug.in/ns/lv2core#DynamicsPlugin",
               "kind": "plugin-class",
@@ -739,7 +782,8 @@
           },
           {
             "const": "EQPlugin",
-            "title": "http://lv2plug.in/ns/lv2core#EQPlugin",
+            "title": "EQPlugin",
+            "x-code": 17,
             "x-term": {
               "uri": "http://lv2plug.in/ns/lv2core#EQPlugin",
               "kind": "plugin-class",
@@ -752,7 +796,8 @@
           },
           {
             "const": "EnvelopePlugin",
-            "title": "http://lv2plug.in/ns/lv2core#EnvelopePlugin",
+            "title": "EnvelopePlugin",
+            "x-code": 18,
             "x-term": {
               "uri": "http://lv2plug.in/ns/lv2core#EnvelopePlugin",
               "kind": "plugin-class",
@@ -764,7 +809,8 @@
           },
           {
             "const": "ExpanderPlugin",
-            "title": "http://lv2plug.in/ns/lv2core#ExpanderPlugin",
+            "title": "ExpanderPlugin",
+            "x-code": 19,
             "x-term": {
               "uri": "http://lv2plug.in/ns/lv2core#ExpanderPlugin",
               "kind": "plugin-class",
@@ -776,7 +822,8 @@
           },
           {
             "const": "ExtensionData",
-            "title": "http://lv2plug.in/ns/lv2core#ExtensionData",
+            "title": "ExtensionData",
+            "x-code": 20,
             "x-term": {
               "uri": "http://lv2plug.in/ns/lv2core#ExtensionData",
               "kind": "class",
@@ -786,7 +833,8 @@
           },
           {
             "const": "Feature",
-            "title": "http://lv2plug.in/ns/lv2core#Feature",
+            "title": "Feature",
+            "x-code": 21,
             "x-term": {
               "uri": "http://lv2plug.in/ns/lv2core#Feature",
               "kind": "class",
@@ -796,7 +844,8 @@
           },
           {
             "const": "FilterPlugin",
-            "title": "http://lv2plug.in/ns/lv2core#FilterPlugin",
+            "title": "FilterPlugin",
+            "x-code": 22,
             "x-term": {
               "uri": "http://lv2plug.in/ns/lv2core#FilterPlugin",
               "kind": "plugin-class",
@@ -808,7 +857,8 @@
           },
           {
             "const": "FlangerPlugin",
-            "title": "http://lv2plug.in/ns/lv2core#FlangerPlugin",
+            "title": "FlangerPlugin",
+            "x-code": 23,
             "x-term": {
               "uri": "http://lv2plug.in/ns/lv2core#FlangerPlugin",
               "kind": "plugin-class",
@@ -820,7 +870,8 @@
           },
           {
             "const": "FunctionPlugin",
-            "title": "http://lv2plug.in/ns/lv2core#FunctionPlugin",
+            "title": "FunctionPlugin",
+            "x-code": 24,
             "x-term": {
               "uri": "http://lv2plug.in/ns/lv2core#FunctionPlugin",
               "kind": "plugin-class",
@@ -832,7 +883,8 @@
           },
           {
             "const": "GatePlugin",
-            "title": "http://lv2plug.in/ns/lv2core#GatePlugin",
+            "title": "GatePlugin",
+            "x-code": 25,
             "x-term": {
               "uri": "http://lv2plug.in/ns/lv2core#GatePlugin",
               "kind": "plugin-class",
@@ -845,7 +897,8 @@
           },
           {
             "const": "GeneratorPlugin",
-            "title": "http://lv2plug.in/ns/lv2core#GeneratorPlugin",
+            "title": "GeneratorPlugin",
+            "x-code": 26,
             "x-term": {
               "uri": "http://lv2plug.in/ns/lv2core#GeneratorPlugin",
               "kind": "plugin-class",
@@ -857,7 +910,8 @@
           },
           {
             "const": "HighpassPlugin",
-            "title": "http://lv2plug.in/ns/lv2core#HighpassPlugin",
+            "title": "HighpassPlugin",
+            "x-code": 27,
             "x-term": {
               "uri": "http://lv2plug.in/ns/lv2core#HighpassPlugin",
               "kind": "plugin-class",
@@ -869,7 +923,8 @@
           },
           {
             "const": "InputPort",
-            "title": "http://lv2plug.in/ns/lv2core#InputPort",
+            "title": "InputPort",
+            "x-code": 28,
             "x-term": {
               "uri": "http://lv2plug.in/ns/lv2core#InputPort",
               "kind": "class",
@@ -884,7 +939,8 @@
           },
           {
             "const": "InstrumentPlugin",
-            "title": "http://lv2plug.in/ns/lv2core#InstrumentPlugin",
+            "title": "InstrumentPlugin",
+            "x-code": 29,
             "x-term": {
               "uri": "http://lv2plug.in/ns/lv2core#InstrumentPlugin",
               "kind": "plugin-class",
@@ -897,7 +953,8 @@
           },
           {
             "const": "LimiterPlugin",
-            "title": "http://lv2plug.in/ns/lv2core#LimiterPlugin",
+            "title": "LimiterPlugin",
+            "x-code": 30,
             "x-term": {
               "uri": "http://lv2plug.in/ns/lv2core#LimiterPlugin",
               "kind": "plugin-class",
@@ -909,7 +966,8 @@
           },
           {
             "const": "LowpassPlugin",
-            "title": "http://lv2plug.in/ns/lv2core#LowpassPlugin",
+            "title": "LowpassPlugin",
+            "x-code": 31,
             "x-term": {
               "uri": "http://lv2plug.in/ns/lv2core#LowpassPlugin",
               "kind": "plugin-class",
@@ -921,7 +979,8 @@
           },
           {
             "const": "MIDIPlugin",
-            "title": "http://lv2plug.in/ns/lv2core#MIDIPlugin",
+            "title": "MIDIPlugin",
+            "x-code": 32,
             "x-term": {
               "uri": "http://lv2plug.in/ns/lv2core#MIDIPlugin",
               "kind": "plugin-class",
@@ -933,7 +992,8 @@
           },
           {
             "const": "Markdown",
-            "title": "http://lv2plug.in/ns/lv2core#Markdown",
+            "title": "Markdown",
+            "x-code": 33,
             "x-term": {
               "uri": "http://lv2plug.in/ns/lv2core#Markdown",
               "kind": "datatype",
@@ -943,7 +1003,8 @@
           },
           {
             "const": "MixerPlugin",
-            "title": "http://lv2plug.in/ns/lv2core#MixerPlugin",
+            "title": "MixerPlugin",
+            "x-code": 34,
             "x-term": {
               "uri": "http://lv2plug.in/ns/lv2core#MixerPlugin",
               "kind": "plugin-class",
@@ -956,7 +1017,8 @@
           },
           {
             "const": "ModulatorPlugin",
-            "title": "http://lv2plug.in/ns/lv2core#ModulatorPlugin",
+            "title": "ModulatorPlugin",
+            "x-code": 35,
             "x-term": {
               "uri": "http://lv2plug.in/ns/lv2core#ModulatorPlugin",
               "kind": "plugin-class",
@@ -969,7 +1031,8 @@
           },
           {
             "const": "MultiEQPlugin",
-            "title": "http://lv2plug.in/ns/lv2core#MultiEQPlugin",
+            "title": "MultiEQPlugin",
+            "x-code": 36,
             "x-term": {
               "uri": "http://lv2plug.in/ns/lv2core#MultiEQPlugin",
               "kind": "plugin-class",
@@ -981,7 +1044,8 @@
           },
           {
             "const": "OscillatorPlugin",
-            "title": "http://lv2plug.in/ns/lv2core#OscillatorPlugin",
+            "title": "OscillatorPlugin",
+            "x-code": 37,
             "x-term": {
               "uri": "http://lv2plug.in/ns/lv2core#OscillatorPlugin",
               "kind": "plugin-class",
@@ -993,7 +1057,8 @@
           },
           {
             "const": "OutputPort",
-            "title": "http://lv2plug.in/ns/lv2core#OutputPort",
+            "title": "OutputPort",
+            "x-code": 38,
             "x-term": {
               "uri": "http://lv2plug.in/ns/lv2core#OutputPort",
               "kind": "class",
@@ -1008,7 +1073,8 @@
           },
           {
             "const": "ParaEQPlugin",
-            "title": "http://lv2plug.in/ns/lv2core#ParaEQPlugin",
+            "title": "ParaEQPlugin",
+            "x-code": 39,
             "x-term": {
               "uri": "http://lv2plug.in/ns/lv2core#ParaEQPlugin",
               "kind": "plugin-class",
@@ -1022,7 +1088,8 @@
           },
           {
             "const": "Parameter",
-            "title": "http://lv2plug.in/ns/lv2core#Parameter",
+            "title": "Parameter",
+            "x-code": 40,
             "x-term": {
               "uri": "http://lv2plug.in/ns/lv2core#Parameter",
               "kind": "class",
@@ -1036,7 +1103,8 @@
           },
           {
             "const": "PhaserPlugin",
-            "title": "http://lv2plug.in/ns/lv2core#PhaserPlugin",
+            "title": "PhaserPlugin",
+            "x-code": 41,
             "x-term": {
               "uri": "http://lv2plug.in/ns/lv2core#PhaserPlugin",
               "kind": "plugin-class",
@@ -1048,7 +1116,8 @@
           },
           {
             "const": "PitchPlugin",
-            "title": "http://lv2plug.in/ns/lv2core#PitchPlugin",
+            "title": "PitchPlugin",
+            "x-code": 42,
             "x-term": {
               "uri": "http://lv2plug.in/ns/lv2core#PitchPlugin",
               "kind": "plugin-class",
@@ -1060,7 +1129,8 @@
           },
           {
             "const": "Plugin",
-            "title": "http://lv2plug.in/ns/lv2core#Plugin",
+            "title": "Plugin",
+            "x-code": 43,
             "x-term": {
               "uri": "http://lv2plug.in/ns/lv2core#Plugin",
               "kind": "plugin-class",
@@ -1074,7 +1144,8 @@
           },
           {
             "const": "PluginBase",
-            "title": "http://lv2plug.in/ns/lv2core#PluginBase",
+            "title": "PluginBase",
+            "x-code": 44,
             "x-term": {
               "uri": "http://lv2plug.in/ns/lv2core#PluginBase",
               "kind": "class",
@@ -1084,7 +1155,8 @@
           },
           {
             "const": "Point",
-            "title": "http://lv2plug.in/ns/lv2core#Point",
+            "title": "Point",
+            "x-code": 45,
             "x-term": {
               "uri": "http://lv2plug.in/ns/lv2core#Point",
               "kind": "class",
@@ -1094,7 +1166,8 @@
           },
           {
             "const": "Port",
-            "title": "http://lv2plug.in/ns/lv2core#Port",
+            "title": "Port",
+            "x-code": 46,
             "x-term": {
               "uri": "http://lv2plug.in/ns/lv2core#Port",
               "kind": "class",
@@ -1104,7 +1177,8 @@
           },
           {
             "const": "PortBase",
-            "title": "http://lv2plug.in/ns/lv2core#PortBase",
+            "title": "PortBase",
+            "x-code": 47,
             "x-term": {
               "uri": "http://lv2plug.in/ns/lv2core#PortBase",
               "kind": "class",
@@ -1114,7 +1188,8 @@
           },
           {
             "const": "PortProperty",
-            "title": "http://lv2plug.in/ns/lv2core#PortProperty",
+            "title": "PortProperty",
+            "x-code": 48,
             "x-term": {
               "uri": "http://lv2plug.in/ns/lv2core#PortProperty",
               "kind": "class",
@@ -1124,7 +1199,8 @@
           },
           {
             "const": "ReverbPlugin",
-            "title": "http://lv2plug.in/ns/lv2core#ReverbPlugin",
+            "title": "ReverbPlugin",
+            "x-code": 49,
             "x-term": {
               "uri": "http://lv2plug.in/ns/lv2core#ReverbPlugin",
               "kind": "plugin-class",
@@ -1136,7 +1212,8 @@
           },
           {
             "const": "ScalePoint",
-            "title": "http://lv2plug.in/ns/lv2core#ScalePoint",
+            "title": "ScalePoint",
+            "x-code": 50,
             "x-term": {
               "uri": "http://lv2plug.in/ns/lv2core#ScalePoint",
               "kind": "class",
@@ -1146,7 +1223,8 @@
           },
           {
             "const": "SimulatorPlugin",
-            "title": "http://lv2plug.in/ns/lv2core#SimulatorPlugin",
+            "title": "SimulatorPlugin",
+            "x-code": 51,
             "x-term": {
               "uri": "http://lv2plug.in/ns/lv2core#SimulatorPlugin",
               "kind": "plugin-class",
@@ -1158,7 +1236,8 @@
           },
           {
             "const": "SpatialPlugin",
-            "title": "http://lv2plug.in/ns/lv2core#SpatialPlugin",
+            "title": "SpatialPlugin",
+            "x-code": 52,
             "x-term": {
               "uri": "http://lv2plug.in/ns/lv2core#SpatialPlugin",
               "kind": "plugin-class",
@@ -1170,7 +1249,8 @@
           },
           {
             "const": "Specification",
-            "title": "http://lv2plug.in/ns/lv2core#Specification",
+            "title": "Specification",
+            "x-code": 53,
             "x-term": {
               "uri": "http://lv2plug.in/ns/lv2core#Specification",
               "kind": "class",
@@ -1180,7 +1260,8 @@
           },
           {
             "const": "SpectralPlugin",
-            "title": "http://lv2plug.in/ns/lv2core#SpectralPlugin",
+            "title": "SpectralPlugin",
+            "x-code": 54,
             "x-term": {
               "uri": "http://lv2plug.in/ns/lv2core#SpectralPlugin",
               "kind": "plugin-class",
@@ -1192,7 +1273,8 @@
           },
           {
             "const": "Symbol",
-            "title": "http://lv2plug.in/ns/lv2core#Symbol",
+            "title": "Symbol",
+            "x-code": 55,
             "x-term": {
               "uri": "http://lv2plug.in/ns/lv2core#Symbol",
               "kind": "datatype",
@@ -1202,7 +1284,8 @@
           },
           {
             "const": "UtilityPlugin",
-            "title": "http://lv2plug.in/ns/lv2core#UtilityPlugin",
+            "title": "UtilityPlugin",
+            "x-code": 56,
             "x-term": {
               "uri": "http://lv2plug.in/ns/lv2core#UtilityPlugin",
               "kind": "plugin-class",
@@ -1214,7 +1297,8 @@
           },
           {
             "const": "WaveshaperPlugin",
-            "title": "http://lv2plug.in/ns/lv2core#WaveshaperPlugin",
+            "title": "WaveshaperPlugin",
+            "x-code": 57,
             "x-term": {
               "uri": "http://lv2plug.in/ns/lv2core#WaveshaperPlugin",
               "kind": "plugin-class",
@@ -1226,7 +1310,8 @@
           },
           {
             "const": "appliesTo",
-            "title": "http://lv2plug.in/ns/lv2core#appliesTo",
+            "title": "appliesTo",
+            "x-code": 58,
             "x-term": {
               "uri": "http://lv2plug.in/ns/lv2core#appliesTo",
               "kind": "property",
@@ -1239,7 +1324,8 @@
           },
           {
             "const": "binary",
-            "title": "http://lv2plug.in/ns/lv2core#binary",
+            "title": "binary",
+            "x-code": 59,
             "x-term": {
               "uri": "http://lv2plug.in/ns/lv2core#binary",
               "kind": "property",
@@ -1253,7 +1339,8 @@
           },
           {
             "const": "connectionOptional",
-            "title": "http://lv2plug.in/ns/lv2core#connectionOptional",
+            "title": "connectionOptional",
+            "x-code": 60,
             "x-term": {
               "uri": "http://lv2plug.in/ns/lv2core#connectionOptional",
               "kind": "port-property",
@@ -1266,7 +1353,8 @@
           },
           {
             "const": "control",
-            "title": "http://lv2plug.in/ns/lv2core#control",
+            "title": "control",
+            "x-code": 61,
             "x-term": {
               "uri": "http://lv2plug.in/ns/lv2core#control",
               "kind": "channel",
@@ -1276,7 +1364,8 @@
           },
           {
             "const": "core.lv2",
-            "title": "http://lv2plug.in/ns/lv2core",
+            "title": "core.lv2",
+            "x-code": 62,
             "x-term": {
               "uri": "http://lv2plug.in/ns/lv2core",
               "kind": "specification",
@@ -1290,7 +1379,8 @@
           },
           {
             "const": "default",
-            "title": "http://lv2plug.in/ns/lv2core#default",
+            "title": "default",
+            "x-code": 63,
             "x-term": {
               "uri": "http://lv2plug.in/ns/lv2core#default",
               "kind": "property",
@@ -1305,7 +1395,8 @@
           },
           {
             "const": "designation",
-            "title": "http://lv2plug.in/ns/lv2core#designation",
+            "title": "designation",
+            "x-code": 64,
             "x-term": {
               "uri": "http://lv2plug.in/ns/lv2core#designation",
               "kind": "property",
@@ -1320,7 +1411,8 @@
           },
           {
             "const": "documentation",
-            "title": "http://lv2plug.in/ns/lv2core#documentation",
+            "title": "documentation",
+            "x-code": 65,
             "x-term": {
               "uri": "http://lv2plug.in/ns/lv2core#documentation",
               "kind": "property",
@@ -1330,7 +1422,8 @@
           },
           {
             "const": "enabled",
-            "title": "http://lv2plug.in/ns/lv2core#enabled",
+            "title": "enabled",
+            "x-code": 66,
             "x-term": {
               "uri": "http://lv2plug.in/ns/lv2core#enabled",
               "kind": "property",
@@ -1345,7 +1438,8 @@
           },
           {
             "const": "enumeration",
-            "title": "http://lv2plug.in/ns/lv2core#enumeration",
+            "title": "enumeration",
+            "x-code": 67,
             "x-term": {
               "uri": "http://lv2plug.in/ns/lv2core#enumeration",
               "kind": "port-property",
@@ -1360,7 +1454,8 @@
           },
           {
             "const": "extensionData",
-            "title": "http://lv2plug.in/ns/lv2core#extensionData",
+            "title": "extensionData",
+            "x-code": 68,
             "x-term": {
               "uri": "http://lv2plug.in/ns/lv2core#extensionData",
               "kind": "property",
@@ -1372,7 +1467,8 @@
           },
           {
             "const": "freeWheeling",
-            "title": "http://lv2plug.in/ns/lv2core#freeWheeling",
+            "title": "freeWheeling",
+            "x-code": 69,
             "x-term": {
               "uri": "http://lv2plug.in/ns/lv2core#freeWheeling",
               "kind": "property",
@@ -1382,7 +1478,8 @@
           },
           {
             "const": "hardRTCapable",
-            "title": "http://lv2plug.in/ns/lv2core#hardRTCapable",
+            "title": "hardRTCapable",
+            "x-code": 70,
             "x-term": {
               "uri": "http://lv2plug.in/ns/lv2core#hardRTCapable",
               "kind": "feature",
@@ -1396,7 +1493,8 @@
           },
           {
             "const": "inPlaceBroken",
-            "title": "http://lv2plug.in/ns/lv2core#inPlaceBroken",
+            "title": "inPlaceBroken",
+            "x-code": 71,
             "x-term": {
               "uri": "http://lv2plug.in/ns/lv2core#inPlaceBroken",
               "kind": "feature",
@@ -1408,7 +1506,8 @@
           },
           {
             "const": "index",
-            "title": "http://lv2plug.in/ns/lv2core#index",
+            "title": "index",
+            "x-code": 72,
             "x-term": {
               "uri": "http://lv2plug.in/ns/lv2core#index",
               "kind": "property",
@@ -1423,7 +1522,8 @@
           },
           {
             "const": "integer",
-            "title": "http://lv2plug.in/ns/lv2core#integer",
+            "title": "integer",
+            "x-code": 73,
             "x-term": {
               "uri": "http://lv2plug.in/ns/lv2core#integer",
               "kind": "port-property",
@@ -1438,7 +1538,8 @@
           },
           {
             "const": "isLive",
-            "title": "http://lv2plug.in/ns/lv2core#isLive",
+            "title": "isLive",
+            "x-code": 74,
             "x-term": {
               "uri": "http://lv2plug.in/ns/lv2core#isLive",
               "kind": "feature",
@@ -1448,7 +1549,8 @@
           },
           {
             "const": "isSideChain",
-            "title": "http://lv2plug.in/ns/lv2core#isSideChain",
+            "title": "isSideChain",
+            "x-code": 75,
             "x-term": {
               "uri": "http://lv2plug.in/ns/lv2core#isSideChain",
               "kind": "port-property",
@@ -1463,7 +1565,8 @@
           },
           {
             "const": "latency",
-            "title": "http://lv2plug.in/ns/lv2core#latency",
+            "title": "latency",
+            "x-code": 76,
             "x-term": {
               "uri": "http://lv2plug.in/ns/lv2core#latency",
               "kind": "property",
@@ -1478,7 +1581,8 @@
           },
           {
             "const": "maximum",
-            "title": "http://lv2plug.in/ns/lv2core#maximum",
+            "title": "maximum",
+            "x-code": 77,
             "x-term": {
               "uri": "http://lv2plug.in/ns/lv2core#maximum",
               "kind": "property",
@@ -1493,7 +1597,8 @@
           },
           {
             "const": "microVersion",
-            "title": "http://lv2plug.in/ns/lv2core#microVersion",
+            "title": "microVersion",
+            "x-code": 78,
             "x-term": {
               "uri": "http://lv2plug.in/ns/lv2core#microVersion",
               "kind": "property",
@@ -1507,7 +1612,8 @@
           },
           {
             "const": "minimum",
-            "title": "http://lv2plug.in/ns/lv2core#minimum",
+            "title": "minimum",
+            "x-code": 79,
             "x-term": {
               "uri": "http://lv2plug.in/ns/lv2core#minimum",
               "kind": "property",
@@ -1522,7 +1628,8 @@
           },
           {
             "const": "minorVersion",
-            "title": "http://lv2plug.in/ns/lv2core#minorVersion",
+            "title": "minorVersion",
+            "x-code": 80,
             "x-term": {
               "uri": "http://lv2plug.in/ns/lv2core#minorVersion",
               "kind": "property",
@@ -1536,7 +1643,8 @@
           },
           {
             "const": "name",
-            "title": "http://lv2plug.in/ns/lv2core#name",
+            "title": "name",
+            "x-code": 81,
             "x-term": {
               "uri": "http://lv2plug.in/ns/lv2core#name",
               "kind": "property",
@@ -1551,7 +1659,8 @@
           },
           {
             "const": "optionalFeature",
-            "title": "http://lv2plug.in/ns/lv2core#optionalFeature",
+            "title": "optionalFeature",
+            "x-code": 82,
             "x-term": {
               "uri": "http://lv2plug.in/ns/lv2core#optionalFeature",
               "kind": "property",
@@ -1566,7 +1675,8 @@
           },
           {
             "const": "port",
-            "title": "http://lv2plug.in/ns/lv2core#port",
+            "title": "port",
+            "x-code": 83,
             "x-term": {
               "uri": "http://lv2plug.in/ns/lv2core#port",
               "kind": "property",
@@ -1580,7 +1690,8 @@
           },
           {
             "const": "portProperty",
-            "title": "http://lv2plug.in/ns/lv2core#portProperty",
+            "title": "portProperty",
+            "x-code": 84,
             "x-term": {
               "uri": "http://lv2plug.in/ns/lv2core#portProperty",
               "kind": "property",
@@ -1594,7 +1705,8 @@
           },
           {
             "const": "project",
-            "title": "http://lv2plug.in/ns/lv2core#project",
+            "title": "project",
+            "x-code": 85,
             "x-term": {
               "uri": "http://lv2plug.in/ns/lv2core#project",
               "kind": "property",
@@ -1608,7 +1720,8 @@
           },
           {
             "const": "prototype",
-            "title": "http://lv2plug.in/ns/lv2core#prototype",
+            "title": "prototype",
+            "x-code": 86,
             "x-term": {
               "uri": "http://lv2plug.in/ns/lv2core#prototype",
               "kind": "property",
@@ -1618,7 +1731,8 @@
           },
           {
             "const": "reportsLatency",
-            "title": "http://lv2plug.in/ns/lv2core#reportsLatency",
+            "title": "reportsLatency",
+            "x-code": 87,
             "x-term": {
               "uri": "http://lv2plug.in/ns/lv2core#reportsLatency",
               "kind": "port-property",
@@ -1633,7 +1747,8 @@
           },
           {
             "const": "requiredFeature",
-            "title": "http://lv2plug.in/ns/lv2core#requiredFeature",
+            "title": "requiredFeature",
+            "x-code": 88,
             "x-term": {
               "uri": "http://lv2plug.in/ns/lv2core#requiredFeature",
               "kind": "property",
@@ -1648,7 +1763,8 @@
           },
           {
             "const": "sampleRate",
-            "title": "http://lv2plug.in/ns/lv2core#sampleRate",
+            "title": "sampleRate",
+            "x-code": 89,
             "x-term": {
               "uri": "http://lv2plug.in/ns/lv2core#sampleRate",
               "kind": "port-property",
@@ -1658,7 +1774,8 @@
           },
           {
             "const": "scalePoint",
-            "title": "http://lv2plug.in/ns/lv2core#scalePoint",
+            "title": "scalePoint",
+            "x-code": 90,
             "x-term": {
               "uri": "http://lv2plug.in/ns/lv2core#scalePoint",
               "kind": "property",
@@ -1673,7 +1790,8 @@
           },
           {
             "const": "shortName",
-            "title": "http://lv2plug.in/ns/lv2core#shortName",
+            "title": "shortName",
+            "x-code": 91,
             "x-term": {
               "uri": "http://lv2plug.in/ns/lv2core#shortName",
               "kind": "property",
@@ -1683,7 +1801,8 @@
           },
           {
             "const": "symbol",
-            "title": "http://lv2plug.in/ns/lv2core#symbol",
+            "title": "symbol",
+            "x-code": 92,
             "x-term": {
               "uri": "http://lv2plug.in/ns/lv2core#symbol",
               "kind": "property",
@@ -1698,7 +1817,8 @@
           },
           {
             "const": "toggled",
-            "title": "http://lv2plug.in/ns/lv2core#toggled",
+            "title": "toggled",
+            "x-code": 93,
             "x-term": {
               "uri": "http://lv2plug.in/ns/lv2core#toggled",
               "kind": "port-property",
@@ -1716,19 +1836,15 @@
       "LV2_DATA_ACCESS_TERMS": {
         "description": "The terms of the data access specification (data-access.lv2, from lv2 1.18.10), each mapped under its own name with its status for us (docs/data-layout.md).",
         "x-since": "1.0.0",
+        "x-kind": "terms",
         "x-format": "lv2",
         "x-spec": "http://lv2plug.in/ns/ext/data-access",
         "x-version": "1.6",
-        "x-kinds": {
-          "$ref": "https://openmixer.org/contract/format#/components/schemas/FORMAT_TERM_KINDS"
-        },
-        "x-statuses": {
-          "$ref": "https://openmixer.org/contract/format#/components/schemas/FORMAT_TERM_STATUSES"
-        },
         "oneOf": [
           {
             "const": "data-access.lv2",
-            "title": "http://lv2plug.in/ns/ext/data-access",
+            "title": "data-access.lv2",
+            "x-code": 0,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/data-access",
               "kind": "feature",
@@ -1743,19 +1859,15 @@
       "LV2_DYNMANIFEST_TERMS": {
         "description": "The terms of the LV2 Dyn Manifest specification (dynmanifest.lv2, from lv2 1.18.10), each mapped under its own name with its status for us (docs/data-layout.md).",
         "x-since": "1.0.0",
+        "x-kind": "terms",
         "x-format": "lv2",
         "x-spec": "http://lv2plug.in/ns/ext/dynmanifest",
         "x-version": "1.6",
-        "x-kinds": {
-          "$ref": "https://openmixer.org/contract/format#/components/schemas/FORMAT_TERM_KINDS"
-        },
-        "x-statuses": {
-          "$ref": "https://openmixer.org/contract/format#/components/schemas/FORMAT_TERM_STATUSES"
-        },
         "oneOf": [
           {
             "const": "DynManifest",
-            "title": "http://lv2plug.in/ns/ext/dynmanifest#DynManifest",
+            "title": "DynManifest",
+            "x-code": 0,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/dynmanifest#DynManifest",
               "kind": "class",
@@ -1765,7 +1877,8 @@
           },
           {
             "const": "dynmanifest.lv2",
-            "title": "http://lv2plug.in/ns/ext/dynmanifest",
+            "title": "dynmanifest.lv2",
+            "x-code": 1,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/dynmanifest",
               "kind": "specification",
@@ -1778,20 +1891,16 @@
       "LV2_EVENT_TERMS": {
         "description": "The terms of the LV2 Event specification (event.lv2, from lv2 1.18.10), each mapped under its own name with its status for us (docs/data-layout.md).",
         "x-since": "1.0.0",
+        "x-kind": "terms",
         "x-format": "lv2",
         "x-spec": "http://lv2plug.in/ns/ext/event",
         "x-version": "1.14",
         "x-deprecated": true,
-        "x-kinds": {
-          "$ref": "https://openmixer.org/contract/format#/components/schemas/FORMAT_TERM_KINDS"
-        },
-        "x-statuses": {
-          "$ref": "https://openmixer.org/contract/format#/components/schemas/FORMAT_TERM_STATUSES"
-        },
         "oneOf": [
           {
             "const": "Event",
-            "title": "http://lv2plug.in/ns/ext/event#Event",
+            "title": "Event",
+            "x-code": 0,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/event#Event",
               "kind": "class",
@@ -1801,7 +1910,8 @@
           },
           {
             "const": "EventPort",
-            "title": "http://lv2plug.in/ns/ext/event#EventPort",
+            "title": "EventPort",
+            "x-code": 1,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/event#EventPort",
               "kind": "class",
@@ -1814,7 +1924,8 @@
           },
           {
             "const": "FrameStamp",
-            "title": "http://lv2plug.in/ns/ext/event#FrameStamp",
+            "title": "FrameStamp",
+            "x-code": 2,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/event#FrameStamp",
               "kind": "class",
@@ -1824,7 +1935,8 @@
           },
           {
             "const": "TimeStamp",
-            "title": "http://lv2plug.in/ns/ext/event#TimeStamp",
+            "title": "TimeStamp",
+            "x-code": 3,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/event#TimeStamp",
               "kind": "class",
@@ -1834,7 +1946,8 @@
           },
           {
             "const": "event.lv2",
-            "title": "http://lv2plug.in/ns/ext/event",
+            "title": "event.lv2",
+            "x-code": 4,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/event",
               "kind": "specification",
@@ -1848,7 +1961,8 @@
           },
           {
             "const": "generatesTimeStamp",
-            "title": "http://lv2plug.in/ns/ext/event#generatesTimeStamp",
+            "title": "generatesTimeStamp",
+            "x-code": 5,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/event#generatesTimeStamp",
               "kind": "property",
@@ -1858,7 +1972,8 @@
           },
           {
             "const": "generic",
-            "title": "http://lv2plug.in/ns/ext/event#generic",
+            "title": "generic",
+            "x-code": 6,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/event#generic",
               "kind": "port-property",
@@ -1868,7 +1983,8 @@
           },
           {
             "const": "inheritsEvent",
-            "title": "http://lv2plug.in/ns/ext/event#inheritsEvent",
+            "title": "inheritsEvent",
+            "x-code": 7,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/event#inheritsEvent",
               "kind": "property",
@@ -1878,7 +1994,8 @@
           },
           {
             "const": "inheritsTimeStamp",
-            "title": "http://lv2plug.in/ns/ext/event#inheritsTimeStamp",
+            "title": "inheritsTimeStamp",
+            "x-code": 8,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/event#inheritsTimeStamp",
               "kind": "property",
@@ -1888,7 +2005,8 @@
           },
           {
             "const": "supportsEvent",
-            "title": "http://lv2plug.in/ns/ext/event#supportsEvent",
+            "title": "supportsEvent",
+            "x-code": 9,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/event#supportsEvent",
               "kind": "property",
@@ -1898,7 +2016,8 @@
           },
           {
             "const": "supportsTimeStamp",
-            "title": "http://lv2plug.in/ns/ext/event#supportsTimeStamp",
+            "title": "supportsTimeStamp",
+            "x-code": 10,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/event#supportsTimeStamp",
               "kind": "property",
@@ -1911,19 +2030,15 @@
       "LV2_INSTANCE_ACCESS_TERMS": {
         "description": "The terms of the instance access specification (instance-access.lv2, from lv2 1.18.10), each mapped under its own name with its status for us (docs/data-layout.md).",
         "x-since": "1.0.0",
+        "x-kind": "terms",
         "x-format": "lv2",
         "x-spec": "http://lv2plug.in/ns/ext/instance-access",
         "x-version": "1.6",
-        "x-kinds": {
-          "$ref": "https://openmixer.org/contract/format#/components/schemas/FORMAT_TERM_KINDS"
-        },
-        "x-statuses": {
-          "$ref": "https://openmixer.org/contract/format#/components/schemas/FORMAT_TERM_STATUSES"
-        },
         "oneOf": [
           {
             "const": "instance-access.lv2",
-            "title": "http://lv2plug.in/ns/ext/instance-access",
+            "title": "instance-access.lv2",
+            "x-code": 0,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/instance-access",
               "kind": "feature",
@@ -1938,19 +2053,15 @@
       "LV2_LOG_TERMS": {
         "description": "The terms of the LV2 Log specification (log.lv2, from lv2 1.18.10), each mapped under its own name with its status for us (docs/data-layout.md).",
         "x-since": "1.0.0",
+        "x-kind": "terms",
         "x-format": "lv2",
         "x-spec": "http://lv2plug.in/ns/ext/log",
         "x-version": "2.4",
-        "x-kinds": {
-          "$ref": "https://openmixer.org/contract/format#/components/schemas/FORMAT_TERM_KINDS"
-        },
-        "x-statuses": {
-          "$ref": "https://openmixer.org/contract/format#/components/schemas/FORMAT_TERM_STATUSES"
-        },
         "oneOf": [
           {
             "const": "Entry",
-            "title": "http://lv2plug.in/ns/ext/log#Entry",
+            "title": "Entry",
+            "x-code": 0,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/log#Entry",
               "kind": "class",
@@ -1960,7 +2071,8 @@
           },
           {
             "const": "Error",
-            "title": "http://lv2plug.in/ns/ext/log#Error",
+            "title": "Error",
+            "x-code": 1,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/log#Error",
               "kind": "class",
@@ -1972,7 +2084,8 @@
           },
           {
             "const": "Note",
-            "title": "http://lv2plug.in/ns/ext/log#Note",
+            "title": "Note",
+            "x-code": 2,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/log#Note",
               "kind": "class",
@@ -1984,7 +2097,8 @@
           },
           {
             "const": "Trace",
-            "title": "http://lv2plug.in/ns/ext/log#Trace",
+            "title": "Trace",
+            "x-code": 3,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/log#Trace",
               "kind": "class",
@@ -1996,7 +2110,8 @@
           },
           {
             "const": "Warning",
-            "title": "http://lv2plug.in/ns/ext/log#Warning",
+            "title": "Warning",
+            "x-code": 4,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/log#Warning",
               "kind": "class",
@@ -2008,7 +2123,8 @@
           },
           {
             "const": "log",
-            "title": "http://lv2plug.in/ns/ext/log#log",
+            "title": "log",
+            "x-code": 5,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/log#log",
               "kind": "feature",
@@ -2022,7 +2138,8 @@
           },
           {
             "const": "log.lv2",
-            "title": "http://lv2plug.in/ns/ext/log",
+            "title": "log.lv2",
+            "x-code": 6,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/log",
               "kind": "specification",
@@ -2037,19 +2154,15 @@
       "LV2_MIDI_TERMS": {
         "description": "The terms of the LV2 MIDI specification (midi.lv2, from lv2 1.18.10), each mapped under its own name with its status for us (docs/data-layout.md).",
         "x-since": "1.0.0",
+        "x-kind": "terms",
         "x-format": "lv2",
         "x-spec": "http://lv2plug.in/ns/ext/midi",
         "x-version": "1.10",
-        "x-kinds": {
-          "$ref": "https://openmixer.org/contract/format#/components/schemas/FORMAT_TERM_KINDS"
-        },
-        "x-statuses": {
-          "$ref": "https://openmixer.org/contract/format#/components/schemas/FORMAT_TERM_STATUSES"
-        },
         "oneOf": [
           {
             "const": "ActiveSense",
-            "title": "http://lv2plug.in/ns/ext/midi#ActiveSense",
+            "title": "ActiveSense",
+            "x-code": 0,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/midi#ActiveSense",
               "kind": "class",
@@ -2059,7 +2172,8 @@
           },
           {
             "const": "Aftertouch",
-            "title": "http://lv2plug.in/ns/ext/midi#Aftertouch",
+            "title": "Aftertouch",
+            "x-code": 1,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/midi#Aftertouch",
               "kind": "class",
@@ -2069,7 +2183,8 @@
           },
           {
             "const": "Bender",
-            "title": "http://lv2plug.in/ns/ext/midi#Bender",
+            "title": "Bender",
+            "x-code": 2,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/midi#Bender",
               "kind": "class",
@@ -2079,7 +2194,8 @@
           },
           {
             "const": "ChannelPressure",
-            "title": "http://lv2plug.in/ns/ext/midi#ChannelPressure",
+            "title": "ChannelPressure",
+            "x-code": 3,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/midi#ChannelPressure",
               "kind": "class",
@@ -2089,7 +2205,8 @@
           },
           {
             "const": "Chunk",
-            "title": "http://lv2plug.in/ns/ext/midi#Chunk",
+            "title": "Chunk",
+            "x-code": 4,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/midi#Chunk",
               "kind": "class",
@@ -2099,7 +2216,8 @@
           },
           {
             "const": "Clock",
-            "title": "http://lv2plug.in/ns/ext/midi#Clock",
+            "title": "Clock",
+            "x-code": 5,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/midi#Clock",
               "kind": "class",
@@ -2109,7 +2227,8 @@
           },
           {
             "const": "Continue",
-            "title": "http://lv2plug.in/ns/ext/midi#Continue",
+            "title": "Continue",
+            "x-code": 6,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/midi#Continue",
               "kind": "class",
@@ -2119,7 +2238,8 @@
           },
           {
             "const": "Controller",
-            "title": "http://lv2plug.in/ns/ext/midi#Controller",
+            "title": "Controller",
+            "x-code": 7,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/midi#Controller",
               "kind": "class",
@@ -2129,7 +2249,8 @@
           },
           {
             "const": "HexByte",
-            "title": "http://lv2plug.in/ns/ext/midi#HexByte",
+            "title": "HexByte",
+            "x-code": 8,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/midi#HexByte",
               "kind": "datatype",
@@ -2139,7 +2260,8 @@
           },
           {
             "const": "MidiEvent",
-            "title": "http://lv2plug.in/ns/ext/midi#MidiEvent",
+            "title": "MidiEvent",
+            "x-code": 9,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/midi#MidiEvent",
               "kind": "class",
@@ -2154,7 +2276,8 @@
           },
           {
             "const": "NoteOff",
-            "title": "http://lv2plug.in/ns/ext/midi#NoteOff",
+            "title": "NoteOff",
+            "x-code": 10,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/midi#NoteOff",
               "kind": "class",
@@ -2164,7 +2287,8 @@
           },
           {
             "const": "NoteOn",
-            "title": "http://lv2plug.in/ns/ext/midi#NoteOn",
+            "title": "NoteOn",
+            "x-code": 11,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/midi#NoteOn",
               "kind": "class",
@@ -2174,7 +2298,8 @@
           },
           {
             "const": "ProgramChange",
-            "title": "http://lv2plug.in/ns/ext/midi#ProgramChange",
+            "title": "ProgramChange",
+            "x-code": 12,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/midi#ProgramChange",
               "kind": "class",
@@ -2184,7 +2309,8 @@
           },
           {
             "const": "QuarterFrame",
-            "title": "http://lv2plug.in/ns/ext/midi#QuarterFrame",
+            "title": "QuarterFrame",
+            "x-code": 13,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/midi#QuarterFrame",
               "kind": "class",
@@ -2194,7 +2320,8 @@
           },
           {
             "const": "Reset",
-            "title": "http://lv2plug.in/ns/ext/midi#Reset",
+            "title": "Reset",
+            "x-code": 14,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/midi#Reset",
               "kind": "class",
@@ -2204,7 +2331,8 @@
           },
           {
             "const": "SongPosition",
-            "title": "http://lv2plug.in/ns/ext/midi#SongPosition",
+            "title": "SongPosition",
+            "x-code": 15,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/midi#SongPosition",
               "kind": "class",
@@ -2214,7 +2342,8 @@
           },
           {
             "const": "SongSelect",
-            "title": "http://lv2plug.in/ns/ext/midi#SongSelect",
+            "title": "SongSelect",
+            "x-code": 16,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/midi#SongSelect",
               "kind": "class",
@@ -2224,7 +2353,8 @@
           },
           {
             "const": "Start",
-            "title": "http://lv2plug.in/ns/ext/midi#Start",
+            "title": "Start",
+            "x-code": 17,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/midi#Start",
               "kind": "class",
@@ -2234,7 +2364,8 @@
           },
           {
             "const": "Stop",
-            "title": "http://lv2plug.in/ns/ext/midi#Stop",
+            "title": "Stop",
+            "x-code": 18,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/midi#Stop",
               "kind": "class",
@@ -2244,7 +2375,8 @@
           },
           {
             "const": "SystemCommon",
-            "title": "http://lv2plug.in/ns/ext/midi#SystemCommon",
+            "title": "SystemCommon",
+            "x-code": 19,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/midi#SystemCommon",
               "kind": "class",
@@ -2254,7 +2386,8 @@
           },
           {
             "const": "SystemExclusive",
-            "title": "http://lv2plug.in/ns/ext/midi#SystemExclusive",
+            "title": "SystemExclusive",
+            "x-code": 20,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/midi#SystemExclusive",
               "kind": "class",
@@ -2264,7 +2397,8 @@
           },
           {
             "const": "SystemMessage",
-            "title": "http://lv2plug.in/ns/ext/midi#SystemMessage",
+            "title": "SystemMessage",
+            "x-code": 21,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/midi#SystemMessage",
               "kind": "class",
@@ -2274,7 +2408,8 @@
           },
           {
             "const": "SystemRealtime",
-            "title": "http://lv2plug.in/ns/ext/midi#SystemRealtime",
+            "title": "SystemRealtime",
+            "x-code": 22,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/midi#SystemRealtime",
               "kind": "class",
@@ -2284,7 +2419,8 @@
           },
           {
             "const": "TuneRequest",
-            "title": "http://lv2plug.in/ns/ext/midi#TuneRequest",
+            "title": "TuneRequest",
+            "x-code": 23,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/midi#TuneRequest",
               "kind": "class",
@@ -2294,7 +2430,8 @@
           },
           {
             "const": "VoiceMessage",
-            "title": "http://lv2plug.in/ns/ext/midi#VoiceMessage",
+            "title": "VoiceMessage",
+            "x-code": 24,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/midi#VoiceMessage",
               "kind": "class",
@@ -2304,7 +2441,8 @@
           },
           {
             "const": "benderValue",
-            "title": "http://lv2plug.in/ns/ext/midi#benderValue",
+            "title": "benderValue",
+            "x-code": 25,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/midi#benderValue",
               "kind": "property",
@@ -2314,7 +2452,8 @@
           },
           {
             "const": "binding",
-            "title": "http://lv2plug.in/ns/ext/midi#binding",
+            "title": "binding",
+            "x-code": 26,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/midi#binding",
               "kind": "property",
@@ -2324,7 +2463,8 @@
           },
           {
             "const": "byteNumber",
-            "title": "http://lv2plug.in/ns/ext/midi#byteNumber",
+            "title": "byteNumber",
+            "x-code": 27,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/midi#byteNumber",
               "kind": "property",
@@ -2334,7 +2474,8 @@
           },
           {
             "const": "channel",
-            "title": "http://lv2plug.in/ns/ext/midi#channel",
+            "title": "channel",
+            "x-code": 28,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/midi#channel",
               "kind": "property",
@@ -2344,7 +2485,8 @@
           },
           {
             "const": "chunk",
-            "title": "http://lv2plug.in/ns/ext/midi#chunk",
+            "title": "chunk",
+            "x-code": 29,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/midi#chunk",
               "kind": "property",
@@ -2354,7 +2496,8 @@
           },
           {
             "const": "controllerNumber",
-            "title": "http://lv2plug.in/ns/ext/midi#controllerNumber",
+            "title": "controllerNumber",
+            "x-code": 30,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/midi#controllerNumber",
               "kind": "property",
@@ -2364,7 +2507,8 @@
           },
           {
             "const": "controllerValue",
-            "title": "http://lv2plug.in/ns/ext/midi#controllerValue",
+            "title": "controllerValue",
+            "x-code": 31,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/midi#controllerValue",
               "kind": "property",
@@ -2374,7 +2518,8 @@
           },
           {
             "const": "midi.lv2",
-            "title": "http://lv2plug.in/ns/ext/midi",
+            "title": "midi.lv2",
+            "x-code": 32,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/midi",
               "kind": "specification",
@@ -2387,7 +2532,8 @@
           },
           {
             "const": "noteNumber",
-            "title": "http://lv2plug.in/ns/ext/midi#noteNumber",
+            "title": "noteNumber",
+            "x-code": 33,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/midi#noteNumber",
               "kind": "property",
@@ -2397,7 +2543,8 @@
           },
           {
             "const": "pressure",
-            "title": "http://lv2plug.in/ns/ext/midi#pressure",
+            "title": "pressure",
+            "x-code": 34,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/midi#pressure",
               "kind": "property",
@@ -2407,7 +2554,8 @@
           },
           {
             "const": "programNumber",
-            "title": "http://lv2plug.in/ns/ext/midi#programNumber",
+            "title": "programNumber",
+            "x-code": 35,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/midi#programNumber",
               "kind": "property",
@@ -2417,7 +2565,8 @@
           },
           {
             "const": "property",
-            "title": "http://lv2plug.in/ns/ext/midi#property",
+            "title": "property",
+            "x-code": 36,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/midi#property",
               "kind": "property",
@@ -2427,7 +2576,8 @@
           },
           {
             "const": "songNumber",
-            "title": "http://lv2plug.in/ns/ext/midi#songNumber",
+            "title": "songNumber",
+            "x-code": 37,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/midi#songNumber",
               "kind": "property",
@@ -2437,7 +2587,8 @@
           },
           {
             "const": "songPosition",
-            "title": "http://lv2plug.in/ns/ext/midi#songPosition",
+            "title": "songPosition",
+            "x-code": 38,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/midi#songPosition",
               "kind": "property",
@@ -2447,7 +2598,8 @@
           },
           {
             "const": "status",
-            "title": "http://lv2plug.in/ns/ext/midi#status",
+            "title": "status",
+            "x-code": 39,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/midi#status",
               "kind": "property",
@@ -2457,7 +2609,8 @@
           },
           {
             "const": "statusMask",
-            "title": "http://lv2plug.in/ns/ext/midi#statusMask",
+            "title": "statusMask",
+            "x-code": 40,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/midi#statusMask",
               "kind": "property",
@@ -2467,7 +2620,8 @@
           },
           {
             "const": "velocity",
-            "title": "http://lv2plug.in/ns/ext/midi#velocity",
+            "title": "velocity",
+            "x-code": 41,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/midi#velocity",
               "kind": "property",
@@ -2480,19 +2634,15 @@
       "LV2_MORPH_TERMS": {
         "description": "The terms of the LV2 Morph specification (morph.lv2, from lv2 1.18.10), each mapped under its own name with its status for us (docs/data-layout.md).",
         "x-since": "1.0.0",
+        "x-kind": "terms",
         "x-format": "lv2",
         "x-spec": "http://lv2plug.in/ns/ext/morph",
         "x-version": "1.0",
-        "x-kinds": {
-          "$ref": "https://openmixer.org/contract/format#/components/schemas/FORMAT_TERM_KINDS"
-        },
-        "x-statuses": {
-          "$ref": "https://openmixer.org/contract/format#/components/schemas/FORMAT_TERM_STATUSES"
-        },
         "oneOf": [
           {
             "const": "AutoMorphPort",
-            "title": "http://lv2plug.in/ns/ext/morph#AutoMorphPort",
+            "title": "AutoMorphPort",
+            "x-code": 0,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/morph#AutoMorphPort",
               "kind": "class",
@@ -2502,7 +2652,8 @@
           },
           {
             "const": "MorphPort",
-            "title": "http://lv2plug.in/ns/ext/morph#MorphPort",
+            "title": "MorphPort",
+            "x-code": 1,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/morph#MorphPort",
               "kind": "class",
@@ -2512,7 +2663,8 @@
           },
           {
             "const": "currentType",
-            "title": "http://lv2plug.in/ns/ext/morph#currentType",
+            "title": "currentType",
+            "x-code": 2,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/morph#currentType",
               "kind": "option",
@@ -2522,7 +2674,8 @@
           },
           {
             "const": "morph.lv2",
-            "title": "http://lv2plug.in/ns/ext/morph",
+            "title": "morph.lv2",
+            "x-code": 3,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/morph",
               "kind": "specification",
@@ -2532,7 +2685,8 @@
           },
           {
             "const": "supportsType",
-            "title": "http://lv2plug.in/ns/ext/morph#supportsType",
+            "title": "supportsType",
+            "x-code": 4,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/morph#supportsType",
               "kind": "property",
@@ -2545,19 +2699,15 @@
       "LV2_OPTIONS_TERMS": {
         "description": "The terms of the LV2 Options specification (options.lv2, from lv2 1.18.10), each mapped under its own name with its status for us (docs/data-layout.md).",
         "x-since": "1.0.0",
+        "x-kind": "terms",
         "x-format": "lv2",
         "x-spec": "http://lv2plug.in/ns/ext/options",
         "x-version": "1.4",
-        "x-kinds": {
-          "$ref": "https://openmixer.org/contract/format#/components/schemas/FORMAT_TERM_KINDS"
-        },
-        "x-statuses": {
-          "$ref": "https://openmixer.org/contract/format#/components/schemas/FORMAT_TERM_STATUSES"
-        },
         "oneOf": [
           {
             "const": "Option",
-            "title": "http://lv2plug.in/ns/ext/options#Option",
+            "title": "Option",
+            "x-code": 0,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/options#Option",
               "kind": "class",
@@ -2567,7 +2717,8 @@
           },
           {
             "const": "interface",
-            "title": "http://lv2plug.in/ns/ext/options#interface",
+            "title": "interface",
+            "x-code": 1,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/options#interface",
               "kind": "extension-data",
@@ -2577,7 +2728,8 @@
           },
           {
             "const": "options",
-            "title": "http://lv2plug.in/ns/ext/options#options",
+            "title": "options",
+            "x-code": 2,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/options#options",
               "kind": "feature",
@@ -2591,7 +2743,8 @@
           },
           {
             "const": "options.lv2",
-            "title": "http://lv2plug.in/ns/ext/options",
+            "title": "options.lv2",
+            "x-code": 3,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/options",
               "kind": "specification",
@@ -2604,7 +2757,8 @@
           },
           {
             "const": "requiredOption",
-            "title": "http://lv2plug.in/ns/ext/options#requiredOption",
+            "title": "requiredOption",
+            "x-code": 4,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/options#requiredOption",
               "kind": "property",
@@ -2614,7 +2768,8 @@
           },
           {
             "const": "supportedOption",
-            "title": "http://lv2plug.in/ns/ext/options#supportedOption",
+            "title": "supportedOption",
+            "x-code": 5,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/options#supportedOption",
               "kind": "property",
@@ -2627,19 +2782,15 @@
       "LV2_PARAMETERS_TERMS": {
         "description": "The terms of the LV2 Parameters specification (parameters.lv2, from lv2 1.18.10), each mapped under its own name with its status for us (docs/data-layout.md).",
         "x-since": "1.0.0",
+        "x-kind": "terms",
         "x-format": "lv2",
         "x-spec": "http://lv2plug.in/ns/ext/parameters",
         "x-version": "1.4",
-        "x-kinds": {
-          "$ref": "https://openmixer.org/contract/format#/components/schemas/FORMAT_TERM_KINDS"
-        },
-        "x-statuses": {
-          "$ref": "https://openmixer.org/contract/format#/components/schemas/FORMAT_TERM_STATUSES"
-        },
         "oneOf": [
           {
             "const": "CompressorControls",
-            "title": "http://lv2plug.in/ns/ext/parameters#CompressorControls",
+            "title": "CompressorControls",
+            "x-code": 0,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/parameters#CompressorControls",
               "kind": "class",
@@ -2649,7 +2800,8 @@
           },
           {
             "const": "ControlGroup",
-            "title": "http://lv2plug.in/ns/ext/parameters#ControlGroup",
+            "title": "ControlGroup",
+            "x-code": 1,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/parameters#ControlGroup",
               "kind": "class",
@@ -2659,7 +2811,8 @@
           },
           {
             "const": "EnvelopeControls",
-            "title": "http://lv2plug.in/ns/ext/parameters#EnvelopeControls",
+            "title": "EnvelopeControls",
+            "x-code": 2,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/parameters#EnvelopeControls",
               "kind": "class",
@@ -2669,7 +2822,8 @@
           },
           {
             "const": "FilterControls",
-            "title": "http://lv2plug.in/ns/ext/parameters#FilterControls",
+            "title": "FilterControls",
+            "x-code": 3,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/parameters#FilterControls",
               "kind": "class",
@@ -2679,7 +2833,8 @@
           },
           {
             "const": "OscillatorControls",
-            "title": "http://lv2plug.in/ns/ext/parameters#OscillatorControls",
+            "title": "OscillatorControls",
+            "x-code": 4,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/parameters#OscillatorControls",
               "kind": "class",
@@ -2689,7 +2844,8 @@
           },
           {
             "const": "amplitude",
-            "title": "http://lv2plug.in/ns/ext/parameters#amplitude",
+            "title": "amplitude",
+            "x-code": 5,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/parameters#amplitude",
               "kind": "parameter",
@@ -2699,7 +2855,8 @@
           },
           {
             "const": "attack",
-            "title": "http://lv2plug.in/ns/ext/parameters#attack",
+            "title": "attack",
+            "x-code": 6,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/parameters#attack",
               "kind": "parameter",
@@ -2712,7 +2869,8 @@
           },
           {
             "const": "bypass",
-            "title": "http://lv2plug.in/ns/ext/parameters#bypass",
+            "title": "bypass",
+            "x-code": 7,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/parameters#bypass",
               "kind": "parameter",
@@ -2725,7 +2883,8 @@
           },
           {
             "const": "cutoffFrequency",
-            "title": "http://lv2plug.in/ns/ext/parameters#cutoffFrequency",
+            "title": "cutoffFrequency",
+            "x-code": 8,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/parameters#cutoffFrequency",
               "kind": "parameter",
@@ -2738,7 +2897,8 @@
           },
           {
             "const": "decay",
-            "title": "http://lv2plug.in/ns/ext/parameters#decay",
+            "title": "decay",
+            "x-code": 9,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/parameters#decay",
               "kind": "parameter",
@@ -2751,7 +2911,8 @@
           },
           {
             "const": "delay",
-            "title": "http://lv2plug.in/ns/ext/parameters#delay",
+            "title": "delay",
+            "x-code": 10,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/parameters#delay",
               "kind": "parameter",
@@ -2764,7 +2925,8 @@
           },
           {
             "const": "dryLevel",
-            "title": "http://lv2plug.in/ns/ext/parameters#dryLevel",
+            "title": "dryLevel",
+            "x-code": 11,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/parameters#dryLevel",
               "kind": "parameter",
@@ -2774,7 +2936,8 @@
           },
           {
             "const": "frequency",
-            "title": "http://lv2plug.in/ns/ext/parameters#frequency",
+            "title": "frequency",
+            "x-code": 12,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/parameters#frequency",
               "kind": "parameter",
@@ -2787,7 +2950,8 @@
           },
           {
             "const": "gain",
-            "title": "http://lv2plug.in/ns/ext/parameters#gain",
+            "title": "gain",
+            "x-code": 13,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/parameters#gain",
               "kind": "parameter",
@@ -2800,7 +2964,8 @@
           },
           {
             "const": "hold",
-            "title": "http://lv2plug.in/ns/ext/parameters#hold",
+            "title": "hold",
+            "x-code": 14,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/parameters#hold",
               "kind": "parameter",
@@ -2813,7 +2978,8 @@
           },
           {
             "const": "parameters.lv2",
-            "title": "http://lv2plug.in/ns/ext/parameters",
+            "title": "parameters.lv2",
+            "x-code": 15,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/parameters",
               "kind": "specification",
@@ -2825,7 +2991,8 @@
           },
           {
             "const": "pulseWidth",
-            "title": "http://lv2plug.in/ns/ext/parameters#pulseWidth",
+            "title": "pulseWidth",
+            "x-code": 16,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/parameters#pulseWidth",
               "kind": "parameter",
@@ -2835,7 +3002,8 @@
           },
           {
             "const": "ratio",
-            "title": "http://lv2plug.in/ns/ext/parameters#ratio",
+            "title": "ratio",
+            "x-code": 17,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/parameters#ratio",
               "kind": "parameter",
@@ -2848,7 +3016,8 @@
           },
           {
             "const": "release",
-            "title": "http://lv2plug.in/ns/ext/parameters#release",
+            "title": "release",
+            "x-code": 18,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/parameters#release",
               "kind": "parameter",
@@ -2861,7 +3030,8 @@
           },
           {
             "const": "resonance",
-            "title": "http://lv2plug.in/ns/ext/parameters#resonance",
+            "title": "resonance",
+            "x-code": 19,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/parameters#resonance",
               "kind": "parameter",
@@ -2874,7 +3044,8 @@
           },
           {
             "const": "sampleRate",
-            "title": "http://lv2plug.in/ns/ext/parameters#sampleRate",
+            "title": "sampleRate",
+            "x-code": 20,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/parameters#sampleRate",
               "kind": "parameter",
@@ -2886,7 +3057,8 @@
           },
           {
             "const": "sustain",
-            "title": "http://lv2plug.in/ns/ext/parameters#sustain",
+            "title": "sustain",
+            "x-code": 21,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/parameters#sustain",
               "kind": "parameter",
@@ -2896,7 +3068,8 @@
           },
           {
             "const": "threshold",
-            "title": "http://lv2plug.in/ns/ext/parameters#threshold",
+            "title": "threshold",
+            "x-code": 22,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/parameters#threshold",
               "kind": "parameter",
@@ -2909,7 +3082,8 @@
           },
           {
             "const": "waveform",
-            "title": "http://lv2plug.in/ns/ext/parameters#waveform",
+            "title": "waveform",
+            "x-code": 23,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/parameters#waveform",
               "kind": "parameter",
@@ -2919,7 +3093,8 @@
           },
           {
             "const": "wetDryRatio",
-            "title": "http://lv2plug.in/ns/ext/parameters#wetDryRatio",
+            "title": "wetDryRatio",
+            "x-code": 24,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/parameters#wetDryRatio",
               "kind": "parameter",
@@ -2932,7 +3107,8 @@
           },
           {
             "const": "wetLevel",
-            "title": "http://lv2plug.in/ns/ext/parameters#wetLevel",
+            "title": "wetLevel",
+            "x-code": 25,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/parameters#wetLevel",
               "kind": "parameter",
@@ -2945,19 +3121,15 @@
       "LV2_PATCH_TERMS": {
         "description": "The terms of the LV2 Patch specification (patch.lv2, from lv2 1.18.10), each mapped under its own name with its status for us (docs/data-layout.md).",
         "x-since": "1.0.0",
+        "x-kind": "terms",
         "x-format": "lv2",
         "x-spec": "http://lv2plug.in/ns/ext/patch",
         "x-version": "2.10",
-        "x-kinds": {
-          "$ref": "https://openmixer.org/contract/format#/components/schemas/FORMAT_TERM_KINDS"
-        },
-        "x-statuses": {
-          "$ref": "https://openmixer.org/contract/format#/components/schemas/FORMAT_TERM_STATUSES"
-        },
         "oneOf": [
           {
             "const": "Ack",
-            "title": "http://lv2plug.in/ns/ext/patch#Ack",
+            "title": "Ack",
+            "x-code": 0,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/patch#Ack",
               "kind": "class",
@@ -2967,7 +3139,8 @@
           },
           {
             "const": "Copy",
-            "title": "http://lv2plug.in/ns/ext/patch#Copy",
+            "title": "Copy",
+            "x-code": 1,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/patch#Copy",
               "kind": "class",
@@ -2977,7 +3150,8 @@
           },
           {
             "const": "Delete",
-            "title": "http://lv2plug.in/ns/ext/patch#Delete",
+            "title": "Delete",
+            "x-code": 2,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/patch#Delete",
               "kind": "class",
@@ -2987,7 +3161,8 @@
           },
           {
             "const": "Error",
-            "title": "http://lv2plug.in/ns/ext/patch#Error",
+            "title": "Error",
+            "x-code": 3,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/patch#Error",
               "kind": "class",
@@ -2997,7 +3172,8 @@
           },
           {
             "const": "Get",
-            "title": "http://lv2plug.in/ns/ext/patch#Get",
+            "title": "Get",
+            "x-code": 4,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/patch#Get",
               "kind": "class",
@@ -3007,7 +3183,8 @@
           },
           {
             "const": "Insert",
-            "title": "http://lv2plug.in/ns/ext/patch#Insert",
+            "title": "Insert",
+            "x-code": 5,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/patch#Insert",
               "kind": "class",
@@ -3017,7 +3194,8 @@
           },
           {
             "const": "Message",
-            "title": "http://lv2plug.in/ns/ext/patch#Message",
+            "title": "Message",
+            "x-code": 6,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/patch#Message",
               "kind": "class",
@@ -3030,7 +3208,8 @@
           },
           {
             "const": "Move",
-            "title": "http://lv2plug.in/ns/ext/patch#Move",
+            "title": "Move",
+            "x-code": 7,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/patch#Move",
               "kind": "class",
@@ -3040,7 +3219,8 @@
           },
           {
             "const": "Patch",
-            "title": "http://lv2plug.in/ns/ext/patch#Patch",
+            "title": "Patch",
+            "x-code": 8,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/patch#Patch",
               "kind": "class",
@@ -3050,7 +3230,8 @@
           },
           {
             "const": "Put",
-            "title": "http://lv2plug.in/ns/ext/patch#Put",
+            "title": "Put",
+            "x-code": 9,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/patch#Put",
               "kind": "class",
@@ -3064,7 +3245,8 @@
           },
           {
             "const": "Request",
-            "title": "http://lv2plug.in/ns/ext/patch#Request",
+            "title": "Request",
+            "x-code": 10,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/patch#Request",
               "kind": "class",
@@ -3074,7 +3256,8 @@
           },
           {
             "const": "Response",
-            "title": "http://lv2plug.in/ns/ext/patch#Response",
+            "title": "Response",
+            "x-code": 11,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/patch#Response",
               "kind": "class",
@@ -3084,7 +3267,8 @@
           },
           {
             "const": "Set",
-            "title": "http://lv2plug.in/ns/ext/patch#Set",
+            "title": "Set",
+            "x-code": 12,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/patch#Set",
               "kind": "class",
@@ -3098,7 +3282,8 @@
           },
           {
             "const": "accept",
-            "title": "http://lv2plug.in/ns/ext/patch#accept",
+            "title": "accept",
+            "x-code": 13,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/patch#accept",
               "kind": "property",
@@ -3108,7 +3293,8 @@
           },
           {
             "const": "add",
-            "title": "http://lv2plug.in/ns/ext/patch#add",
+            "title": "add",
+            "x-code": 14,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/patch#add",
               "kind": "property",
@@ -3118,7 +3304,8 @@
           },
           {
             "const": "body",
-            "title": "http://lv2plug.in/ns/ext/patch#body",
+            "title": "body",
+            "x-code": 15,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/patch#body",
               "kind": "property",
@@ -3130,7 +3317,8 @@
           },
           {
             "const": "context",
-            "title": "http://lv2plug.in/ns/ext/patch#context",
+            "title": "context",
+            "x-code": 16,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/patch#context",
               "kind": "property",
@@ -3140,7 +3328,8 @@
           },
           {
             "const": "destination",
-            "title": "http://lv2plug.in/ns/ext/patch#destination",
+            "title": "destination",
+            "x-code": 17,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/patch#destination",
               "kind": "property",
@@ -3150,7 +3339,8 @@
           },
           {
             "const": "patch.lv2",
-            "title": "http://lv2plug.in/ns/ext/patch",
+            "title": "patch.lv2",
+            "x-code": 18,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/patch",
               "kind": "specification",
@@ -3162,7 +3352,8 @@
           },
           {
             "const": "property",
-            "title": "http://lv2plug.in/ns/ext/patch#property",
+            "title": "property",
+            "x-code": 19,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/patch#property",
               "kind": "property",
@@ -3174,7 +3365,8 @@
           },
           {
             "const": "readable",
-            "title": "http://lv2plug.in/ns/ext/patch#readable",
+            "title": "readable",
+            "x-code": 20,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/patch#readable",
               "kind": "property",
@@ -3184,7 +3376,8 @@
           },
           {
             "const": "remove",
-            "title": "http://lv2plug.in/ns/ext/patch#remove",
+            "title": "remove",
+            "x-code": 21,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/patch#remove",
               "kind": "property",
@@ -3194,7 +3387,8 @@
           },
           {
             "const": "request",
-            "title": "http://lv2plug.in/ns/ext/patch#request",
+            "title": "request",
+            "x-code": 22,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/patch#request",
               "kind": "property",
@@ -3204,7 +3398,8 @@
           },
           {
             "const": "sequenceNumber",
-            "title": "http://lv2plug.in/ns/ext/patch#sequenceNumber",
+            "title": "sequenceNumber",
+            "x-code": 23,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/patch#sequenceNumber",
               "kind": "property",
@@ -3214,7 +3409,8 @@
           },
           {
             "const": "subject",
-            "title": "http://lv2plug.in/ns/ext/patch#subject",
+            "title": "subject",
+            "x-code": 24,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/patch#subject",
               "kind": "property",
@@ -3224,7 +3420,8 @@
           },
           {
             "const": "value",
-            "title": "http://lv2plug.in/ns/ext/patch#value",
+            "title": "value",
+            "x-code": 25,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/patch#value",
               "kind": "property",
@@ -3236,7 +3433,8 @@
           },
           {
             "const": "wildcard",
-            "title": "http://lv2plug.in/ns/ext/patch#wildcard",
+            "title": "wildcard",
+            "x-code": 26,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/patch#wildcard",
               "kind": "individual",
@@ -3246,7 +3444,8 @@
           },
           {
             "const": "writable",
-            "title": "http://lv2plug.in/ns/ext/patch#writable",
+            "title": "writable",
+            "x-code": 27,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/patch#writable",
               "kind": "property",
@@ -3263,19 +3462,15 @@
       "LV2_PORT_GROUPS_TERMS": {
         "description": "The terms of the LV2 Port Groups specification (port-groups.lv2, from lv2 1.18.10), each mapped under its own name with its status for us (docs/data-layout.md).",
         "x-since": "1.0.0",
+        "x-kind": "terms",
         "x-format": "lv2",
         "x-spec": "http://lv2plug.in/ns/ext/port-groups",
         "x-version": "1.4",
-        "x-kinds": {
-          "$ref": "https://openmixer.org/contract/format#/components/schemas/FORMAT_TERM_KINDS"
-        },
-        "x-statuses": {
-          "$ref": "https://openmixer.org/contract/format#/components/schemas/FORMAT_TERM_STATUSES"
-        },
         "oneOf": [
           {
             "const": "ACN0",
-            "title": "http://lv2plug.in/ns/ext/port-groups#ACN0",
+            "title": "ACN0",
+            "x-code": 0,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/port-groups#ACN0",
               "kind": "channel",
@@ -3285,7 +3480,8 @@
           },
           {
             "const": "ACN1",
-            "title": "http://lv2plug.in/ns/ext/port-groups#ACN1",
+            "title": "ACN1",
+            "x-code": 1,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/port-groups#ACN1",
               "kind": "channel",
@@ -3295,7 +3491,8 @@
           },
           {
             "const": "ACN10",
-            "title": "http://lv2plug.in/ns/ext/port-groups#ACN10",
+            "title": "ACN10",
+            "x-code": 2,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/port-groups#ACN10",
               "kind": "channel",
@@ -3305,7 +3502,8 @@
           },
           {
             "const": "ACN11",
-            "title": "http://lv2plug.in/ns/ext/port-groups#ACN11",
+            "title": "ACN11",
+            "x-code": 3,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/port-groups#ACN11",
               "kind": "channel",
@@ -3315,7 +3513,8 @@
           },
           {
             "const": "ACN12",
-            "title": "http://lv2plug.in/ns/ext/port-groups#ACN12",
+            "title": "ACN12",
+            "x-code": 4,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/port-groups#ACN12",
               "kind": "channel",
@@ -3325,7 +3524,8 @@
           },
           {
             "const": "ACN13",
-            "title": "http://lv2plug.in/ns/ext/port-groups#ACN13",
+            "title": "ACN13",
+            "x-code": 5,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/port-groups#ACN13",
               "kind": "channel",
@@ -3335,7 +3535,8 @@
           },
           {
             "const": "ACN14",
-            "title": "http://lv2plug.in/ns/ext/port-groups#ACN14",
+            "title": "ACN14",
+            "x-code": 6,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/port-groups#ACN14",
               "kind": "channel",
@@ -3345,7 +3546,8 @@
           },
           {
             "const": "ACN15",
-            "title": "http://lv2plug.in/ns/ext/port-groups#ACN15",
+            "title": "ACN15",
+            "x-code": 7,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/port-groups#ACN15",
               "kind": "channel",
@@ -3355,7 +3557,8 @@
           },
           {
             "const": "ACN2",
-            "title": "http://lv2plug.in/ns/ext/port-groups#ACN2",
+            "title": "ACN2",
+            "x-code": 8,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/port-groups#ACN2",
               "kind": "channel",
@@ -3365,7 +3568,8 @@
           },
           {
             "const": "ACN3",
-            "title": "http://lv2plug.in/ns/ext/port-groups#ACN3",
+            "title": "ACN3",
+            "x-code": 9,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/port-groups#ACN3",
               "kind": "channel",
@@ -3375,7 +3579,8 @@
           },
           {
             "const": "ACN4",
-            "title": "http://lv2plug.in/ns/ext/port-groups#ACN4",
+            "title": "ACN4",
+            "x-code": 10,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/port-groups#ACN4",
               "kind": "channel",
@@ -3385,7 +3590,8 @@
           },
           {
             "const": "ACN5",
-            "title": "http://lv2plug.in/ns/ext/port-groups#ACN5",
+            "title": "ACN5",
+            "x-code": 11,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/port-groups#ACN5",
               "kind": "channel",
@@ -3395,7 +3601,8 @@
           },
           {
             "const": "ACN6",
-            "title": "http://lv2plug.in/ns/ext/port-groups#ACN6",
+            "title": "ACN6",
+            "x-code": 12,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/port-groups#ACN6",
               "kind": "channel",
@@ -3405,7 +3612,8 @@
           },
           {
             "const": "ACN7",
-            "title": "http://lv2plug.in/ns/ext/port-groups#ACN7",
+            "title": "ACN7",
+            "x-code": 13,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/port-groups#ACN7",
               "kind": "channel",
@@ -3415,7 +3623,8 @@
           },
           {
             "const": "ACN8",
-            "title": "http://lv2plug.in/ns/ext/port-groups#ACN8",
+            "title": "ACN8",
+            "x-code": 14,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/port-groups#ACN8",
               "kind": "channel",
@@ -3425,7 +3634,8 @@
           },
           {
             "const": "ACN9",
-            "title": "http://lv2plug.in/ns/ext/port-groups#ACN9",
+            "title": "ACN9",
+            "x-code": 15,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/port-groups#ACN9",
               "kind": "channel",
@@ -3435,7 +3645,8 @@
           },
           {
             "const": "AmbisonicBH1P0Group",
-            "title": "http://lv2plug.in/ns/ext/port-groups#AmbisonicBH1P0Group",
+            "title": "AmbisonicBH1P0Group",
+            "x-code": 16,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/port-groups#AmbisonicBH1P0Group",
               "kind": "class",
@@ -3445,7 +3656,8 @@
           },
           {
             "const": "AmbisonicBH1P1Group",
-            "title": "http://lv2plug.in/ns/ext/port-groups#AmbisonicBH1P1Group",
+            "title": "AmbisonicBH1P1Group",
+            "x-code": 17,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/port-groups#AmbisonicBH1P1Group",
               "kind": "class",
@@ -3455,7 +3667,8 @@
           },
           {
             "const": "AmbisonicBH2P0Group",
-            "title": "http://lv2plug.in/ns/ext/port-groups#AmbisonicBH2P0Group",
+            "title": "AmbisonicBH2P0Group",
+            "x-code": 18,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/port-groups#AmbisonicBH2P0Group",
               "kind": "class",
@@ -3465,7 +3678,8 @@
           },
           {
             "const": "AmbisonicBH2P1Group",
-            "title": "http://lv2plug.in/ns/ext/port-groups#AmbisonicBH2P1Group",
+            "title": "AmbisonicBH2P1Group",
+            "x-code": 19,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/port-groups#AmbisonicBH2P1Group",
               "kind": "class",
@@ -3475,7 +3689,8 @@
           },
           {
             "const": "AmbisonicBH2P2Group",
-            "title": "http://lv2plug.in/ns/ext/port-groups#AmbisonicBH2P2Group",
+            "title": "AmbisonicBH2P2Group",
+            "x-code": 20,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/port-groups#AmbisonicBH2P2Group",
               "kind": "class",
@@ -3485,7 +3700,8 @@
           },
           {
             "const": "AmbisonicBH3P0Group",
-            "title": "http://lv2plug.in/ns/ext/port-groups#AmbisonicBH3P0Group",
+            "title": "AmbisonicBH3P0Group",
+            "x-code": 21,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/port-groups#AmbisonicBH3P0Group",
               "kind": "class",
@@ -3495,7 +3711,8 @@
           },
           {
             "const": "AmbisonicBH3P1Group",
-            "title": "http://lv2plug.in/ns/ext/port-groups#AmbisonicBH3P1Group",
+            "title": "AmbisonicBH3P1Group",
+            "x-code": 22,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/port-groups#AmbisonicBH3P1Group",
               "kind": "class",
@@ -3505,7 +3722,8 @@
           },
           {
             "const": "AmbisonicBH3P2Group",
-            "title": "http://lv2plug.in/ns/ext/port-groups#AmbisonicBH3P2Group",
+            "title": "AmbisonicBH3P2Group",
+            "x-code": 23,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/port-groups#AmbisonicBH3P2Group",
               "kind": "class",
@@ -3515,7 +3733,8 @@
           },
           {
             "const": "AmbisonicBH3P3Group",
-            "title": "http://lv2plug.in/ns/ext/port-groups#AmbisonicBH3P3Group",
+            "title": "AmbisonicBH3P3Group",
+            "x-code": 24,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/port-groups#AmbisonicBH3P3Group",
               "kind": "class",
@@ -3525,7 +3744,8 @@
           },
           {
             "const": "AmbisonicGroup",
-            "title": "http://lv2plug.in/ns/ext/port-groups#AmbisonicGroup",
+            "title": "AmbisonicGroup",
+            "x-code": 25,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/port-groups#AmbisonicGroup",
               "kind": "class",
@@ -3535,7 +3755,8 @@
           },
           {
             "const": "DiscreteGroup",
-            "title": "http://lv2plug.in/ns/ext/port-groups#DiscreteGroup",
+            "title": "DiscreteGroup",
+            "x-code": 26,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/port-groups#DiscreteGroup",
               "kind": "class",
@@ -3545,7 +3766,8 @@
           },
           {
             "const": "Element",
-            "title": "http://lv2plug.in/ns/ext/port-groups#Element",
+            "title": "Element",
+            "x-code": 27,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/port-groups#Element",
               "kind": "class",
@@ -3555,7 +3777,8 @@
           },
           {
             "const": "FivePointOneGroup",
-            "title": "http://lv2plug.in/ns/ext/port-groups#FivePointOneGroup",
+            "title": "FivePointOneGroup",
+            "x-code": 28,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/port-groups#FivePointOneGroup",
               "kind": "class",
@@ -3565,7 +3788,8 @@
           },
           {
             "const": "FivePointZeroGroup",
-            "title": "http://lv2plug.in/ns/ext/port-groups#FivePointZeroGroup",
+            "title": "FivePointZeroGroup",
+            "x-code": 29,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/port-groups#FivePointZeroGroup",
               "kind": "class",
@@ -3575,7 +3799,8 @@
           },
           {
             "const": "FourPointZeroGroup",
-            "title": "http://lv2plug.in/ns/ext/port-groups#FourPointZeroGroup",
+            "title": "FourPointZeroGroup",
+            "x-code": 30,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/port-groups#FourPointZeroGroup",
               "kind": "class",
@@ -3585,7 +3810,8 @@
           },
           {
             "const": "Group",
-            "title": "http://lv2plug.in/ns/ext/port-groups#Group",
+            "title": "Group",
+            "x-code": 31,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/port-groups#Group",
               "kind": "class",
@@ -3599,7 +3825,8 @@
           },
           {
             "const": "InputGroup",
-            "title": "http://lv2plug.in/ns/ext/port-groups#InputGroup",
+            "title": "InputGroup",
+            "x-code": 32,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/port-groups#InputGroup",
               "kind": "class",
@@ -3609,7 +3836,8 @@
           },
           {
             "const": "MidSideGroup",
-            "title": "http://lv2plug.in/ns/ext/port-groups#MidSideGroup",
+            "title": "MidSideGroup",
+            "x-code": 33,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/port-groups#MidSideGroup",
               "kind": "class",
@@ -3619,7 +3847,8 @@
           },
           {
             "const": "MonoGroup",
-            "title": "http://lv2plug.in/ns/ext/port-groups#MonoGroup",
+            "title": "MonoGroup",
+            "x-code": 34,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/port-groups#MonoGroup",
               "kind": "class",
@@ -3632,7 +3861,8 @@
           },
           {
             "const": "OutputGroup",
-            "title": "http://lv2plug.in/ns/ext/port-groups#OutputGroup",
+            "title": "OutputGroup",
+            "x-code": 35,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/port-groups#OutputGroup",
               "kind": "class",
@@ -3642,7 +3872,8 @@
           },
           {
             "const": "SevenPointOneGroup",
-            "title": "http://lv2plug.in/ns/ext/port-groups#SevenPointOneGroup",
+            "title": "SevenPointOneGroup",
+            "x-code": 36,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/port-groups#SevenPointOneGroup",
               "kind": "class",
@@ -3652,7 +3883,8 @@
           },
           {
             "const": "SevenPointOneWideGroup",
-            "title": "http://lv2plug.in/ns/ext/port-groups#SevenPointOneWideGroup",
+            "title": "SevenPointOneWideGroup",
+            "x-code": 37,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/port-groups#SevenPointOneWideGroup",
               "kind": "class",
@@ -3662,7 +3894,8 @@
           },
           {
             "const": "SixPointOneGroup",
-            "title": "http://lv2plug.in/ns/ext/port-groups#SixPointOneGroup",
+            "title": "SixPointOneGroup",
+            "x-code": 38,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/port-groups#SixPointOneGroup",
               "kind": "class",
@@ -3672,7 +3905,8 @@
           },
           {
             "const": "StereoGroup",
-            "title": "http://lv2plug.in/ns/ext/port-groups#StereoGroup",
+            "title": "StereoGroup",
+            "x-code": 39,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/port-groups#StereoGroup",
               "kind": "class",
@@ -3685,7 +3919,8 @@
           },
           {
             "const": "ThreePointZeroGroup",
-            "title": "http://lv2plug.in/ns/ext/port-groups#ThreePointZeroGroup",
+            "title": "ThreePointZeroGroup",
+            "x-code": 40,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/port-groups#ThreePointZeroGroup",
               "kind": "class",
@@ -3695,7 +3930,8 @@
           },
           {
             "const": "center",
-            "title": "http://lv2plug.in/ns/ext/port-groups#center",
+            "title": "center",
+            "x-code": 41,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/port-groups#center",
               "kind": "channel",
@@ -3705,7 +3941,8 @@
           },
           {
             "const": "centerLeft",
-            "title": "http://lv2plug.in/ns/ext/port-groups#centerLeft",
+            "title": "centerLeft",
+            "x-code": 42,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/port-groups#centerLeft",
               "kind": "channel",
@@ -3715,7 +3952,8 @@
           },
           {
             "const": "centerRight",
-            "title": "http://lv2plug.in/ns/ext/port-groups#centerRight",
+            "title": "centerRight",
+            "x-code": 43,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/port-groups#centerRight",
               "kind": "channel",
@@ -3725,7 +3963,8 @@
           },
           {
             "const": "element",
-            "title": "http://lv2plug.in/ns/ext/port-groups#element",
+            "title": "element",
+            "x-code": 44,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/port-groups#element",
               "kind": "property",
@@ -3735,7 +3974,8 @@
           },
           {
             "const": "group",
-            "title": "http://lv2plug.in/ns/ext/port-groups#group",
+            "title": "group",
+            "x-code": 45,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/port-groups#group",
               "kind": "property",
@@ -3750,7 +3990,8 @@
           },
           {
             "const": "harmonicDegree",
-            "title": "http://lv2plug.in/ns/ext/port-groups#harmonicDegree",
+            "title": "harmonicDegree",
+            "x-code": 46,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/port-groups#harmonicDegree",
               "kind": "property",
@@ -3760,7 +4001,8 @@
           },
           {
             "const": "harmonicIndex",
-            "title": "http://lv2plug.in/ns/ext/port-groups#harmonicIndex",
+            "title": "harmonicIndex",
+            "x-code": 47,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/port-groups#harmonicIndex",
               "kind": "property",
@@ -3770,7 +4012,8 @@
           },
           {
             "const": "left",
-            "title": "http://lv2plug.in/ns/ext/port-groups#left",
+            "title": "left",
+            "x-code": 48,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/port-groups#left",
               "kind": "channel",
@@ -3780,7 +4023,8 @@
           },
           {
             "const": "letterCode",
-            "title": "http://lv2plug.in/ns/ext/port-groups#letterCode",
+            "title": "letterCode",
+            "x-code": 49,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/port-groups#letterCode",
               "kind": "property",
@@ -3790,7 +4034,8 @@
           },
           {
             "const": "lowFrequencyEffects",
-            "title": "http://lv2plug.in/ns/ext/port-groups#lowFrequencyEffects",
+            "title": "lowFrequencyEffects",
+            "x-code": 50,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/port-groups#lowFrequencyEffects",
               "kind": "channel",
@@ -3800,7 +4045,8 @@
           },
           {
             "const": "mainInput",
-            "title": "http://lv2plug.in/ns/ext/port-groups#mainInput",
+            "title": "mainInput",
+            "x-code": 51,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/port-groups#mainInput",
               "kind": "property",
@@ -3812,7 +4058,8 @@
           },
           {
             "const": "mainOutput",
-            "title": "http://lv2plug.in/ns/ext/port-groups#mainOutput",
+            "title": "mainOutput",
+            "x-code": 52,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/port-groups#mainOutput",
               "kind": "property",
@@ -3822,7 +4069,8 @@
           },
           {
             "const": "port-groups.lv2",
-            "title": "http://lv2plug.in/ns/ext/port-groups",
+            "title": "port-groups.lv2",
+            "x-code": 53,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/port-groups",
               "kind": "specification",
@@ -3836,7 +4084,8 @@
           },
           {
             "const": "rearCenter",
-            "title": "http://lv2plug.in/ns/ext/port-groups#rearCenter",
+            "title": "rearCenter",
+            "x-code": 54,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/port-groups#rearCenter",
               "kind": "channel",
@@ -3846,7 +4095,8 @@
           },
           {
             "const": "rearLeft",
-            "title": "http://lv2plug.in/ns/ext/port-groups#rearLeft",
+            "title": "rearLeft",
+            "x-code": 55,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/port-groups#rearLeft",
               "kind": "channel",
@@ -3856,7 +4106,8 @@
           },
           {
             "const": "rearRight",
-            "title": "http://lv2plug.in/ns/ext/port-groups#rearRight",
+            "title": "rearRight",
+            "x-code": 56,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/port-groups#rearRight",
               "kind": "channel",
@@ -3866,7 +4117,8 @@
           },
           {
             "const": "right",
-            "title": "http://lv2plug.in/ns/ext/port-groups#right",
+            "title": "right",
+            "x-code": 57,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/port-groups#right",
               "kind": "channel",
@@ -3876,7 +4128,8 @@
           },
           {
             "const": "side",
-            "title": "http://lv2plug.in/ns/ext/port-groups#side",
+            "title": "side",
+            "x-code": 58,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/port-groups#side",
               "kind": "channel",
@@ -3886,7 +4139,8 @@
           },
           {
             "const": "sideChainOf",
-            "title": "http://lv2plug.in/ns/ext/port-groups#sideChainOf",
+            "title": "sideChainOf",
+            "x-code": 59,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/port-groups#sideChainOf",
               "kind": "property",
@@ -3899,7 +4153,8 @@
           },
           {
             "const": "sideLeft",
-            "title": "http://lv2plug.in/ns/ext/port-groups#sideLeft",
+            "title": "sideLeft",
+            "x-code": 60,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/port-groups#sideLeft",
               "kind": "channel",
@@ -3909,7 +4164,8 @@
           },
           {
             "const": "sideRight",
-            "title": "http://lv2plug.in/ns/ext/port-groups#sideRight",
+            "title": "sideRight",
+            "x-code": 61,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/port-groups#sideRight",
               "kind": "channel",
@@ -3919,7 +4175,8 @@
           },
           {
             "const": "source",
-            "title": "http://lv2plug.in/ns/ext/port-groups#source",
+            "title": "source",
+            "x-code": 62,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/port-groups#source",
               "kind": "property",
@@ -3929,7 +4186,8 @@
           },
           {
             "const": "subGroupOf",
-            "title": "http://lv2plug.in/ns/ext/port-groups#subGroupOf",
+            "title": "subGroupOf",
+            "x-code": 63,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/port-groups#subGroupOf",
               "kind": "property",
@@ -3942,19 +4200,15 @@
       "LV2_PORT_PROPS_TERMS": {
         "description": "The terms of the LV2 Port Properties specification (port-props.lv2, from lv2 1.18.10), each mapped under its own name with its status for us (docs/data-layout.md).",
         "x-since": "1.0.0",
+        "x-kind": "terms",
         "x-format": "lv2",
         "x-spec": "http://lv2plug.in/ns/ext/port-props",
         "x-version": "1.2",
-        "x-kinds": {
-          "$ref": "https://openmixer.org/contract/format#/components/schemas/FORMAT_TERM_KINDS"
-        },
-        "x-statuses": {
-          "$ref": "https://openmixer.org/contract/format#/components/schemas/FORMAT_TERM_STATUSES"
-        },
         "oneOf": [
           {
             "const": "causesArtifacts",
-            "title": "http://lv2plug.in/ns/ext/port-props#causesArtifacts",
+            "title": "causesArtifacts",
+            "x-code": 0,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/port-props#causesArtifacts",
               "kind": "port-property",
@@ -3964,7 +4218,8 @@
           },
           {
             "const": "continuousCV",
-            "title": "http://lv2plug.in/ns/ext/port-props#continuousCV",
+            "title": "continuousCV",
+            "x-code": 1,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/port-props#continuousCV",
               "kind": "port-property",
@@ -3974,7 +4229,8 @@
           },
           {
             "const": "discreteCV",
-            "title": "http://lv2plug.in/ns/ext/port-props#discreteCV",
+            "title": "discreteCV",
+            "x-code": 2,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/port-props#discreteCV",
               "kind": "port-property",
@@ -3984,7 +4240,8 @@
           },
           {
             "const": "displayPriority",
-            "title": "http://lv2plug.in/ns/ext/port-props#displayPriority",
+            "title": "displayPriority",
+            "x-code": 3,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/port-props#displayPriority",
               "kind": "property",
@@ -3994,7 +4251,8 @@
           },
           {
             "const": "expensive",
-            "title": "http://lv2plug.in/ns/ext/port-props#expensive",
+            "title": "expensive",
+            "x-code": 4,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/port-props#expensive",
               "kind": "port-property",
@@ -4004,7 +4262,8 @@
           },
           {
             "const": "hasStrictBounds",
-            "title": "http://lv2plug.in/ns/ext/port-props#hasStrictBounds",
+            "title": "hasStrictBounds",
+            "x-code": 5,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/port-props#hasStrictBounds",
               "kind": "port-property",
@@ -4014,7 +4273,8 @@
           },
           {
             "const": "logarithmic",
-            "title": "http://lv2plug.in/ns/ext/port-props#logarithmic",
+            "title": "logarithmic",
+            "x-code": 6,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/port-props#logarithmic",
               "kind": "port-property",
@@ -4029,7 +4289,8 @@
           },
           {
             "const": "notAutomatic",
-            "title": "http://lv2plug.in/ns/ext/port-props#notAutomatic",
+            "title": "notAutomatic",
+            "x-code": 7,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/port-props#notAutomatic",
               "kind": "port-property",
@@ -4039,7 +4300,8 @@
           },
           {
             "const": "notOnGUI",
-            "title": "http://lv2plug.in/ns/ext/port-props#notOnGUI",
+            "title": "notOnGUI",
+            "x-code": 8,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/port-props#notOnGUI",
               "kind": "port-property",
@@ -4052,7 +4314,8 @@
           },
           {
             "const": "port-props.lv2",
-            "title": "http://lv2plug.in/ns/ext/port-props",
+            "title": "port-props.lv2",
+            "x-code": 9,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/port-props",
               "kind": "specification",
@@ -4066,7 +4329,8 @@
           },
           {
             "const": "rangeSteps",
-            "title": "http://lv2plug.in/ns/ext/port-props#rangeSteps",
+            "title": "rangeSteps",
+            "x-code": 10,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/port-props#rangeSteps",
               "kind": "property",
@@ -4076,7 +4340,8 @@
           },
           {
             "const": "supportsStrictBounds",
-            "title": "http://lv2plug.in/ns/ext/port-props#supportsStrictBounds",
+            "title": "supportsStrictBounds",
+            "x-code": 11,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/port-props#supportsStrictBounds",
               "kind": "feature",
@@ -4086,7 +4351,8 @@
           },
           {
             "const": "trigger",
-            "title": "http://lv2plug.in/ns/ext/port-props#trigger",
+            "title": "trigger",
+            "x-code": 12,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/port-props#trigger",
               "kind": "port-property",
@@ -4102,19 +4368,15 @@
       "LV2_PRESETS_TERMS": {
         "description": "The terms of the LV2 Presets specification (presets.lv2, from lv2 1.18.10), each mapped under its own name with its status for us (docs/data-layout.md).",
         "x-since": "1.0.0",
+        "x-kind": "terms",
         "x-format": "lv2",
         "x-spec": "http://lv2plug.in/ns/ext/presets",
         "x-version": "2.8",
-        "x-kinds": {
-          "$ref": "https://openmixer.org/contract/format#/components/schemas/FORMAT_TERM_KINDS"
-        },
-        "x-statuses": {
-          "$ref": "https://openmixer.org/contract/format#/components/schemas/FORMAT_TERM_STATUSES"
-        },
         "oneOf": [
           {
             "const": "Bank",
-            "title": "http://lv2plug.in/ns/ext/presets#Bank",
+            "title": "Bank",
+            "x-code": 0,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/presets#Bank",
               "kind": "class",
@@ -4124,7 +4386,8 @@
           },
           {
             "const": "Preset",
-            "title": "http://lv2plug.in/ns/ext/presets#Preset",
+            "title": "Preset",
+            "x-code": 1,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/presets#Preset",
               "kind": "class",
@@ -4137,7 +4400,8 @@
           },
           {
             "const": "bank",
-            "title": "http://lv2plug.in/ns/ext/presets#bank",
+            "title": "bank",
+            "x-code": 2,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/presets#bank",
               "kind": "property",
@@ -4149,7 +4413,8 @@
           },
           {
             "const": "preset",
-            "title": "http://lv2plug.in/ns/ext/presets#preset",
+            "title": "preset",
+            "x-code": 3,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/presets#preset",
               "kind": "property",
@@ -4159,7 +4424,8 @@
           },
           {
             "const": "presets.lv2",
-            "title": "http://lv2plug.in/ns/ext/presets",
+            "title": "presets.lv2",
+            "x-code": 4,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/presets",
               "kind": "specification",
@@ -4171,7 +4437,8 @@
           },
           {
             "const": "value",
-            "title": "http://lv2plug.in/ns/ext/presets#value",
+            "title": "value",
+            "x-code": 5,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/presets#value",
               "kind": "property",
@@ -4184,19 +4451,15 @@
       "LV2_RESIZE_PORT_TERMS": {
         "description": "The terms of the LV2 Resize Port specification (resize-port.lv2, from lv2 1.18.10), each mapped under its own name with its status for us (docs/data-layout.md).",
         "x-since": "1.0.0",
+        "x-kind": "terms",
         "x-format": "lv2",
         "x-spec": "http://lv2plug.in/ns/ext/resize-port",
         "x-version": "1.0",
-        "x-kinds": {
-          "$ref": "https://openmixer.org/contract/format#/components/schemas/FORMAT_TERM_KINDS"
-        },
-        "x-statuses": {
-          "$ref": "https://openmixer.org/contract/format#/components/schemas/FORMAT_TERM_STATUSES"
-        },
         "oneOf": [
           {
             "const": "asLargeAs",
-            "title": "http://lv2plug.in/ns/ext/resize-port#asLargeAs",
+            "title": "asLargeAs",
+            "x-code": 0,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/resize-port#asLargeAs",
               "kind": "property",
@@ -4206,7 +4469,8 @@
           },
           {
             "const": "minimumSize",
-            "title": "http://lv2plug.in/ns/ext/resize-port#minimumSize",
+            "title": "minimumSize",
+            "x-code": 1,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/resize-port#minimumSize",
               "kind": "property",
@@ -4220,7 +4484,8 @@
           },
           {
             "const": "resize",
-            "title": "http://lv2plug.in/ns/ext/resize-port#resize",
+            "title": "resize",
+            "x-code": 2,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/resize-port#resize",
               "kind": "feature",
@@ -4230,7 +4495,8 @@
           },
           {
             "const": "resize-port.lv2",
-            "title": "http://lv2plug.in/ns/ext/resize-port",
+            "title": "resize-port.lv2",
+            "x-code": 3,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/resize-port",
               "kind": "specification",
@@ -4243,19 +4509,15 @@
       "LV2_STATE_TERMS": {
         "description": "The terms of the LV2 State specification (state.lv2, from lv2 1.18.10), each mapped under its own name with its status for us (docs/data-layout.md).",
         "x-since": "1.0.0",
+        "x-kind": "terms",
         "x-format": "lv2",
         "x-spec": "http://lv2plug.in/ns/ext/state",
         "x-version": "2.10",
-        "x-kinds": {
-          "$ref": "https://openmixer.org/contract/format#/components/schemas/FORMAT_TERM_KINDS"
-        },
-        "x-statuses": {
-          "$ref": "https://openmixer.org/contract/format#/components/schemas/FORMAT_TERM_STATUSES"
-        },
         "oneOf": [
           {
             "const": "State",
-            "title": "http://lv2plug.in/ns/ext/state#State",
+            "title": "State",
+            "x-code": 0,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/state#State",
               "kind": "class",
@@ -4265,7 +4527,8 @@
           },
           {
             "const": "StateChanged",
-            "title": "http://lv2plug.in/ns/ext/state#StateChanged",
+            "title": "StateChanged",
+            "x-code": 1,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/state#StateChanged",
               "kind": "class",
@@ -4275,7 +4538,8 @@
           },
           {
             "const": "freePath",
-            "title": "http://lv2plug.in/ns/ext/state#freePath",
+            "title": "freePath",
+            "x-code": 2,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/state#freePath",
               "kind": "feature",
@@ -4285,7 +4549,8 @@
           },
           {
             "const": "interface",
-            "title": "http://lv2plug.in/ns/ext/state#interface",
+            "title": "interface",
+            "x-code": 3,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/state#interface",
               "kind": "extension-data",
@@ -4297,7 +4562,8 @@
           },
           {
             "const": "loadDefaultState",
-            "title": "http://lv2plug.in/ns/ext/state#loadDefaultState",
+            "title": "loadDefaultState",
+            "x-code": 4,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/state#loadDefaultState",
               "kind": "feature",
@@ -4311,7 +4577,8 @@
           },
           {
             "const": "makePath",
-            "title": "http://lv2plug.in/ns/ext/state#makePath",
+            "title": "makePath",
+            "x-code": 5,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/state#makePath",
               "kind": "feature",
@@ -4325,7 +4592,8 @@
           },
           {
             "const": "mapPath",
-            "title": "http://lv2plug.in/ns/ext/state#mapPath",
+            "title": "mapPath",
+            "x-code": 6,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/state#mapPath",
               "kind": "feature",
@@ -4335,7 +4603,8 @@
           },
           {
             "const": "state",
-            "title": "http://lv2plug.in/ns/ext/state#state",
+            "title": "state",
+            "x-code": 7,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/state#state",
               "kind": "property",
@@ -4347,7 +4616,8 @@
           },
           {
             "const": "state.lv2",
-            "title": "http://lv2plug.in/ns/ext/state",
+            "title": "state.lv2",
+            "x-code": 8,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/state",
               "kind": "specification",
@@ -4360,7 +4630,8 @@
           },
           {
             "const": "threadSafeRestore",
-            "title": "http://lv2plug.in/ns/ext/state#threadSafeRestore",
+            "title": "threadSafeRestore",
+            "x-code": 9,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/state#threadSafeRestore",
               "kind": "feature",
@@ -4373,19 +4644,15 @@
       "LV2_TIME_TERMS": {
         "description": "The terms of the LV2 Time specification (time.lv2, from lv2 1.18.10), each mapped under its own name with its status for us (docs/data-layout.md).",
         "x-since": "1.0.0",
+        "x-kind": "terms",
         "x-format": "lv2",
         "x-spec": "http://lv2plug.in/ns/ext/time",
         "x-version": "1.6",
-        "x-kinds": {
-          "$ref": "https://openmixer.org/contract/format#/components/schemas/FORMAT_TERM_KINDS"
-        },
-        "x-statuses": {
-          "$ref": "https://openmixer.org/contract/format#/components/schemas/FORMAT_TERM_STATUSES"
-        },
         "oneOf": [
           {
             "const": "Position",
-            "title": "http://lv2plug.in/ns/ext/time#Position",
+            "title": "Position",
+            "x-code": 0,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/time#Position",
               "kind": "class",
@@ -4400,7 +4667,8 @@
           },
           {
             "const": "Rate",
-            "title": "http://lv2plug.in/ns/ext/time#Rate",
+            "title": "Rate",
+            "x-code": 1,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/time#Rate",
               "kind": "class",
@@ -4410,7 +4678,8 @@
           },
           {
             "const": "Time",
-            "title": "http://lv2plug.in/ns/ext/time#Time",
+            "title": "Time",
+            "x-code": 2,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/time#Time",
               "kind": "class",
@@ -4420,7 +4689,8 @@
           },
           {
             "const": "bar",
-            "title": "http://lv2plug.in/ns/ext/time#bar",
+            "title": "bar",
+            "x-code": 3,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/time#bar",
               "kind": "property",
@@ -4432,7 +4702,8 @@
           },
           {
             "const": "barBeat",
-            "title": "http://lv2plug.in/ns/ext/time#barBeat",
+            "title": "barBeat",
+            "x-code": 4,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/time#barBeat",
               "kind": "property",
@@ -4444,7 +4715,8 @@
           },
           {
             "const": "beat",
-            "title": "http://lv2plug.in/ns/ext/time#beat",
+            "title": "beat",
+            "x-code": 5,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/time#beat",
               "kind": "property",
@@ -4454,7 +4726,8 @@
           },
           {
             "const": "beatUnit",
-            "title": "http://lv2plug.in/ns/ext/time#beatUnit",
+            "title": "beatUnit",
+            "x-code": 6,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/time#beatUnit",
               "kind": "property",
@@ -4466,7 +4739,8 @@
           },
           {
             "const": "beatsPerBar",
-            "title": "http://lv2plug.in/ns/ext/time#beatsPerBar",
+            "title": "beatsPerBar",
+            "x-code": 7,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/time#beatsPerBar",
               "kind": "property",
@@ -4478,7 +4752,8 @@
           },
           {
             "const": "beatsPerMinute",
-            "title": "http://lv2plug.in/ns/ext/time#beatsPerMinute",
+            "title": "beatsPerMinute",
+            "x-code": 8,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/time#beatsPerMinute",
               "kind": "property",
@@ -4491,7 +4766,8 @@
           },
           {
             "const": "frame",
-            "title": "http://lv2plug.in/ns/ext/time#frame",
+            "title": "frame",
+            "x-code": 9,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/time#frame",
               "kind": "property",
@@ -4504,7 +4780,8 @@
           },
           {
             "const": "framesPerSecond",
-            "title": "http://lv2plug.in/ns/ext/time#framesPerSecond",
+            "title": "framesPerSecond",
+            "x-code": 10,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/time#framesPerSecond",
               "kind": "property",
@@ -4514,7 +4791,8 @@
           },
           {
             "const": "position",
-            "title": "http://lv2plug.in/ns/ext/time#position",
+            "title": "position",
+            "x-code": 11,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/time#position",
               "kind": "property",
@@ -4524,7 +4802,8 @@
           },
           {
             "const": "speed",
-            "title": "http://lv2plug.in/ns/ext/time#speed",
+            "title": "speed",
+            "x-code": 12,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/time#speed",
               "kind": "property",
@@ -4536,7 +4815,8 @@
           },
           {
             "const": "time.lv2",
-            "title": "http://lv2plug.in/ns/ext/time",
+            "title": "time.lv2",
+            "x-code": 13,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/time",
               "kind": "specification",
@@ -4549,19 +4829,15 @@
       "LV2_UI_TERMS": {
         "description": "The terms of the LV2 UI specification (ui.lv2, from lv2 1.18.10), each mapped under its own name with its status for us (docs/data-layout.md).",
         "x-since": "1.0.0",
+        "x-kind": "terms",
         "x-format": "lv2",
         "x-spec": "http://lv2plug.in/ns/extensions/ui",
         "x-version": "2.24",
-        "x-kinds": {
-          "$ref": "https://openmixer.org/contract/format#/components/schemas/FORMAT_TERM_KINDS"
-        },
-        "x-statuses": {
-          "$ref": "https://openmixer.org/contract/format#/components/schemas/FORMAT_TERM_STATUSES"
-        },
         "oneOf": [
           {
             "const": "CocoaUI",
-            "title": "http://lv2plug.in/ns/extensions/ui#CocoaUI",
+            "title": "CocoaUI",
+            "x-code": 0,
             "x-term": {
               "uri": "http://lv2plug.in/ns/extensions/ui#CocoaUI",
               "kind": "class",
@@ -4571,7 +4847,8 @@
           },
           {
             "const": "Gtk3UI",
-            "title": "http://lv2plug.in/ns/extensions/ui#Gtk3UI",
+            "title": "Gtk3UI",
+            "x-code": 1,
             "x-term": {
               "uri": "http://lv2plug.in/ns/extensions/ui#Gtk3UI",
               "kind": "class",
@@ -4581,7 +4858,8 @@
           },
           {
             "const": "GtkUI",
-            "title": "http://lv2plug.in/ns/extensions/ui#GtkUI",
+            "title": "GtkUI",
+            "x-code": 2,
             "x-term": {
               "uri": "http://lv2plug.in/ns/extensions/ui#GtkUI",
               "kind": "class",
@@ -4591,7 +4869,8 @@
           },
           {
             "const": "PortNotification",
-            "title": "http://lv2plug.in/ns/extensions/ui#PortNotification",
+            "title": "PortNotification",
+            "x-code": 3,
             "x-term": {
               "uri": "http://lv2plug.in/ns/extensions/ui#PortNotification",
               "kind": "class",
@@ -4601,7 +4880,8 @@
           },
           {
             "const": "PortProtocol",
-            "title": "http://lv2plug.in/ns/extensions/ui#PortProtocol",
+            "title": "PortProtocol",
+            "x-code": 4,
             "x-term": {
               "uri": "http://lv2plug.in/ns/extensions/ui#PortProtocol",
               "kind": "class",
@@ -4611,7 +4891,8 @@
           },
           {
             "const": "Qt4UI",
-            "title": "http://lv2plug.in/ns/extensions/ui#Qt4UI",
+            "title": "Qt4UI",
+            "x-code": 5,
             "x-term": {
               "uri": "http://lv2plug.in/ns/extensions/ui#Qt4UI",
               "kind": "class",
@@ -4621,7 +4902,8 @@
           },
           {
             "const": "Qt5UI",
-            "title": "http://lv2plug.in/ns/extensions/ui#Qt5UI",
+            "title": "Qt5UI",
+            "x-code": 6,
             "x-term": {
               "uri": "http://lv2plug.in/ns/extensions/ui#Qt5UI",
               "kind": "class",
@@ -4631,7 +4913,8 @@
           },
           {
             "const": "UI",
-            "title": "http://lv2plug.in/ns/extensions/ui#UI",
+            "title": "UI",
+            "x-code": 7,
             "x-term": {
               "uri": "http://lv2plug.in/ns/extensions/ui#UI",
               "kind": "class",
@@ -4641,7 +4924,8 @@
           },
           {
             "const": "WindowsUI",
-            "title": "http://lv2plug.in/ns/extensions/ui#WindowsUI",
+            "title": "WindowsUI",
+            "x-code": 8,
             "x-term": {
               "uri": "http://lv2plug.in/ns/extensions/ui#WindowsUI",
               "kind": "class",
@@ -4651,7 +4935,8 @@
           },
           {
             "const": "X11UI",
-            "title": "http://lv2plug.in/ns/extensions/ui#X11UI",
+            "title": "X11UI",
+            "x-code": 9,
             "x-term": {
               "uri": "http://lv2plug.in/ns/extensions/ui#X11UI",
               "kind": "class",
@@ -4661,7 +4946,8 @@
           },
           {
             "const": "backgroundColor",
-            "title": "http://lv2plug.in/ns/extensions/ui#backgroundColor",
+            "title": "backgroundColor",
+            "x-code": 10,
             "x-term": {
               "uri": "http://lv2plug.in/ns/extensions/ui#backgroundColor",
               "kind": "option",
@@ -4671,7 +4957,8 @@
           },
           {
             "const": "binary",
-            "title": "http://lv2plug.in/ns/extensions/ui#binary",
+            "title": "binary",
+            "x-code": 11,
             "x-term": {
               "uri": "http://lv2plug.in/ns/extensions/ui#binary",
               "kind": "property",
@@ -4682,7 +4969,8 @@
           },
           {
             "const": "fixedSize",
-            "title": "http://lv2plug.in/ns/extensions/ui#fixedSize",
+            "title": "fixedSize",
+            "x-code": 12,
             "x-term": {
               "uri": "http://lv2plug.in/ns/extensions/ui#fixedSize",
               "kind": "feature",
@@ -4692,7 +4980,8 @@
           },
           {
             "const": "floatProtocol",
-            "title": "http://lv2plug.in/ns/extensions/ui#floatProtocol",
+            "title": "floatProtocol",
+            "x-code": 13,
             "x-term": {
               "uri": "http://lv2plug.in/ns/extensions/ui#floatProtocol",
               "kind": "port-protocol",
@@ -4702,7 +4991,8 @@
           },
           {
             "const": "foregroundColor",
-            "title": "http://lv2plug.in/ns/extensions/ui#foregroundColor",
+            "title": "foregroundColor",
+            "x-code": 14,
             "x-term": {
               "uri": "http://lv2plug.in/ns/extensions/ui#foregroundColor",
               "kind": "option",
@@ -4712,7 +5002,8 @@
           },
           {
             "const": "idleInterface",
-            "title": "http://lv2plug.in/ns/extensions/ui#idleInterface",
+            "title": "idleInterface",
+            "x-code": 15,
             "x-term": {
               "uri": "http://lv2plug.in/ns/extensions/ui#idleInterface",
               "kind": "feature",
@@ -4725,7 +5016,8 @@
           },
           {
             "const": "makeSONameResident",
-            "title": "http://lv2plug.in/ns/extensions/ui#makeSONameResident",
+            "title": "makeSONameResident",
+            "x-code": 16,
             "x-term": {
               "uri": "http://lv2plug.in/ns/extensions/ui#makeSONameResident",
               "kind": "feature",
@@ -4736,7 +5028,8 @@
           },
           {
             "const": "noUserResize",
-            "title": "http://lv2plug.in/ns/extensions/ui#noUserResize",
+            "title": "noUserResize",
+            "x-code": 17,
             "x-term": {
               "uri": "http://lv2plug.in/ns/extensions/ui#noUserResize",
               "kind": "feature",
@@ -4746,7 +5039,8 @@
           },
           {
             "const": "notifyType",
-            "title": "http://lv2plug.in/ns/extensions/ui#notifyType",
+            "title": "notifyType",
+            "x-code": 18,
             "x-term": {
               "uri": "http://lv2plug.in/ns/extensions/ui#notifyType",
               "kind": "property",
@@ -4756,7 +5050,8 @@
           },
           {
             "const": "parent",
-            "title": "http://lv2plug.in/ns/extensions/ui#parent",
+            "title": "parent",
+            "x-code": 19,
             "x-term": {
               "uri": "http://lv2plug.in/ns/extensions/ui#parent",
               "kind": "feature",
@@ -4766,7 +5061,8 @@
           },
           {
             "const": "peakProtocol",
-            "title": "http://lv2plug.in/ns/extensions/ui#peakProtocol",
+            "title": "peakProtocol",
+            "x-code": 20,
             "x-term": {
               "uri": "http://lv2plug.in/ns/extensions/ui#peakProtocol",
               "kind": "port-protocol",
@@ -4776,7 +5072,8 @@
           },
           {
             "const": "plugin",
-            "title": "http://lv2plug.in/ns/extensions/ui#plugin",
+            "title": "plugin",
+            "x-code": 21,
             "x-term": {
               "uri": "http://lv2plug.in/ns/extensions/ui#plugin",
               "kind": "property",
@@ -4786,7 +5083,8 @@
           },
           {
             "const": "portIndex",
-            "title": "http://lv2plug.in/ns/extensions/ui#portIndex",
+            "title": "portIndex",
+            "x-code": 22,
             "x-term": {
               "uri": "http://lv2plug.in/ns/extensions/ui#portIndex",
               "kind": "property",
@@ -4796,7 +5094,8 @@
           },
           {
             "const": "portMap",
-            "title": "http://lv2plug.in/ns/extensions/ui#portMap",
+            "title": "portMap",
+            "x-code": 23,
             "x-term": {
               "uri": "http://lv2plug.in/ns/extensions/ui#portMap",
               "kind": "feature",
@@ -4806,7 +5105,8 @@
           },
           {
             "const": "portNotification",
-            "title": "http://lv2plug.in/ns/extensions/ui#portNotification",
+            "title": "portNotification",
+            "x-code": 24,
             "x-term": {
               "uri": "http://lv2plug.in/ns/extensions/ui#portNotification",
               "kind": "property",
@@ -4816,7 +5116,8 @@
           },
           {
             "const": "portSubscribe",
-            "title": "http://lv2plug.in/ns/extensions/ui#portSubscribe",
+            "title": "portSubscribe",
+            "x-code": 25,
             "x-term": {
               "uri": "http://lv2plug.in/ns/extensions/ui#portSubscribe",
               "kind": "feature",
@@ -4826,7 +5127,8 @@
           },
           {
             "const": "protocol",
-            "title": "http://lv2plug.in/ns/extensions/ui#protocol",
+            "title": "protocol",
+            "x-code": 26,
             "x-term": {
               "uri": "http://lv2plug.in/ns/extensions/ui#protocol",
               "kind": "property",
@@ -4836,7 +5138,8 @@
           },
           {
             "const": "requestValue",
-            "title": "http://lv2plug.in/ns/extensions/ui#requestValue",
+            "title": "requestValue",
+            "x-code": 27,
             "x-term": {
               "uri": "http://lv2plug.in/ns/extensions/ui#requestValue",
               "kind": "feature",
@@ -4846,7 +5149,8 @@
           },
           {
             "const": "resize",
-            "title": "http://lv2plug.in/ns/extensions/ui#resize",
+            "title": "resize",
+            "x-code": 28,
             "x-term": {
               "uri": "http://lv2plug.in/ns/extensions/ui#resize",
               "kind": "feature",
@@ -4857,7 +5161,8 @@
           },
           {
             "const": "scaleFactor",
-            "title": "http://lv2plug.in/ns/extensions/ui#scaleFactor",
+            "title": "scaleFactor",
+            "x-code": 29,
             "x-term": {
               "uri": "http://lv2plug.in/ns/extensions/ui#scaleFactor",
               "kind": "option",
@@ -4867,7 +5172,8 @@
           },
           {
             "const": "showInterface",
-            "title": "http://lv2plug.in/ns/extensions/ui#showInterface",
+            "title": "showInterface",
+            "x-code": 30,
             "x-term": {
               "uri": "http://lv2plug.in/ns/extensions/ui#showInterface",
               "kind": "extension-data",
@@ -4877,7 +5183,8 @@
           },
           {
             "const": "touch",
-            "title": "http://lv2plug.in/ns/extensions/ui#touch",
+            "title": "touch",
+            "x-code": 31,
             "x-term": {
               "uri": "http://lv2plug.in/ns/extensions/ui#touch",
               "kind": "feature",
@@ -4887,7 +5194,8 @@
           },
           {
             "const": "ui",
-            "title": "http://lv2plug.in/ns/extensions/ui#ui",
+            "title": "ui",
+            "x-code": 32,
             "x-term": {
               "uri": "http://lv2plug.in/ns/extensions/ui#ui",
               "kind": "property",
@@ -4897,7 +5205,8 @@
           },
           {
             "const": "ui.lv2",
-            "title": "http://lv2plug.in/ns/extensions/ui",
+            "title": "ui.lv2",
+            "x-code": 33,
             "x-term": {
               "uri": "http://lv2plug.in/ns/extensions/ui",
               "kind": "specification",
@@ -4910,7 +5219,8 @@
           },
           {
             "const": "updateRate",
-            "title": "http://lv2plug.in/ns/extensions/ui#updateRate",
+            "title": "updateRate",
+            "x-code": 34,
             "x-term": {
               "uri": "http://lv2plug.in/ns/extensions/ui#updateRate",
               "kind": "property",
@@ -4920,7 +5230,8 @@
           },
           {
             "const": "windowTitle",
-            "title": "http://lv2plug.in/ns/extensions/ui#windowTitle",
+            "title": "windowTitle",
+            "x-code": 35,
             "x-term": {
               "uri": "http://lv2plug.in/ns/extensions/ui#windowTitle",
               "kind": "property",
@@ -4933,19 +5244,15 @@
       "LV2_UNITS_TERMS": {
         "description": "The terms of the LV2 Units specification (units.lv2, from lv2 1.18.10), each mapped under its own name with its status for us (docs/data-layout.md).",
         "x-since": "1.0.0",
+        "x-kind": "terms",
         "x-format": "lv2",
         "x-spec": "http://lv2plug.in/ns/extensions/units",
         "x-version": "5.12",
-        "x-kinds": {
-          "$ref": "https://openmixer.org/contract/format#/components/schemas/FORMAT_TERM_KINDS"
-        },
-        "x-statuses": {
-          "$ref": "https://openmixer.org/contract/format#/components/schemas/FORMAT_TERM_STATUSES"
-        },
         "oneOf": [
           {
             "const": "Conversion",
-            "title": "http://lv2plug.in/ns/extensions/units#Conversion",
+            "title": "Conversion",
+            "x-code": 0,
             "x-term": {
               "uri": "http://lv2plug.in/ns/extensions/units#Conversion",
               "kind": "class",
@@ -4955,7 +5262,8 @@
           },
           {
             "const": "Unit",
-            "title": "http://lv2plug.in/ns/extensions/units#Unit",
+            "title": "Unit",
+            "x-code": 1,
             "x-term": {
               "uri": "http://lv2plug.in/ns/extensions/units#Unit",
               "kind": "class",
@@ -4969,7 +5277,8 @@
           },
           {
             "const": "bar",
-            "title": "http://lv2plug.in/ns/extensions/units#bar",
+            "title": "bar",
+            "x-code": 2,
             "x-term": {
               "uri": "http://lv2plug.in/ns/extensions/units#bar",
               "kind": "unit",
@@ -4979,7 +5288,8 @@
           },
           {
             "const": "beat",
-            "title": "http://lv2plug.in/ns/extensions/units#beat",
+            "title": "beat",
+            "x-code": 3,
             "x-term": {
               "uri": "http://lv2plug.in/ns/extensions/units#beat",
               "kind": "unit",
@@ -4989,7 +5299,8 @@
           },
           {
             "const": "bpm",
-            "title": "http://lv2plug.in/ns/extensions/units#bpm",
+            "title": "bpm",
+            "x-code": 4,
             "x-term": {
               "uri": "http://lv2plug.in/ns/extensions/units#bpm",
               "kind": "unit",
@@ -5002,7 +5313,8 @@
           },
           {
             "const": "cent",
-            "title": "http://lv2plug.in/ns/extensions/units#cent",
+            "title": "cent",
+            "x-code": 5,
             "x-term": {
               "uri": "http://lv2plug.in/ns/extensions/units#cent",
               "kind": "unit",
@@ -5016,7 +5328,8 @@
           },
           {
             "const": "cm",
-            "title": "http://lv2plug.in/ns/extensions/units#cm",
+            "title": "cm",
+            "x-code": 6,
             "x-term": {
               "uri": "http://lv2plug.in/ns/extensions/units#cm",
               "kind": "unit",
@@ -5026,7 +5339,8 @@
           },
           {
             "const": "coef",
-            "title": "http://lv2plug.in/ns/extensions/units#coef",
+            "title": "coef",
+            "x-code": 7,
             "x-term": {
               "uri": "http://lv2plug.in/ns/extensions/units#coef",
               "kind": "unit",
@@ -5039,7 +5353,8 @@
           },
           {
             "const": "conversion",
-            "title": "http://lv2plug.in/ns/extensions/units#conversion",
+            "title": "conversion",
+            "x-code": 8,
             "x-term": {
               "uri": "http://lv2plug.in/ns/extensions/units#conversion",
               "kind": "property",
@@ -5051,7 +5366,8 @@
           },
           {
             "const": "db",
-            "title": "http://lv2plug.in/ns/extensions/units#db",
+            "title": "db",
+            "x-code": 9,
             "x-term": {
               "uri": "http://lv2plug.in/ns/extensions/units#db",
               "kind": "unit",
@@ -5067,7 +5383,8 @@
           },
           {
             "const": "degree",
-            "title": "http://lv2plug.in/ns/extensions/units#degree",
+            "title": "degree",
+            "x-code": 10,
             "x-term": {
               "uri": "http://lv2plug.in/ns/extensions/units#degree",
               "kind": "unit",
@@ -5080,7 +5397,8 @@
           },
           {
             "const": "factor",
-            "title": "http://lv2plug.in/ns/extensions/units#factor",
+            "title": "factor",
+            "x-code": 11,
             "x-term": {
               "uri": "http://lv2plug.in/ns/extensions/units#factor",
               "kind": "property",
@@ -5090,7 +5408,8 @@
           },
           {
             "const": "frame",
-            "title": "http://lv2plug.in/ns/extensions/units#frame",
+            "title": "frame",
+            "x-code": 12,
             "x-term": {
               "uri": "http://lv2plug.in/ns/extensions/units#frame",
               "kind": "unit",
@@ -5106,7 +5425,8 @@
           },
           {
             "const": "hz",
-            "title": "http://lv2plug.in/ns/extensions/units#hz",
+            "title": "hz",
+            "x-code": 13,
             "x-term": {
               "uri": "http://lv2plug.in/ns/extensions/units#hz",
               "kind": "unit",
@@ -5122,7 +5442,8 @@
           },
           {
             "const": "inch",
-            "title": "http://lv2plug.in/ns/extensions/units#inch",
+            "title": "inch",
+            "x-code": 14,
             "x-term": {
               "uri": "http://lv2plug.in/ns/extensions/units#inch",
               "kind": "unit",
@@ -5132,7 +5453,8 @@
           },
           {
             "const": "khz",
-            "title": "http://lv2plug.in/ns/extensions/units#khz",
+            "title": "khz",
+            "x-code": 15,
             "x-term": {
               "uri": "http://lv2plug.in/ns/extensions/units#khz",
               "kind": "unit",
@@ -5142,7 +5464,8 @@
           },
           {
             "const": "km",
-            "title": "http://lv2plug.in/ns/extensions/units#km",
+            "title": "km",
+            "x-code": 16,
             "x-term": {
               "uri": "http://lv2plug.in/ns/extensions/units#km",
               "kind": "unit",
@@ -5152,7 +5475,8 @@
           },
           {
             "const": "m",
-            "title": "http://lv2plug.in/ns/extensions/units#m",
+            "title": "m",
+            "x-code": 17,
             "x-term": {
               "uri": "http://lv2plug.in/ns/extensions/units#m",
               "kind": "unit",
@@ -5162,7 +5486,8 @@
           },
           {
             "const": "mhz",
-            "title": "http://lv2plug.in/ns/extensions/units#mhz",
+            "title": "mhz",
+            "x-code": 18,
             "x-term": {
               "uri": "http://lv2plug.in/ns/extensions/units#mhz",
               "kind": "unit",
@@ -5172,7 +5497,8 @@
           },
           {
             "const": "midiNote",
-            "title": "http://lv2plug.in/ns/extensions/units#midiNote",
+            "title": "midiNote",
+            "x-code": 19,
             "x-term": {
               "uri": "http://lv2plug.in/ns/extensions/units#midiNote",
               "kind": "unit",
@@ -5185,7 +5511,8 @@
           },
           {
             "const": "mile",
-            "title": "http://lv2plug.in/ns/extensions/units#mile",
+            "title": "mile",
+            "x-code": 20,
             "x-term": {
               "uri": "http://lv2plug.in/ns/extensions/units#mile",
               "kind": "unit",
@@ -5195,7 +5522,8 @@
           },
           {
             "const": "min",
-            "title": "http://lv2plug.in/ns/extensions/units#min",
+            "title": "min",
+            "x-code": 21,
             "x-term": {
               "uri": "http://lv2plug.in/ns/extensions/units#min",
               "kind": "unit",
@@ -5208,7 +5536,8 @@
           },
           {
             "const": "mm",
-            "title": "http://lv2plug.in/ns/extensions/units#mm",
+            "title": "mm",
+            "x-code": 22,
             "x-term": {
               "uri": "http://lv2plug.in/ns/extensions/units#mm",
               "kind": "unit",
@@ -5218,7 +5547,8 @@
           },
           {
             "const": "ms",
-            "title": "http://lv2plug.in/ns/extensions/units#ms",
+            "title": "ms",
+            "x-code": 23,
             "x-term": {
               "uri": "http://lv2plug.in/ns/extensions/units#ms",
               "kind": "unit",
@@ -5234,7 +5564,8 @@
           },
           {
             "const": "oct",
-            "title": "http://lv2plug.in/ns/extensions/units#oct",
+            "title": "oct",
+            "x-code": 24,
             "x-term": {
               "uri": "http://lv2plug.in/ns/extensions/units#oct",
               "kind": "unit",
@@ -5249,7 +5580,8 @@
           },
           {
             "const": "pc",
-            "title": "http://lv2plug.in/ns/extensions/units#pc",
+            "title": "pc",
+            "x-code": 25,
             "x-term": {
               "uri": "http://lv2plug.in/ns/extensions/units#pc",
               "kind": "unit",
@@ -5265,7 +5597,8 @@
           },
           {
             "const": "prefixConversion",
-            "title": "http://lv2plug.in/ns/extensions/units#prefixConversion",
+            "title": "prefixConversion",
+            "x-code": 26,
             "x-term": {
               "uri": "http://lv2plug.in/ns/extensions/units#prefixConversion",
               "kind": "property",
@@ -5275,7 +5608,8 @@
           },
           {
             "const": "render",
-            "title": "http://lv2plug.in/ns/extensions/units#render",
+            "title": "render",
+            "x-code": 27,
             "x-term": {
               "uri": "http://lv2plug.in/ns/extensions/units#render",
               "kind": "property",
@@ -5289,7 +5623,8 @@
           },
           {
             "const": "s",
-            "title": "http://lv2plug.in/ns/extensions/units#s",
+            "title": "s",
+            "x-code": 28,
             "x-term": {
               "uri": "http://lv2plug.in/ns/extensions/units#s",
               "kind": "unit",
@@ -5302,7 +5637,8 @@
           },
           {
             "const": "semitone12TET",
-            "title": "http://lv2plug.in/ns/extensions/units#semitone12TET",
+            "title": "semitone12TET",
+            "x-code": 29,
             "x-term": {
               "uri": "http://lv2plug.in/ns/extensions/units#semitone12TET",
               "kind": "unit",
@@ -5316,7 +5652,8 @@
           },
           {
             "const": "symbol",
-            "title": "http://lv2plug.in/ns/extensions/units#symbol",
+            "title": "symbol",
+            "x-code": 30,
             "x-term": {
               "uri": "http://lv2plug.in/ns/extensions/units#symbol",
               "kind": "property",
@@ -5330,7 +5667,8 @@
           },
           {
             "const": "to",
-            "title": "http://lv2plug.in/ns/extensions/units#to",
+            "title": "to",
+            "x-code": 31,
             "x-term": {
               "uri": "http://lv2plug.in/ns/extensions/units#to",
               "kind": "property",
@@ -5340,7 +5678,8 @@
           },
           {
             "const": "unit",
-            "title": "http://lv2plug.in/ns/extensions/units#unit",
+            "title": "unit",
+            "x-code": 32,
             "x-term": {
               "uri": "http://lv2plug.in/ns/extensions/units#unit",
               "kind": "property",
@@ -5354,7 +5693,8 @@
           },
           {
             "const": "units.lv2",
-            "title": "http://lv2plug.in/ns/extensions/units",
+            "title": "units.lv2",
+            "x-code": 33,
             "x-term": {
               "uri": "http://lv2plug.in/ns/extensions/units",
               "kind": "specification",
@@ -5371,20 +5711,16 @@
       "LV2_URI_MAP_TERMS": {
         "description": "The terms of the LV2 URI Map specification (uri-map.lv2, from lv2 1.18.10), each mapped under its own name with its status for us (docs/data-layout.md).",
         "x-since": "1.0.0",
+        "x-kind": "terms",
         "x-format": "lv2",
         "x-spec": "http://lv2plug.in/ns/ext/uri-map",
         "x-version": "1.6",
         "x-deprecated": true,
-        "x-kinds": {
-          "$ref": "https://openmixer.org/contract/format#/components/schemas/FORMAT_TERM_KINDS"
-        },
-        "x-statuses": {
-          "$ref": "https://openmixer.org/contract/format#/components/schemas/FORMAT_TERM_STATUSES"
-        },
         "oneOf": [
           {
             "const": "uri-map.lv2",
-            "title": "http://lv2plug.in/ns/ext/uri-map",
+            "title": "uri-map.lv2",
+            "x-code": 0,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/uri-map",
               "kind": "feature",
@@ -5398,19 +5734,15 @@
       "LV2_URID_TERMS": {
         "description": "The terms of the LV2 URID specification (urid.lv2, from lv2 1.18.10), each mapped under its own name with its status for us (docs/data-layout.md).",
         "x-since": "1.0.0",
+        "x-kind": "terms",
         "x-format": "lv2",
         "x-spec": "http://lv2plug.in/ns/ext/urid",
         "x-version": "1.4",
-        "x-kinds": {
-          "$ref": "https://openmixer.org/contract/format#/components/schemas/FORMAT_TERM_KINDS"
-        },
-        "x-statuses": {
-          "$ref": "https://openmixer.org/contract/format#/components/schemas/FORMAT_TERM_STATUSES"
-        },
         "oneOf": [
           {
             "const": "map",
-            "title": "http://lv2plug.in/ns/ext/urid#map",
+            "title": "map",
+            "x-code": 0,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/urid#map",
               "kind": "feature",
@@ -5424,7 +5756,8 @@
           },
           {
             "const": "unmap",
-            "title": "http://lv2plug.in/ns/ext/urid#unmap",
+            "title": "unmap",
+            "x-code": 1,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/urid#unmap",
               "kind": "feature",
@@ -5438,7 +5771,8 @@
           },
           {
             "const": "urid.lv2",
-            "title": "http://lv2plug.in/ns/ext/urid",
+            "title": "urid.lv2",
+            "x-code": 2,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/urid",
               "kind": "specification",
@@ -5454,19 +5788,15 @@
       "LV2_WORKER_TERMS": {
         "description": "The terms of the LV2 Worker specification (worker.lv2, from lv2 1.18.10), each mapped under its own name with its status for us (docs/data-layout.md).",
         "x-since": "1.0.0",
+        "x-kind": "terms",
         "x-format": "lv2",
         "x-spec": "http://lv2plug.in/ns/ext/worker",
         "x-version": "1.2",
-        "x-kinds": {
-          "$ref": "https://openmixer.org/contract/format#/components/schemas/FORMAT_TERM_KINDS"
-        },
-        "x-statuses": {
-          "$ref": "https://openmixer.org/contract/format#/components/schemas/FORMAT_TERM_STATUSES"
-        },
         "oneOf": [
           {
             "const": "interface",
-            "title": "http://lv2plug.in/ns/ext/worker#interface",
+            "title": "interface",
+            "x-code": 0,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/worker#interface",
               "kind": "extension-data",
@@ -5479,7 +5809,8 @@
           },
           {
             "const": "schedule",
-            "title": "http://lv2plug.in/ns/ext/worker#schedule",
+            "title": "schedule",
+            "x-code": 1,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/worker#schedule",
               "kind": "feature",
@@ -5492,7 +5823,8 @@
           },
           {
             "const": "worker.lv2",
-            "title": "http://lv2plug.in/ns/ext/worker",
+            "title": "worker.lv2",
+            "x-code": 2,
             "x-term": {
               "uri": "http://lv2plug.in/ns/ext/worker",
               "kind": "specification",
@@ -5505,83 +5837,8 @@
           }
         ]
       },
-      "LV2_OPENMIXER_UNITS_TERMS": {
-        "description": "The OpenMixer unit spellings an LV2 file writes for a standard unit that units.lv2 has no term for, each under its own name: the plugin's TTL defines the unit (units:Unit) under that URI.",
-        "x-since": "1.0.0",
-        "x-format": "lv2",
-        "x-spec": "urn:openmixer:unit",
-        "x-version": "1",
-        "x-kinds": {
-          "$ref": "https://openmixer.org/contract/format#/components/schemas/FORMAT_TERM_KINDS"
-        },
-        "x-statuses": {
-          "$ref": "https://openmixer.org/contract/format#/components/schemas/FORMAT_TERM_STATUSES"
-        },
-        "oneOf": [
-          {
-            "const": "dBFS",
-            "title": "urn:openmixer:unit#dBFS",
-            "x-term": {
-              "uri": "urn:openmixer:unit#dBFS",
-              "kind": "unit",
-              "status": "used",
-              "by": [
-                "omx-plugins:tools/gen.mjs"
-              ]
-            }
-          },
-          {
-            "const": "LUFS",
-            "title": "urn:openmixer:unit#LUFS",
-            "x-term": {
-              "uri": "urn:openmixer:unit#LUFS",
-              "kind": "unit",
-              "status": "used",
-              "by": [
-                "omx-plugins:tools/gen.mjs"
-              ]
-            }
-          },
-          {
-            "const": "ratio",
-            "title": "urn:openmixer:unit#ratio",
-            "x-term": {
-              "uri": "urn:openmixer:unit#ratio",
-              "kind": "unit",
-              "status": "used",
-              "by": [
-                "omx-plugins:tools/gen.mjs"
-              ]
-            }
-          },
-          {
-            "const": "dBu",
-            "title": "urn:openmixer:unit#dBu",
-            "x-term": {
-              "uri": "urn:openmixer:unit#dBu",
-              "kind": "unit",
-              "status": "used",
-              "by": [
-                "omx-plugins:tools/gen.mjs"
-              ]
-            }
-          },
-          {
-            "const": "dBoct",
-            "title": "urn:openmixer:unit#dBoct",
-            "x-term": {
-              "uri": "urn:openmixer:unit#dBoct",
-              "kind": "unit",
-              "status": "used",
-              "by": [
-                "omx-plugins:tools/gen.mjs"
-              ]
-            }
-          }
-        ]
-      },
       "LV2_UNIT_IDS": {
-        "description": "F1, the LV2 units mapped to the standard units: one word per unit term of LV2_UNITS_TERMS (kind unit) and of LV2_OPENMIXER_UNITS_TERMS, its x-from the term (the term's uri is the unit as an LV2 file writes it), its const the word of omx-contract's PARAM_UNITS it is. A reader finds the word whose x-from names the term and reads the standard unit; it keeps no table of its own. Every unit term of both items has one word here.",
+        "description": "F1, the LV2 units mapped to the standard units: one word per unit term of LV2_UNITS_TERMS (kind unit), its x-from the term (the term's uri is the unit as an LV2 file writes it, units:<key>), its const the word of omx-contract's PARAM_UNITS it is. A reader finds the word whose x-from names the term and reads the standard unit; it keeps no table of its own. Every unit term of LV2_UNITS_TERMS has one word here.",
         "x-since": "1.0.0",
         "x-kind": "words",
         "oneOf": [
@@ -5872,66 +6129,43 @@
                 "x-term": "semitone12TET"
               }
             ]
-          },
+          }
+        ]
+      },
+      "LV2_OPENMIXER_UNIT_IDS": {
+        "description": "F1 for the OpenMixer unit spellings (Q7): an LV2 file writes urn:openmixer:unit#<name> for a standard unit that units.lv2 has no term for, and the plugin's TTL defines it (units:Unit). One word per spelling, its title the <name> in lower case, its const the word of omx-contract's PARAM_UNITS it is; its description names the URI as written. A reader lower-cases the name after urn:openmixer:unit# and reads the word of that title.",
+        "x-since": "1.0.0",
+        "x-kind": "words",
+        "oneOf": [
           {
             "const": "dBFS",
-            "title": "openmixerDbfs",
+            "title": "dbfs",
             "description": "urn:openmixer:unit#dBFS is the standard unit dBFS",
-            "x-code": 24,
-            "x-from": [
-              {
-                "$ref": "https://openmixer.org/contract/lv2#/components/schemas/LV2_OPENMIXER_UNITS_TERMS",
-                "x-term": "dBFS"
-              }
-            ]
+            "x-code": 0
           },
           {
             "const": "LUFS",
-            "title": "openmixerLufs",
+            "title": "lufs",
             "description": "urn:openmixer:unit#LUFS is the standard unit LUFS",
-            "x-code": 25,
-            "x-from": [
-              {
-                "$ref": "https://openmixer.org/contract/lv2#/components/schemas/LV2_OPENMIXER_UNITS_TERMS",
-                "x-term": "LUFS"
-              }
-            ]
+            "x-code": 1
           },
           {
             "const": "ratio",
-            "title": "openmixerRatio",
+            "title": "ratio",
             "description": "urn:openmixer:unit#ratio is the standard unit ratio",
-            "x-code": 26,
-            "x-from": [
-              {
-                "$ref": "https://openmixer.org/contract/lv2#/components/schemas/LV2_OPENMIXER_UNITS_TERMS",
-                "x-term": "ratio"
-              }
-            ]
+            "x-code": 2
           },
           {
             "const": "dBu",
-            "title": "openmixerDbu",
+            "title": "dbu",
             "description": "urn:openmixer:unit#dBu is the standard unit dBu",
-            "x-code": 27,
-            "x-from": [
-              {
-                "$ref": "https://openmixer.org/contract/lv2#/components/schemas/LV2_OPENMIXER_UNITS_TERMS",
-                "x-term": "dBu"
-              }
-            ]
+            "x-code": 3
           },
           {
             "const": "dB-oct",
-            "title": "openmixerDboct",
+            "title": "dboct",
             "description": "urn:openmixer:unit#dBoct is the standard unit dB-oct",
-            "x-code": 28,
-            "x-from": [
-              {
-                "$ref": "https://openmixer.org/contract/lv2#/components/schemas/LV2_OPENMIXER_UNITS_TERMS",
-                "x-term": "dBoct"
-              }
-            ]
+            "x-code": 4
           }
         ]
       },

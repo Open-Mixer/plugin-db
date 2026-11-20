@@ -91,8 +91,7 @@ def digest(items):
 
 
 def lv2_terms(doc):
-    return {k: data_form(k, v) for k, v in doc.items() if k.startswith("LV2_") and k.endswith("_TERMS")
-            and k != "LV2_OPENMIXER_UNITS_TERMS"}
+    return {k: data_form(k, v) for k, v in doc.items() if k.startswith("LV2_") and k.endswith("_TERMS")}
 
 
 def lookup(doc, item):
@@ -100,13 +99,17 @@ def lookup(doc, item):
     out = {}
     for w in doc[item]["oneOf"]:
         f = w["x-from"][0]
-        src = f["$ref"].rsplit("/", 1)[1]
-        term = terms_of(doc[src])[f["x-term"]]
+        term = terms_of(doc[f["$ref"].rsplit("/", 1)[1]])[f["x-term"]]
         uri = term["uri"]
-        prefix = {"http://lv2plug.in/ns/extensions/units#": "units:"}
-        key = next((p + uri[len(u):] for u, p in prefix.items() if uri.startswith(u)), None)
-        out[key or (f["x-term"] if item != "LV2_UNIT_IDS" else uri)] = w["const"]
+        units = "http://lv2plug.in/ns/extensions/units#"
+        out["units:" + uri[len(units):] if uri.startswith(units) else f["x-term"]] = w["const"]
     return out
+
+
+def openmixer_unit(doc, uri):
+    """the F1 read of an OpenMixer spelling: the word whose title is the name after urn:openmixer:unit#, lower-cased"""
+    name = uri.split("#", 1)[1].lower()
+    return next((w["const"] for w in doc["LV2_OPENMIXER_UNIT_IDS"]["oneOf"] if w["title"] == name), None)
 
 
 def standard_words(std_dir, schema_path):
@@ -149,10 +152,12 @@ def f1_refusals(doc, units, scales, meanings):
             if w["const"] not in std:
                 out.append(f"{item}.{w['title']}: {w['const']!r} is no standard word")
         if item == "LV2_UNIT_IDS":
-            for src in ("LV2_UNITS_TERMS", "LV2_OPENMIXER_UNITS_TERMS"):
-                for key, t in terms_of(doc[src]).items():
-                    if t["kind"] == "unit" and (src, key) not in seen:
-                        out.append(f"LV2_UNIT_IDS: the unit {src}#{key} has no word")
+            for key, t in terms_of(doc["LV2_UNITS_TERMS"]).items():
+                if t["kind"] == "unit" and ("LV2_UNITS_TERMS", key) not in seen:
+                    out.append(f"LV2_UNIT_IDS: the unit LV2_UNITS_TERMS#{key} has no word")
+    for w in doc["LV2_OPENMIXER_UNIT_IDS"]["oneOf"]:
+        if w["const"] not in units:
+            out.append(f"LV2_OPENMIXER_UNIT_IDS.{w['title']}: {w['const']!r} is no standard word")
     return out
 
 
@@ -173,12 +178,16 @@ def main():
           "the domain format's FORMAT_TERM_KINDS are the golden words")
     check([w["const"] for w in fmt["FORMAT_TERM_STATUSES"]["oneOf"]] == GOLDEN_STATUSES,
           "the domain format's FORMAT_TERM_STATUSES are the golden words")
-    check(lookup(doc, "LV2_UNIT_IDS") == GOLDEN_UNITS, "F1: every LV2 unit reads the golden standard unit")
+    read = dict(lookup(doc, "LV2_UNIT_IDS"))
+    read.update({u: openmixer_unit(doc, u) for u in GOLDEN_UNITS if u.startswith("urn:")})
+    check(read == GOLDEN_UNITS, "F1: every LV2 unit and OpenMixer spelling reads the golden standard unit")
     check(lookup(doc, "LV2_DESIGNATION_MEANINGS") == GOLDEN_MEANINGS, "F1: every designation reads the golden meaning")
     check(lookup(doc, "LV2_PORT_PROPERTY_SCALES") == GOLDEN_SCALES, "F1: every port property reads the golden scale")
-    refs = {i.get("x-kinds", {}).get("$ref") for k, i in doc.items() if k.endswith("_TERMS")}
-    check(refs == {"https://openmixer.org/contract/format#/components/schemas/FORMAT_TERM_KINDS"},
-          "every terms item takes its kinds from the domain format")
+    kinds = {w["const"] for w in fmt["FORMAT_TERM_KINDS"]["oneOf"]}
+    statuses = {w["const"] for w in fmt["FORMAT_TERM_STATUSES"]["oneOf"]}
+    odd = [f"{k}#{key}" for k, i in doc.items() if i.get("x-kind") == "terms" for key, t in terms_of(i).items()
+           if t["kind"] not in kinds or t["status"] not in statuses]
+    check(not odd, "every term's kind and status is a word of the domain format" + (": " + ", ".join(odd[:5]) if odd else ""))
 
     # (b) both sources
     classic = os.path.join(cdir, "3", "omx-contract", "formats", "lv2")

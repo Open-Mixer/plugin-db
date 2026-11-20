@@ -5,7 +5,11 @@
     "title": "The plugin features: what a plugin is, read from its format's own words",
     "version": "1.0.0",
     "x-owner": "plugin-db",
-    "x-stability": "experimental"
+    "x-stability": "experimental",
+    "x-requires": {
+      "clap": ">= 1.0.0",
+      "lv2": ">= 1.0.0"
+    }
   },
   "components": {
     "schemas": {
