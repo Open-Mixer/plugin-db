@@ -6,6 +6,7 @@ import { test } from "node:test";
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 import * as v from "../src/vocabulary.ts";
+import { pinWords } from "./pin-domain.ts";
 
 const data = { ...JSON.parse(readFileSync(new URL("../../data/pin.json", import.meta.url), "utf8")),
                ...JSON.parse(readFileSync(new URL("../../data/db.json", import.meta.url), "utf8")) };
@@ -15,7 +16,8 @@ test("each words item of data/ is in the vocabulary, its words in their order", 
   assert.deepEqual(Object.values(v.states), words("PLUGIN_DB_STATES"));
   assert.deepEqual(Object.values(v.runs), words("PLUGIN_DB_RUNS"));
   assert.deepEqual(Object.values(v.reasons), words("PLUGIN_DB_REASONS"));
-  assert.deepEqual(Object.values(v.pinVerdicts), words("PLUGIN_DB_PIN_VERDICTS"));
+  assert.deepEqual(Object.values(v.pinVerdicts), pinWords("PIN_VERDICTS").map((w) => w.word));
+  assert.deepEqual(Object.values(v.pinPools), pinWords("PIN_POOLS").map((w) => w.word));
 });
 
 test("the bar's three words are declared once", () => {

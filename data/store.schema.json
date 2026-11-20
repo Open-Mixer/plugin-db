@@ -90,7 +90,7 @@
       "additionalProperties": false
     },
     "recordFields": {
-      "description": "The fields of a record the state function reads: the verdict (PLUGIN_DB_PIN_VERDICTS), the class of machine it was measured on, the host it was measured under with its version and hosting epoch, the judgement rules and the record schema it was written by, the cells of rate and quantum it covers and the conditions, each a fact that must hold here. Step 3 declares the whole record.",
+      "description": "The fields of a record the state function reads: the verdict (PIN_VERDICTS of plugin-hostd-protocol's domain pin), the class of machine it was measured on, the host it was measured under with its version and hosting epoch, the judgement rules and the record schema it was written by, the cells of rate and quantum it covers and the conditions, each a fact that must hold here. Step 3 declares the whole record.",
       "type": "object",
       "properties": {
         "verdict": { "type": "string" },

@@ -18,7 +18,7 @@ harness or of libcrypto; they are listed at the end and need no breakage.
 
 The expected values come from `fuzz/spec.h` (the digest charset and a SHA-256 written from
 FIPS 180-4, libc only), from the escape, sort and number rules written out in
-`fuzz/fuzz_layout.c`, and from the words of `data/pin.json` copied into `fuzz/fuzz_pin.c`. No
+`fuzz/fuzz_layout.c`, and from the words of plugin-hostd-protocol's domain pin (PIN_VERDICTS, PIN_POOLS) copied into `fuzz/fuzz_pin.c`. No
 check calls a `phd_` function for its expected value.
 
 ## fuzz_pin
@@ -30,8 +30,8 @@ check calls a `phd_` function for its expected value.
 | `fuzz/fuzz_pin.c:91` | A layout pin is accepted exactly when it splits at its last `:` into a non-empty scheme that fits and a digest | the harness's own split (`strrchr`, `spec_hex_ok`, the buffer size) | 4 records (empty scheme, digest at the colon, `strchr`, size off by one); `pin-token-refusal.patch` | OK |
 | `fuzz/fuzz_pin.c:103` | The scheme given back is the bytes before the last `:`, then a NUL | the input bytes | 2 records; `pin-token-scheme.patch` | OK |
 | `fuzz/fuzz_pin.c:115` | The digest given back is the 64 bytes after the last `:`, then a NUL | the input bytes | 2 records; `pin-token-digest.patch` | OK |
-| `fuzz/fuzz_pin.c:129` | A verdict is exactly one of `in-process`, `isolated`, `refused`, whole | `data/pin.json` words, written in the harness | 3 records (always 1, count short, prefix match); `pin-verdict.patch` | OK |
-| `fuzz/fuzz_pin.c:141` | A pool word is exactly one of `cores`, `off`, whole | `data/pin.json` words, written in the harness | 2 records (always 1, count short); `pin-pool.patch` | OK |
+| `fuzz/fuzz_pin.c:129` | A verdict is exactly one of `in-process`, `isolated`, `refused`, whole | the domain pin's PIN_VERDICTS (plugin-hostd-protocol), written in the harness | 3 records (always 1, count short, prefix match); `pin-verdict.patch` | OK |
+| `fuzz/fuzz_pin.c:141` | A pool word is exactly one of `cores`, `off`, whole | the domain pin's PIN_VERDICTS (plugin-hostd-protocol), written in the harness | 2 records (always 1, count short); `pin-pool.patch` | OK |
 
 The acceptance check at line 91 is two-way, so the scheme and digest checks, which run only on an
 accepted pin, cover every input between them.

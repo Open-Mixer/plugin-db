@@ -1,7 +1,7 @@
 # SPDX-License-Identifier: GPL-3.0-or-later
 # Copyright (C) 2026 Pau Aliagas <linuxnow@gmail.com>
 # GENERATED: DO NOT EDIT BY HAND.
-# Produced by tools/render-py.py from data/pin.json and data/db.json. Each words item is a Words object of its words
+# Produced by tools/render-py.py from data/pin.json and data/db.json and the domain pin of plugin-hostd-protocol. Each words item is a Words object of its words
 # in their order, keyed as data/ keys them; a grouped item has <item>_group (the group word of each word).
 
 
@@ -15,14 +15,14 @@ class Words(dict):
             raise AttributeError(key) from None
 
 
-# PLUGIN_DB_PIN_VERDICTS
+# PIN_VERDICTS
 pin_verdicts = Words(
     inProcess="in-process",
     isolated="isolated",
     refused="refused",
 )
 
-# PLUGIN_DB_PIN_POOLS
+# PIN_POOLS
 pin_pools = Words(
     cores="cores",
     off="off",
@@ -395,8 +395,8 @@ reasons_group = {
 
 # the data/ item of each words object: a catalog keys a message as <item>.<word>
 ITEMS = {
-    "pin_verdicts": "PLUGIN_DB_PIN_VERDICTS",
-    "pin_pools": "PLUGIN_DB_PIN_POOLS",
+    "pin_verdicts": "PIN_VERDICTS",
+    "pin_pools": "PIN_POOLS",
     "pin_keys": "PLUGIN_DB_PIN_KEYS",
     "pin_changes": "PLUGIN_DB_PIN_CHANGES",
     "pin_layout_formats": "PLUGIN_DB_PIN_LAYOUT_FORMATS",

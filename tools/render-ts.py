@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # SPDX-License-Identifier: GPL-3.0-or-later
 # Copyright (C) 2026 Pau Aliagas <linuxnow@gmail.com>
-"""Derive ts/src/vocabulary.ts, the TypeScript twin's words, from data/pin.json and data/db.json.
+"""Derive ts/src/vocabulary.ts, the TypeScript twin's words, from data/pin.json and data/db.json (and plugin-hostd-protocol's domain pin, tools/pinwords.py).
 
 Each words item becomes an object of its words in their order, keyed as data/ keys them (PLUGIN_DB_STATES is `states`),
 and a grouped item also a <item>Group object: the group word of each word. When a word carries owners' `text` (en, ca)
@@ -10,7 +10,11 @@ it is folded into <item>Text. Nothing here is typed twice, and the twin's source
     render-ts.py [--check] <data dir> <out file>
 """
 import json
+import os
 import sys
+
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import pinwords  # noqa: E402
 
 
 def camel(item):
@@ -19,14 +23,12 @@ def camel(item):
 
 
 def render(data_dir):
-    db = {}
-    for name in ("pin.json", "db.json"):
-        db.update(json.load(open(f"{data_dir}/{name}")))
+    db = pinwords.load(data_dir)
     out = [
         "// SPDX-License-Identifier: GPL-3.0-or-later",
         "// Copyright (C) 2026 Pau Aliagas <linuxnow@gmail.com>",
         "// GENERATED: DO NOT EDIT BY HAND.",
-        "// Produced by tools/render-ts.py from data/pin.json and data/db.json. Each words item is an object of its words in",
+        "// Produced by tools/render-ts.py from data/pin.json and data/db.json and the domain pin of plugin-hostd-protocol. Each words item is an object of its words in",
         "// their order, keyed as data/ keys them; a grouped item has a <item>Group object (the group word of each word).",
         "",
     ]
