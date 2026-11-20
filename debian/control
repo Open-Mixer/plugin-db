@@ -2,7 +2,7 @@ Source: plugin-db
 Section: libdevel
 Priority: optional
 Maintainer: Pau Aliagas <linuxnow@gmail.com>
-Build-Depends: debhelper-compat (= 13), gcc, libc6-dev, libssl-dev, libplugin-hostd-protocol-dev (>= 0.5.8~), plugin-hostd-protocol-contract (>= 0.8.0~), libomx-contract-dev (>= 3.21.0~), libomx-domain-dev (>= 3.21.0~), pkgconf, python3, dh-python
+Build-Depends: debhelper-compat (= 13), gcc, libc6-dev, libssl-dev, libplugin-hostd-protocol-dev (>= 0.5.8~), plugin-hostd-protocol-contract (>= 0.8.0~), libomx-contract-dev (>= 3.20.0~), libomx-domain-dev (>= 3.20.0~), pkgconf, python3, dh-python
 Standards-Version: 4.6.2
 Homepage: https://github.com/Open-Mixer/plugin-db
 Vcs-Git: https://github.com/Open-Mixer/plugin-db.git
@@ -12,7 +12,7 @@ Rules-Requires-Root: no
 Package: plugin-db
 Section: utils
 Architecture: any
-Depends: ${shlibs:Depends}, libomx-domain0 (>= 3.21.0~), plugin-db-contract (= ${source:Version}), ${misc:Depends}
+Depends: ${shlibs:Depends}, libomx-domain0 (>= 3.20.0~), plugin-db-contract (= ${source:Version}), ${misc:Depends}
 Description: plugin database: pin, show and verify plugins
  The command plugin-db pins an entry of the plugin database from the plugin's
  files, shows one entry's attributes, state and reason, and verifies every
@@ -23,7 +23,7 @@ Description: plugin database: pin, show and verify plugins
 
 Package: plugin-db-dev
 Architecture: any
-Depends: libssl-dev, libomx-domain-dev (>= 3.21.0~), plugin-db-contract (= ${source:Version}), ${misc:Depends}
+Depends: libssl-dev, libomx-domain-dev (>= 3.20.0~), plugin-db-contract (= ${source:Version}), ${misc:Depends}
 Description: plugin database: headers, static library and pkg-config file
  <plugin-db/pin.h>, header-only, on libc and libcrypto: the SHA-256 of a file,
  the omx-layout/1 fingerprint of a parameter layout, the words a pin is written

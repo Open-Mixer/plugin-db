@@ -17,12 +17,12 @@ BuildRequires: plugin-hostd-protocol-devel >= 0.5.8
 # the verdict and pool words of a pin are the domain pin of plugin-hostd-protocol (its contract package), which the renders of the tables and the twins read
 BuildRequires: plugin-hostd-protocol-contract >= 0.8.0
 # install-contract installs the domains with omx-contract's script
-BuildRequires: omx-contract-devel >= 3.21.0
+BuildRequires: omx-contract-devel >= 3.20.0
 # the format words are read from the domain plugin-db through libomx-domain (omxcontract/omx_domain.h)
-BuildRequires: libomx-domain-devel >= 3.21.0
+BuildRequires: libomx-domain-devel >= 3.20.0
 
 # the command reads the domain plugin-db at start-up and refuses by name without it
-Requires: libomx-domain >= 3.21.0
+Requires: libomx-domain >= 3.20.0
 Requires: plugin-db-contract = %{version}-%{release}
 
 %description
@@ -37,7 +37,7 @@ Its documentation is on openmixer.org.
 Summary: The plugin database: headers, a static library and its pkg-config file
 Requires: pkgconfig(libcrypto)
 # db.h includes omxcontract/omx_domain.h, and libplugin-db.a opens the domain plugin-db
-Requires: libomx-domain-devel >= 3.21.0
+Requires: libomx-domain-devel >= 3.20.0
 Requires: plugin-db-contract = %{version}-%{release}
 
 %description devel
