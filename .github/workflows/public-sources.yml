@@ -23,6 +23,17 @@ jobs:
       - uses: Open-Mixer/.github/.github/actions/trigger-gate@openmixer-v1
         with:
           lint-workflow: public-sources.yml
+  # the dependency floors: the spec and debian/control state the floors packaging/deps.txt declares, and no ceiling. The
+  # engine is Open-Mixer/.github's deps-render, at the same openmixer-v1 ref every shared action of this repository uses
+  deps-render:
+    name: the floors are packaging/deps.txt's
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: Open-Mixer/.github/.github/actions/deps-render@openmixer-v1
   # the shared checks, from Open-Mixer/.github and nowhere else: the commit messages, no private reference, no local copy
   public-sources:
     uses: Open-Mixer/.github/.github/workflows/public-sources-check.yml@openmixer-v1
+    with:
+      commit-identity: true

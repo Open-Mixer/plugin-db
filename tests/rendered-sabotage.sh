@@ -6,7 +6,7 @@
 set -eu
 tmp=$(mktemp -d)
 trap 'rm -rf "$tmp"' EXIT
-fresh() { rm -rf "$tmp/t"; mkdir "$tmp/t"; cp -r Makefile VERSION data include "$tmp/t/"; }
+fresh() { rm -rf "$tmp/t"; mkdir "$tmp/t"; cp -r Makefile VERSION data include contract.d "$tmp/t/"; }
 
 fresh
 make --no-print-directory -C "$tmp/t" check-rendered >/dev/null || { echo "FAIL check-rendered is red on a clean tree"; exit 1; }

@@ -46,12 +46,6 @@ pin_layout_formats = Words(
     lv2="lv2",
 )
 
-# PLUGIN_DB_ADDRESS_FORMATS
-address_formats = Words(
-    clap="clap",
-    lv2="lv2",
-)
-
 # PLUGIN_DB_BUNDLE_RULES
 bundle_rules = Words(
     newestVersion="newest-version",
@@ -406,7 +400,6 @@ ITEMS = {
     "pin_keys": "PLUGIN_DB_PIN_KEYS",
     "pin_changes": "PLUGIN_DB_PIN_CHANGES",
     "pin_layout_formats": "PLUGIN_DB_PIN_LAYOUT_FORMATS",
-    "address_formats": "PLUGIN_DB_ADDRESS_FORMATS",
     "bundle_rules": "PLUGIN_DB_BUNDLE_RULES",
     "layers": "PLUGIN_DB_LAYERS",
     "files": "PLUGIN_DB_FILES",

@@ -112,11 +112,45 @@ static void alone(pdb_answer_t *out, const pdb_record_t *r, int reason, int sour
         answer(out, PDB_STATES_UNQUALIFIED, PDB_REASONS_NOT_MEASURED_UNDER_HOST, PDB_SOURCES_NONE);
 }
 
+static long g_refusals;
+
+long pdb_state_refusals(void)
+{
+    return g_refusals;
+}
+
+static int record_door(const pdb_record_t *r)
+{
+    if (!r->present)
+        return 1;
+    return r->host_name != NULL && r->verdict >= -1 && r->verdict < PDB_PIN_VERDICTS_COUNT &&
+           (r->ncells <= 0 || r->cells != NULL) && (r->nconditions <= 0 || r->conditions != NULL);
+}
+
+/* the declared range of every enum and every pointer the state function reads, checked before any of it is used */
+static int door(const pdb_state_in_t *in, const pdb_here_t *here)
+{
+    return in != NULL && here != NULL && in->files >= 0 && in->files < PDB_FILES_COUNT && in->layout >= 0 &&
+           in->layout < PDB_LAYOUT_COUNT && record_door(&in->local) && record_door(&in->reference);
+}
+
 void pdb_state(const pdb_state_in_t *in, const pdb_here_t *here, pdb_answer_t *out)
 {
     const pdb_record_t *rec = NULL;
     int source = PDB_SOURCES_NONE;
 
+    if (out == NULL || !door(in, here))
+    {
+        g_refusals++;
+        if (out != NULL)
+        {
+            memset(out, 0, sizeof(*out));
+            out->change = out->action = -1;
+            out->record = PDB_RECORD_NONE;
+            answer(out, PDB_STATES_UNQUALIFIED, PDB_REASONS_COULD_NOT_TEST, PDB_SOURCES_NONE);
+        }
+        return;
+    }
     memset(out, 0, sizeof(*out));
     out->files = in->files;
     out->layout = in->layout;

@@ -12,9 +12,25 @@ trap 'rm -rf "$tmp"' EXIT
 PREFIX=$tmp/prefix
 make --no-print-directory install PREFIX="$PREFIX" >/dev/null
 
-build() { # <PKG_CONFIG_PATH> <output>
-    # shellcheck disable=SC2046 # the flags are words
-    PKG_CONFIG_PATH=$1 cc -std=gnu99 -Wall -Wextra -Werror $(PKG_CONFIG_PATH=$1 pkg-config --cflags plugin-db) \
+# The compiler's own system include dirs, each rebuilt as a symlink farm WITHOUT a plugin-db entry where it holds one: a
+# build with -nostdinc and these cannot find a plugin-db-devel installed on the host, so the Cflags arm tests the pc
+# file's Cflags and not the host's /usr/include.
+SHIELD=
+n=0
+for d in $(cc -E -xc -v /dev/null 2>&1 | sed -n '/^#include <...> search starts here:/,/^End of search list/{/^ /p}'); do
+    if [ -e "$d/plugin-db" ]; then
+        n=$((n + 1)); mkdir "$tmp/farm$n"
+        for e in "$d"/*; do [ "$(basename "$e")" = plugin-db ] || ln -s "$e" "$tmp/farm$n/"; done
+        d=$tmp/farm$n
+    fi
+    SHIELD="$SHIELD -isystem $d"
+done
+
+base_pc=${PKG_CONFIG_PATH:-}
+build() { # <PKG_CONFIG_PATH> <output> [shield flags]; the caller's own path stays after it
+    set -- "$1${base_pc:+:$base_pc}" "$2" "${3:-}"
+    # shellcheck disable=SC2046,SC2086 # the flags are words
+    PKG_CONFIG_PATH=$1 cc -std=gnu99 -Wall -Wextra -Werror ${3:-} $(PKG_CONFIG_PATH=$1 pkg-config --cflags plugin-db) \
         -o "$2" tests/consumer.c $(PKG_CONFIG_PATH=$1 pkg-config --libs plugin-db) 2>"$tmp/cc.log"
 }
 
@@ -39,10 +55,13 @@ PY
 mkdir "$tmp/bad"
 sed '/^Requires:/d' "$pcdir/plugin-db.pc" > "$tmp/bad/plugin-db.pc"
 if build "$tmp/bad" "$tmp/bad/consumer"; then echo "FAIL a pc file without libcrypto still links the consumer"; exit 1; fi
+sed 's/^Requires:.*/Requires: libcrypto/' "$pcdir/plugin-db.pc" > "$tmp/bad/plugin-db.pc"
+if build "$tmp/bad" "$tmp/bad/consumer"; then echo "FAIL a pc file without libomx-domain still builds the consumer"; exit 1; fi
 sed '/^Libs:/d' "$pcdir/plugin-db.pc" > "$tmp/bad/plugin-db.pc"
 if build "$tmp/bad" "$tmp/bad/consumer"; then echo "FAIL a pc file without Libs still links the consumer"; exit 1; fi
 sed '/^Cflags:/d' "$pcdir/plugin-db.pc" > "$tmp/bad/plugin-db.pc"
-if build "$tmp/bad" "$tmp/bad/consumer"; then echo "FAIL a pc file without Cflags still compiles the consumer"; exit 1; fi
+build "$pcdir" "$tmp/shielded" "-nostdinc $SHIELD" || { cat "$tmp/cc.log"; echo "FAIL the shielded build (no host plugin-db headers) does not compile the consumer with the pc file's Cflags"; exit 1; }
+if build "$tmp/bad" "$tmp/bad/consumer" "-nostdinc $SHIELD"; then echo "FAIL a pc file without Cflags still compiles the consumer"; exit 1; fi
 test -x "$PREFIX/bin/plugin-db" || { echo "FAIL no plugin-db command in the install"; exit 1; }
 "$PREFIX/bin/plugin-db" --store "$tmp/store" verify || { echo "FAIL the installed command is red on an empty store"; exit 1; }
 test -s "$PREFIX/share/man/man1/plugin-db.1" || { echo "FAIL the command has no manual page"; exit 1; }

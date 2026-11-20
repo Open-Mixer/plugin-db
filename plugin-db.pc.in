@@ -5,7 +5,8 @@ libdir=@LIBDIR@
 Name: plugin-db
 Description: The plugin database: the pin, the address form, the files of a plugin, the store and the state
 Version: @VERSION@
-# pin.h's SHA-256 is libcrypto's (EVP_Digest): a program that includes it links libcrypto, and so does libplugin-db.a
-Requires: libcrypto
+# pin.h's SHA-256 is libcrypto's (EVP_Digest): a program that includes it links libcrypto, and so does libplugin-db.a;
+# db.h includes omxcontract/omx_domain.h, and libplugin-db.a reads the formats of the domain plugin-db through libomx-domain
+Requires: libcrypto, libomx-domain >= 3.20.0
 Cflags: -I${includedir}
 Libs: -L${libdir} -lplugin-db
