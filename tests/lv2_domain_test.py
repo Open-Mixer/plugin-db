@@ -6,12 +6,16 @@
 (a) golden: the 24 LV2_*_TERMS of the domain lv2, read as a reader reads them (each item's terms by key), have the
     digest of tests/golden/lv2-terms.digest, frozen from omx-contract 3.20.2 (each item's since left out)'s data/formats/lv2; the domain format's
     two items have their golden words; the F1 lookups (an LV2 unit, designation or port property -> its standard word)
-    give the golden standard words.
+    give the golden standard words, and so do the resource lookups (an LV2 term of a resource -> its RESOURCE_KINDS
+    word through LV2_RESOURCE_KINDS; units:frame, units:ms, units:s -> frames, ms, s through LV2_UNIT_IDS), frozen from
+    the LV2 froms of omx-contract's data/resource-profile.json, which omx-contract drops.
 (b) both sources: while the installed omx-contract still holds data/formats/lv2, its terms are the domain's, item for
     item; every F1 word names a term the domain holds, every unit term has exactly one F1 word, and every standard word
-    F1 maps to is one the installed omx-contract declares (PARAM_UNITS, PARAM_SCALES, the descriptor meanings).
+    F1 maps to is one the installed omx-contract declares (PARAM_UNITS, PARAM_SCALES, the descriptor meanings,
+    RESOURCE_KINDS, RESOURCE_UNITS); while its resource profile still names LV2 terms, they are the domain's mapping.
 (c) sabotage: the same checks over a scratch standard without one unit (dB), a scratch domain with one F1 word dropped
-    and one with two words for one term are each refused.
+    and one with two words for one term are each refused; so are a resource standard without latency and one LV2
+    term in two resource words.
 
 The standard words are read from $OMX_STANDARD_DIR, else the installed contract directory (pkg-config omx-contract):
 a domain document holding PARAM_UNITS (its words' const), else the data form 3/omx-contract/primitives.json. The
@@ -47,6 +51,15 @@ GOLDEN_UNITS = {"units:bar": "bar", "units:beat": "beat", "units:bpm": "bpm", "u
 GOLDEN_MEANINGS = {k: k for k in ["attack", "bypass", "cutoffFrequency", "decay", "delay", "frequency", "gain", "hold",
                                   "ratio", "release", "resonance", "threshold", "wetDryRatio", "enabled"]}
 GOLDEN_SCALES = {"integer": "stepped", "logarithmic": "log"}
+# F1 frozen: the LV2 froms of omx-contract's RESOURCE_KINDS and RESOURCE_UNITS (data/resource-profile.json at b89426c),
+# which omx-contract drops; the domain lv2 holds them as LV2_RESOURCE_KINDS and, for the units, LV2_UNIT_IDS
+GOLDEN_RESOURCE_KINDS = {"LV2_CORE_TERMS#latency": "latency", "LV2_WORKER_TERMS#schedule": "worker",
+                         "LV2_WORKER_TERMS#interface": "worker", "LV2_BUF_SIZE_TERMS#boundedBlockLength": "block-length",
+                         "LV2_BUF_SIZE_TERMS#maxBlockLength": "block-length",
+                         "LV2_BUF_SIZE_TERMS#minBlockLength": "block-length",
+                         "LV2_BUF_SIZE_TERMS#nominalBlockLength": "block-length",
+                         "LV2_OPTIONS_TERMS#options": "block-length", "LV2_STATE_TERMS#interface": "state"}
+GOLDEN_RESOURCE_UNITS = {"LV2_UNITS_TERMS#frame": "frames", "LV2_UNITS_TERMS#ms": "ms", "LV2_UNITS_TERMS#s": "s"}
 
 failures = []
 
@@ -103,6 +116,58 @@ def lookup(doc, item):
         uri = term["uri"]
         units = "http://lv2plug.in/ns/extensions/units#"
         out["units:" + uri[len(units):] if uri.startswith(units) else f["x-term"]] = w["const"]
+    return out
+
+
+def by_term(doc, item):
+    """the read of a mapping item: {<item>#<term>: <standard word>} through every x-from of every word"""
+    return {f["$ref"].rsplit("/", 1)[1] + "#" + f["x-term"]: w["const"]
+            for w in doc[item]["oneOf"] for f in w["x-from"]} if item in doc else {}
+
+
+def resource_profile(std_dir):
+    """(RESOURCE_KINDS words, RESOURCE_UNITS words, {item: the LV2 froms the standard still holds}) of the standard: a
+    domain document holding RESOURCE_KINDS, else the data form 3/omx-contract/resource-profile.json; None if neither"""
+    for p in sorted(glob.glob(os.path.join(std_dir, "*", "*.json"))):
+        try:
+            s = json.load(open(p)).get("components", {}).get("schemas", {})
+        except (OSError, ValueError):
+            continue
+        if "RESOURCE_KINDS" in s and "RESOURCE_UNITS" in s:
+            froms = {i: {f["$ref"].rsplit("/", 1)[1] + "#" + f["x-term"]: w["const"] for w in s[i]["oneOf"]
+                         for f in w.get("x-from", []) if f["$ref"].rsplit("/", 1)[1].startswith("LV2_")}
+                     for i in ("RESOURCE_KINDS", "RESOURCE_UNITS")}
+            return ({w["const"] for w in s["RESOURCE_KINDS"]["oneOf"]},
+                    {w["const"] for w in s["RESOURCE_UNITS"]["oneOf"]}, froms)
+    p = os.path.join(std_dir, "3", "omx-contract", "resource-profile.json")
+    if not os.path.exists(p):
+        return None
+    d = json.load(open(p))
+    froms = {i: {f: w["word"] for w in d[i]["words"].values() for f in w.get("from", []) if f.startswith("LV2_")}
+             for i in ("RESOURCE_KINDS", "RESOURCE_UNITS")}
+    return ({w["word"] for w in d["RESOURCE_KINDS"]["words"].values()},
+            {w["word"] for w in d["RESOURCE_UNITS"]["words"].values()}, froms)
+
+
+def resource_refusals(doc, kinds, runits):
+    """what the resource check refuses: [] when every LV2_RESOURCE_KINDS word names held terms, each term once, and is a
+    RESOURCE_KINDS word, and the LV2 units a resource is given in read RESOURCE_UNITS words through LV2_UNIT_IDS"""
+    out = []
+    seen = set()
+    for w in doc.get("LV2_RESOURCE_KINDS", {"oneOf": []})["oneOf"]:
+        for f in w["x-from"]:
+            src = f["$ref"].rsplit("/", 1)[1]
+            if src not in doc or f["x-term"] not in terms_of(doc[src]):
+                out.append(f"LV2_RESOURCE_KINDS.{w['title']}: names {src}#{f['x-term']}, no term of the domain")
+            if (src, f["x-term"]) in seen:
+                out.append(f"LV2_RESOURCE_KINDS.{w['title']}: a second word for {src}#{f['x-term']}")
+            seen.add((src, f["x-term"]))
+        if w["const"] not in kinds:
+            out.append(f"LV2_RESOURCE_KINDS.{w['title']}: {w['const']!r} is no RESOURCE_KINDS word")
+    units = by_term(doc, "LV2_UNIT_IDS")
+    for term in GOLDEN_RESOURCE_UNITS:
+        if units.get(term) not in runits:
+            out.append(f"LV2_UNIT_IDS: {term} reads {units.get(term)!r}, no RESOURCE_UNITS word")
     return out
 
 
@@ -183,6 +248,10 @@ def main():
     check(read == GOLDEN_UNITS, "F1: every LV2 unit and OpenMixer spelling reads the golden standard unit")
     check(lookup(doc, "LV2_DESIGNATION_MEANINGS") == GOLDEN_MEANINGS, "F1: every designation reads the golden meaning")
     check(lookup(doc, "LV2_PORT_PROPERTY_SCALES") == GOLDEN_SCALES, "F1: every port property reads the golden scale")
+    check(by_term(doc, "LV2_RESOURCE_KINDS") == GOLDEN_RESOURCE_KINDS,
+          "F1: every LV2 term of a resource reads the golden RESOURCE_KINDS word (LV2_RESOURCE_KINDS)")
+    check({t: by_term(doc, "LV2_UNIT_IDS").get(t) for t in GOLDEN_RESOURCE_UNITS} == GOLDEN_RESOURCE_UNITS,
+          "F1: units:frame, units:ms and units:s read the golden resource units frames, ms and s (LV2_UNIT_IDS)")
     kinds = {w["const"] for w in fmt["FORMAT_TERM_KINDS"]["oneOf"]}
     statuses = {w["const"] for w in fmt["FORMAT_TERM_STATUSES"]["oneOf"]}
     odd = [f"{k}#{key}" for k, i in doc.items() if i.get("x-kind") == "terms" for key, t in terms_of(i).items()
@@ -206,7 +275,32 @@ def main():
     check(not bad, "F1: every word names a term of the domain once, every unit has its word, every standard word exists"
           + ("" if not bad else ": " + "; ".join(bad)))
 
+    rp = resource_profile(cdir)
+    if rp is None:
+        print(f"skip no RESOURCE_KINDS in {cdir}: the resource kinds are not held to the standard here")
+        rkinds = set(GOLDEN_RESOURCE_KINDS.values())
+        runits = set(GOLDEN_RESOURCE_UNITS.values())
+    else:
+        rkinds, runits, held = rp
+        bad = resource_refusals(doc, rkinds, runits)
+        check(not bad, "F1: every resource word names held terms once and is a RESOURCE_KINDS word; the resource units are"
+              " RESOURCE_UNITS words" + ("" if not bad else ": " + "; ".join(bad)))
+        if held["RESOURCE_KINDS"] or held["RESOURCE_UNITS"]:
+            check(held["RESOURCE_KINDS"] == by_term(doc, "LV2_RESOURCE_KINDS"),
+                  "the installed omx-contract's RESOURCE_KINDS LV2 froms are the domain's LV2_RESOURCE_KINDS")
+            check(held["RESOURCE_UNITS"] == {t: by_term(doc, "LV2_UNIT_IDS").get(t) for t in held["RESOURCE_UNITS"]},
+                  "the installed omx-contract's RESOURCE_UNITS LV2 froms read the same words through LV2_UNIT_IDS")
+        else:
+            print("skip the installed omx-contract's resource profile names no LV2 term: the domain is the one source")
+
     # (c) sabotage
+    check(any("'latency' is no RESOURCE_KINDS word" in r for r in resource_refusals(doc, rkinds - {"latency"}, runits)),
+          "sabotage: a resource standard without latency is refused")
+    again = copy.deepcopy(doc)
+    if len(again.get("LV2_RESOURCE_KINDS", {"oneOf": []})["oneOf"]) > 1:
+        again["LV2_RESOURCE_KINDS"]["oneOf"][0]["x-from"].append(again["LV2_RESOURCE_KINDS"]["oneOf"][1]["x-from"][0])
+    check(any("a second word" in r for r in resource_refusals(again, rkinds, runits)),
+          "sabotage: one LV2 term in two resource words is refused")
     check(any("'dB' is no standard word" in r for r in f1_refusals(doc, units - {"dB"}, scales, meanings)),
           "sabotage: a standard list without dB is refused")
     dropped = copy.deepcopy(doc)
