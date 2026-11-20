@@ -219,7 +219,13 @@ PIN_DOMAIN_DIR ?= $(CONTRACTDIR)
 export PIN_DOMAIN_DIR
 INSTALL_CONTRACT_DIR = $(firstword $(wildcard $(shell $(PKG_CONFIG) --variable=datadir omx-contract 2>/dev/null)/install-contract-dir.sh) $(wildcard $(OMX_CONTRACT_DIR)/tools/install-contract-dir.sh))
 
-check-tools: check-rendered check-codes test-rendered-sabotage check-contract-dir test-domain check-ci-matrix
+check-tools: check-rendered check-codes test-rendered-sabotage check-contract-dir test-domain check-ci-matrix test-lv2-domain
+
+# the LV2 terms and the F1 mapping are plugin-db's domains lv2 and format (tests/lv2_domain_test.py): golden, the installed
+# omx-contract's classic terms and standard words, and the sabotage arms; OMX_STANDARD_DIR names another contract directory
+.PHONY: test-lv2-domain
+test-lv2-domain:
+	python3 tests/lv2_domain_test.py
 
 check-ci-matrix:
 	sh tests/ci-matrix-follows-set.sh --self-test
