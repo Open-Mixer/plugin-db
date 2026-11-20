@@ -158,7 +158,7 @@ expect "4.2 absent" runs not-loaded "lv2:$AMP" $HERE
 if record in-process | pdb put "lv2:http://example.org/plugins/none" judged 2>/dev/null; then bad "a record is put for no entry"; else ok "a record needs an entry"; fi
 if echo '{}' | pdb put "lv2:$AMP" pinned 2>/dev/null; then bad "put writes the pinned layer"; else ok "the pinned layer is written from the files only"; fi
 if echo '{"verdict": "fine"}' | pdb put "lv2:$AMP" judged 2>/dev/null; then bad "a record without the schema's fields is put"; else ok "a record is held to the schema's fields"; fi
-if record maybe | pdb put "lv2:$AMP" judged 2>/dev/null; then bad "a verdict outside the words is put"; else ok "a verdict is a word of PLUGIN_DB_PIN_VERDICTS"; fi
+if record maybe | pdb put "lv2:$AMP" judged 2>/dev/null; then bad "a verdict outside the words is put"; else ok "a verdict is a word of PIN_VERDICTS"; fi
 if echo 'not json' | pdb put "lv2:$AMP" scanned 2>/dev/null; then bad "a body that is no JSON is put"; else ok "a body must be a JSON object"; fi
 if pdb show "clap:/usr/lib/clap/synth.clap#com.example.synth" 2>/dev/null; then bad "a path is taken as an address"; else ok "a path is no address"; fi
 

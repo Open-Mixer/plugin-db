@@ -14,6 +14,8 @@ BuildRequires: python3
 BuildRequires: python3-devel
 BuildRequires: pkgconfig(libcrypto)
 BuildRequires: plugin-hostd-protocol-devel >= 0.5.8
+# the verdict and pool words of a pin are the domain pin of plugin-hostd-protocol (its contract package), which the renders of the tables and the twins read
+BuildRequires: plugin-hostd-protocol-contract >= 0.8.0
 # install-contract writes the contract directory's package with omx-contract's script
 BuildRequires: omx-contract-devel >= 3.20.0
 # the format words are read from the domain plugin-db through libomx-domain (omxcontract/omx_domain.h)
