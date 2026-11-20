@@ -81,10 +81,16 @@ install-python:
 test-tu-split:
 	CC='$(CC)' CFLAGS='$(PROTOCOL_CFLAGS) $(DOMAIN_CFLAGS) $(CRYPTO_CFLAGS)' sh tests/tu-split.sh
 
-test: test-tu-split test-constants-alone test-pin check-tables check-ts test-py test-state test-collect test-store test-golden test-install test-sabotage test-db-sabotage version-check check-control
+test: test-tu-split test-constants-alone test-pin test-pin-read check-tables check-ts test-py test-state test-collect test-store test-golden test-install test-sabotage test-db-sabotage version-check check-control
 
 tests/pin_test: tests/pin_test.c $(HEADERS)
 	$(CC) -Iinclude $(CRYPTO_CFLAGS) $(CFLAGS) -Werror -o $@ tests/pin_test.c $(CRYPTO_LIBS)
+
+# the verdict and pool words of a pin are plugin-hostd-protocol's (its domain pin); the validators and the twins read them there
+# (tests/pin_read_test.py; PIN_DOMAIN_DIR names a contract directory holding pin/pin.json, the installed one by default)
+.PHONY: test-pin-read
+test-pin-read:
+	PIN_DOMAIN_DIR='$(PIN_DOMAIN_DIR)' CC='$(CC)' python3 tests/pin_read_test.py
 
 test-pin: tests/pin_test
 	./tests/pin_test
@@ -203,6 +209,9 @@ version-check:
 OMX_CONTRACT ?= omx-contract
 CONTRACT_SCHEMA_MAJOR = 3
 CONTRACTDIR = $(or $(shell $(PKG_CONFIG) --variable=contractdir omx-contract 2>/dev/null),$(DATADIR)/omx-contract/contract.d)
+# the contract directory holding plugin-hostd-protocol's domain pin (pin/pin.json), the words of a pin's verdict and pool
+PIN_DOMAIN_DIR ?= $(CONTRACTDIR)
+export PIN_DOMAIN_DIR
 INSTALL_CONTRACT_DIR = $(firstword $(wildcard $(shell $(PKG_CONFIG) --variable=datadir omx-contract 2>/dev/null)/install-contract-dir.sh) $(wildcard $(OMX_CONTRACT_DIR)/tools/install-contract-dir.sh))
 
 check-tools: check-rendered check-codes test-rendered-sabotage check-contract-dir test-domain check-ci-matrix
