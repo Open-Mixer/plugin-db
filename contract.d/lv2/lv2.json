@@ -6133,38 +6133,43 @@
         "x-kind": "words"
       },
       "LV2_OPENMIXER_UNIT_IDS": {
-        "description": "F1 for the OpenMixer unit spellings (Q7): an LV2 file writes urn:openmixer:unit#<name> for a standard unit that units.lv2 has no term for, and the plugin's TTL defines it (units:Unit). One word per spelling, its title the <name> in lower case, its const the word of omx-contract's PARAM_UNITS it is; its description names the URI as written. A reader lower-cases the name after urn:openmixer:unit# and reads the word of that title.",
+        "description": "F1 for the OpenMixer unit spellings (Q7): an LV2 file writes urn:openmixer:unit#<name> for a standard unit that units.lv2 has no term for, and the plugin's TTL defines it (units:Unit). One word per spelling, its title the <name> in lower case, its const the word of omx-contract's PARAM_UNITS it is; its description names the URI as written. A reader lower-cases the name after urn:openmixer:unit# and reads the word of that title. Each word's x-uri is the exact urn spelling an LV2 file writes (urn:openmixer:unit#dBoct), which lower-cased after # is its title.",
         "x-since": "1.0.0",
         "oneOf": [
           {
             "const": "dBFS",
             "title": "dbfs",
             "description": "urn:openmixer:unit#dBFS is the standard unit dBFS",
-            "x-code": 0
+            "x-code": 0,
+            "x-uri": "urn:openmixer:unit#dBFS"
           },
           {
             "const": "LUFS",
             "title": "lufs",
             "description": "urn:openmixer:unit#LUFS is the standard unit LUFS",
-            "x-code": 1
+            "x-code": 1,
+            "x-uri": "urn:openmixer:unit#LUFS"
           },
           {
             "const": "ratio",
             "title": "ratio",
             "description": "urn:openmixer:unit#ratio is the standard unit ratio",
-            "x-code": 2
+            "x-code": 2,
+            "x-uri": "urn:openmixer:unit#ratio"
           },
           {
             "const": "dBu",
             "title": "dbu",
             "description": "urn:openmixer:unit#dBu is the standard unit dBu",
-            "x-code": 3
+            "x-code": 3,
+            "x-uri": "urn:openmixer:unit#dBu"
           },
           {
             "const": "dB-oct",
             "title": "dboct",
             "description": "urn:openmixer:unit#dBoct is the standard unit dB-oct",
-            "x-code": 4
+            "x-code": 4,
+            "x-uri": "urn:openmixer:unit#dBoct"
           }
         ],
         "x-kind": "words"
