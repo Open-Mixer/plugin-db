@@ -18,7 +18,6 @@ function vocabulary(): { words: Set<string>; sentences: Set<string> } {
     const data = JSON.parse(readFileSync(join(root, "data", f), "utf8"));
     for (const [item, body] of Object.entries<any>(data)) {
       if (!body || body.kind !== "words") continue;
-      if (item === "PLUGIN_DB_PIN_VERDICTS" || item === "PLUGIN_DB_PIN_POOLS") continue; // plugin-hostd-protocol's, below
       for (const w of Object.values<any>(body.words)) {
         if (ITEMS.includes(item)) words.add(w.word);
         if (w.doc) sentences.add(w.doc);

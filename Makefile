@@ -81,7 +81,7 @@ install-python:
 test-tu-split:
 	CC='$(CC)' CFLAGS='$(PROTOCOL_CFLAGS) $(DOMAIN_CFLAGS) $(CRYPTO_CFLAGS)' sh tests/tu-split.sh
 
-test: test-tu-split test-constants-alone test-pin test-pin-read check-tables check-ts test-py test-state test-collect test-store test-golden test-install test-sabotage test-db-sabotage version-check check-control
+test: test-tu-split test-constants-alone test-pin test-pin-read test-pin-old-items check-tables check-ts test-py test-state test-collect test-store test-golden test-install test-sabotage test-db-sabotage version-check check-control
 
 tests/pin_test: tests/pin_test.c $(HEADERS)
 	$(CC) -Iinclude $(CRYPTO_CFLAGS) $(CFLAGS) -Werror -o $@ tests/pin_test.c $(CRYPTO_LIBS)
@@ -91,6 +91,11 @@ tests/pin_test: tests/pin_test.c $(HEADERS)
 .PHONY: test-pin-read
 test-pin-read:
 	PIN_DOMAIN_DIR='$(PIN_DOMAIN_DIR)' CC='$(CC)' python3 tests/pin_read_test.py
+
+# plugin-db holds neither of the two pin items that moved to plugin-hostd-protocol, in data/, the vocabulary or any file (tests/pin_old_items_test.py)
+.PHONY: test-pin-old-items
+test-pin-old-items:
+	python3 tests/pin_old_items_test.py
 
 test-pin: tests/pin_test
 	./tests/pin_test
