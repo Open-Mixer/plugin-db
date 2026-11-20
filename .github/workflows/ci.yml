@@ -45,8 +45,8 @@ jobs:
       # the pin path codec is plugin-hostd-protocol's (phd_pin_path_*, header inline)
       - name: plugin-hostd-protocol's headers
         run: |
-          if command -v dnf >/dev/null; then dnf -y install plugin-hostd-protocol-devel
-          else apt-get -y install --no-install-recommends libplugin-hostd-protocol-dev
+          if command -v dnf >/dev/null; then dnf -y install plugin-hostd-protocol-devel plugin-hostd-protocol-contract
+          else apt-get -y install --no-install-recommends libplugin-hostd-protocol-dev plugin-hostd-protocol-contract
           fi
       # the format words are read from the domain plugin-db through libomx-domain: its header, pkg-config file and the omx-domain command
       - name: libomx-domain's headers
@@ -82,7 +82,7 @@ jobs:
       - name: Add the OpenMixer channel
         uses: Open-Mixer/.github/.github/actions/add-openmixer@openmixer-v1
       - name: plugin-hostd-protocol's headers
-        run: dnf -y install plugin-hostd-protocol-devel
+        run: dnf -y install plugin-hostd-protocol-devel plugin-hostd-protocol-contract
       - name: libomx-domain's headers
         run: dnf -y install libomx-domain-devel
       - name: Node is in the twin's range
@@ -110,7 +110,7 @@ jobs:
       # libomx-domain-devel ships omx-domain, the loader's command (make test-domain opens the plugin-db domain with it), and
       # the header the command and the tests build on; the installer's --domain mode (3.20.0) comes with omx-contract-devel
       - name: omx-contract and the loader
-        run: dnf -y install omx-contract omx-contract-devel libomx-domain-devel plugin-hostd-protocol-devel
+        run: dnf -y install omx-contract omx-contract-devel libomx-domain-devel plugin-hostd-protocol-devel plugin-hostd-protocol-contract
       - name: make check-tools
         run: make check-tools
       # one pack per listed language from the spec and debian/control, and the catalogs through omx-contract's release

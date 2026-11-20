@@ -24,7 +24,10 @@ omx-contract renders the words of `pin.json` and `db.json` to `<plugin-db/plugin
 `plugin-db-contract` puts them in its contract directory. `tools/render-db.py` derives
 `<plugin-db/plugin_db_tables.h>` from all three: each word's index as an enum, the group each word of a grouped item
 falls in (a change's action, an action's record attribute, a state's run, a reason's state), the store's layout and
-every key the schema names. `make test` holds that header to `data/`; `make check-tools` holds the vocabulary header.
+every key the schema names. The verdict and pool words of a pin are not plugin-db's: they are the domain `pin` of
+plugin-hostd-protocol (`PIN_VERDICTS`, `PIN_POOLS`, its package `plugin-hostd-protocol-contract` 0.8.0), which the
+renders read from the installed contract directory (`PIN_DOMAIN_DIR` names another) and `pin.h`'s validators take
+from `plugin_db_tables.h`. `make test` holds that header to `data/` and that domain; `make check-tools` holds the vocabulary header.
 
 ## The one address form
 

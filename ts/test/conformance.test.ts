@@ -7,9 +7,10 @@ import { test } from "node:test";
 import assert from "node:assert/strict";
 import { readdirSync, readFileSync, statSync } from "node:fs";
 import { join } from "node:path";
+import { pinWords } from "./pin-domain.ts";
 
 const root = new URL("../../", import.meta.url).pathname;
-const ITEMS = ["PLUGIN_DB_STATES", "PLUGIN_DB_RUNS", "PLUGIN_DB_REASONS", "PLUGIN_DB_PIN_VERDICTS", "PLUGIN_DB_BAR", "PLUGIN_DB_LATENCY"];
+const ITEMS = ["PLUGIN_DB_STATES", "PLUGIN_DB_RUNS", "PLUGIN_DB_REASONS", "PIN_VERDICTS", "PLUGIN_DB_BAR", "PLUGIN_DB_LATENCY"];
 
 function vocabulary(): { words: Set<string>; sentences: Set<string> } {
   const words = new Set<string>(), sentences = new Set<string>();
@@ -22,6 +23,12 @@ function vocabulary(): { words: Set<string>; sentences: Set<string> } {
         if (w.doc) sentences.add(w.doc);
         for (const t of Object.values<string>(w.text ?? {})) sentences.add(t);
       }
+    }
+  }
+  for (const [item, name] of [["PIN_VERDICTS", "PIN_VERDICTS"], ["PIN_POOLS", "PIN_POOLS"]] as const) {
+    for (const w of pinWords(item)) {
+      if (ITEMS.includes(name)) words.add(w.word);
+      if (w.doc) sentences.add(w.doc);
     }
   }
   return { words, sentences };
