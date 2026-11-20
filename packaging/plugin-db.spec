@@ -116,6 +116,8 @@ make test
 %license COPYING
 %{_datadir}/omx-contract/contract.d/3/plugin-db
 %{omx_contract_domain_dir}/plugin-db/
+%{omx_contract_domain_dir}/format/
+%{omx_contract_domain_dir}/lv2/
 %dir %{_datadir}/plugin-db/catalogs
 
 %files -n python3-plugin-db
