@@ -1,0 +1,981 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://openmixer.org/contract/plugin-feature",
+  "info": {
+    "title": "The plugin features: what a plugin is, read from its format's own words",
+    "version": "1.0.0",
+    "x-owner": "plugin-db",
+    "x-stability": "experimental"
+  },
+  "components": {
+    "schemas": {
+      "PLUGIN_FEATURE_AUDIO_EFFECT": {
+        "description": "The CLAP plugin features and LV2 plugin classes that become the descriptor feature audio-effect: every kind of effect, a filter, a dynamics processor, a modulation or a space, and the channel-less roles of a processor (utility, mixing, mastering).",
+        "x-since": "1.0.0",
+        "x-why": "The four feature words stay; every CLAP plugin feature and LV2 plugin class is mapped onto them, or onto other, as data (FreeMixer/omx-contract#120). One item per target, so a word is the source term and is named once; a test holds the five items to the terms.",
+        "oneOf": [
+          {
+            "const": "clap.audio-effect",
+            "title": "clapAudioEffect",
+            "x-code": 0,
+            "x-text": "The CLAP plugin feature audio-effect: any audio effect with no more specific feature declared.",
+            "x-from": [
+              {
+                "$ref": "https://openmixer.org/contract/clap#/components/schemas/CLAP_PLUGIN_FEATURES_TERMS",
+                "x-term": "audio-effect"
+              }
+            ]
+          },
+          {
+            "const": "clap.chorus",
+            "title": "clapChorus",
+            "x-code": 1,
+            "x-text": "The CLAP plugin feature chorus: an effect that thickens a sound with detuned, delayed copies of it.",
+            "x-from": [
+              {
+                "$ref": "https://openmixer.org/contract/clap#/components/schemas/CLAP_PLUGIN_FEATURES_TERMS",
+                "x-term": "chorus"
+              }
+            ]
+          },
+          {
+            "const": "clap.compressor",
+            "title": "clapCompressor",
+            "x-code": 2,
+            "x-text": "The CLAP plugin feature compressor: an effect that narrows a sound's dynamic range.",
+            "x-from": [
+              {
+                "$ref": "https://openmixer.org/contract/clap#/components/schemas/CLAP_PLUGIN_FEATURES_TERMS",
+                "x-term": "compressor"
+              }
+            ]
+          },
+          {
+            "const": "clap.de-esser",
+            "title": "clapDeEsser",
+            "x-code": 3,
+            "x-text": "The CLAP plugin feature de-esser: an effect that tames sibilance in a voice.",
+            "x-from": [
+              {
+                "$ref": "https://openmixer.org/contract/clap#/components/schemas/CLAP_PLUGIN_FEATURES_TERMS",
+                "x-term": "de-esser"
+              }
+            ]
+          },
+          {
+            "const": "clap.delay",
+            "title": "clapDelay",
+            "x-code": 4,
+            "x-text": "The CLAP plugin feature delay: an effect that repeats a sound after a gap.",
+            "x-from": [
+              {
+                "$ref": "https://openmixer.org/contract/clap#/components/schemas/CLAP_PLUGIN_FEATURES_TERMS",
+                "x-term": "delay"
+              }
+            ]
+          },
+          {
+            "const": "clap.distortion",
+            "title": "clapDistortion",
+            "x-code": 5,
+            "x-text": "The CLAP plugin feature distortion: an effect that adds harmonics by overdriving a sound.",
+            "x-from": [
+              {
+                "$ref": "https://openmixer.org/contract/clap#/components/schemas/CLAP_PLUGIN_FEATURES_TERMS",
+                "x-term": "distortion"
+              }
+            ]
+          },
+          {
+            "const": "clap.equalizer",
+            "title": "clapEqualizer",
+            "x-code": 6,
+            "x-text": "The CLAP plugin feature equalizer: an effect that shapes a sound's frequency balance.",
+            "x-from": [
+              {
+                "$ref": "https://openmixer.org/contract/clap#/components/schemas/CLAP_PLUGIN_FEATURES_TERMS",
+                "x-term": "equalizer"
+              }
+            ]
+          },
+          {
+            "const": "clap.expander",
+            "title": "clapExpander",
+            "x-code": 7,
+            "x-text": "The CLAP plugin feature expander: an effect that widens a sound's dynamic range.",
+            "x-from": [
+              {
+                "$ref": "https://openmixer.org/contract/clap#/components/schemas/CLAP_PLUGIN_FEATURES_TERMS",
+                "x-term": "expander"
+              }
+            ]
+          },
+          {
+            "const": "clap.filter",
+            "title": "clapFilter",
+            "x-code": 8,
+            "x-text": "The CLAP plugin feature filter: an effect that removes or shapes a band of frequencies.",
+            "x-from": [
+              {
+                "$ref": "https://openmixer.org/contract/clap#/components/schemas/CLAP_PLUGIN_FEATURES_TERMS",
+                "x-term": "filter"
+              }
+            ]
+          },
+          {
+            "const": "clap.flanger",
+            "title": "clapFlanger",
+            "x-code": 9,
+            "x-text": "The CLAP plugin feature flanger: an effect that sweeps a short, modulated delay against the dry sound.",
+            "x-from": [
+              {
+                "$ref": "https://openmixer.org/contract/clap#/components/schemas/CLAP_PLUGIN_FEATURES_TERMS",
+                "x-term": "flanger"
+              }
+            ]
+          },
+          {
+            "const": "clap.frequency-shifter",
+            "title": "clapFrequencyShifter",
+            "x-code": 10,
+            "x-text": "The CLAP plugin feature frequency-shifter: an effect that shifts every frequency of a sound by the same amount.",
+            "x-from": [
+              {
+                "$ref": "https://openmixer.org/contract/clap#/components/schemas/CLAP_PLUGIN_FEATURES_TERMS",
+                "x-term": "frequency-shifter"
+              }
+            ]
+          },
+          {
+            "const": "clap.gate",
+            "title": "clapGate",
+            "x-code": 11,
+            "x-text": "The CLAP plugin feature gate: an effect that mutes a sound below a level.",
+            "x-from": [
+              {
+                "$ref": "https://openmixer.org/contract/clap#/components/schemas/CLAP_PLUGIN_FEATURES_TERMS",
+                "x-term": "gate"
+              }
+            ]
+          },
+          {
+            "const": "clap.glitch",
+            "title": "clapGlitch",
+            "x-code": 12,
+            "x-text": "The CLAP plugin feature glitch: an effect that cuts, stutters or corrupts a sound on purpose.",
+            "x-from": [
+              {
+                "$ref": "https://openmixer.org/contract/clap#/components/schemas/CLAP_PLUGIN_FEATURES_TERMS",
+                "x-term": "glitch"
+              }
+            ]
+          },
+          {
+            "const": "clap.granular",
+            "title": "clapGranular",
+            "x-code": 13,
+            "x-text": "The CLAP plugin feature granular: an effect built from short grains of a sound.",
+            "x-from": [
+              {
+                "$ref": "https://openmixer.org/contract/clap#/components/schemas/CLAP_PLUGIN_FEATURES_TERMS",
+                "x-term": "granular"
+              }
+            ]
+          },
+          {
+            "const": "clap.limiter",
+            "title": "clapLimiter",
+            "x-code": 14,
+            "x-text": "The CLAP plugin feature limiter: an effect that holds a sound under a ceiling.",
+            "x-from": [
+              {
+                "$ref": "https://openmixer.org/contract/clap#/components/schemas/CLAP_PLUGIN_FEATURES_TERMS",
+                "x-term": "limiter"
+              }
+            ]
+          },
+          {
+            "const": "clap.mastering",
+            "title": "clapMastering",
+            "x-code": 15,
+            "x-text": "The CLAP plugin feature mastering: an effect meant for a mix's final stage.",
+            "x-from": [
+              {
+                "$ref": "https://openmixer.org/contract/clap#/components/schemas/CLAP_PLUGIN_FEATURES_TERMS",
+                "x-term": "mastering"
+              }
+            ]
+          },
+          {
+            "const": "clap.mixing",
+            "title": "clapMixing",
+            "x-code": 16,
+            "x-text": "The CLAP plugin feature mixing: an effect meant for use while mixing, such as a channel strip.",
+            "x-from": [
+              {
+                "$ref": "https://openmixer.org/contract/clap#/components/schemas/CLAP_PLUGIN_FEATURES_TERMS",
+                "x-term": "mixing"
+              }
+            ]
+          },
+          {
+            "const": "clap.multi-effects",
+            "title": "clapMultiEffects",
+            "x-code": 17,
+            "x-text": "The CLAP plugin feature multi-effects: several effects combined in one plugin.",
+            "x-from": [
+              {
+                "$ref": "https://openmixer.org/contract/clap#/components/schemas/CLAP_PLUGIN_FEATURES_TERMS",
+                "x-term": "multi-effects"
+              }
+            ]
+          },
+          {
+            "const": "clap.phase-vocoder",
+            "title": "clapPhaseVocoder",
+            "x-code": 18,
+            "x-text": "The CLAP plugin feature phase-vocoder: an effect built on a phase vocoder, typically to stretch or shift a sound independently of pitch and time.",
+            "x-from": [
+              {
+                "$ref": "https://openmixer.org/contract/clap#/components/schemas/CLAP_PLUGIN_FEATURES_TERMS",
+                "x-term": "phase-vocoder"
+              }
+            ]
+          },
+          {
+            "const": "clap.phaser",
+            "title": "clapPhaser",
+            "x-code": 19,
+            "x-text": "The CLAP plugin feature phaser: an effect that sweeps notches through a sound with an all-pass filter chain.",
+            "x-from": [
+              {
+                "$ref": "https://openmixer.org/contract/clap#/components/schemas/CLAP_PLUGIN_FEATURES_TERMS",
+                "x-term": "phaser"
+              }
+            ]
+          },
+          {
+            "const": "clap.pitch-correction",
+            "title": "clapPitchCorrection",
+            "x-code": 20,
+            "x-text": "The CLAP plugin feature pitch-correction: an effect that pulls a sound's pitch toward a scale.",
+            "x-from": [
+              {
+                "$ref": "https://openmixer.org/contract/clap#/components/schemas/CLAP_PLUGIN_FEATURES_TERMS",
+                "x-term": "pitch-correction"
+              }
+            ]
+          },
+          {
+            "const": "clap.pitch-shifter",
+            "title": "clapPitchShifter",
+            "x-code": 21,
+            "x-text": "The CLAP plugin feature pitch-shifter: an effect that changes a sound's pitch without changing its duration.",
+            "x-from": [
+              {
+                "$ref": "https://openmixer.org/contract/clap#/components/schemas/CLAP_PLUGIN_FEATURES_TERMS",
+                "x-term": "pitch-shifter"
+              }
+            ]
+          },
+          {
+            "const": "clap.restoration",
+            "title": "clapRestoration",
+            "x-code": 22,
+            "x-text": "The CLAP plugin feature restoration: an effect that removes noise, clicks or other damage from a recording.",
+            "x-from": [
+              {
+                "$ref": "https://openmixer.org/contract/clap#/components/schemas/CLAP_PLUGIN_FEATURES_TERMS",
+                "x-term": "restoration"
+              }
+            ]
+          },
+          {
+            "const": "clap.reverb",
+            "title": "clapReverb",
+            "x-code": 23,
+            "x-text": "The CLAP plugin feature reverb: an effect that adds the reflections of a space to a sound.",
+            "x-from": [
+              {
+                "$ref": "https://openmixer.org/contract/clap#/components/schemas/CLAP_PLUGIN_FEATURES_TERMS",
+                "x-term": "reverb"
+              }
+            ]
+          },
+          {
+            "const": "clap.transient-shaper",
+            "title": "clapTransientShaper",
+            "x-code": 24,
+            "x-text": "The CLAP plugin feature transient-shaper: an effect that reshapes a sound's attack and sustain.",
+            "x-from": [
+              {
+                "$ref": "https://openmixer.org/contract/clap#/components/schemas/CLAP_PLUGIN_FEATURES_TERMS",
+                "x-term": "transient-shaper"
+              }
+            ]
+          },
+          {
+            "const": "clap.tremolo",
+            "title": "clapTremolo",
+            "x-code": 25,
+            "x-text": "The CLAP plugin feature tremolo: an effect that modulates a sound's level over time.",
+            "x-from": [
+              {
+                "$ref": "https://openmixer.org/contract/clap#/components/schemas/CLAP_PLUGIN_FEATURES_TERMS",
+                "x-term": "tremolo"
+              }
+            ]
+          },
+          {
+            "const": "clap.utility",
+            "title": "clapUtility",
+            "x-code": 26,
+            "x-text": "The CLAP plugin feature utility: a plugin that does audio housekeeping rather than a creative effect.",
+            "x-from": [
+              {
+                "$ref": "https://openmixer.org/contract/clap#/components/schemas/CLAP_PLUGIN_FEATURES_TERMS",
+                "x-term": "utility"
+              }
+            ]
+          },
+          {
+            "const": "lv2.Allpass",
+            "title": "lv2Allpass",
+            "x-code": 27,
+            "x-text": "The LV2 plugin class AllpassPlugin: an all-pass filter, which shifts phase without changing level.",
+            "x-from": [
+              {
+                "$ref": "https://openmixer.org/contract/lv2#/components/schemas/LV2_CORE_TERMS",
+                "x-term": "AllpassPlugin"
+              }
+            ]
+          },
+          {
+            "const": "lv2.Amplifier",
+            "title": "lv2Amplifier",
+            "x-code": 28,
+            "x-text": "The LV2 plugin class AmplifierPlugin: a plugin that changes a sound's level.",
+            "x-from": [
+              {
+                "$ref": "https://openmixer.org/contract/lv2#/components/schemas/LV2_CORE_TERMS",
+                "x-term": "AmplifierPlugin"
+              }
+            ]
+          },
+          {
+            "const": "lv2.Bandpass",
+            "title": "lv2Bandpass",
+            "x-code": 29,
+            "x-text": "The LV2 plugin class BandpassPlugin: a filter that passes one band of frequencies.",
+            "x-from": [
+              {
+                "$ref": "https://openmixer.org/contract/lv2#/components/schemas/LV2_CORE_TERMS",
+                "x-term": "BandpassPlugin"
+              }
+            ]
+          },
+          {
+            "const": "lv2.Chorus",
+            "title": "lv2Chorus",
+            "x-code": 30,
+            "x-text": "The LV2 plugin class ChorusPlugin: an effect that thickens a sound with detuned, delayed copies of it.",
+            "x-from": [
+              {
+                "$ref": "https://openmixer.org/contract/lv2#/components/schemas/LV2_CORE_TERMS",
+                "x-term": "ChorusPlugin"
+              }
+            ]
+          },
+          {
+            "const": "lv2.Comb",
+            "title": "lv2Comb",
+            "x-code": 31,
+            "x-text": "The LV2 plugin class CombPlugin: a comb filter, which adds a short delayed copy of a sound to itself.",
+            "x-from": [
+              {
+                "$ref": "https://openmixer.org/contract/lv2#/components/schemas/LV2_CORE_TERMS",
+                "x-term": "CombPlugin"
+              }
+            ]
+          },
+          {
+            "const": "lv2.Compressor",
+            "title": "lv2Compressor",
+            "x-code": 32,
+            "x-text": "The LV2 plugin class CompressorPlugin: an effect that narrows a sound's dynamic range.",
+            "x-from": [
+              {
+                "$ref": "https://openmixer.org/contract/lv2#/components/schemas/LV2_CORE_TERMS",
+                "x-term": "CompressorPlugin"
+              }
+            ]
+          },
+          {
+            "const": "lv2.Converter",
+            "title": "lv2Converter",
+            "x-code": 33,
+            "x-text": "The LV2 plugin class ConverterPlugin: a plugin that converts a signal from one representation to another.",
+            "x-from": [
+              {
+                "$ref": "https://openmixer.org/contract/lv2#/components/schemas/LV2_CORE_TERMS",
+                "x-term": "ConverterPlugin"
+              }
+            ]
+          },
+          {
+            "const": "lv2.Delay",
+            "title": "lv2Delay",
+            "x-code": 34,
+            "x-text": "The LV2 plugin class DelayPlugin: an effect that repeats a sound after a gap.",
+            "x-from": [
+              {
+                "$ref": "https://openmixer.org/contract/lv2#/components/schemas/LV2_CORE_TERMS",
+                "x-term": "DelayPlugin"
+              }
+            ]
+          },
+          {
+            "const": "lv2.Distortion",
+            "title": "lv2Distortion",
+            "x-code": 35,
+            "x-text": "The LV2 plugin class DistortionPlugin: an effect that adds harmonics by overdriving a sound.",
+            "x-from": [
+              {
+                "$ref": "https://openmixer.org/contract/lv2#/components/schemas/LV2_CORE_TERMS",
+                "x-term": "DistortionPlugin"
+              }
+            ]
+          },
+          {
+            "const": "lv2.Dynamics",
+            "title": "lv2Dynamics",
+            "x-code": 36,
+            "x-text": "The LV2 plugin class DynamicsPlugin: an effect that changes a sound's dynamic range.",
+            "x-from": [
+              {
+                "$ref": "https://openmixer.org/contract/lv2#/components/schemas/LV2_CORE_TERMS",
+                "x-term": "DynamicsPlugin"
+              }
+            ]
+          },
+          {
+            "const": "lv2.EQ",
+            "title": "lv2EQ",
+            "x-code": 37,
+            "x-text": "The LV2 plugin class EQPlugin: an effect that shapes a sound's frequency balance.",
+            "x-from": [
+              {
+                "$ref": "https://openmixer.org/contract/lv2#/components/schemas/LV2_CORE_TERMS",
+                "x-term": "EQPlugin"
+              }
+            ]
+          },
+          {
+            "const": "lv2.Envelope",
+            "title": "lv2Envelope",
+            "x-code": 38,
+            "x-text": "The LV2 plugin class EnvelopePlugin: a plugin that follows or applies an envelope over time.",
+            "x-from": [
+              {
+                "$ref": "https://openmixer.org/contract/lv2#/components/schemas/LV2_CORE_TERMS",
+                "x-term": "EnvelopePlugin"
+              }
+            ]
+          },
+          {
+            "const": "lv2.Expander",
+            "title": "lv2Expander",
+            "x-code": 39,
+            "x-text": "The LV2 plugin class ExpanderPlugin: an effect that widens a sound's dynamic range.",
+            "x-from": [
+              {
+                "$ref": "https://openmixer.org/contract/lv2#/components/schemas/LV2_CORE_TERMS",
+                "x-term": "ExpanderPlugin"
+              }
+            ]
+          },
+          {
+            "const": "lv2.Filter",
+            "title": "lv2Filter",
+            "x-code": 40,
+            "x-text": "The LV2 plugin class FilterPlugin: an effect that removes or shapes a band of frequencies.",
+            "x-from": [
+              {
+                "$ref": "https://openmixer.org/contract/lv2#/components/schemas/LV2_CORE_TERMS",
+                "x-term": "FilterPlugin"
+              }
+            ]
+          },
+          {
+            "const": "lv2.Flanger",
+            "title": "lv2Flanger",
+            "x-code": 41,
+            "x-text": "The LV2 plugin class FlangerPlugin: an effect that sweeps a short, modulated delay against the dry sound.",
+            "x-from": [
+              {
+                "$ref": "https://openmixer.org/contract/lv2#/components/schemas/LV2_CORE_TERMS",
+                "x-term": "FlangerPlugin"
+              }
+            ]
+          },
+          {
+            "const": "lv2.Gate",
+            "title": "lv2Gate",
+            "x-code": 42,
+            "x-text": "The LV2 plugin class GatePlugin: an effect that mutes a sound below a level.",
+            "x-from": [
+              {
+                "$ref": "https://openmixer.org/contract/lv2#/components/schemas/LV2_CORE_TERMS",
+                "x-term": "GatePlugin"
+              }
+            ]
+          },
+          {
+            "const": "lv2.Highpass",
+            "title": "lv2Highpass",
+            "x-code": 43,
+            "x-text": "The LV2 plugin class HighpassPlugin: a filter that passes frequencies above a cutoff.",
+            "x-from": [
+              {
+                "$ref": "https://openmixer.org/contract/lv2#/components/schemas/LV2_CORE_TERMS",
+                "x-term": "HighpassPlugin"
+              }
+            ]
+          },
+          {
+            "const": "lv2.Limiter",
+            "title": "lv2Limiter",
+            "x-code": 44,
+            "x-text": "The LV2 plugin class LimiterPlugin: an effect that holds a sound under a ceiling.",
+            "x-from": [
+              {
+                "$ref": "https://openmixer.org/contract/lv2#/components/schemas/LV2_CORE_TERMS",
+                "x-term": "LimiterPlugin"
+              }
+            ]
+          },
+          {
+            "const": "lv2.Lowpass",
+            "title": "lv2Lowpass",
+            "x-code": 45,
+            "x-text": "The LV2 plugin class LowpassPlugin: a filter that passes frequencies below a cutoff.",
+            "x-from": [
+              {
+                "$ref": "https://openmixer.org/contract/lv2#/components/schemas/LV2_CORE_TERMS",
+                "x-term": "LowpassPlugin"
+              }
+            ]
+          },
+          {
+            "const": "lv2.Mixer",
+            "title": "lv2Mixer",
+            "x-code": 46,
+            "x-text": "The LV2 plugin class MixerPlugin: a plugin that combines several signals into one.",
+            "x-from": [
+              {
+                "$ref": "https://openmixer.org/contract/lv2#/components/schemas/LV2_CORE_TERMS",
+                "x-term": "MixerPlugin"
+              }
+            ]
+          },
+          {
+            "const": "lv2.Modulator",
+            "title": "lv2Modulator",
+            "x-code": 47,
+            "x-text": "The LV2 plugin class ModulatorPlugin: a plugin that modulates one signal with another.",
+            "x-from": [
+              {
+                "$ref": "https://openmixer.org/contract/lv2#/components/schemas/LV2_CORE_TERMS",
+                "x-term": "ModulatorPlugin"
+              }
+            ]
+          },
+          {
+            "const": "lv2.MultiEQ",
+            "title": "lv2MultiEQ",
+            "x-code": 48,
+            "x-text": "The LV2 plugin class MultiEQPlugin: a multi-band equaliser.",
+            "x-from": [
+              {
+                "$ref": "https://openmixer.org/contract/lv2#/components/schemas/LV2_CORE_TERMS",
+                "x-term": "MultiEQPlugin"
+              }
+            ]
+          },
+          {
+            "const": "lv2.ParaEQ",
+            "title": "lv2ParaEQ",
+            "x-code": 49,
+            "x-text": "The LV2 plugin class ParaEQPlugin: a parametric equaliser.",
+            "x-from": [
+              {
+                "$ref": "https://openmixer.org/contract/lv2#/components/schemas/LV2_CORE_TERMS",
+                "x-term": "ParaEQPlugin"
+              }
+            ]
+          },
+          {
+            "const": "lv2.Phaser",
+            "title": "lv2Phaser",
+            "x-code": 50,
+            "x-text": "The LV2 plugin class PhaserPlugin: an effect that sweeps notches through a sound with an all-pass filter chain.",
+            "x-from": [
+              {
+                "$ref": "https://openmixer.org/contract/lv2#/components/schemas/LV2_CORE_TERMS",
+                "x-term": "PhaserPlugin"
+              }
+            ]
+          },
+          {
+            "const": "lv2.Pitch",
+            "title": "lv2Pitch",
+            "x-code": 51,
+            "x-text": "The LV2 plugin class PitchPlugin: a plugin that changes or tracks a sound's pitch.",
+            "x-from": [
+              {
+                "$ref": "https://openmixer.org/contract/lv2#/components/schemas/LV2_CORE_TERMS",
+                "x-term": "PitchPlugin"
+              }
+            ]
+          },
+          {
+            "const": "lv2.Reverb",
+            "title": "lv2Reverb",
+            "x-code": 52,
+            "x-text": "The LV2 plugin class ReverbPlugin: an effect that adds the reflections of a space to a sound.",
+            "x-from": [
+              {
+                "$ref": "https://openmixer.org/contract/lv2#/components/schemas/LV2_CORE_TERMS",
+                "x-term": "ReverbPlugin"
+              }
+            ]
+          },
+          {
+            "const": "lv2.Simulator",
+            "title": "lv2Simulator",
+            "x-code": 53,
+            "x-text": "The LV2 plugin class SimulatorPlugin: a plugin that models a physical device or space.",
+            "x-from": [
+              {
+                "$ref": "https://openmixer.org/contract/lv2#/components/schemas/LV2_CORE_TERMS",
+                "x-term": "SimulatorPlugin"
+              }
+            ]
+          },
+          {
+            "const": "lv2.Spatial",
+            "title": "lv2Spatial",
+            "x-code": 54,
+            "x-text": "The LV2 plugin class SpatialPlugin: a plugin that places or moves a sound in space.",
+            "x-from": [
+              {
+                "$ref": "https://openmixer.org/contract/lv2#/components/schemas/LV2_CORE_TERMS",
+                "x-term": "SpatialPlugin"
+              }
+            ]
+          },
+          {
+            "const": "lv2.Spectral",
+            "title": "lv2Spectral",
+            "x-code": 55,
+            "x-text": "The LV2 plugin class SpectralPlugin: a plugin that processes a sound in the frequency domain.",
+            "x-from": [
+              {
+                "$ref": "https://openmixer.org/contract/lv2#/components/schemas/LV2_CORE_TERMS",
+                "x-term": "SpectralPlugin"
+              }
+            ]
+          },
+          {
+            "const": "lv2.Utility",
+            "title": "lv2Utility",
+            "x-code": 56,
+            "x-text": "The LV2 plugin class UtilityPlugin: a plugin that does audio housekeeping rather than a creative effect.",
+            "x-from": [
+              {
+                "$ref": "https://openmixer.org/contract/lv2#/components/schemas/LV2_CORE_TERMS",
+                "x-term": "UtilityPlugin"
+              }
+            ]
+          },
+          {
+            "const": "lv2.Waveshaper",
+            "title": "lv2Waveshaper",
+            "x-code": 57,
+            "x-text": "The LV2 plugin class WaveshaperPlugin: a plugin that reshapes a waveform to add harmonics.",
+            "x-from": [
+              {
+                "$ref": "https://openmixer.org/contract/lv2#/components/schemas/LV2_CORE_TERMS",
+                "x-term": "WaveshaperPlugin"
+              }
+            ]
+          }
+        ]
+      },
+      "PLUGIN_FEATURE_INSTRUMENT": {
+        "description": "The CLAP plugin features and LV2 plugin classes that become the descriptor feature instrument: notes in, audio out.",
+        "x-since": "1.0.0",
+        "oneOf": [
+          {
+            "const": "clap.drum",
+            "title": "clapDrum",
+            "x-code": 0,
+            "x-text": "The CLAP plugin feature drum: an instrument that plays drum sounds.",
+            "x-from": [
+              {
+                "$ref": "https://openmixer.org/contract/clap#/components/schemas/CLAP_PLUGIN_FEATURES_TERMS",
+                "x-term": "drum"
+              }
+            ]
+          },
+          {
+            "const": "clap.drum-machine",
+            "title": "clapDrumMachine",
+            "x-code": 1,
+            "x-text": "The CLAP plugin feature drum-machine: an instrument that sequences and plays drum sounds.",
+            "x-from": [
+              {
+                "$ref": "https://openmixer.org/contract/clap#/components/schemas/CLAP_PLUGIN_FEATURES_TERMS",
+                "x-term": "drum-machine"
+              }
+            ]
+          },
+          {
+            "const": "clap.instrument",
+            "title": "clapInstrument",
+            "x-code": 2,
+            "x-text": "The CLAP plugin feature instrument: a plugin played by notes, with no more specific kind declared.",
+            "x-from": [
+              {
+                "$ref": "https://openmixer.org/contract/clap#/components/schemas/CLAP_PLUGIN_FEATURES_TERMS",
+                "x-term": "instrument"
+              }
+            ]
+          },
+          {
+            "const": "clap.sampler",
+            "title": "clapSampler",
+            "x-code": 3,
+            "x-text": "The CLAP plugin feature sampler: an instrument that plays recorded samples.",
+            "x-from": [
+              {
+                "$ref": "https://openmixer.org/contract/clap#/components/schemas/CLAP_PLUGIN_FEATURES_TERMS",
+                "x-term": "sampler"
+              }
+            ]
+          },
+          {
+            "const": "clap.synthesizer",
+            "title": "clapSynthesizer",
+            "x-code": 4,
+            "x-text": "The CLAP plugin feature synthesizer: an instrument that generates its own sound rather than playing samples.",
+            "x-from": [
+              {
+                "$ref": "https://openmixer.org/contract/clap#/components/schemas/CLAP_PLUGIN_FEATURES_TERMS",
+                "x-term": "synthesizer"
+              }
+            ]
+          },
+          {
+            "const": "lv2.Instrument",
+            "title": "lv2Instrument",
+            "x-code": 5,
+            "x-text": "The LV2 plugin class InstrumentPlugin: a plugin played by notes.",
+            "x-from": [
+              {
+                "$ref": "https://openmixer.org/contract/lv2#/components/schemas/LV2_CORE_TERMS",
+                "x-term": "InstrumentPlugin"
+              }
+            ]
+          }
+        ]
+      },
+      "PLUGIN_FEATURE_NOTE_EFFECT": {
+        "description": "The CLAP plugin features and LV2 plugin classes that become the descriptor feature note-effect: notes in, notes out.",
+        "x-since": "1.0.0",
+        "oneOf": [
+          {
+            "const": "clap.note-effect",
+            "title": "clapNoteEffect",
+            "x-code": 0,
+            "x-text": "The CLAP plugin feature note-effect: a plugin that reads notes and writes notes, such as an arpeggiator.",
+            "x-from": [
+              {
+                "$ref": "https://openmixer.org/contract/clap#/components/schemas/CLAP_PLUGIN_FEATURES_TERMS",
+                "x-term": "note-effect"
+              }
+            ]
+          },
+          {
+            "const": "lv2.MIDI",
+            "title": "lv2MIDI",
+            "x-code": 1,
+            "x-text": "The LV2 plugin class MIDIPlugin: a plugin that processes MIDI, note in to note out.",
+            "x-from": [
+              {
+                "$ref": "https://openmixer.org/contract/lv2#/components/schemas/LV2_CORE_TERMS",
+                "x-term": "MIDIPlugin"
+              }
+            ]
+          }
+        ]
+      },
+      "PLUGIN_FEATURE_ANALYZER": {
+        "description": "The CLAP plugin features and LV2 plugin classes that become the descriptor feature analyzer: audio in, a reading out (a note detector reads pitch from audio).",
+        "x-since": "1.0.0",
+        "oneOf": [
+          {
+            "const": "clap.analyzer",
+            "title": "clapAnalyzer",
+            "x-code": 0,
+            "x-text": "The CLAP plugin feature analyzer: a plugin that reads audio and reports a measurement, with no further output.",
+            "x-from": [
+              {
+                "$ref": "https://openmixer.org/contract/clap#/components/schemas/CLAP_PLUGIN_FEATURES_TERMS",
+                "x-term": "analyzer"
+              }
+            ]
+          },
+          {
+            "const": "clap.note-detector",
+            "title": "clapNoteDetector",
+            "x-code": 1,
+            "x-text": "The CLAP plugin feature note-detector: an analyzer that reads pitch from audio.",
+            "x-from": [
+              {
+                "$ref": "https://openmixer.org/contract/clap#/components/schemas/CLAP_PLUGIN_FEATURES_TERMS",
+                "x-term": "note-detector"
+              }
+            ]
+          },
+          {
+            "const": "lv2.Analyser",
+            "title": "lv2Analyser",
+            "x-code": 2,
+            "x-text": "The LV2 plugin class AnalyserPlugin: a plugin that reads audio and reports a measurement.",
+            "x-from": [
+              {
+                "$ref": "https://openmixer.org/contract/lv2#/components/schemas/LV2_CORE_TERMS",
+                "x-term": "AnalyserPlugin"
+              }
+            ]
+          }
+        ]
+      },
+      "PLUGIN_FEATURE_OTHER": {
+        "description": "The CLAP plugin features and LV2 plugin classes that fit none of the four feature words: a channel layout stated as a feature (mono, stereo, surround, ambisonic), and the LV2 classes of a generator, an oscillator, a constant and a function, which take no notes and so are no instrument. A scan carries them in the extension bag.",
+        "x-since": "1.0.0",
+        "oneOf": [
+          {
+            "const": "clap.ambisonic",
+            "title": "clapAmbisonic",
+            "x-code": 0,
+            "x-text": "The CLAP plugin feature ambisonic: a plugin declared to work in an ambisonic channel layout.",
+            "x-from": [
+              {
+                "$ref": "https://openmixer.org/contract/clap#/components/schemas/CLAP_PLUGIN_FEATURES_TERMS",
+                "x-term": "ambisonic"
+              }
+            ]
+          },
+          {
+            "const": "clap.mono",
+            "title": "clapMono",
+            "x-code": 1,
+            "x-text": "The CLAP plugin feature mono: a plugin declared to work in a mono channel layout.",
+            "x-from": [
+              {
+                "$ref": "https://openmixer.org/contract/clap#/components/schemas/CLAP_PLUGIN_FEATURES_TERMS",
+                "x-term": "mono"
+              }
+            ]
+          },
+          {
+            "const": "clap.stereo",
+            "title": "clapStereo",
+            "x-code": 2,
+            "x-text": "The CLAP plugin feature stereo: a plugin declared to work in a stereo channel layout.",
+            "x-from": [
+              {
+                "$ref": "https://openmixer.org/contract/clap#/components/schemas/CLAP_PLUGIN_FEATURES_TERMS",
+                "x-term": "stereo"
+              }
+            ]
+          },
+          {
+            "const": "clap.surround",
+            "title": "clapSurround",
+            "x-code": 3,
+            "x-text": "The CLAP plugin feature surround: a plugin declared to work in a surround channel layout.",
+            "x-from": [
+              {
+                "$ref": "https://openmixer.org/contract/clap#/components/schemas/CLAP_PLUGIN_FEATURES_TERMS",
+                "x-term": "surround"
+              }
+            ]
+          },
+          {
+            "const": "lv2.Constant",
+            "title": "lv2Constant",
+            "x-code": 4,
+            "x-text": "The LV2 plugin class ConstantPlugin: a plugin with no input that outputs a constant.",
+            "x-from": [
+              {
+                "$ref": "https://openmixer.org/contract/lv2#/components/schemas/LV2_CORE_TERMS",
+                "x-term": "ConstantPlugin"
+              }
+            ]
+          },
+          {
+            "const": "lv2.Function",
+            "title": "lv2Function",
+            "x-code": 5,
+            "x-text": "The LV2 plugin class FunctionPlugin: a plugin with no audio input or output, used only for its side effects or parameters.",
+            "x-from": [
+              {
+                "$ref": "https://openmixer.org/contract/lv2#/components/schemas/LV2_CORE_TERMS",
+                "x-term": "FunctionPlugin"
+              }
+            ]
+          },
+          {
+            "const": "lv2.Generator",
+            "title": "lv2Generator",
+            "x-code": 6,
+            "x-text": "The LV2 plugin class GeneratorPlugin: a plugin with no audio input that generates a sound.",
+            "x-from": [
+              {
+                "$ref": "https://openmixer.org/contract/lv2#/components/schemas/LV2_CORE_TERMS",
+                "x-term": "GeneratorPlugin"
+              }
+            ]
+          },
+          {
+            "const": "lv2.Oscillator",
+            "title": "lv2Oscillator",
+            "x-code": 7,
+            "x-text": "The LV2 plugin class OscillatorPlugin: a generator that outputs a periodic waveform.",
+            "x-from": [
+              {
+                "$ref": "https://openmixer.org/contract/lv2#/components/schemas/LV2_CORE_TERMS",
+                "x-term": "OscillatorPlugin"
+              }
+            ]
+          },
+          {
+            "const": "lv2.Plugin",
+            "title": "lv2Plugin",
+            "x-code": 8,
+            "x-text": "The LV2 plugin class Plugin: the base LV2 plugin class, with no more specific class declared.",
+            "x-from": [
+              {
+                "$ref": "https://openmixer.org/contract/lv2#/components/schemas/LV2_CORE_TERMS",
+                "x-term": "Plugin"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  }
+}

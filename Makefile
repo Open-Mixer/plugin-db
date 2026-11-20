@@ -219,13 +219,19 @@ PIN_DOMAIN_DIR ?= $(CONTRACTDIR)
 export PIN_DOMAIN_DIR
 INSTALL_CONTRACT_DIR = $(firstword $(wildcard $(shell $(PKG_CONFIG) --variable=datadir omx-contract 2>/dev/null)/install-contract-dir.sh) $(wildcard $(OMX_CONTRACT_DIR)/tools/install-contract-dir.sh))
 
-check-tools: check-rendered check-codes test-rendered-sabotage check-contract-dir test-domain check-ci-matrix test-lv2-domain
+check-tools: check-rendered check-codes test-rendered-sabotage check-contract-dir test-domain check-ci-matrix test-lv2-domain test-plugin-feature
 
 # the LV2 terms and the F1 mapping are plugin-db's domains lv2 and format (tests/lv2_domain_test.py): golden, the installed
 # omx-contract's classic terms and standard words, and the sabotage arms; OMX_STANDARD_DIR names another contract directory
 .PHONY: test-lv2-domain
 test-lv2-domain:
 	python3 tests/lv2_domain_test.py
+
+# the plugin features are plugin-db's domain plugin-feature (tests/plugin_feature_test.py); CLAP_DOMAIN_DIR names a contract
+# directory holding omx-clap-core's domain clap, which the CLAP froms name
+.PHONY: test-plugin-feature
+test-plugin-feature:
+	python3 tests/plugin_feature_test.py
 
 check-ci-matrix:
 	sh tests/ci-matrix-follows-set.sh --self-test
@@ -242,6 +248,7 @@ install-contract:
 	sh $(INSTALL_CONTRACT_DIR) --domain contract.d/plugin-db $(DESTDIR)$(CONTRACTDIR)
 	sh $(INSTALL_CONTRACT_DIR) --domain contract.d/format $(DESTDIR)$(CONTRACTDIR)
 	sh $(INSTALL_CONTRACT_DIR) --domain contract.d/lv2 $(DESTDIR)$(CONTRACTDIR)
+	sh $(INSTALL_CONTRACT_DIR) --domain contract.d/plugin-feature $(DESTDIR)$(CONTRACTDIR)
 	install -d $(DESTDIR)$(DATADIR)/$(NAME)/catalogs
 	install -m 644 catalogs/*.json $(DESTDIR)$(DATADIR)/$(NAME)/catalogs/
 
