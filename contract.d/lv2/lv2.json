@@ -12,10 +12,6 @@
       "LV2_ATOM_TERMS": {
         "description": "The terms of the LV2 Atom specification (atom.lv2, from lv2 1.18.10), each mapped under its own name with its status for us (docs/data-layout.md).",
         "x-since": "1.0.0",
-        "x-kind": "terms",
-        "x-format": "lv2",
-        "x-spec": "http://lv2plug.in/ns/ext/atom",
-        "x-version": "2.4",
         "oneOf": [
           {
             "const": "Atom",
@@ -406,15 +402,15 @@
               ]
             }
           }
-        ]
+        ],
+        "x-kind": "terms",
+        "x-format": "lv2",
+        "x-spec": "http://lv2plug.in/ns/ext/atom",
+        "x-version": "2.4"
       },
       "LV2_BUF_SIZE_TERMS": {
         "description": "The terms of the LV2 Buf Size specification (buf-size.lv2, from lv2 1.18.10), each mapped under its own name with its status for us (docs/data-layout.md).",
         "x-since": "1.0.0",
-        "x-kind": "terms",
-        "x-format": "lv2",
-        "x-spec": "http://lv2plug.in/ns/ext/buf-size",
-        "x-version": "1.4",
         "oneOf": [
           {
             "const": "boundedBlockLength",
@@ -541,15 +537,15 @@
               "issue": "FreeMixer/omx-clap-core#94"
             }
           }
-        ]
+        ],
+        "x-kind": "terms",
+        "x-format": "lv2",
+        "x-spec": "http://lv2plug.in/ns/ext/buf-size",
+        "x-version": "1.4"
       },
       "LV2_CORE_TERMS": {
         "description": "The terms of the LV2 specification (core.lv2, from lv2 1.18.10), each mapped under its own name with its status for us (docs/data-layout.md).",
         "x-since": "1.0.0",
-        "x-kind": "terms",
-        "x-format": "lv2",
-        "x-spec": "http://lv2plug.in/ns/lv2core",
-        "x-version": "18.6",
         "oneOf": [
           {
             "const": "AllpassPlugin",
@@ -1831,15 +1827,15 @@
               "word": "kind toggle"
             }
           }
-        ]
+        ],
+        "x-kind": "terms",
+        "x-format": "lv2",
+        "x-spec": "http://lv2plug.in/ns/lv2core",
+        "x-version": "18.6"
       },
       "LV2_DATA_ACCESS_TERMS": {
         "description": "The terms of the data access specification (data-access.lv2, from lv2 1.18.10), each mapped under its own name with its status for us (docs/data-layout.md).",
         "x-since": "1.0.0",
-        "x-kind": "terms",
-        "x-format": "lv2",
-        "x-spec": "http://lv2plug.in/ns/ext/data-access",
-        "x-version": "1.6",
         "oneOf": [
           {
             "const": "data-access.lv2",
@@ -1854,15 +1850,15 @@
               ]
             }
           }
-        ]
+        ],
+        "x-kind": "terms",
+        "x-format": "lv2",
+        "x-spec": "http://lv2plug.in/ns/ext/data-access",
+        "x-version": "1.6"
       },
       "LV2_DYNMANIFEST_TERMS": {
         "description": "The terms of the LV2 Dyn Manifest specification (dynmanifest.lv2, from lv2 1.18.10), each mapped under its own name with its status for us (docs/data-layout.md).",
         "x-since": "1.0.0",
-        "x-kind": "terms",
-        "x-format": "lv2",
-        "x-spec": "http://lv2plug.in/ns/ext/dynmanifest",
-        "x-version": "1.6",
         "oneOf": [
           {
             "const": "DynManifest",
@@ -1886,16 +1882,15 @@
               "issue": "FreeMixer/omx-clap-core#94"
             }
           }
-        ]
+        ],
+        "x-kind": "terms",
+        "x-format": "lv2",
+        "x-spec": "http://lv2plug.in/ns/ext/dynmanifest",
+        "x-version": "1.6"
       },
       "LV2_EVENT_TERMS": {
         "description": "The terms of the LV2 Event specification (event.lv2, from lv2 1.18.10), each mapped under its own name with its status for us (docs/data-layout.md).",
         "x-since": "1.0.0",
-        "x-kind": "terms",
-        "x-format": "lv2",
-        "x-spec": "http://lv2plug.in/ns/ext/event",
-        "x-version": "1.14",
-        "x-deprecated": true,
         "oneOf": [
           {
             "const": "Event",
@@ -2025,15 +2020,16 @@
               "ruling": "LV2 deprecates the event extension (owl:deprecated on http://lv2plug.in/ns/ext/event); a consumer that reads it does so to refuse it."
             }
           }
-        ]
+        ],
+        "x-kind": "terms",
+        "x-format": "lv2",
+        "x-spec": "http://lv2plug.in/ns/ext/event",
+        "x-version": "1.14",
+        "x-deprecated": true
       },
       "LV2_INSTANCE_ACCESS_TERMS": {
         "description": "The terms of the instance access specification (instance-access.lv2, from lv2 1.18.10), each mapped under its own name with its status for us (docs/data-layout.md).",
         "x-since": "1.0.0",
-        "x-kind": "terms",
-        "x-format": "lv2",
-        "x-spec": "http://lv2plug.in/ns/ext/instance-access",
-        "x-version": "1.6",
         "oneOf": [
           {
             "const": "instance-access.lv2",
@@ -2048,15 +2044,15 @@
               ]
             }
           }
-        ]
+        ],
+        "x-kind": "terms",
+        "x-format": "lv2",
+        "x-spec": "http://lv2plug.in/ns/ext/instance-access",
+        "x-version": "1.6"
       },
       "LV2_LOG_TERMS": {
         "description": "The terms of the LV2 Log specification (log.lv2, from lv2 1.18.10), each mapped under its own name with its status for us (docs/data-layout.md).",
         "x-since": "1.0.0",
-        "x-kind": "terms",
-        "x-format": "lv2",
-        "x-spec": "http://lv2plug.in/ns/ext/log",
-        "x-version": "2.4",
         "oneOf": [
           {
             "const": "Entry",
@@ -2149,15 +2145,15 @@
               ]
             }
           }
-        ]
+        ],
+        "x-kind": "terms",
+        "x-format": "lv2",
+        "x-spec": "http://lv2plug.in/ns/ext/log",
+        "x-version": "2.4"
       },
       "LV2_MIDI_TERMS": {
         "description": "The terms of the LV2 MIDI specification (midi.lv2, from lv2 1.18.10), each mapped under its own name with its status for us (docs/data-layout.md).",
         "x-since": "1.0.0",
-        "x-kind": "terms",
-        "x-format": "lv2",
-        "x-spec": "http://lv2plug.in/ns/ext/midi",
-        "x-version": "1.10",
         "oneOf": [
           {
             "const": "ActiveSense",
@@ -2629,15 +2625,15 @@
               "issue": "FreeMixer/omx-clap-core#94"
             }
           }
-        ]
+        ],
+        "x-kind": "terms",
+        "x-format": "lv2",
+        "x-spec": "http://lv2plug.in/ns/ext/midi",
+        "x-version": "1.10"
       },
       "LV2_MORPH_TERMS": {
         "description": "The terms of the LV2 Morph specification (morph.lv2, from lv2 1.18.10), each mapped under its own name with its status for us (docs/data-layout.md).",
         "x-since": "1.0.0",
-        "x-kind": "terms",
-        "x-format": "lv2",
-        "x-spec": "http://lv2plug.in/ns/ext/morph",
-        "x-version": "1.0",
         "oneOf": [
           {
             "const": "AutoMorphPort",
@@ -2694,15 +2690,15 @@
               "issue": "FreeMixer/omx-clap-core#94"
             }
           }
-        ]
+        ],
+        "x-kind": "terms",
+        "x-format": "lv2",
+        "x-spec": "http://lv2plug.in/ns/ext/morph",
+        "x-version": "1.0"
       },
       "LV2_OPTIONS_TERMS": {
         "description": "The terms of the LV2 Options specification (options.lv2, from lv2 1.18.10), each mapped under its own name with its status for us (docs/data-layout.md).",
         "x-since": "1.0.0",
-        "x-kind": "terms",
-        "x-format": "lv2",
-        "x-spec": "http://lv2plug.in/ns/ext/options",
-        "x-version": "1.4",
         "oneOf": [
           {
             "const": "Option",
@@ -2777,15 +2773,15 @@
               "issue": "FreeMixer/omx-clap-core#94"
             }
           }
-        ]
+        ],
+        "x-kind": "terms",
+        "x-format": "lv2",
+        "x-spec": "http://lv2plug.in/ns/ext/options",
+        "x-version": "1.4"
       },
       "LV2_PARAMETERS_TERMS": {
         "description": "The terms of the LV2 Parameters specification (parameters.lv2, from lv2 1.18.10), each mapped under its own name with its status for us (docs/data-layout.md).",
         "x-since": "1.0.0",
-        "x-kind": "terms",
-        "x-format": "lv2",
-        "x-spec": "http://lv2plug.in/ns/ext/parameters",
-        "x-version": "1.4",
         "oneOf": [
           {
             "const": "CompressorControls",
@@ -3116,15 +3112,15 @@
               "issue": "FreeMixer/omx-clap-core#94"
             }
           }
-        ]
+        ],
+        "x-kind": "terms",
+        "x-format": "lv2",
+        "x-spec": "http://lv2plug.in/ns/ext/parameters",
+        "x-version": "1.4"
       },
       "LV2_PATCH_TERMS": {
         "description": "The terms of the LV2 Patch specification (patch.lv2, from lv2 1.18.10), each mapped under its own name with its status for us (docs/data-layout.md).",
         "x-since": "1.0.0",
-        "x-kind": "terms",
-        "x-format": "lv2",
-        "x-spec": "http://lv2plug.in/ns/ext/patch",
-        "x-version": "2.10",
         "oneOf": [
           {
             "const": "Ack",
@@ -3457,15 +3453,15 @@
               ]
             }
           }
-        ]
+        ],
+        "x-kind": "terms",
+        "x-format": "lv2",
+        "x-spec": "http://lv2plug.in/ns/ext/patch",
+        "x-version": "2.10"
       },
       "LV2_PORT_GROUPS_TERMS": {
         "description": "The terms of the LV2 Port Groups specification (port-groups.lv2, from lv2 1.18.10), each mapped under its own name with its status for us (docs/data-layout.md).",
         "x-since": "1.0.0",
-        "x-kind": "terms",
-        "x-format": "lv2",
-        "x-spec": "http://lv2plug.in/ns/ext/port-groups",
-        "x-version": "1.4",
         "oneOf": [
           {
             "const": "ACN0",
@@ -4195,15 +4191,15 @@
               "issue": "FreeMixer/omx-clap-core#94"
             }
           }
-        ]
+        ],
+        "x-kind": "terms",
+        "x-format": "lv2",
+        "x-spec": "http://lv2plug.in/ns/ext/port-groups",
+        "x-version": "1.4"
       },
       "LV2_PORT_PROPS_TERMS": {
         "description": "The terms of the LV2 Port Properties specification (port-props.lv2, from lv2 1.18.10), each mapped under its own name with its status for us (docs/data-layout.md).",
         "x-since": "1.0.0",
-        "x-kind": "terms",
-        "x-format": "lv2",
-        "x-spec": "http://lv2plug.in/ns/ext/port-props",
-        "x-version": "1.2",
         "oneOf": [
           {
             "const": "causesArtifacts",
@@ -4363,15 +4359,15 @@
               "word": "kind trigger"
             }
           }
-        ]
+        ],
+        "x-kind": "terms",
+        "x-format": "lv2",
+        "x-spec": "http://lv2plug.in/ns/ext/port-props",
+        "x-version": "1.2"
       },
       "LV2_PRESETS_TERMS": {
         "description": "The terms of the LV2 Presets specification (presets.lv2, from lv2 1.18.10), each mapped under its own name with its status for us (docs/data-layout.md).",
         "x-since": "1.0.0",
-        "x-kind": "terms",
-        "x-format": "lv2",
-        "x-spec": "http://lv2plug.in/ns/ext/presets",
-        "x-version": "2.8",
         "oneOf": [
           {
             "const": "Bank",
@@ -4446,15 +4442,15 @@
               "issue": "FreeMixer/omx-clap-core#94"
             }
           }
-        ]
+        ],
+        "x-kind": "terms",
+        "x-format": "lv2",
+        "x-spec": "http://lv2plug.in/ns/ext/presets",
+        "x-version": "2.8"
       },
       "LV2_RESIZE_PORT_TERMS": {
         "description": "The terms of the LV2 Resize Port specification (resize-port.lv2, from lv2 1.18.10), each mapped under its own name with its status for us (docs/data-layout.md).",
         "x-since": "1.0.0",
-        "x-kind": "terms",
-        "x-format": "lv2",
-        "x-spec": "http://lv2plug.in/ns/ext/resize-port",
-        "x-version": "1.0",
         "oneOf": [
           {
             "const": "asLargeAs",
@@ -4504,15 +4500,15 @@
               "issue": "FreeMixer/omx-clap-core#94"
             }
           }
-        ]
+        ],
+        "x-kind": "terms",
+        "x-format": "lv2",
+        "x-spec": "http://lv2plug.in/ns/ext/resize-port",
+        "x-version": "1.0"
       },
       "LV2_STATE_TERMS": {
         "description": "The terms of the LV2 State specification (state.lv2, from lv2 1.18.10), each mapped under its own name with its status for us (docs/data-layout.md).",
         "x-since": "1.0.0",
-        "x-kind": "terms",
-        "x-format": "lv2",
-        "x-spec": "http://lv2plug.in/ns/ext/state",
-        "x-version": "2.10",
         "oneOf": [
           {
             "const": "State",
@@ -4639,15 +4635,15 @@
               "issue": "FreeMixer/omx-clap-core#94"
             }
           }
-        ]
+        ],
+        "x-kind": "terms",
+        "x-format": "lv2",
+        "x-spec": "http://lv2plug.in/ns/ext/state",
+        "x-version": "2.10"
       },
       "LV2_TIME_TERMS": {
         "description": "The terms of the LV2 Time specification (time.lv2, from lv2 1.18.10), each mapped under its own name with its status for us (docs/data-layout.md).",
         "x-since": "1.0.0",
-        "x-kind": "terms",
-        "x-format": "lv2",
-        "x-spec": "http://lv2plug.in/ns/ext/time",
-        "x-version": "1.6",
         "oneOf": [
           {
             "const": "Position",
@@ -4824,15 +4820,15 @@
               "issue": "FreeMixer/omx-clap-core#94"
             }
           }
-        ]
+        ],
+        "x-kind": "terms",
+        "x-format": "lv2",
+        "x-spec": "http://lv2plug.in/ns/ext/time",
+        "x-version": "1.6"
       },
       "LV2_UI_TERMS": {
         "description": "The terms of the LV2 UI specification (ui.lv2, from lv2 1.18.10), each mapped under its own name with its status for us (docs/data-layout.md).",
         "x-since": "1.0.0",
-        "x-kind": "terms",
-        "x-format": "lv2",
-        "x-spec": "http://lv2plug.in/ns/extensions/ui",
-        "x-version": "2.24",
         "oneOf": [
           {
             "const": "CocoaUI",
@@ -5239,15 +5235,15 @@
               "ruling": "The console draws every panel: no plugin UI runs in the console (GUI ruling 2026-10-19; native windows only in the standalone omx-clap-host, FreeMixer/omx-clap-core#180)."
             }
           }
-        ]
+        ],
+        "x-kind": "terms",
+        "x-format": "lv2",
+        "x-spec": "http://lv2plug.in/ns/extensions/ui",
+        "x-version": "2.24"
       },
       "LV2_UNITS_TERMS": {
         "description": "The terms of the LV2 Units specification (units.lv2, from lv2 1.18.10), each mapped under its own name with its status for us (docs/data-layout.md).",
         "x-since": "1.0.0",
-        "x-kind": "terms",
-        "x-format": "lv2",
-        "x-spec": "http://lv2plug.in/ns/extensions/units",
-        "x-version": "5.12",
         "oneOf": [
           {
             "const": "Conversion",
@@ -5706,16 +5702,15 @@
               ]
             }
           }
-        ]
+        ],
+        "x-kind": "terms",
+        "x-format": "lv2",
+        "x-spec": "http://lv2plug.in/ns/extensions/units",
+        "x-version": "5.12"
       },
       "LV2_URI_MAP_TERMS": {
         "description": "The terms of the LV2 URI Map specification (uri-map.lv2, from lv2 1.18.10), each mapped under its own name with its status for us (docs/data-layout.md).",
         "x-since": "1.0.0",
-        "x-kind": "terms",
-        "x-format": "lv2",
-        "x-spec": "http://lv2plug.in/ns/ext/uri-map",
-        "x-version": "1.6",
-        "x-deprecated": true,
         "oneOf": [
           {
             "const": "uri-map.lv2",
@@ -5729,15 +5724,16 @@
               "deprecated": true
             }
           }
-        ]
+        ],
+        "x-kind": "terms",
+        "x-format": "lv2",
+        "x-spec": "http://lv2plug.in/ns/ext/uri-map",
+        "x-version": "1.6",
+        "x-deprecated": true
       },
       "LV2_URID_TERMS": {
         "description": "The terms of the LV2 URID specification (urid.lv2, from lv2 1.18.10), each mapped under its own name with its status for us (docs/data-layout.md).",
         "x-since": "1.0.0",
-        "x-kind": "terms",
-        "x-format": "lv2",
-        "x-spec": "http://lv2plug.in/ns/ext/urid",
-        "x-version": "1.4",
         "oneOf": [
           {
             "const": "map",
@@ -5783,15 +5779,15 @@
               ]
             }
           }
-        ]
+        ],
+        "x-kind": "terms",
+        "x-format": "lv2",
+        "x-spec": "http://lv2plug.in/ns/ext/urid",
+        "x-version": "1.4"
       },
       "LV2_WORKER_TERMS": {
         "description": "The terms of the LV2 Worker specification (worker.lv2, from lv2 1.18.10), each mapped under its own name with its status for us (docs/data-layout.md).",
         "x-since": "1.0.0",
-        "x-kind": "terms",
-        "x-format": "lv2",
-        "x-spec": "http://lv2plug.in/ns/ext/worker",
-        "x-version": "1.2",
         "oneOf": [
           {
             "const": "interface",
@@ -5835,12 +5831,15 @@
               ]
             }
           }
-        ]
+        ],
+        "x-kind": "terms",
+        "x-format": "lv2",
+        "x-spec": "http://lv2plug.in/ns/ext/worker",
+        "x-version": "1.2"
       },
       "LV2_UNIT_IDS": {
         "description": "F1, the LV2 units mapped to the standard units: one word per unit term of LV2_UNITS_TERMS (kind unit), its x-from the term (the term's uri is the unit as an LV2 file writes it, units:<key>), its const the word of omx-contract's PARAM_UNITS it is. A reader finds the word whose x-from names the term and reads the standard unit; it keeps no table of its own. Every unit term of LV2_UNITS_TERMS has one word here.",
         "x-since": "1.0.0",
-        "x-kind": "words",
         "oneOf": [
           {
             "const": "bar",
@@ -6130,12 +6129,12 @@
               }
             ]
           }
-        ]
+        ],
+        "x-kind": "words"
       },
       "LV2_OPENMIXER_UNIT_IDS": {
         "description": "F1 for the OpenMixer unit spellings (Q7): an LV2 file writes urn:openmixer:unit#<name> for a standard unit that units.lv2 has no term for, and the plugin's TTL defines it (units:Unit). One word per spelling, its title the <name> in lower case, its const the word of omx-contract's PARAM_UNITS it is; its description names the URI as written. A reader lower-cases the name after urn:openmixer:unit# and reads the word of that title.",
         "x-since": "1.0.0",
-        "x-kind": "words",
         "oneOf": [
           {
             "const": "dBFS",
@@ -6167,12 +6166,12 @@
             "description": "urn:openmixer:unit#dBoct is the standard unit dB-oct",
             "x-code": 4
           }
-        ]
+        ],
+        "x-kind": "words"
       },
       "LV2_DESIGNATION_MEANINGS": {
         "description": "F1, the LV2 designations mapped to the standard meanings: one word per designation a reader maps, its title the term's key (of LV2_PARAMETERS_TERMS, or LV2_CORE_TERMS for lv2:enabled), its const the standard meaning (omx-contract's descriptor meaning). A designation with no word here maps to no meaning.",
         "x-since": "1.0.0",
-        "x-kind": "words",
         "oneOf": [
           {
             "const": "attack",
@@ -6342,12 +6341,12 @@
               }
             ]
           }
-        ]
+        ],
+        "x-kind": "words"
       },
       "LV2_PORT_PROPERTY_SCALES": {
         "description": "F1, the LV2 port properties mapped to the standard scales: one word per port property that sets a control's scale, its title the term's key, its const the word of omx-contract's PARAM_SCALES. lv2:toggled is no scale (a toggle is a kind of control, not a scale), the one port property of the three the mapping names that has no word here.",
         "x-since": "1.0.0",
-        "x-kind": "words",
         "oneOf": [
           {
             "const": "stepped",
@@ -6373,7 +6372,8 @@
               }
             ]
           }
-        ]
+        ],
+        "x-kind": "words"
       }
     }
   }
