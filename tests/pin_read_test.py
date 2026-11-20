@@ -10,13 +10,11 @@ the TypeScript twin's pinVerdicts and pinPools (tools/render-ts.py).
 
 (a) golden: the validators accept the five words and refuse their neighbours, and the twins' words are the golden ones, as
     plugin-db's data/pin.json wrote them (in-process, isolated, refused; cores, off), in the tree as it is;
-(b) both sources, while both exist: the domain's words are data/pin.json's PLUGIN_DB_PIN_VERDICTS and PLUGIN_DB_PIN_POOLS;
+(b) the domain's words are the golden ones (the only holder: tests/pin_old_items_test.py holds plugin-db to none);
 (c) sabotage, through the real readers: a domain with the word `refused` and the word `off` removed makes the validators
     of a tree rendered from it refuse them, and the twins of that render lack them;
 (e) packaging: packaging/deps.txt, the spec and debian/control floor plugin-hostd-protocol-contract at 0.8.0 or above,
     the release that carries the domain (floors only: no ceiling, no Breaks, Replaces, Conflicts or Provides);
-(d) the old holder is not read: in a scratch copy of the tree whose data/pin.json carries every verdict and pool word
-    changed, the validators and the twins are as they were.
 
 Environment: PIN_DOMAIN_DIR (a contract directory holding pin/pin.json: protocol's contract.d, or the installed contract
 directory, the default), CC. Exit 0 all green, 1 a FAIL line."""
@@ -131,13 +129,9 @@ def main():
         # (b) both sources
         if os.path.isfile(path):
             doc = json.load(open(path))["components"]["schemas"]
-            old = json.load(open(os.path.join(ROOT, "data", "pin.json")))
-            for item, o, want in (("PIN_VERDICTS", "PLUGIN_DB_PIN_VERDICTS", VERDICTS), ("PIN_POOLS", "PLUGIN_DB_PIN_POOLS", POOLS)):
+            for item, want in (("PIN_VERDICTS", VERDICTS), ("PIN_POOLS", POOLS)):
                 new = [w["const"] for w in sorted(doc[item]["oneOf"], key=lambda w: w["x-code"])]
-                if o in old:
-                    check(new == [w["word"] for w in old[o]["words"].values()], "(b) %s of the domain is %s of data/pin.json" % (item, o))
-                else:
-                    check(new == want, "(b) %s of the domain is the golden words; data/pin.json no longer holds %s" % (item, o))
+                check(new == want, "(b) %s of the domain is the golden words" % item)
             # (c) sabotage through the real readers
             cut = os.path.join(tmp, "cut")
             os.makedirs(os.path.join(cut, "pin"))
@@ -162,18 +156,6 @@ def main():
             floors.append((f, m.group(1) if m else None))
         check(all(v and tuple(map(int, v.split("."))) >= (0, 8, 0) for _, v in floors),
               "(e) plugin-hostd-protocol-contract is floored at 0.8.0 or above in %s" % ", ".join("%s (%s)" % f for f in floors))
-        # (d) the old holder is not read
-        def change(tt):
-            p = os.path.join(tt, "data", "pin.json")
-            j = json.load(open(p))
-            for item in ("PLUGIN_DB_PIN_VERDICTS", "PLUGIN_DB_PIN_POOLS"):
-                for w in j.get(item, {}).get("words", {}).values():
-                    w["word"] += "-x"
-            json.dump(j, open(p, "w"), indent=2)
-        t3 = tree(tmp, "old-changed", change)
-        ok, outs3 = render(t3, dom, "old-changed")
-        check(ok and probe(t3, tmp, "old-changed") == GOLDEN_PROBE and twin_words(outs3) == GOLD_TWINS,
-              "(d) data/pin.json with every verdict and pool word changed leaves the validators and the twins as they were")
     return 1 if failed else 0
 
 

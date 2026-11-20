@@ -92,7 +92,7 @@ tests/pin_test: tests/pin_test.c $(HEADERS)
 test-pin-read:
 	PIN_DOMAIN_DIR='$(PIN_DOMAIN_DIR)' CC='$(CC)' python3 tests/pin_read_test.py
 
-# plugin-db holds neither PLUGIN_DB_PIN_VERDICTS nor PLUGIN_DB_PIN_POOLS, in data/, the vocabulary or any file (tests/pin_old_items_test.py)
+# plugin-db holds neither of the two pin items that moved to plugin-hostd-protocol, in data/, the vocabulary or any file (tests/pin_old_items_test.py)
 .PHONY: test-pin-old-items
 test-pin-old-items:
 	python3 tests/pin_old_items_test.py

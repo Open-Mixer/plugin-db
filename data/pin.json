@@ -3,40 +3,6 @@
   "requires": {
     "omx-contract-schema": ">= 3.3.0"
   },
-  "PLUGIN_DB_PIN_VERDICTS": {
-    "kind": "words",
-    "since": "0.1.0",
-    "doc": "What the qualification of the pinned bytes said: the value of a pin's verdict key. A pin with no verdict was learned on first use and carries no judgment. A word outside these is not a pin's.",
-    "words": {
-      "inProcess": {
-        "word": "in-process",
-        "doc": "qualified to run in a worker that other plugins share"
-      },
-      "isolated": {
-        "word": "isolated",
-        "doc": "qualified to run, in a worker of its own"
-      },
-      "refused": {
-        "word": "refused",
-        "doc": "failed qualification: the pin records the bytes, a host should not load them"
-      }
-    }
-  },
-  "PLUGIN_DB_PIN_POOLS": {
-    "kind": "words",
-    "since": "0.1.0",
-    "doc": "Whether the plugin's qualification measured the CLAP thread pool real-time safe and faster at the quantum: the value of a pin's pool key. A plugin with no word runs serial. A word outside these is not a pin's.",
-    "words": {
-      "cores": {
-        "word": "cores",
-        "doc": "its worker starts with the thread pool on, one helper per core of its cpu set but one, and no other plugin shares the worker"
-      },
-      "off": {
-        "word": "off",
-        "doc": "measured, and not faster or not safe with the pool: the worker keeps no option"
-      }
-    }
-  },
   "PLUGIN_DB_PIN_KEYS": {
     "kind": "words",
     "since": "0.1.0",
@@ -44,11 +10,11 @@
     "words": {
       "verdict": {
         "word": "verdict",
-        "doc": "the qualification verdict of the pinned bytes, a word of PLUGIN_DB_PIN_VERDICTS"
+        "doc": "the qualification verdict of the pinned bytes, a word of PIN_VERDICTS of plugin-hostd-protocol's domain pin"
       },
       "pool": {
         "word": "pool",
-        "doc": "the thread pool word of the pinned bytes, a word of PLUGIN_DB_PIN_POOLS"
+        "doc": "the thread pool word of the pinned bytes, a word of PIN_POOLS of plugin-hostd-protocol's domain pin"
       }
     }
   },
