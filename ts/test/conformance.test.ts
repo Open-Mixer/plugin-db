@@ -1,8 +1,9 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 // Copyright (C) 2026 Pau Aliagas <linuxnow@gmail.com>
 // No source of this repository types a state, run, reason, tier (a record's verdict), bar or latency-standing word, or
-// a sentence of data/, as a string literal: they come from the generated vocabulary, and a word renamed in data/ turns
-// the readers red instead of leaving a stale copy. The generated files, data/ and the tests are the places that name them.
+// a sentence of the domain plugin-db, as a string literal: they come from the generated vocabulary, and a word renamed in
+// the domain turns the readers red instead of leaving a stale copy. The generated files, the domain and the tests are the
+// places that name them.
 import { test } from "node:test";
 import assert from "node:assert/strict";
 import { readdirSync, readFileSync, statSync } from "node:fs";
@@ -14,15 +15,13 @@ const ITEMS = ["PLUGIN_DB_STATES", "PLUGIN_DB_RUNS", "PLUGIN_DB_REASONS", "PIN_V
 
 function vocabulary(): { words: Set<string>; sentences: Set<string> } {
   const words = new Set<string>(), sentences = new Set<string>();
-  for (const f of ["db.json", "pin.json"]) {
-    const data = JSON.parse(readFileSync(join(root, "data", f), "utf8"));
-    for (const [item, body] of Object.entries<any>(data)) {
-      if (!body || body.kind !== "words") continue;
-      for (const w of Object.values<any>(body.words)) {
-        if (ITEMS.includes(item)) words.add(w.word);
-        if (w.doc) sentences.add(w.doc);
-        for (const t of Object.values<string>(w.text ?? {})) sentences.add(t);
-      }
+  const domain = JSON.parse(readFileSync(join(root, "contract.d", "plugin-db", "plugin-db.json"), "utf8")).components.schemas;
+  for (const [item, body] of Object.entries<any>(domain)) {
+    if (body["x-kind"] !== "words" || !["db.json", "pin.json"].includes(body["x-file"])) continue;
+    for (const w of body.oneOf) {
+      if (ITEMS.includes(item)) words.add(w.const);
+      if (w.description) sentences.add(w.description);
+      if (w["x-text"]) sentences.add(w["x-text"]);
     }
   }
   for (const [item, name] of [["PIN_VERDICTS", "PIN_VERDICTS"], ["PIN_POOLS", "PIN_POOLS"]] as const) {

@@ -5,7 +5,7 @@ document reads every one of them against three questions:
 
 - does the comment above it state the property that the code tests, in both directions;
 - does the expected value come from the documented format (the comment at the head of
-  `include/plugin-db/pin.h`, `data/pin.json`, FIPS 180-4), computed by the harness itself and
+  `include/plugin-db/pin.h`, plugin-hostd-protocol's domain pin, FIPS 180-4), computed by the harness itself and
   not by a function of the header under test;
 - can the check fail: a mutant record in its comment (`mutant:` / `input:`, proved by
   `make fuzz-records`) or a patch in `fuzz/sabotage/` (proved by `make fuzz-sabotage`) makes it

@@ -1,7 +1,7 @@
 /* SPDX-License-Identifier: GPL-3.0-or-later */
 /* Copyright (C) 2026 Pau Aliagas <linuxnow@gmail.com> */
 
-/* THE state function. Its tables are data/db.json's: which action each change asks for, which record attribute each
+/* THE state function. Its tables are the domain plugin-db's: which action each change asks for, which record attribute each
  * action leaves, how each state runs and the order the changes are judged in; the code holds only the tests. */
 
 #include <string.h>

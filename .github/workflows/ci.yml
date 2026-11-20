@@ -90,8 +90,8 @@ jobs:
       - name: make test-twin
         run: make test-twin
 
-  # The declared words, with the tools a package build does not carry: the rendered header is what the installed
-  # omx-contract renders from data/ (and a header changed by hand is red), and data/ as a package validates.
+  # The declared words, with the tools a package build does not carry: the rendered headers are what the installed
+  # omx-contract renders from the domain plugin-db (and a header changed by hand is red), and the domains validate.
   words:
     name: declared words (render, contract directory)
     runs-on: ubuntu-latest
@@ -108,9 +108,10 @@ jobs:
       # a dedupe/all run builds on its siblings' dedupe/all (.github/wave-deps); @main until Open-Mixer/.github moves v1 past it
       - uses: Open-Mixer/.github/.github/actions/wave-deps@openmixer-v1
       # libomx-domain-devel ships omx-domain, the loader's command (make test-domain opens the plugin-db domain with it), and
-      # the header the command and the tests build on; the installer's --domain mode (3.20.0) comes with omx-contract-devel
+      # the header the command and the tests build on; the installer's --domain mode (3.20.0) comes with omx-contract-devel;
+      # omx-clap-core-contract holds the domain clap whose terms the domain plugin-feature names
       - name: omx-contract and the loader
-        run: dnf -y install omx-contract omx-contract-devel libomx-domain-devel plugin-hostd-protocol-devel plugin-hostd-protocol-contract
+        run: dnf -y install omx-contract omx-contract-devel libomx-domain-devel plugin-hostd-protocol-devel plugin-hostd-protocol-contract omx-clap-core-contract
       - name: make check-tools
         run: make check-tools
       # one pack per listed language from the spec and debian/control, and the catalogs through omx-contract's release
@@ -122,4 +123,5 @@ jobs:
           base: plugin-db-contract
           owner: plugin-db
           spec: packaging/plugin-db.spec
-          gate: omx-contract translate --check --data data --catalogs catalogs --package plugin-db
+          gate: sh tools/translate.sh --check
+          fill-command: sh tools/translate.sh

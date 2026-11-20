@@ -10,7 +10,7 @@
  * Every reader is run on every input: a digest, a layout pin, a verdict, a pool word.
  *
  * Every expected value is the harness's own reading of the format (fuzz/spec.h and the words
- * of data/pin.json written out below), not a call of the header.
+ * of plugin-hostd-protocol's domain pin written out below), not a call of the header.
  *
  * Properties, each an abort() in a check_ function:
  *   - digest charset: a string of 64 characters is a digest exactly when each is 0-9 or a-f.
@@ -20,8 +20,8 @@
  *     a digest.
  *   - token scheme: the scheme is what precedes the last ':'.
  *   - token digest: the digest is what follows the last ':'.
- *   - verdict: a verdict is exactly one of the words data/pin.json declares, whole.
- *   - pool: a pool word is exactly one of the words data/pin.json declares, whole.
+ *   - verdict: a verdict is exactly one of the words protocol's domain pin declares, whole.
+ *   - pool: a pool word is exactly one of the words protocol's domain pin declares, whole.
  */
 #include <stdio.h>
 

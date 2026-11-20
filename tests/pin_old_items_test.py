@@ -5,11 +5,11 @@
 the words of a pin's verdict and pool are plugin-hostd-protocol's, its domain pin). The last PR of the row removes them, and
 this test is red while anything of the tree still holds or reads them:
 
-(a) data/pin.json holds exactly the items of plugin-db's own file format: PLUGIN_DB_PIN_KEYS, PLUGIN_DB_PIN_CHANGES and
+(a) the domain plugin-db's items that rebuild pin.json are exactly those of plugin-db's own file format: PLUGIN_DB_PIN_KEYS, PLUGIN_DB_PIN_CHANGES and
     PLUGIN_DB_PIN_LAYOUT_FORMATS, and the rendered plugin_db_vocabulary.h defines no word of the two;
 (b) no file of the tree names either item, or the OMX_ macros of its words (the changelogs, which record what was, and this
     file are the only places that may);
-(c) sabotage, in scratch copies: one name planted in a C source, in data/pin.json and in a test is found by the scan.
+(c) sabotage, in scratch copies: one name planted in a C source, in a data file and in a test is found by the scan.
 
 Exit 0 all green, 1 a FAIL line."""
 import json, os, re, shutil, sys, tempfile
@@ -49,16 +49,17 @@ def scan(root):
 
 
 def main():
-    pin = json.load(open(os.path.join(ROOT, "data", "pin.json")))
-    items = {k for k in pin if k.startswith("PLUGIN_DB_")}
-    check(items == OWN, "(a) data/pin.json holds %s" % sorted(items))
+    sys.path.insert(0, os.path.join(ROOT, "tools"))
+    import dbwords
+    items = set(dbwords.items("pin.json"))
+    check(items == OWN, "(a) the domain's pin.json items are %s" % sorted(items))
     voc = open(os.path.join(ROOT, "include", "plugin-db", "plugin_db_vocabulary.h")).read()
     check(not NAME.search(voc), "(a) plugin_db_vocabulary.h defines no word of the two items")
     found = scan(ROOT)
     check(not found, "(b) no file names either item: %s" % found[:6])
     with tempfile.TemporaryDirectory() as tmp:
         for what, rel, line in (("a C source", "src/cli.c", "/* PLUGIN_DB_PIN_VERDICTS */\n"),
-                                ("data/pin.json", "data/notes.json", '{"PLUGIN_DB_PIN_POOLS": {}}\n'),
+                                ("a data file", "data/notes.json", '{"PLUGIN_DB_PIN_POOLS": {}}\n'),
                                 ("a test", "tests/x.sh", "echo OMX_PLUGIN_DB_PIN_POOLS_OFF\n")):
             t = os.path.join(tmp, what.replace("/", "-").replace(" ", "-"))
             os.makedirs(os.path.join(t, os.path.dirname(rel)), exist_ok=True)

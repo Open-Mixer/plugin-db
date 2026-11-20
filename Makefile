@@ -110,7 +110,7 @@ render-tables:
 $(BUILD)/%_test: tests/%_test.c $(LIB)
 	$(CC) $(ALL_CFLAGS) $(LDFLAGS) -o $@ $< $(LIB) $(CRYPTO_LIBS) $(DOMAIN_LIBS)
 
-# the state function by table: every state, reason, change, action, run and source of data/db.json reached
+# the state function by table: every state, reason, change, action, run and source of the domain plugin-db reached
 test-state: $(BUILD)/state_test $(BUILD)/state_door_test
 	$(BUILD)/state_test
 	$(BUILD)/state_door_test
@@ -207,9 +207,9 @@ version-check:
 
 # ---------------------------------------------------------------------------------------------------------------------
 # The checks that need tools a package build does not: run by CI (.github/workflows/ci.yml, job words).
-#   check-rendered      plugin_db_vocabulary.h is what omx-contract renders from data/
-#   test-rendered-sabotage  check-rendered fails on a header changed by hand and on data/ not rendered again
-#   check-contract-dir  data/ as a package validates with the installed contract directory, and catalogs/ against it
+#   check-rendered      plugin_db_vocabulary.h and plugin_db_constants.h are what omx-contract renders from the domain plugin-db
+#   test-rendered-sabotage  check-rendered fails on a header changed by hand and on the domain changed and not rendered again
+#   check-contract-dir  the installed domains validate with the installed contract directory, and catalogs/ against them
 #   check-ci-matrix     no CI matrix names bookworm by hand: the cells follow OMX_RELEASE_MATRIX (ruling D25), self-tested
 OMX_CONTRACT ?= omx-contract
 CONTRACT_SCHEMA_MAJOR = 3
@@ -219,7 +219,7 @@ PIN_DOMAIN_DIR ?= $(CONTRACTDIR)
 export PIN_DOMAIN_DIR
 INSTALL_CONTRACT_DIR = $(firstword $(wildcard $(shell $(PKG_CONFIG) --variable=datadir omx-contract 2>/dev/null)/install-contract-dir.sh) $(wildcard $(OMX_CONTRACT_DIR)/tools/install-contract-dir.sh))
 
-check-tools: check-rendered check-codes test-rendered-sabotage check-contract-dir test-domain check-ci-matrix test-lv2-domain test-plugin-feature
+check-tools: check-rendered check-codes test-rendered-sabotage check-contract-dir test-domain check-ci-matrix test-lv2-domain test-plugin-feature test-db-domain
 
 # the LV2 terms and the F1 mapping are plugin-db's domains lv2 and format (tests/lv2_domain_test.py): golden, the installed
 # omx-contract's classic terms and standard words, and the sabotage arms; OMX_STANDARD_DIR names another contract directory
@@ -233,18 +233,19 @@ test-lv2-domain:
 test-plugin-feature:
 	python3 tests/plugin_feature_test.py
 
+# plugin-db's words and numbers are its domain plugin-db, which every render reads (tests/db_domain_test.py, tools/dbwords.py)
+.PHONY: test-db-domain
+test-db-domain:
+	python3 tests/db_domain_test.py
+
 check-ci-matrix:
 	sh tests/ci-matrix-follows-set.sh --self-test
 
-# data/store.schema.json is a JSON Schema of the store, not a file of omx-contract's: it is installed to
-# $(DATADIR)/plugin-db/, never into the contract directory
-CONTRACT_EXCLUDE = -x store.schema.json
-
-# data/ as the package plugin-db of omx-contract's contract directory, <contractdir>/<schema major>/plugin-db/, with
-# the MANIFEST.json omx-contract's script writes
+# plugin-db's domains (plugin-db, format, lv2, plugin-feature) as omx-contract's script installs a domain,
+# <contractdir>/<domain>/; data/store.schema.json is a JSON Schema of the store, not a file of omx-contract's: it is
+# installed to $(DATADIR)/plugin-db/, never into the contract directory
 install-contract:
 	@test -n "$(INSTALL_CONTRACT_DIR)" || { echo "install-contract: no install-contract-dir.sh: install omx-contract-devel, or set OMX_CONTRACT_DIR to a checkout" >&2; exit 1; }
-	sh $(INSTALL_CONTRACT_DIR) $(CONTRACT_EXCLUDE) $(NAME) $(VERSION) $(CONTRACT_SCHEMA_MAJOR) data $(DESTDIR)$(CONTRACTDIR) data
 	sh $(INSTALL_CONTRACT_DIR) --domain contract.d/plugin-db $(DESTDIR)$(CONTRACTDIR)
 	sh $(INSTALL_CONTRACT_DIR) --domain contract.d/format $(DESTDIR)$(CONTRACTDIR)
 	sh $(INSTALL_CONTRACT_DIR) --domain contract.d/lv2 $(DESTDIR)$(CONTRACTDIR)
@@ -262,26 +263,33 @@ test-rendered-sabotage:
 	sh tests/rendered-sabotage.sh
 
 # contract.d/plugin-db/plugin-db.json is the domain, kept by hand: it is in the one formatting and validates, and
-# include/plugin-db/plugin_db_codes.h is what omx-contract renders from it (its x-c-codes items only)
+# include/plugin-db/plugin_db_codes.h is what omx-contract renders from it (its x-c-codes items only); the domain
+# plugin-feature takes terms from omx-clap-core's domain clap (info.x-requires), so the domains are read beside that one
+# domain alone: CLAP_DOMAIN_DIR names a contract directory holding clap/clap.json, the installed one by default
+CLAP_DOMAIN_DIR ?= $(CONTRACTDIR)
+export CLAP_DOMAIN_DIR
 check-codes render-codes:
 	@command -v $(firstword $(OMX_CONTRACT)) >/dev/null || { echo "$@: no omx-contract command: install omx-contract" >&2; exit 1; }
 	python3 tools/one-source.py data contract.d
-	$(OMX_CONTRACT) fmt --check --contract-dir contract.d
-	$(OMX_CONTRACT) validate --contract-dir contract.d
-	$(OMX_CONTRACT) render --target c --package plugin-db --contract-dir contract.d --out include/plugin-db $(if $(filter check-codes,$@),--check)
+	@set -e; tmp=$$(mktemp -d); trap 'rm -rf $$tmp' EXIT; cp -r $(CLAP_DOMAIN_DIR)/clap $$tmp/; \
+	OMX_CONTRACT_PATH=$(CURDIR)/contract.d:$$tmp $(OMX_CONTRACT) fmt --check --installed; \
+	OMX_CONTRACT_PATH=$(CURDIR)/contract.d:$$tmp $(OMX_CONTRACT) validate --installed; \
+	OMX_CONTRACT_PATH=$(CURDIR)/contract.d:$$tmp $(OMX_CONTRACT) render --target c --package plugin-db --installed --out include/plugin-db \
+	  $(if $(filter check-codes,$@),--check)
 
 # the domain installed, opened by the loader (omx-domain), the codes header, the start-up read and its refusals
 test-domain: $(BIN) $(BUILD)/formats_test
 	INSTALL_CONTRACT_DIR='$(INSTALL_CONTRACT_DIR)' MAKE='$(MAKE)' OMX_CONTRACT='$(OMX_CONTRACT)' PDB='$(BIN)' \
 	  FORMATS_TEST='$(BUILD)/formats_test' sh tests/domain-formats.sh
 
+# the domain plugin-db's items that carry an x-file render as the data files they rebuild (omx-contract's
+# docs/render.md, render --with-domain, 3.21.0): from an empty data directory named data, so each item names the file it
+# rebuilds as data/<x-file>, plugin_db_vocabulary.h and plugin_db_constants.h come out byte for byte as from those files
 render-words check-rendered:
-	@command -v $(OMX_CONTRACT) >/dev/null || { echo "$@: no $(OMX_CONTRACT) command: install omx-contract" >&2; exit 1; }
-	@test -n "$(INSTALL_CONTRACT_DIR)" || { echo "$@: no install-contract-dir.sh: install omx-contract-devel, or set OMX_CONTRACT_DIR to a checkout" >&2; exit 1; }
-	@set -e; tmp=$$(mktemp -d); trap 'rm -rf $$tmp' EXIT; \
-	sh $(INSTALL_CONTRACT_DIR) $(CONTRACT_EXCLUDE) $(NAME) $(VERSION) $(CONTRACT_SCHEMA_MAJOR) data $$tmp data >/dev/null; \
-	OMX_CONTRACT_PATH=$$tmp$(if $(OMX_CONTRACT_PATH),:$(OMX_CONTRACT_PATH)):$(CONTRACTDIR) \
-	  $(OMX_CONTRACT) render --target c --package $(NAME) --installed --out include/plugin-db $(if $(filter check-rendered,$@),--check)
+	@command -v $(firstword $(OMX_CONTRACT)) >/dev/null || { echo "$@: no $(OMX_CONTRACT) command: install omx-contract" >&2; exit 1; }
+	@set -e; tmp=$$(mktemp -d); trap 'rm -rf $$tmp' EXIT; mkdir $$tmp/data; \
+	$(OMX_CONTRACT) render --target c --package $(NAME) --data $$tmp/data --with-domain contract.d/plugin-db --out include/plugin-db \
+	  $(if $(filter check-rendered,$@),--check)
 
 # ---------------------------------------------------------------------------------------------------------------------
 # fuzz (fuzz/README.md): one libFuzzer harness per input surface of pin.h (the text of a pin, the bytes of a layout, the

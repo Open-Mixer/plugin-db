@@ -9,7 +9,7 @@ plugin_db_tables.h, which tools/render-db.py writes), the Python twin's pin_verd
 the TypeScript twin's pinVerdicts and pinPools (tools/render-ts.py).
 
 (a) golden: the validators accept the five words and refuse their neighbours, and the twins' words are the golden ones, as
-    plugin-db's data/pin.json wrote them (in-process, isolated, refused; cores, off), in the tree as it is;
+    plugin-db's own pin words were before V12 (in-process, isolated, refused; cores, off), in the tree as it is;
 (b) the domain's words are the golden ones (the only holder: tests/pin_old_items_test.py holds plugin-db to none);
 (c) sabotage, through the real readers: a domain with the word `refused` and the word `off` removed makes the validators
     of a tree rendered from it refuse them, and the twins of that render lack them;
@@ -62,7 +62,7 @@ GOLDEN_PROBE = "1110000 11000\n"
 def tree(tmp, name, edit=None):
     """a scratch copy of the parts of the tree the renders and the header read"""
     t = os.path.join(tmp, name)
-    for d in ("include", "tools", "data"):
+    for d in ("include", "tools", "data", "contract.d"):
         shutil.copytree(os.path.join(ROOT, d), os.path.join(t, d))
     if edit:
         edit(t)

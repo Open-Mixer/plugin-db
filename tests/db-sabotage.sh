@@ -77,8 +77,8 @@ arm "the tier of a reference record is not read" $T "out->source == PDB_SOURCES_
 arm "a word of the run renamed in the generated vocabulary" include/plugin-db/plugin_db_vocabulary.h '#define OMX_PLUGIN_DB_RUNS_INIT { "shared", "alone", => #define OMX_PLUGIN_DB_RUNS_INIT { "shared", "solo",' test-golden
 arm "a reason renamed in the generated vocabulary" include/plugin-db/plugin_db_vocabulary.h '"condition-fails", => "condition-breaks",' test-golden
 arm "a field of the answer is dropped" src/cli.c '\"tier\": => \"tyer\": ' test-golden
-# the derivation from data/
-arm "data/ changed and plugin_db_tables.h not rendered" data/db.json '"group": "rejudge", => "group": "convert",' check-tables
+# the derivation from the domain plugin-db and data/store.schema.json
+arm "the domain changed and plugin_db_tables.h not rendered" contract.d/plugin-db/plugin-db.json '"x-group": "rejudge" => "x-group": "convert"' check-tables
 arm "a store key changed in the schema and not rendered" data/store.schema.json '"entries": "entries", => "entries": "entry",' check-tables
 arm "plugin_db_tables.h changed by hand" include/plugin-db/plugin_db_tables.h "#define PDB_STATES_GROUP_INIT { 1, 0, => #define PDB_STATES_GROUP_INIT { 0, 0," check-tables
 
