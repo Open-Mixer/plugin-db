@@ -227,8 +227,8 @@ check-tools: check-rendered check-codes test-rendered-sabotage check-contract-di
 test-lv2-domain:
 	python3 tests/lv2_domain_test.py
 
-# the plugin features are plugin-db's domain plugin-feature (tests/plugin_feature_test.py); CLAP_DOMAIN_DIR names a contract
-# directory holding omx-clap-core's domain clap, which the CLAP froms name
+# the plugin features are plugin-db's domain plugin-feature (tests/plugin_feature_test.py): it names no CLAP domain, the CLAP
+# level being outer to plugin-db
 .PHONY: test-plugin-feature
 test-plugin-feature:
 	python3 tests/plugin_feature_test.py
@@ -263,19 +263,13 @@ test-rendered-sabotage:
 	sh tests/rendered-sabotage.sh
 
 # contract.d/plugin-db/plugin-db.json is the domain, kept by hand: it is in the one formatting and validates, and
-# include/plugin-db/plugin_db_codes.h is what omx-contract renders from it (its x-c-codes items only); the domain
-# plugin-feature takes terms from omx-clap-core's domain clap (info.x-requires), so the domains are read beside that one
-# domain alone: CLAP_DOMAIN_DIR names a contract directory holding clap/clap.json, the installed one by default
-CLAP_DOMAIN_DIR ?= $(CONTRACTDIR)
-export CLAP_DOMAIN_DIR
+# include/plugin-db/plugin_db_codes.h is what omx-contract renders from it (its x-c-codes items only)
 check-codes render-codes:
 	@command -v $(firstword $(OMX_CONTRACT)) >/dev/null || { echo "$@: no omx-contract command: install omx-contract" >&2; exit 1; }
 	python3 tools/one-source.py data contract.d
-	@set -e; tmp=$$(mktemp -d); trap 'rm -rf $$tmp' EXIT; cp -r $(CLAP_DOMAIN_DIR)/clap $$tmp/; \
-	OMX_CONTRACT_PATH=$(CURDIR)/contract.d:$$tmp $(OMX_CONTRACT) fmt --check --installed; \
-	OMX_CONTRACT_PATH=$(CURDIR)/contract.d:$$tmp $(OMX_CONTRACT) validate --installed; \
-	OMX_CONTRACT_PATH=$(CURDIR)/contract.d:$$tmp $(OMX_CONTRACT) render --target c --package plugin-db --installed --out include/plugin-db \
-	  $(if $(filter check-codes,$@),--check)
+	$(OMX_CONTRACT) fmt --check --contract-dir contract.d
+	$(OMX_CONTRACT) validate --contract-dir contract.d
+	$(OMX_CONTRACT) render --target c --package plugin-db --contract-dir contract.d --out include/plugin-db $(if $(filter check-codes,$@),--check)
 
 # the domain installed, opened by the loader (omx-domain), the codes header, the start-up read and its refusals
 test-domain: $(BIN) $(BUILD)/formats_test

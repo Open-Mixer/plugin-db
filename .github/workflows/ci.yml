@@ -108,10 +108,9 @@ jobs:
       # a dedupe/all run builds on its siblings' dedupe/all (.github/wave-deps); @main until Open-Mixer/.github moves v1 past it
       - uses: Open-Mixer/.github/.github/actions/wave-deps@openmixer-v1
       # libomx-domain-devel ships omx-domain, the loader's command (make test-domain opens the plugin-db domain with it), and
-      # the header the command and the tests build on; the installer's --domain mode (3.20.0) comes with omx-contract-devel;
-      # omx-clap-core-contract holds the domain clap whose terms the domain plugin-feature names
+      # the header the command and the tests build on; the installer's --domain mode (3.20.0) comes with omx-contract-devel
       - name: omx-contract and the loader
-        run: dnf -y install omx-contract omx-contract-devel libomx-domain-devel plugin-hostd-protocol-devel plugin-hostd-protocol-contract omx-clap-core-contract
+        run: dnf -y install omx-contract omx-contract-devel libomx-domain-devel plugin-hostd-protocol-devel plugin-hostd-protocol-contract
       - name: make check-tools
         run: make check-tools
       # one pack per listed language from the spec and debian/control, and the catalogs through omx-contract's release

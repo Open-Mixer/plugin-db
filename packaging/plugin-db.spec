@@ -50,8 +50,6 @@ Its documentation is on openmixer.org.
 %package contract
 Summary: The words of the plugin database in omx-contract's contract directory
 Requires: omx-contract >= 3.21.0
-# the domain plugin-feature takes terms from omx-clap-core's domain clap (its info.x-requires)
-Requires: omx-clap-core-contract >= 0.34.0
 
 %description contract
 The domains of plugin-db in omx-contract's contract directory: plugin-db (the

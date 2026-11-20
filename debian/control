@@ -37,7 +37,7 @@ Package: plugin-db-contract
 Section: libs
 Architecture: all
 Multi-Arch: foreign
-Depends: omx-contract (>= 3.21.0~), omx-clap-core-contract (>= 0.34.0~), ${misc:Depends}
+Depends: omx-contract (>= 3.21.0~), ${misc:Depends}
 Description: words of the plugin database in omx-contract's contract directory
  The domains of plugin-db in omx-contract's contract directory: plugin-db (the
  words of a pin, the address formats, the bundle rule, the layers, the

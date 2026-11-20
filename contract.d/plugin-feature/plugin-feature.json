@@ -7,7 +7,6 @@
     "x-owner": "plugin-db",
     "x-stability": "experimental",
     "x-requires": {
-      "clap": ">= 1.0.0",
       "lv2": ">= 1.0.0"
     }
   },
@@ -22,325 +21,163 @@
             "const": "clap.audio-effect",
             "title": "clapAudioEffect",
             "x-code": 0,
-            "x-text": "The CLAP plugin feature audio-effect: any audio effect with no more specific feature declared.",
-            "x-from": [
-              {
-                "$ref": "https://openmixer.org/contract/clap#/components/schemas/CLAP_PLUGIN_FEATURES_TERMS",
-                "x-term": "audio-effect"
-              }
-            ]
+            "x-text": "The CLAP plugin feature audio-effect: any audio effect with no more specific feature declared."
           },
           {
             "const": "clap.chorus",
             "title": "clapChorus",
             "x-code": 1,
-            "x-text": "The CLAP plugin feature chorus: an effect that thickens a sound with detuned, delayed copies of it.",
-            "x-from": [
-              {
-                "$ref": "https://openmixer.org/contract/clap#/components/schemas/CLAP_PLUGIN_FEATURES_TERMS",
-                "x-term": "chorus"
-              }
-            ]
+            "x-text": "The CLAP plugin feature chorus: an effect that thickens a sound with detuned, delayed copies of it."
           },
           {
             "const": "clap.compressor",
             "title": "clapCompressor",
             "x-code": 2,
-            "x-text": "The CLAP plugin feature compressor: an effect that narrows a sound's dynamic range.",
-            "x-from": [
-              {
-                "$ref": "https://openmixer.org/contract/clap#/components/schemas/CLAP_PLUGIN_FEATURES_TERMS",
-                "x-term": "compressor"
-              }
-            ]
+            "x-text": "The CLAP plugin feature compressor: an effect that narrows a sound's dynamic range."
           },
           {
             "const": "clap.de-esser",
             "title": "clapDeEsser",
             "x-code": 3,
-            "x-text": "The CLAP plugin feature de-esser: an effect that tames sibilance in a voice.",
-            "x-from": [
-              {
-                "$ref": "https://openmixer.org/contract/clap#/components/schemas/CLAP_PLUGIN_FEATURES_TERMS",
-                "x-term": "de-esser"
-              }
-            ]
+            "x-text": "The CLAP plugin feature de-esser: an effect that tames sibilance in a voice."
           },
           {
             "const": "clap.delay",
             "title": "clapDelay",
             "x-code": 4,
-            "x-text": "The CLAP plugin feature delay: an effect that repeats a sound after a gap.",
-            "x-from": [
-              {
-                "$ref": "https://openmixer.org/contract/clap#/components/schemas/CLAP_PLUGIN_FEATURES_TERMS",
-                "x-term": "delay"
-              }
-            ]
+            "x-text": "The CLAP plugin feature delay: an effect that repeats a sound after a gap."
           },
           {
             "const": "clap.distortion",
             "title": "clapDistortion",
             "x-code": 5,
-            "x-text": "The CLAP plugin feature distortion: an effect that adds harmonics by overdriving a sound.",
-            "x-from": [
-              {
-                "$ref": "https://openmixer.org/contract/clap#/components/schemas/CLAP_PLUGIN_FEATURES_TERMS",
-                "x-term": "distortion"
-              }
-            ]
+            "x-text": "The CLAP plugin feature distortion: an effect that adds harmonics by overdriving a sound."
           },
           {
             "const": "clap.equalizer",
             "title": "clapEqualizer",
             "x-code": 6,
-            "x-text": "The CLAP plugin feature equalizer: an effect that shapes a sound's frequency balance.",
-            "x-from": [
-              {
-                "$ref": "https://openmixer.org/contract/clap#/components/schemas/CLAP_PLUGIN_FEATURES_TERMS",
-                "x-term": "equalizer"
-              }
-            ]
+            "x-text": "The CLAP plugin feature equalizer: an effect that shapes a sound's frequency balance."
           },
           {
             "const": "clap.expander",
             "title": "clapExpander",
             "x-code": 7,
-            "x-text": "The CLAP plugin feature expander: an effect that widens a sound's dynamic range.",
-            "x-from": [
-              {
-                "$ref": "https://openmixer.org/contract/clap#/components/schemas/CLAP_PLUGIN_FEATURES_TERMS",
-                "x-term": "expander"
-              }
-            ]
+            "x-text": "The CLAP plugin feature expander: an effect that widens a sound's dynamic range."
           },
           {
             "const": "clap.filter",
             "title": "clapFilter",
             "x-code": 8,
-            "x-text": "The CLAP plugin feature filter: an effect that removes or shapes a band of frequencies.",
-            "x-from": [
-              {
-                "$ref": "https://openmixer.org/contract/clap#/components/schemas/CLAP_PLUGIN_FEATURES_TERMS",
-                "x-term": "filter"
-              }
-            ]
+            "x-text": "The CLAP plugin feature filter: an effect that removes or shapes a band of frequencies."
           },
           {
             "const": "clap.flanger",
             "title": "clapFlanger",
             "x-code": 9,
-            "x-text": "The CLAP plugin feature flanger: an effect that sweeps a short, modulated delay against the dry sound.",
-            "x-from": [
-              {
-                "$ref": "https://openmixer.org/contract/clap#/components/schemas/CLAP_PLUGIN_FEATURES_TERMS",
-                "x-term": "flanger"
-              }
-            ]
+            "x-text": "The CLAP plugin feature flanger: an effect that sweeps a short, modulated delay against the dry sound."
           },
           {
             "const": "clap.frequency-shifter",
             "title": "clapFrequencyShifter",
             "x-code": 10,
-            "x-text": "The CLAP plugin feature frequency-shifter: an effect that shifts every frequency of a sound by the same amount.",
-            "x-from": [
-              {
-                "$ref": "https://openmixer.org/contract/clap#/components/schemas/CLAP_PLUGIN_FEATURES_TERMS",
-                "x-term": "frequency-shifter"
-              }
-            ]
+            "x-text": "The CLAP plugin feature frequency-shifter: an effect that shifts every frequency of a sound by the same amount."
           },
           {
             "const": "clap.gate",
             "title": "clapGate",
             "x-code": 11,
-            "x-text": "The CLAP plugin feature gate: an effect that mutes a sound below a level.",
-            "x-from": [
-              {
-                "$ref": "https://openmixer.org/contract/clap#/components/schemas/CLAP_PLUGIN_FEATURES_TERMS",
-                "x-term": "gate"
-              }
-            ]
+            "x-text": "The CLAP plugin feature gate: an effect that mutes a sound below a level."
           },
           {
             "const": "clap.glitch",
             "title": "clapGlitch",
             "x-code": 12,
-            "x-text": "The CLAP plugin feature glitch: an effect that cuts, stutters or corrupts a sound on purpose.",
-            "x-from": [
-              {
-                "$ref": "https://openmixer.org/contract/clap#/components/schemas/CLAP_PLUGIN_FEATURES_TERMS",
-                "x-term": "glitch"
-              }
-            ]
+            "x-text": "The CLAP plugin feature glitch: an effect that cuts, stutters or corrupts a sound on purpose."
           },
           {
             "const": "clap.granular",
             "title": "clapGranular",
             "x-code": 13,
-            "x-text": "The CLAP plugin feature granular: an effect built from short grains of a sound.",
-            "x-from": [
-              {
-                "$ref": "https://openmixer.org/contract/clap#/components/schemas/CLAP_PLUGIN_FEATURES_TERMS",
-                "x-term": "granular"
-              }
-            ]
+            "x-text": "The CLAP plugin feature granular: an effect built from short grains of a sound."
           },
           {
             "const": "clap.limiter",
             "title": "clapLimiter",
             "x-code": 14,
-            "x-text": "The CLAP plugin feature limiter: an effect that holds a sound under a ceiling.",
-            "x-from": [
-              {
-                "$ref": "https://openmixer.org/contract/clap#/components/schemas/CLAP_PLUGIN_FEATURES_TERMS",
-                "x-term": "limiter"
-              }
-            ]
+            "x-text": "The CLAP plugin feature limiter: an effect that holds a sound under a ceiling."
           },
           {
             "const": "clap.mastering",
             "title": "clapMastering",
             "x-code": 15,
-            "x-text": "The CLAP plugin feature mastering: an effect meant for a mix's final stage.",
-            "x-from": [
-              {
-                "$ref": "https://openmixer.org/contract/clap#/components/schemas/CLAP_PLUGIN_FEATURES_TERMS",
-                "x-term": "mastering"
-              }
-            ]
+            "x-text": "The CLAP plugin feature mastering: an effect meant for a mix's final stage."
           },
           {
             "const": "clap.mixing",
             "title": "clapMixing",
             "x-code": 16,
-            "x-text": "The CLAP plugin feature mixing: an effect meant for use while mixing, such as a channel strip.",
-            "x-from": [
-              {
-                "$ref": "https://openmixer.org/contract/clap#/components/schemas/CLAP_PLUGIN_FEATURES_TERMS",
-                "x-term": "mixing"
-              }
-            ]
+            "x-text": "The CLAP plugin feature mixing: an effect meant for use while mixing, such as a channel strip."
           },
           {
             "const": "clap.multi-effects",
             "title": "clapMultiEffects",
             "x-code": 17,
-            "x-text": "The CLAP plugin feature multi-effects: several effects combined in one plugin.",
-            "x-from": [
-              {
-                "$ref": "https://openmixer.org/contract/clap#/components/schemas/CLAP_PLUGIN_FEATURES_TERMS",
-                "x-term": "multi-effects"
-              }
-            ]
+            "x-text": "The CLAP plugin feature multi-effects: several effects combined in one plugin."
           },
           {
             "const": "clap.phase-vocoder",
             "title": "clapPhaseVocoder",
             "x-code": 18,
-            "x-text": "The CLAP plugin feature phase-vocoder: an effect built on a phase vocoder, typically to stretch or shift a sound independently of pitch and time.",
-            "x-from": [
-              {
-                "$ref": "https://openmixer.org/contract/clap#/components/schemas/CLAP_PLUGIN_FEATURES_TERMS",
-                "x-term": "phase-vocoder"
-              }
-            ]
+            "x-text": "The CLAP plugin feature phase-vocoder: an effect built on a phase vocoder, typically to stretch or shift a sound independently of pitch and time."
           },
           {
             "const": "clap.phaser",
             "title": "clapPhaser",
             "x-code": 19,
-            "x-text": "The CLAP plugin feature phaser: an effect that sweeps notches through a sound with an all-pass filter chain.",
-            "x-from": [
-              {
-                "$ref": "https://openmixer.org/contract/clap#/components/schemas/CLAP_PLUGIN_FEATURES_TERMS",
-                "x-term": "phaser"
-              }
-            ]
+            "x-text": "The CLAP plugin feature phaser: an effect that sweeps notches through a sound with an all-pass filter chain."
           },
           {
             "const": "clap.pitch-correction",
             "title": "clapPitchCorrection",
             "x-code": 20,
-            "x-text": "The CLAP plugin feature pitch-correction: an effect that pulls a sound's pitch toward a scale.",
-            "x-from": [
-              {
-                "$ref": "https://openmixer.org/contract/clap#/components/schemas/CLAP_PLUGIN_FEATURES_TERMS",
-                "x-term": "pitch-correction"
-              }
-            ]
+            "x-text": "The CLAP plugin feature pitch-correction: an effect that pulls a sound's pitch toward a scale."
           },
           {
             "const": "clap.pitch-shifter",
             "title": "clapPitchShifter",
             "x-code": 21,
-            "x-text": "The CLAP plugin feature pitch-shifter: an effect that changes a sound's pitch without changing its duration.",
-            "x-from": [
-              {
-                "$ref": "https://openmixer.org/contract/clap#/components/schemas/CLAP_PLUGIN_FEATURES_TERMS",
-                "x-term": "pitch-shifter"
-              }
-            ]
+            "x-text": "The CLAP plugin feature pitch-shifter: an effect that changes a sound's pitch without changing its duration."
           },
           {
             "const": "clap.restoration",
             "title": "clapRestoration",
             "x-code": 22,
-            "x-text": "The CLAP plugin feature restoration: an effect that removes noise, clicks or other damage from a recording.",
-            "x-from": [
-              {
-                "$ref": "https://openmixer.org/contract/clap#/components/schemas/CLAP_PLUGIN_FEATURES_TERMS",
-                "x-term": "restoration"
-              }
-            ]
+            "x-text": "The CLAP plugin feature restoration: an effect that removes noise, clicks or other damage from a recording."
           },
           {
             "const": "clap.reverb",
             "title": "clapReverb",
             "x-code": 23,
-            "x-text": "The CLAP plugin feature reverb: an effect that adds the reflections of a space to a sound.",
-            "x-from": [
-              {
-                "$ref": "https://openmixer.org/contract/clap#/components/schemas/CLAP_PLUGIN_FEATURES_TERMS",
-                "x-term": "reverb"
-              }
-            ]
+            "x-text": "The CLAP plugin feature reverb: an effect that adds the reflections of a space to a sound."
           },
           {
             "const": "clap.transient-shaper",
             "title": "clapTransientShaper",
             "x-code": 24,
-            "x-text": "The CLAP plugin feature transient-shaper: an effect that reshapes a sound's attack and sustain.",
-            "x-from": [
-              {
-                "$ref": "https://openmixer.org/contract/clap#/components/schemas/CLAP_PLUGIN_FEATURES_TERMS",
-                "x-term": "transient-shaper"
-              }
-            ]
+            "x-text": "The CLAP plugin feature transient-shaper: an effect that reshapes a sound's attack and sustain."
           },
           {
             "const": "clap.tremolo",
             "title": "clapTremolo",
             "x-code": 25,
-            "x-text": "The CLAP plugin feature tremolo: an effect that modulates a sound's level over time.",
-            "x-from": [
-              {
-                "$ref": "https://openmixer.org/contract/clap#/components/schemas/CLAP_PLUGIN_FEATURES_TERMS",
-                "x-term": "tremolo"
-              }
-            ]
+            "x-text": "The CLAP plugin feature tremolo: an effect that modulates a sound's level over time."
           },
           {
             "const": "clap.utility",
             "title": "clapUtility",
             "x-code": 26,
-            "x-text": "The CLAP plugin feature utility: a plugin that does audio housekeeping rather than a creative effect.",
-            "x-from": [
-              {
-                "$ref": "https://openmixer.org/contract/clap#/components/schemas/CLAP_PLUGIN_FEATURES_TERMS",
-                "x-term": "utility"
-              }
-            ]
+            "x-text": "The CLAP plugin feature utility: a plugin that does audio housekeeping rather than a creative effect."
           },
           {
             "const": "lv2.Allpass",
@@ -724,61 +561,31 @@
             "const": "clap.drum",
             "title": "clapDrum",
             "x-code": 0,
-            "x-text": "The CLAP plugin feature drum: an instrument that plays drum sounds.",
-            "x-from": [
-              {
-                "$ref": "https://openmixer.org/contract/clap#/components/schemas/CLAP_PLUGIN_FEATURES_TERMS",
-                "x-term": "drum"
-              }
-            ]
+            "x-text": "The CLAP plugin feature drum: an instrument that plays drum sounds."
           },
           {
             "const": "clap.drum-machine",
             "title": "clapDrumMachine",
             "x-code": 1,
-            "x-text": "The CLAP plugin feature drum-machine: an instrument that sequences and plays drum sounds.",
-            "x-from": [
-              {
-                "$ref": "https://openmixer.org/contract/clap#/components/schemas/CLAP_PLUGIN_FEATURES_TERMS",
-                "x-term": "drum-machine"
-              }
-            ]
+            "x-text": "The CLAP plugin feature drum-machine: an instrument that sequences and plays drum sounds."
           },
           {
             "const": "clap.instrument",
             "title": "clapInstrument",
             "x-code": 2,
-            "x-text": "The CLAP plugin feature instrument: a plugin played by notes, with no more specific kind declared.",
-            "x-from": [
-              {
-                "$ref": "https://openmixer.org/contract/clap#/components/schemas/CLAP_PLUGIN_FEATURES_TERMS",
-                "x-term": "instrument"
-              }
-            ]
+            "x-text": "The CLAP plugin feature instrument: a plugin played by notes, with no more specific kind declared."
           },
           {
             "const": "clap.sampler",
             "title": "clapSampler",
             "x-code": 3,
-            "x-text": "The CLAP plugin feature sampler: an instrument that plays recorded samples.",
-            "x-from": [
-              {
-                "$ref": "https://openmixer.org/contract/clap#/components/schemas/CLAP_PLUGIN_FEATURES_TERMS",
-                "x-term": "sampler"
-              }
-            ]
+            "x-text": "The CLAP plugin feature sampler: an instrument that plays recorded samples."
           },
           {
             "const": "clap.synthesizer",
             "title": "clapSynthesizer",
             "x-code": 4,
-            "x-text": "The CLAP plugin feature synthesizer: an instrument that generates its own sound rather than playing samples.",
-            "x-from": [
-              {
-                "$ref": "https://openmixer.org/contract/clap#/components/schemas/CLAP_PLUGIN_FEATURES_TERMS",
-                "x-term": "synthesizer"
-              }
-            ]
+            "x-text": "The CLAP plugin feature synthesizer: an instrument that generates its own sound rather than playing samples."
           },
           {
             "const": "lv2.Instrument",
@@ -802,13 +609,7 @@
             "const": "clap.note-effect",
             "title": "clapNoteEffect",
             "x-code": 0,
-            "x-text": "The CLAP plugin feature note-effect: a plugin that reads notes and writes notes, such as an arpeggiator.",
-            "x-from": [
-              {
-                "$ref": "https://openmixer.org/contract/clap#/components/schemas/CLAP_PLUGIN_FEATURES_TERMS",
-                "x-term": "note-effect"
-              }
-            ]
+            "x-text": "The CLAP plugin feature note-effect: a plugin that reads notes and writes notes, such as an arpeggiator."
           },
           {
             "const": "lv2.MIDI",
@@ -832,25 +633,13 @@
             "const": "clap.analyzer",
             "title": "clapAnalyzer",
             "x-code": 0,
-            "x-text": "The CLAP plugin feature analyzer: a plugin that reads audio and reports a measurement, with no further output.",
-            "x-from": [
-              {
-                "$ref": "https://openmixer.org/contract/clap#/components/schemas/CLAP_PLUGIN_FEATURES_TERMS",
-                "x-term": "analyzer"
-              }
-            ]
+            "x-text": "The CLAP plugin feature analyzer: a plugin that reads audio and reports a measurement, with no further output."
           },
           {
             "const": "clap.note-detector",
             "title": "clapNoteDetector",
             "x-code": 1,
-            "x-text": "The CLAP plugin feature note-detector: an analyzer that reads pitch from audio.",
-            "x-from": [
-              {
-                "$ref": "https://openmixer.org/contract/clap#/components/schemas/CLAP_PLUGIN_FEATURES_TERMS",
-                "x-term": "note-detector"
-              }
-            ]
+            "x-text": "The CLAP plugin feature note-detector: an analyzer that reads pitch from audio."
           },
           {
             "const": "lv2.Analyser",
@@ -874,49 +663,25 @@
             "const": "clap.ambisonic",
             "title": "clapAmbisonic",
             "x-code": 0,
-            "x-text": "The CLAP plugin feature ambisonic: a plugin declared to work in an ambisonic channel layout.",
-            "x-from": [
-              {
-                "$ref": "https://openmixer.org/contract/clap#/components/schemas/CLAP_PLUGIN_FEATURES_TERMS",
-                "x-term": "ambisonic"
-              }
-            ]
+            "x-text": "The CLAP plugin feature ambisonic: a plugin declared to work in an ambisonic channel layout."
           },
           {
             "const": "clap.mono",
             "title": "clapMono",
             "x-code": 1,
-            "x-text": "The CLAP plugin feature mono: a plugin declared to work in a mono channel layout.",
-            "x-from": [
-              {
-                "$ref": "https://openmixer.org/contract/clap#/components/schemas/CLAP_PLUGIN_FEATURES_TERMS",
-                "x-term": "mono"
-              }
-            ]
+            "x-text": "The CLAP plugin feature mono: a plugin declared to work in a mono channel layout."
           },
           {
             "const": "clap.stereo",
             "title": "clapStereo",
             "x-code": 2,
-            "x-text": "The CLAP plugin feature stereo: a plugin declared to work in a stereo channel layout.",
-            "x-from": [
-              {
-                "$ref": "https://openmixer.org/contract/clap#/components/schemas/CLAP_PLUGIN_FEATURES_TERMS",
-                "x-term": "stereo"
-              }
-            ]
+            "x-text": "The CLAP plugin feature stereo: a plugin declared to work in a stereo channel layout."
           },
           {
             "const": "clap.surround",
             "title": "clapSurround",
             "x-code": 3,
-            "x-text": "The CLAP plugin feature surround: a plugin declared to work in a surround channel layout.",
-            "x-from": [
-              {
-                "$ref": "https://openmixer.org/contract/clap#/components/schemas/CLAP_PLUGIN_FEATURES_TERMS",
-                "x-term": "surround"
-              }
-            ]
+            "x-text": "The CLAP plugin feature surround: a plugin declared to work in a surround channel layout."
           },
           {
             "const": "lv2.Constant",
