@@ -13,6 +13,8 @@ the TypeScript twin's pinVerdicts and pinPools (tools/render-ts.py).
 (b) both sources, while both exist: the domain's words are data/pin.json's PLUGIN_DB_PIN_VERDICTS and PLUGIN_DB_PIN_POOLS;
 (c) sabotage, through the real readers: a domain with the word `refused` and the word `off` removed makes the validators
     of a tree rendered from it refuse them, and the twins of that render lack them;
+(e) packaging: packaging/deps.txt, the spec and debian/control floor plugin-hostd-protocol-contract at 0.8.0 or above,
+    the release that carries the domain (floors only: no ceiling, no Breaks, Replaces, Conflicts or Provides);
 (d) the old holder is not read: in a scratch copy of the tree whose data/pin.json carries every verdict and pool word
     changed, the validators and the twins are as they were.
 
@@ -150,6 +152,16 @@ def main():
             tw = twin_words(outs2)
             check(tw == {"py.pin_verdicts": VERDICTS[:2], "py.pin_pools": POOLS[:1], "ts.pinVerdicts": VERDICTS[:2], "ts.pinPools": POOLS[:1]},
                   "(c) the twins of that render lack them")
+        # (e) packaging
+        import re
+        floors = []
+        for f, rx in (("packaging/deps.txt", r"^plugin-hostd-protocol-contract\s+\S+\s+(\d+\.\d+\.\d+)\s*$"),
+                      ("packaging/plugin-db.spec", r"^BuildRequires:\s*plugin-hostd-protocol-contract\s*>=\s*(\d+\.\d+\.\d+)\s*$"),
+                      ("debian/control", r"plugin-hostd-protocol-contract \(>= (\d+\.\d+\.\d+)~\)")):
+            m = re.search(rx, open(os.path.join(ROOT, f)).read(), re.M)
+            floors.append((f, m.group(1) if m else None))
+        check(all(v and tuple(map(int, v.split("."))) >= (0, 8, 0) for _, v in floors),
+              "(e) plugin-hostd-protocol-contract is floored at 0.8.0 or above in %s" % ", ".join("%s (%s)" % f for f in floors))
         # (d) the old holder is not read
         def change(tt):
             p = os.path.join(tt, "data", "pin.json")
