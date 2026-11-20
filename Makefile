@@ -219,7 +219,7 @@ PIN_DOMAIN_DIR ?= $(CONTRACTDIR)
 export PIN_DOMAIN_DIR
 INSTALL_CONTRACT_DIR = $(firstword $(wildcard $(shell $(PKG_CONFIG) --variable=datadir omx-contract 2>/dev/null)/install-contract-dir.sh) $(wildcard $(OMX_CONTRACT_DIR)/tools/install-contract-dir.sh))
 
-check-tools: check-rendered check-codes test-rendered-sabotage check-contract-dir test-domain check-ci-matrix test-lv2-domain test-plugin-feature test-db-domain
+check-tools: check-rendered check-codes test-rendered-sabotage check-contract-dir test-domain check-ci-matrix test-lv2-domain test-lv2-coverage test-plugin-feature test-db-domain
 
 # the LV2 terms and the F1 mapping are plugin-db's domains lv2 and format (tests/lv2_domain_test.py): golden, the installed
 # omx-contract's classic terms and standard words, and the sabotage arms; OMX_STANDARD_DIR names another contract directory
@@ -229,6 +229,15 @@ test-lv2-domain:
 
 # the plugin features are plugin-db's domain plugin-feature (tests/plugin_feature_test.py): it names no CLAP domain, the CLAP
 # level being outer to plugin-db
+# every installed LV2 term is mapped by the domain lv2, with its status, and nothing more (tools/lv2_inventory.py coverage
+# against inventory/lv2.json, tests/lv2_coverage_test.py); inventory-check reads the installed LV2 again (serdi, the lv2
+# bundles) and holds inventory/lv2.json to it
+.PHONY: test-lv2-coverage inventory-check
+test-lv2-coverage:
+	python3 tests/lv2_coverage_test.py
+inventory-check:
+	python3 tools/lv2_inventory.py --check
+
 .PHONY: test-plugin-feature
 test-plugin-feature:
 	python3 tests/plugin_feature_test.py
