@@ -6374,6 +6374,81 @@
           }
         ],
         "x-kind": "words"
+      },
+      "LV2_RESOURCE_KINDS": {
+        "description": "F1, the LV2 terms mapped to the standard resource kinds: one word per resource kind an LV2 plugin shows through its own terms, its x-from those terms (each named once), its const the word of omx-contract's RESOURCE_KINDS it is (copied from the from of omx-contract's data/resource-profile.json, which no longer names LV2 terms). A reader finds the word whose x-from names the term and reads the standard kind. The resource units LV2 names (units:frame, units:ms, units:s) are words of LV2_UNIT_IDS, whose consts frames, ms and s are also RESOURCE_UNITS words.",
+        "x-since": "1.0.0",
+        "oneOf": [
+          {
+            "const": "latency",
+            "title": "latency",
+            "description": "the LV2 terms LV2_CORE_TERMS#latency are the standard resource kind latency",
+            "x-code": 0,
+            "x-from": [
+              {
+                "$ref": "https://openmixer.org/contract/lv2#/components/schemas/LV2_CORE_TERMS",
+                "x-term": "latency"
+              }
+            ]
+          },
+          {
+            "const": "worker",
+            "title": "worker",
+            "description": "the LV2 terms LV2_WORKER_TERMS#schedule, LV2_WORKER_TERMS#interface are the standard resource kind worker",
+            "x-code": 1,
+            "x-from": [
+              {
+                "$ref": "https://openmixer.org/contract/lv2#/components/schemas/LV2_WORKER_TERMS",
+                "x-term": "schedule"
+              },
+              {
+                "$ref": "https://openmixer.org/contract/lv2#/components/schemas/LV2_WORKER_TERMS",
+                "x-term": "interface"
+              }
+            ]
+          },
+          {
+            "const": "block-length",
+            "title": "blockLength",
+            "description": "the LV2 terms LV2_BUF_SIZE_TERMS#boundedBlockLength, LV2_BUF_SIZE_TERMS#maxBlockLength, LV2_BUF_SIZE_TERMS#minBlockLength, LV2_BUF_SIZE_TERMS#nominalBlockLength, LV2_OPTIONS_TERMS#options are the standard resource kind block-length",
+            "x-code": 2,
+            "x-from": [
+              {
+                "$ref": "https://openmixer.org/contract/lv2#/components/schemas/LV2_BUF_SIZE_TERMS",
+                "x-term": "boundedBlockLength"
+              },
+              {
+                "$ref": "https://openmixer.org/contract/lv2#/components/schemas/LV2_BUF_SIZE_TERMS",
+                "x-term": "maxBlockLength"
+              },
+              {
+                "$ref": "https://openmixer.org/contract/lv2#/components/schemas/LV2_BUF_SIZE_TERMS",
+                "x-term": "minBlockLength"
+              },
+              {
+                "$ref": "https://openmixer.org/contract/lv2#/components/schemas/LV2_BUF_SIZE_TERMS",
+                "x-term": "nominalBlockLength"
+              },
+              {
+                "$ref": "https://openmixer.org/contract/lv2#/components/schemas/LV2_OPTIONS_TERMS",
+                "x-term": "options"
+              }
+            ]
+          },
+          {
+            "const": "state",
+            "title": "state",
+            "description": "the LV2 terms LV2_STATE_TERMS#interface are the standard resource kind state",
+            "x-code": 3,
+            "x-from": [
+              {
+                "$ref": "https://openmixer.org/contract/lv2#/components/schemas/LV2_STATE_TERMS",
+                "x-term": "interface"
+              }
+            ]
+          }
+        ],
+        "x-kind": "words"
       }
     }
   }
