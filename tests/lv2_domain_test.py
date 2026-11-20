@@ -171,6 +171,19 @@ def resource_refusals(doc, kinds, runits):
     return out
 
 
+def uri_refusals(doc):
+    """each OpenMixer unit word's x-uri is the exact urn a TTL writer writes, and round-trips to its title: the name after
+    urn:openmixer:unit#, lower-cased"""
+    out = []
+    for w in doc["LV2_OPENMIXER_UNIT_IDS"]["oneOf"]:
+        uri = w.get("x-uri")
+        if not isinstance(uri, str) or not uri.startswith("urn:openmixer:unit#"):
+            out.append(f"LV2_OPENMIXER_UNIT_IDS.{w['title']}: x-uri {uri!r} is no urn:openmixer:unit# spelling")
+        elif uri.split("#", 1)[1].lower() != w["title"]:
+            out.append(f"LV2_OPENMIXER_UNIT_IDS.{w['title']}: x-uri {uri} does not round-trip to its title")
+    return out
+
+
 def openmixer_unit(doc, uri):
     """the F1 read of an OpenMixer spelling: the word whose title is the name after urn:openmixer:unit#, lower-cased"""
     name = uri.split("#", 1)[1].lower()
@@ -220,6 +233,7 @@ def f1_refusals(doc, units, scales, meanings):
             for key, t in terms_of(doc["LV2_UNITS_TERMS"]).items():
                 if t["kind"] == "unit" and ("LV2_UNITS_TERMS", key) not in seen:
                     out.append(f"LV2_UNIT_IDS: the unit LV2_UNITS_TERMS#{key} has no word")
+    out += uri_refusals(doc)
     for w in doc["LV2_OPENMIXER_UNIT_IDS"]["oneOf"]:
         if w["const"] not in units:
             out.append(f"LV2_OPENMIXER_UNIT_IDS.{w['title']}: {w['const']!r} is no standard word")
@@ -245,6 +259,11 @@ def main():
           "the domain format's FORMAT_TERM_STATUSES are the golden words")
     read = dict(lookup(doc, "LV2_UNIT_IDS"))
     read.update({u: openmixer_unit(doc, u) for u in GOLDEN_UNITS if u.startswith("urn:")})
+    written = {w["x-uri"]: w["const"] for w in doc["LV2_OPENMIXER_UNIT_IDS"]["oneOf"] if "x-uri" in w}
+    check(written == {u: c for u, c in GOLDEN_UNITS.items() if u.startswith("urn:")},
+          "F1: each OpenMixer unit word's x-uri is the golden urn spelling of its standard unit (what a TTL writer writes)")
+    check(not uri_refusals(doc), "F1: each x-uri round-trips to its word's title" +
+          ("" if not uri_refusals(doc) else ": " + "; ".join(uri_refusals(doc))))
     check(read == GOLDEN_UNITS, "F1: every LV2 unit and OpenMixer spelling reads the golden standard unit")
     check(lookup(doc, "LV2_DESIGNATION_MEANINGS") == GOLDEN_MEANINGS, "F1: every designation reads the golden meaning")
     check(lookup(doc, "LV2_PORT_PROPERTY_SCALES") == GOLDEN_SCALES, "F1: every port property reads the golden scale")
@@ -294,6 +313,12 @@ def main():
             print("skip the installed omx-contract's resource profile names no LV2 term: the domain is the one source")
 
     # (c) sabotage
+    bent = copy.deepcopy(doc)
+    w = next(w for w in bent["LV2_OPENMIXER_UNIT_IDS"]["oneOf"] if w["title"] == "dboct")
+    w["x-uri"] = "urn:openmixer:unit#dB-oct"
+    check(any("does not round-trip" in r for r in uri_refusals(bent)), "sabotage: an x-uri that does not round-trip is refused")
+    w.pop("x-uri")
+    check(any("no urn:openmixer:unit# spelling" in r for r in uri_refusals(bent)), "sabotage: a word with no x-uri is refused")
     check(any("'latency' is no RESOURCE_KINDS word" in r for r in resource_refusals(doc, rkinds - {"latency"}, runits)),
           "sabotage: a resource standard without latency is refused")
     again = copy.deepcopy(doc)
