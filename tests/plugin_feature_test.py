@@ -10,16 +10,13 @@ LV2 words keep their from, a term of plugin-db's own domain lv2.
 (a) golden: the five PLUGIN_FEATURE_* items, read as a reader reads a domain (each word's const, title, text and from),
     have the digest of tests/golden/plugin-features.digest, frozen from omx-contract 3.20.2's data/plugin-features.json
     with the CLAP froms left out, and the catalogs hold one message per word in each of the six languages;
-(b) both sources: while the installed omx-contract holds data/plugin-features.json, its words (the CLAP froms left
-    out) are the domain's, and each CLAP from it held is the term the word's own spelling names; every LV2 from names a
-    term of the domain lv2; the domain requires and names no domain but lv2;
+(b) the domain: every LV2 from names a term of the domain lv2, and the domain requires and names no domain but lv2.
+    It is the one source of the plugin features: no old home in omx-contract is read (tests/old_home_test.py);
 (c) sabotage: a word dropped, a text changed, a from naming no term and a CLAP from put back are each seen."""
 import copy
-import glob
 import hashlib
 import json
 import os
-import subprocess
 import sys
 
 ROOT = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..")
@@ -39,11 +36,6 @@ def check(ok, what):
         failures.append(what)
 
 
-def contractdir():
-    return subprocess.run(["pkg-config", "--variable=contractdir", "omx-contract"], capture_output=True,
-                          text=True).stdout.strip()
-
-
 def read(doc):
     """the domain's items in the data form's shape: {item: {key: {word, doc?, text?, from?}}}"""
     out = {}
@@ -60,38 +52,6 @@ def read(doc):
             words[w["title"]] = e
         out[name] = words
     return out
-
-
-def classic(d):
-    return {k: {key: {kk: (vv["en"] if kk == "text" else vv) for kk, vv in w.items()} for key, w in v["words"].items()}
-            for k, v in d.items() if k.startswith("PLUGIN_FEATURE_")}
-
-
-def without_clap(items):
-    """the words with every CLAP from left out: plugin-db names no term of the CLAP level"""
-    out = {}
-    for name, words in items.items():
-        out[name] = {}
-        for key, w in words.items():
-            e = dict(w)
-            kept = [f for f in e.get("from", []) if not f.startswith("CLAP_")]
-            if kept:
-                e["from"] = kept
-            else:
-                e.pop("from", None)
-            out[name][key] = e
-    return out
-
-
-def clap_spelled(items):
-    """each CLAP from is the term its word's own spelling names (const clap.<term>)"""
-    bad = []
-    for name, words in items.items():
-        for key, w in words.items():
-            for f in w.get("from", []):
-                if f.startswith("CLAP_") and "clap." + f.split("#", 1)[1] != w["word"]:
-                    bad.append(f"{name}.{key}: {w['word']} is not spelled after {f}")
-    return bad
 
 
 def outside(doc):
@@ -141,17 +101,7 @@ def main():
         keys = {f"{i}.{w['word']}" for i, ws in mine.items() for w in ws.values()}
         check(set(msgs) == keys, f"catalogs/{lang}.json holds one message per word ({len(msgs)} of {n})")
 
-    # (b) both sources
-    cdir = os.environ.get("OMX_STANDARD_DIR") or contractdir()
-    old = os.path.join(cdir, "3", "omx-contract", "plugin-features.json")
-    if os.path.exists(old):
-        held = classic(json.load(open(old)))
-        check(without_clap(held) == mine, "the installed omx-contract's plugin-features.json holds the domain's words, CLAP froms left out")
-        check(digest(without_clap(held)) == golden, "the golden digest is that of the installed classic words, CLAP froms left out")
-        bad = clap_spelled(held)
-        check(not bad, "each CLAP from the classic words held is the term the word's spelling names" + ("" if not bad else ": " + "; ".join(bad[:5])))
-    else:
-        print(f"skip the installed omx-contract holds no plugin-features.json ({old}): the domain is the one source")
+    # (b) the domain
     check(outside(doc) == [], f"the domain requires and names no domain but lv2 ({outside(doc)})")
     bad = unresolved(mine, LV2)
     check(not bad, "every from names a term of the domain lv2" + ("" if not bad else ": " + "; ".join(bad[:5])))
@@ -173,11 +123,6 @@ def main():
     w["x-from"] = [{"$ref": "https://openmixer.org/contract/clap#/components/schemas/CLAP_PLUGIN_FEATURES_TERMS",
                     "x-term": w["const"].split(".", 1)[1]}]
     check(outside(back) == ["clap"], "sabotage: a CLAP from put back names the domain clap and is refused")
-    gone = copy.deepcopy(held) if os.path.exists(old) else None
-    if gone is not None:
-        f = next(w for ws in gone.values() for w in ws.values() if w.get("from", [""])[0].startswith("CLAP_"))
-        f["from"] = ["CLAP_PLUGIN_FEATURES_TERMS#no-such-feature"]
-        check(bool(clap_spelled(gone)), "sabotage: a CLAP from that is not the word's spelling is seen")
 
     print(f"{'FAIL' if failures else 'ok  '} plugin_feature_test: {len(failures)} failed")
     return 1 if failures else 0

@@ -9,10 +9,10 @@
     give the golden standard words, and so do the resource lookups (an LV2 term of a resource -> its RESOURCE_KINDS
     word through LV2_RESOURCE_KINDS; units:frame, units:ms, units:s -> frames, ms, s through LV2_UNIT_IDS), frozen from
     the LV2 froms of omx-contract's data/resource-profile.json, which omx-contract drops.
-(b) both sources: while the installed omx-contract still holds data/formats/lv2, its terms are the domain's, item for
-    item; every F1 word names a term the domain holds, every unit term has exactly one F1 word, and every standard word
-    F1 maps to is one the installed omx-contract declares (PARAM_UNITS, PARAM_SCALES, the descriptor meanings,
-    RESOURCE_KINDS, RESOURCE_UNITS); while its resource profile still names LV2 terms, they are the domain's mapping.
+(b) the standard: every F1 word names a term the domain holds, every unit term has exactly one F1 word, and every
+    standard word F1 maps to is one the installed omx-contract declares (PARAM_UNITS, PARAM_SCALES, the descriptor
+    meanings, RESOURCE_KINDS, RESOURCE_UNITS). The domain lv2 is the one source of the terms and the mapping: no old
+    home in omx-contract is read (tests/old_home_test.py).
 (c) sabotage: the same checks over a scratch standard without one unit (dB), a scratch domain with one F1 word dropped
     and one with two words for one term are each refused; so are a resource standard without latency and one LV2
     term in two resource words.
@@ -126,7 +126,7 @@ def by_term(doc, item):
 
 
 def resource_profile(std_dir):
-    """(RESOURCE_KINDS words, RESOURCE_UNITS words, {item: the LV2 froms the standard still holds}) of the standard: a
+    """(RESOURCE_KINDS words, RESOURCE_UNITS words) of the standard: a
     domain document holding RESOURCE_KINDS, else the data form 3/omx-contract/resource-profile.json; None if neither"""
     for p in sorted(glob.glob(os.path.join(std_dir, "*", "*.json"))):
         try:
@@ -134,19 +134,14 @@ def resource_profile(std_dir):
         except (OSError, ValueError):
             continue
         if "RESOURCE_KINDS" in s and "RESOURCE_UNITS" in s:
-            froms = {i: {f["$ref"].rsplit("/", 1)[1] + "#" + f["x-term"]: w["const"] for w in s[i]["oneOf"]
-                         for f in w.get("x-from", []) if f["$ref"].rsplit("/", 1)[1].startswith("LV2_")}
-                     for i in ("RESOURCE_KINDS", "RESOURCE_UNITS")}
             return ({w["const"] for w in s["RESOURCE_KINDS"]["oneOf"]},
-                    {w["const"] for w in s["RESOURCE_UNITS"]["oneOf"]}, froms)
+                    {w["const"] for w in s["RESOURCE_UNITS"]["oneOf"]})
     p = os.path.join(std_dir, "3", "omx-contract", "resource-profile.json")
     if not os.path.exists(p):
         return None
     d = json.load(open(p))
-    froms = {i: {f: w["word"] for w in d[i]["words"].values() for f in w.get("from", []) if f.startswith("LV2_")}
-             for i in ("RESOURCE_KINDS", "RESOURCE_UNITS")}
     return ({w["word"] for w in d["RESOURCE_KINDS"]["words"].values()},
-            {w["word"] for w in d["RESOURCE_UNITS"]["words"].values()}, froms)
+            {w["word"] for w in d["RESOURCE_UNITS"]["words"].values()})
 
 
 def resource_refusals(doc, kinds, runits):
@@ -277,18 +272,7 @@ def main():
            if t["kind"] not in kinds or t["status"] not in statuses]
     check(not odd, "every term's kind and status is a word of the domain format" + (": " + ", ".join(odd[:5]) if odd else ""))
 
-    # (b) both sources
-    classic = os.path.join(cdir, "3", "omx-contract", "formats", "lv2")
-    if os.path.isdir(classic):
-        old = {}
-        for p in sorted(glob.glob(os.path.join(classic, "*.json"))):
-            for k, v in json.load(open(p)).items():
-                if k.endswith("_TERMS"):
-                    old[k] = {kk: vv for kk, vv in v.items() if kk not in ("source", "why", "since")}
-        check(old == mine, f"the installed omx-contract's data/formats/lv2 holds the domain's terms ({len(old)} items)")
-        check(digest(old) == open(GOLDEN_DIGEST).read().strip(), "the golden digest is that of the installed classic terms")
-    else:
-        print(f"skip the installed omx-contract holds no data/formats/lv2 ({classic}): the domain is the one source")
+    # (b) the standard
     units, scales, meanings = standard_words(cdir, schema_path)
     bad = f1_refusals(doc, units, scales, meanings)
     check(not bad, "F1: every word names a term of the domain once, every unit has its word, every standard word exists"
@@ -300,17 +284,10 @@ def main():
         rkinds = set(GOLDEN_RESOURCE_KINDS.values())
         runits = set(GOLDEN_RESOURCE_UNITS.values())
     else:
-        rkinds, runits, held = rp
+        rkinds, runits = rp
         bad = resource_refusals(doc, rkinds, runits)
         check(not bad, "F1: every resource word names held terms once and is a RESOURCE_KINDS word; the resource units are"
               " RESOURCE_UNITS words" + ("" if not bad else ": " + "; ".join(bad)))
-        if held["RESOURCE_KINDS"] or held["RESOURCE_UNITS"]:
-            check(held["RESOURCE_KINDS"] == by_term(doc, "LV2_RESOURCE_KINDS"),
-                  "the installed omx-contract's RESOURCE_KINDS LV2 froms are the domain's LV2_RESOURCE_KINDS")
-            check(held["RESOURCE_UNITS"] == {t: by_term(doc, "LV2_UNIT_IDS").get(t) for t in held["RESOURCE_UNITS"]},
-                  "the installed omx-contract's RESOURCE_UNITS LV2 froms read the same words through LV2_UNIT_IDS")
-        else:
-            print("skip the installed omx-contract's resource profile names no LV2 term: the domain is the one source")
 
     # (c) sabotage
     bent = copy.deepcopy(doc)
