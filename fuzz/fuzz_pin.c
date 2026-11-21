@@ -10,7 +10,7 @@
  * Every reader is run on every input: a digest, a layout pin, a verdict, a pool word.
  *
  * Every expected value is the harness's own reading of the format (fuzz/spec.h and the words
- * of data/pin.json written out below), not a call of the header.
+ * of plugin-hostd-protocol's domain pin written out below), not a call of the header.
  *
  * Properties, each an abort() in a check_ function:
  *   - digest charset: a string of 64 characters is a digest exactly when each is 0-9 or a-f.
@@ -20,8 +20,8 @@
  *     a digest.
  *   - token scheme: the scheme is what precedes the last ':'.
  *   - token digest: the digest is what follows the last ':'.
- *   - verdict: a verdict is exactly one of the words data/pin.json declares, whole.
- *   - pool: a pool word is exactly one of the words data/pin.json declares, whole.
+ *   - verdict: a verdict is exactly one of the words protocol's domain pin declares, whole.
+ *   - pool: a pool word is exactly one of the words protocol's domain pin declares, whole.
  */
 #include <stdio.h>
 
@@ -34,7 +34,7 @@
  * reader that writes one byte too many does not reach a sanitizer before the check does */
 #define SCHEME_SIZE 32
 
-/* contract: data/pin.json PLUGIN_DB_PIN_VERDICTS, PLUGIN_DB_PIN_POOLS */
+/* contract: plugin-hostd-protocol's domain pin (contract.d/pin/pin.json there), PIN_VERDICTS and PIN_POOLS */
 static const char *const spec_verdicts[] = { "in-process", "isolated", "refused" };
 static const char *const spec_pools[] = { "cores", "off" };
 
@@ -118,10 +118,10 @@ FUZZ_CHECK check_token_digest(const char *colon, const char *hex)
 FUZZ_CHECK check_verdict(const char *s)
 {
 	/* A verdict is one of the declared words, whole: not a prefix of one, not an extension.
-	 * contract: data/pin.json PLUGIN_DB_PIN_VERDICTS
-	 * mutant: include/plugin-db/pin.h:180 `phd_pin_word_in(s, words, OMX_PLUGIN_DB_PIN_VERDICTS_COUNT)` -> `1`
+	 * contract: plugin-hostd-protocol's domain pin PIN_VERDICTS
+	 * mutant: include/plugin-db/pin.h:180 `phd_pin_word_in(s, words, PDB_PIN_VERDICTS_COUNT)` -> `1`
 	 * input: verdict-bogus
-	 * mutant: include/plugin-db/pin.h:180 `OMX_PLUGIN_DB_PIN_VERDICTS_COUNT` -> `OMX_PLUGIN_DB_PIN_VERDICTS_COUNT - 1`
+	 * mutant: include/plugin-db/pin.h:180 `PDB_PIN_VERDICTS_COUNT` -> `PDB_PIN_VERDICTS_COUNT - 1`
 	 * input: verdict-refused
 	 * mutant: include/plugin-db/pin.h:170 `!strcmp(s, words[n])` -> `!strncmp(s, words[n], strlen(s))`
 	 * input: verdict-prefix */
@@ -132,10 +132,10 @@ FUZZ_CHECK check_verdict(const char *s)
 FUZZ_CHECK check_pool(const char *s)
 {
 	/* A pool word is one of the declared words, whole.
-	 * contract: data/pin.json PLUGIN_DB_PIN_POOLS
-	 * mutant: include/plugin-db/pin.h:188 `phd_pin_word_in(s, words, OMX_PLUGIN_DB_PIN_POOLS_COUNT)` -> `1`
+	 * contract: plugin-hostd-protocol's domain pin PIN_POOLS
+	 * mutant: include/plugin-db/pin.h:188 `phd_pin_word_in(s, words, PDB_PIN_POOLS_COUNT)` -> `1`
 	 * input: pool-bogus
-	 * mutant: include/plugin-db/pin.h:188 `OMX_PLUGIN_DB_PIN_POOLS_COUNT` -> `OMX_PLUGIN_DB_PIN_POOLS_COUNT - 1`
+	 * mutant: include/plugin-db/pin.h:188 `PDB_PIN_POOLS_COUNT` -> `PDB_PIN_POOLS_COUNT - 1`
 	 * input: pool-off */
 	if (phd_pin_pool_valid(s) != spec_member(s, spec_pools, 2))
 		abort();

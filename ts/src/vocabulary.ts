@@ -1,17 +1,17 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 // Copyright (C) 2026 Pau Aliagas <linuxnow@gmail.com>
 // GENERATED: DO NOT EDIT BY HAND.
-// Produced by tools/render-ts.py from data/pin.json and data/db.json. Each words item is an object of its words in
+// Produced by tools/render-ts.py from data/pin.json and data/db.json and the domain pin of plugin-hostd-protocol. Each words item is an object of its words in
 // their order, keyed as data/ keys them; a grouped item has a <item>Group object (the group word of each word).
 
-/** PLUGIN_DB_PIN_VERDICTS */
+/** PIN_VERDICTS */
 export const pinVerdicts = {
   inProcess: "in-process",
   isolated: "isolated",
   refused: "refused",
 } as const;
 
-/** PLUGIN_DB_PIN_POOLS */
+/** PIN_POOLS */
 export const pinPools = {
   cores: "cores",
   off: "off",
