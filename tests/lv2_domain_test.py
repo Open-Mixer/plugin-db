@@ -17,11 +17,12 @@
     and one with two words for one term are each refused; so are a resource standard without latency and one LV2
     term in two resource words.
 
-The standard words are read from $OMX_STANDARD_DIR, else the installed contract directory (pkg-config omx-contract):
-a domain document holding PARAM_UNITS (its words' const), else the data form 3/omx-contract/primitives.json. The
-meanings are omx-contract's descriptor schema ($defs.meaning), $OMX_CONTRACT_SCHEMA, else the installed one."""
+The standard words are read from $OMX_STANDARD_DIR, else the installed contract directory (pkg-config omx-contract),
+each in the one form omx-contract installs it: PARAM_UNITS and PARAM_SCALES from its domain param (param/param.json),
+RESOURCE_KINDS and RESOURCE_UNITS from 3/omx-contract/resource-profile.json; a standard without one is refused by
+name, never skipped. No term names a moved file's old home as its user. The meanings are omx-contract's descriptor
+schema ($defs.meaning), $OMX_CONTRACT_SCHEMA, else the installed one."""
 import copy
-import glob
 import hashlib
 import json
 import os
@@ -60,6 +61,9 @@ GOLDEN_RESOURCE_KINDS = {"LV2_CORE_TERMS#latency": "latency", "LV2_WORKER_TERMS#
                          "LV2_BUF_SIZE_TERMS#nominalBlockLength": "block-length",
                          "LV2_OPTIONS_TERMS#options": "block-length", "LV2_STATE_TERMS#interface": "state"}
 GOLDEN_RESOURCE_UNITS = {"LV2_UNITS_TERMS#frame": "frames", "LV2_UNITS_TERMS#ms": "ms", "LV2_UNITS_TERMS#s": "s"}
+
+# the files that moved into plugin-db's domains, by their old home: a term's `by` names the new home
+OLD_HOMES = {"omx-contract:data/plugin-features.json": "plugin-db:contract.d/plugin-feature/plugin-feature.json"}
 
 failures = []
 
@@ -126,20 +130,14 @@ def by_term(doc, item):
 
 
 def resource_profile(std_dir):
-    """(RESOURCE_KINDS words, RESOURCE_UNITS words) of the standard: a
-    domain document holding RESOURCE_KINDS, else the data form 3/omx-contract/resource-profile.json; None if neither"""
-    for p in sorted(glob.glob(os.path.join(std_dir, "*", "*.json"))):
-        try:
-            s = json.load(open(p)).get("components", {}).get("schemas", {})
-        except (OSError, ValueError):
-            continue
-        if "RESOURCE_KINDS" in s and "RESOURCE_UNITS" in s:
-            return ({w["const"] for w in s["RESOURCE_KINDS"]["oneOf"]},
-                    {w["const"] for w in s["RESOURCE_UNITS"]["oneOf"]})
+    """(RESOURCE_KINDS words, RESOURCE_UNITS words) of the standard, from the one form omx-contract installs them in,
+    <contractdir>/3/omx-contract/resource-profile.json; None when it is not there"""
     p = os.path.join(std_dir, "3", "omx-contract", "resource-profile.json")
     if not os.path.exists(p):
         return None
     d = json.load(open(p))
+    if "RESOURCE_KINDS" not in d or "RESOURCE_UNITS" not in d:
+        return None
     return ({w["word"] for w in d["RESOURCE_KINDS"]["words"].values()},
             {w["word"] for w in d["RESOURCE_UNITS"]["words"].values()})
 
@@ -186,26 +184,14 @@ def openmixer_unit(doc, uri):
 
 
 def standard_words(std_dir, schema_path):
-    """(PARAM_UNITS words, PARAM_SCALES words, meanings) of the standard the domain maps to"""
-    units = scales = None
-    for p in sorted(glob.glob(os.path.join(std_dir, "*", "*.json"))):
-        try:
-            s = json.load(open(p)).get("components", {}).get("schemas", {})
-        except (OSError, ValueError):
-            continue
-        if "PARAM_UNITS" in s:
-            units = {w["const"] for w in s["PARAM_UNITS"]["oneOf"]}
-            if "PARAM_SCALES" in s:
-                scales = {w["const"] for w in s["PARAM_SCALES"]["oneOf"]}
-    prim = os.path.join(std_dir, "3", "omx-contract", "primitives.json")
-    if (units is None or scales is None) and os.path.exists(prim):
-        d = json.load(open(prim))
-        if units is None:
-            units = {w["word"] for w in d["PARAM_UNITS"]["words"].values()}
-        if scales is None:
-            scales = set(d["PARAM_SCALES"]["ids"])
+    """(PARAM_UNITS words, PARAM_SCALES words, meanings) of the standard the domain maps to: PARAM_UNITS and PARAM_SCALES
+    from omx-contract's domain param (<contractdir>/param/param.json), its one form; None for a list it does not hold"""
+    p = os.path.join(std_dir, "param", "param.json")
+    s = json.load(open(p)).get("components", {}).get("schemas", {}) if os.path.exists(p) else {}
+    units = {w["const"] for w in s["PARAM_UNITS"]["oneOf"]} if "PARAM_UNITS" in s else None
+    scales = {w["const"] for w in s["PARAM_SCALES"]["oneOf"]} if "PARAM_SCALES" in s else None
     meanings = set(json.load(open(schema_path))["$defs"]["meaning"]["enum"])
-    return units or set(), scales or set(), meanings
+    return units, scales, meanings
 
 
 def f1_refusals(doc, units, scales, meanings):
@@ -274,20 +260,22 @@ def main():
 
     # (b) the standard
     units, scales, meanings = standard_words(cdir, schema_path)
+    check(units is not None and scales is not None,
+          f"the standard holds PARAM_UNITS and PARAM_SCALES (omx-contract's domain param under {cdir})")
+    units, scales = units or set(), scales or set()
     bad = f1_refusals(doc, units, scales, meanings)
     check(not bad, "F1: every word names a term of the domain once, every unit has its word, every standard word exists"
           + ("" if not bad else ": " + "; ".join(bad)))
 
     rp = resource_profile(cdir)
-    if rp is None:
-        print(f"skip no RESOURCE_KINDS in {cdir}: the resource kinds are not held to the standard here")
-        rkinds = set(GOLDEN_RESOURCE_KINDS.values())
-        runits = set(GOLDEN_RESOURCE_UNITS.values())
-    else:
-        rkinds, runits = rp
-        bad = resource_refusals(doc, rkinds, runits)
-        check(not bad, "F1: every resource word names held terms once and is a RESOURCE_KINDS word; the resource units are"
-              " RESOURCE_UNITS words" + ("" if not bad else ": " + "; ".join(bad)))
+    check(rp is not None, f"the standard holds RESOURCE_KINDS and RESOURCE_UNITS ({cdir}/3/omx-contract/resource-profile.json)")
+    rkinds, runits = rp or (set(), set())
+    bad = resource_refusals(doc, rkinds, runits)
+    check(not bad, "F1: every resource word names held terms once and is a RESOURCE_KINDS word; the resource units are"
+          " RESOURCE_UNITS words" + ("" if not bad else ": " + "; ".join(bad)))
+    moved = sorted({b for i in doc.values() if i.get("x-kind") == "terms" for w in i["oneOf"]
+                    for b in w["x-term"].get("by", []) if b in OLD_HOMES})
+    check(not moved, "no term names a moved file's old home as its user" + ("" if not moved else ": " + ", ".join(moved)))
 
     # (c) sabotage
     bent = copy.deepcopy(doc)
