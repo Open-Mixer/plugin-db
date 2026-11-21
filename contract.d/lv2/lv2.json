@@ -556,7 +556,7 @@
               "kind": "plugin-class",
               "status": "used",
               "by": [
-                "omx-contract:data/plugin-features.json"
+                "plugin-db:contract.d/plugin-feature/plugin-feature.json"
               ]
             }
           },
@@ -569,7 +569,7 @@
               "kind": "plugin-class",
               "status": "used",
               "by": [
-                "omx-contract:data/plugin-features.json"
+                "plugin-db:contract.d/plugin-feature/plugin-feature.json"
               ]
             }
           },
@@ -612,7 +612,7 @@
               "kind": "plugin-class",
               "status": "used",
               "by": [
-                "omx-contract:data/plugin-features.json"
+                "plugin-db:contract.d/plugin-feature/plugin-feature.json"
               ]
             }
           },
@@ -664,7 +664,7 @@
               "kind": "plugin-class",
               "status": "used",
               "by": [
-                "omx-contract:data/plugin-features.json"
+                "plugin-db:contract.d/plugin-feature/plugin-feature.json"
               ]
             }
           },
@@ -691,7 +691,7 @@
               "kind": "plugin-class",
               "status": "used",
               "by": [
-                "omx-contract:data/plugin-features.json"
+                "plugin-db:contract.d/plugin-feature/plugin-feature.json"
               ]
             }
           },
@@ -719,7 +719,7 @@
               "kind": "plugin-class",
               "status": "used",
               "by": [
-                "omx-contract:data/plugin-features.json"
+                "plugin-db:contract.d/plugin-feature/plugin-feature.json"
               ]
             }
           },
@@ -799,7 +799,7 @@
               "kind": "plugin-class",
               "status": "used",
               "by": [
-                "omx-contract:data/plugin-features.json"
+                "plugin-db:contract.d/plugin-feature/plugin-feature.json"
               ]
             }
           },
@@ -812,7 +812,7 @@
               "kind": "plugin-class",
               "status": "used",
               "by": [
-                "omx-contract:data/plugin-features.json"
+                "plugin-db:contract.d/plugin-feature/plugin-feature.json"
               ]
             }
           },
@@ -847,7 +847,7 @@
               "kind": "plugin-class",
               "status": "used",
               "by": [
-                "omx-contract:data/plugin-features.json"
+                "plugin-db:contract.d/plugin-feature/plugin-feature.json"
               ]
             }
           },
@@ -873,7 +873,7 @@
               "kind": "plugin-class",
               "status": "used",
               "by": [
-                "omx-contract:data/plugin-features.json"
+                "plugin-db:contract.d/plugin-feature/plugin-feature.json"
               ]
             }
           },
@@ -900,7 +900,7 @@
               "kind": "plugin-class",
               "status": "used",
               "by": [
-                "omx-contract:data/plugin-features.json"
+                "plugin-db:contract.d/plugin-feature/plugin-feature.json"
               ]
             }
           },
@@ -913,7 +913,7 @@
               "kind": "plugin-class",
               "status": "used",
               "by": [
-                "omx-contract:data/plugin-features.json"
+                "plugin-db:contract.d/plugin-feature/plugin-feature.json"
               ]
             }
           },
@@ -969,7 +969,7 @@
               "kind": "plugin-class",
               "status": "used",
               "by": [
-                "omx-contract:data/plugin-features.json"
+                "plugin-db:contract.d/plugin-feature/plugin-feature.json"
               ]
             }
           },
@@ -982,7 +982,7 @@
               "kind": "plugin-class",
               "status": "used",
               "by": [
-                "omx-contract:data/plugin-features.json"
+                "plugin-db:contract.d/plugin-feature/plugin-feature.json"
               ]
             }
           },
@@ -1047,7 +1047,7 @@
               "kind": "plugin-class",
               "status": "used",
               "by": [
-                "omx-contract:data/plugin-features.json"
+                "plugin-db:contract.d/plugin-feature/plugin-feature.json"
               ]
             }
           },
@@ -1226,7 +1226,7 @@
               "kind": "plugin-class",
               "status": "used",
               "by": [
-                "omx-contract:data/plugin-features.json"
+                "plugin-db:contract.d/plugin-feature/plugin-feature.json"
               ]
             }
           },
@@ -1239,7 +1239,7 @@
               "kind": "plugin-class",
               "status": "used",
               "by": [
-                "omx-contract:data/plugin-features.json"
+                "plugin-db:contract.d/plugin-feature/plugin-feature.json"
               ]
             }
           },
@@ -1263,7 +1263,7 @@
               "kind": "plugin-class",
               "status": "used",
               "by": [
-                "omx-contract:data/plugin-features.json"
+                "plugin-db:contract.d/plugin-feature/plugin-feature.json"
               ]
             }
           },
@@ -1287,7 +1287,7 @@
               "kind": "plugin-class",
               "status": "used",
               "by": [
-                "omx-contract:data/plugin-features.json"
+                "plugin-db:contract.d/plugin-feature/plugin-feature.json"
               ]
             }
           },
@@ -1300,7 +1300,7 @@
               "kind": "plugin-class",
               "status": "used",
               "by": [
-                "omx-contract:data/plugin-features.json"
+                "plugin-db:contract.d/plugin-feature/plugin-feature.json"
               ]
             }
           },

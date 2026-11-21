@@ -4,7 +4,8 @@
 (contract.d/format/format.json), sorting pass rows V27a, F1 and O1.
 
 (a) golden: the 24 LV2_*_TERMS of the domain lv2, read as a reader reads them (each item's terms by key), have the
-    digest of tests/golden/lv2-terms.digest, frozen from omx-contract 3.20.2 (each item's since left out)'s data/formats/lv2; the domain format's
+    digest of tests/golden/lv2-terms.digest, frozen from omx-contract 3.20.2's data/formats/lv2 (each item's since left out, and the 20 users
+    omx-contract:data/plugin-features.json named by their new home, plugin-db's domain plugin-feature); the domain format's
     two items have their golden words; the F1 lookups (an LV2 unit, designation or port property -> its standard word)
     give the golden standard words, and so do the resource lookups (an LV2 term of a resource -> its RESOURCE_KINDS
     word through LV2_RESOURCE_KINDS; units:frame, units:ms, units:s -> frames, ms, s through LV2_UNIT_IDS), frozen from
