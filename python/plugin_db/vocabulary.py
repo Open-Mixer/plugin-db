@@ -1,7 +1,7 @@
 # SPDX-License-Identifier: GPL-3.0-or-later
 # Copyright (C) 2026 Pau Aliagas <linuxnow@gmail.com>
 # GENERATED: DO NOT EDIT BY HAND.
-# Produced by tools/render-py.py from data/pin.json and data/db.json and the domain pin of plugin-hostd-protocol. Each words item is a Words object of its words
+# Produced by tools/render-py.py from the domain plugin-db (tools/dbwords.py) and the domain pin of plugin-hostd-protocol. Each words item is a Words object of its words
 # in their order, keyed as data/ keys them; a grouped item has <item>_group (the group word of each word).
 
 

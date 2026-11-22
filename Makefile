@@ -291,13 +291,12 @@ test-domain: $(BIN) $(BUILD)/formats_test
 	INSTALL_CONTRACT_DIR='$(INSTALL_CONTRACT_DIR)' MAKE='$(MAKE)' OMX_CONTRACT='$(OMX_CONTRACT)' PDB='$(BIN)' \
 	  FORMATS_TEST='$(BUILD)/formats_test' sh tests/domain-formats.sh
 
-# the domain plugin-db's items that carry an x-file render as the data files they rebuild (omx-contract's
-# docs/render.md, render --with-domain, 3.21.0): from an empty data directory named data, so each item names the file it
-# rebuilds as data/<x-file>, plugin_db_vocabulary.h and plugin_db_constants.h come out byte for byte as from those files
+# the domain plugin-db's items that carry an x-file render as the words and numbers they declare (omx-contract's
+# docs/render.md, render --with-domain, 3.21.0): from the contract directory alone, so each item's provenance is its
+# domain document, contract.d/plugin-db/plugin-db.json, as it is in plugin-hostd-protocol's copy of the header
 render-words check-rendered:
 	@command -v $(firstword $(OMX_CONTRACT)) >/dev/null || { echo "$@: no $(OMX_CONTRACT) command: install omx-contract" >&2; exit 1; }
-	@set -e; tmp=$$(mktemp -d); trap 'rm -rf $$tmp' EXIT; mkdir $$tmp/data; \
-	$(OMX_CONTRACT) render --target c --package $(NAME) --data $$tmp/data --with-domain contract.d/plugin-db --out include/plugin-db \
+	$(OMX_CONTRACT) render --target c --package $(NAME) --contract-dir contract.d --with-domain contract.d/plugin-db --out include/plugin-db \
 	  $(if $(filter check-rendered,$@),--check)
 
 # ---------------------------------------------------------------------------------------------------------------------

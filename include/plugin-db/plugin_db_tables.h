@@ -4,7 +4,7 @@
 #define PLUGIN_DB_TABLES_H
 /*
  * GENERATED: DO NOT EDIT BY HAND.
- * Produced by tools/render-db.py from data/pin.json, data/db.json and data/store.schema.json, and from the domain pin of
+ * Produced by tools/render-db.py from the domain plugin-db (tools/dbwords.py) and data/store.schema.json, and from the domain pin of
  * plugin-hostd-protocol for the verdict and pool words of a pin (PIN_VERDICTS, PIN_POOLS; also their _INIT). Each words item is an
  * enum of its words' indexes in their order, PDB_<ITEM>_<NAME>, the index into the item's _INIT of
  * plugin_db_vocabulary.h (the pin items': of this file); a grouped item has a _GROUP_INIT, the index of each word's group in the item it names.

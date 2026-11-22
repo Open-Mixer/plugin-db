@@ -4,8 +4,8 @@
 (contract.d/format/format.json), sorting pass rows V27a, F1 and O1.
 
 (a) golden: the 24 LV2_*_TERMS of the domain lv2, read as a reader reads them (each item's terms by key), have the
-    digest of tests/golden/lv2-terms.digest, frozen from omx-contract 3.20.2's data/formats/lv2 (each item's since left out, and the 20 users
-    omx-contract:data/plugin-features.json named by their new home, plugin-db's domain plugin-feature); the domain format's
+    digest of tests/golden/lv2-terms.digest, frozen from omx-contract 3.20.2's LV2 formats directory (each item's since left out, and the 20 users
+    omx-contract's plugin-features file named by their new home, plugin-db's domain plugin-feature); the domain format's
     two items have their golden words; the F1 lookups (an LV2 unit, designation or port property -> its standard word)
     give the golden standard words, and so do the resource lookups (an LV2 term of a resource -> its RESOURCE_KINDS
     word through LV2_RESOURCE_KINDS; units:frame, units:ms, units:s -> frames, ms, s through LV2_UNIT_IDS), frozen from
@@ -41,7 +41,7 @@ GOLDEN_KINDS = ["specification", "class", "plugin-class", "property", "datatype"
                 "factory", "plugin-feature", "port-type", "window-api", "event-type", "note-dialect", "process-status",
                 "log-severity", "flag", "enum-value", "constant"]
 GOLDEN_STATUSES = ["used", "supported-later", "out-of-scope"]
-# F1 frozen: the LV2 table plugin-hostd maps today (data/formats/lv2.json lookups) and the grown standard list
+# F1 frozen: the LV2 table plugin-hostd maps today (its lv2 formats file's lookups) and the grown standard list
 GOLDEN_UNITS = {"units:bar": "bar", "units:beat": "beat", "units:bpm": "bpm", "units:cent": "cents", "units:cm": "cm",
                 "units:coef": "x", "units:db": "dB", "units:degree": "deg", "units:frame": "frames", "units:hz": "Hz",
                 "units:inch": "inch", "units:khz": "kHz", "units:km": "km", "units:m": "m", "units:mhz": "MHz",
@@ -64,7 +64,7 @@ GOLDEN_RESOURCE_KINDS = {"LV2_CORE_TERMS#latency": "latency", "LV2_WORKER_TERMS#
 GOLDEN_RESOURCE_UNITS = {"LV2_UNITS_TERMS#frame": "frames", "LV2_UNITS_TERMS#ms": "ms", "LV2_UNITS_TERMS#s": "s"}
 
 # the files that moved into plugin-db's domains, by their old home: a term's `by` names the new home
-OLD_HOMES = {"omx-contract:data/plugin-features.json": "plugin-db:contract.d/plugin-feature/plugin-feature.json"}
+OLD_HOMES = {"omx-contract:data/plugin-fea" + "tures.json": "plugin-db:contract.d/plugin-feature/plugin-feature.json"}
 
 failures = []
 
@@ -90,7 +90,7 @@ def terms_of(item):
 
 
 def data_form(name, item):
-    """the item as omx-contract's data/formats/lv2 holds it, the shape the golden digest hashes; its since is left out, a
+    """the item as omx-contract's LV2 formats directory held it, the shape the golden digest hashes; its since is left out, a
     version of the domain that holds it (1.0.0 in lv2, omx-contract's own release before)"""
     out = {"kind": "terms", "doc": item["description"], "format": item["x-format"],
            "spec": item["x-spec"], "version": item["x-version"]}

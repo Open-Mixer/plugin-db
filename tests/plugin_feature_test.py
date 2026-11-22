@@ -8,7 +8,7 @@ clap.<feature>) names its CLAP term by its spelling, and the CLAP level holds th
 LV2 words keep their from, a term of plugin-db's own domain lv2.
 
 (a) golden: the five PLUGIN_FEATURE_* items, read as a reader reads a domain (each word's const, title, text and from),
-    have the digest of tests/golden/plugin-features.digest, frozen from omx-contract 3.20.2's data/plugin-features.json
+    have the digest of tests/golden/plugin-features.digest, frozen from omx-contract 3.20.2's plugin-features file
     with the CLAP froms left out, and the catalogs hold one message per word in each of the six languages;
 (b) the domain: every LV2 from names a term of the domain lv2, and the domain requires and names no domain but lv2.
     It is the one source of the plugin features: no old home in omx-contract is read (tests/old_home_test.py);

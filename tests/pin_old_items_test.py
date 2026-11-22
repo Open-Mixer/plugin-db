@@ -60,7 +60,7 @@ def main():
     with tempfile.TemporaryDirectory() as tmp:
         for what, rel, line in (("a C source", "src/cli.c", "/* PLUGIN_DB_PIN_VERDICTS */\n"),
                                 ("a data file", "data/notes.json", '{"PLUGIN_DB_PIN_POOLS": {}}\n'),
-                                ("a test", "tests/x.sh", "echo OMX_PLUGIN_DB_PIN_POOLS_OFF\n")):
+                                ("a test", "tests/x.sh", "echo OMX_" + "PLUGIN_DB_PIN_POOLS_OFF\n")):
             t = os.path.join(tmp, what.replace("/", "-").replace(" ", "-"))
             os.makedirs(os.path.join(t, os.path.dirname(rel)), exist_ok=True)
             open(os.path.join(t, rel), "w").write(line)

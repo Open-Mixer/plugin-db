@@ -3,10 +3,10 @@
 """plugin-db's 18 items are its domain plugin-db (contract.d/plugin-db/plugin-db.json), sorting pass rows V11 and V13.
 
 (a) golden: tools/dbwords.py, the read every render of plugin-db makes (render-db, render-py, render-ts through
-    tools/pinwords.py), gives the 18 items with the digest of tests/golden/plugin-db-words.digest, frozen from data/pin.json,
-    data/db.json and data/constants.json before the move, and each in the file it came from;
+    tools/pinwords.py), gives the 18 items with the digest of tests/golden/plugin-db-words.digest, frozen from the pin, db and constants
+    files of data/ before the move, and each in the file it came from;
 (b) one source: data/ holds no file of the contract directory (store.schema.json, the store's own schema, alone), and no
-    file of the tree outside contract.d/ and the changelogs names data/pin.json, data/db.json or data/constants.json as
+    file of the tree outside contract.d/ and the changelogs names the pin, db or constants file of data/ as
     a source; while one of them is still there it is compared with the domain;
 (c) sabotage: a scratch domain with one word dropped makes the renders' --check of plugin_db_tables.h and vocabulary.py
     red, and gives another digest."""
@@ -82,7 +82,7 @@ def main():
                             ":!tests/db_domain_test.py", ":!include", ":!python/plugin_db/vocabulary.py",
                             ":!ts/src/vocabulary.ts", ":!tools/render-*.py", ":!tools/dbwords.py"],
                            capture_output=True, text=True).stdout.split()
-    check(not named, "no file names data/pin.json, data/db.json or data/constants.json as a source"
+    check(not named, "no file names the pin, db or constants file of data/ as a source"
           + (": " + ", ".join(named) if named else ""))
 
     # (c) sabotage

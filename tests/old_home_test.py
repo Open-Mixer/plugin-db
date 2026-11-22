@@ -1,7 +1,7 @@
 # SPDX-License-Identifier: GPL-3.0-or-later
 # Copyright (C) 2026 Pau Aliagas <linuxnow@gmail.com>
 """plugin-db's domains are the one source of what moved into them: no plugin-db test or tool reads omx-contract's old
-homes of the moved items (data/formats/lv2, data/plugin-features.json, the LV2 froms of data/resource-profile.json's
+homes of the moved items (its LV2 formats directory, its plugin-features file, the LV2 froms of data/resource-profile.json's
 RESOURCE_KINDS and RESOURCE_UNITS) as a second source (sorting pass V24, V27a, F1).
 
 (a) the call: lv2_domain_test.py and plugin_feature_test.py run against a standard that holds a poisoned copy of each

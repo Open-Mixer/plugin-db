@@ -22,7 +22,7 @@
  * parameter layout in the omx-layout/1 serialisation, with the rules of what is a pin's and what is not. Header-only,
  * on libc and libcrypto. A host fills the neutral records below from its own standard interface (CLAP params, LV2
  * control ports) and calls the digest; nothing else writes these bytes. A change to the serialisation is a new scheme,
- * never an edit of this one. Nothing here opens or loads a plugin: that is the host's. The words are data/pin.json's,
+ * never an edit of this one. Nothing here opens or loads a plugin: that is the host's. The words are the domain plugin-db's,
  * rendered in plugin_db_vocabulary.h.
  *
  * omx-layout/1, UTF-8, one '\n' after every line:

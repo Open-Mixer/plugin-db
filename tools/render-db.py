@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # SPDX-License-Identifier: GPL-3.0-or-later
 # Copyright (C) 2026 Pau Aliagas <linuxnow@gmail.com>
-"""Derive include/plugin-db/plugin_db_tables.h from data/pin.json, data/db.json, data/store.schema.json and the domain pin of
+"""Derive include/plugin-db/plugin_db_tables.h from the domain plugin-db (tools/dbwords.py), data/store.schema.json and the domain pin of
 plugin-hostd-protocol (the verdict and pool words of a pin: tools/pinwords.py).
 
 The words themselves are omx-contract's render (plugin_db_vocabulary.h); this adds what that render does not carry:
@@ -48,7 +48,7 @@ def render(data_dir):
         "#define PLUGIN_DB_TABLES_H",
         "/*",
         " * GENERATED: DO NOT EDIT BY HAND.",
-        " * Produced by tools/render-db.py from data/pin.json, data/db.json and data/store.schema.json, and from the domain pin of",
+        " * Produced by tools/render-db.py from the domain plugin-db (tools/dbwords.py) and data/store.schema.json, and from the domain pin of",
         " * plugin-hostd-protocol for the verdict and pool words of a pin (PIN_VERDICTS, PIN_POOLS; also their _INIT). Each words item is an",
         " * enum of its words' indexes in their order, PDB_<ITEM>_<NAME>, the index into the item's _INIT of",
         " * plugin_db_vocabulary.h (the pin items': of this file); a grouped item has a _GROUP_INIT, the index of each word's group in the item it names.",

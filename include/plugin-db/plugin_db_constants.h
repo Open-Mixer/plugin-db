@@ -22,7 +22,7 @@
 #define PLUGIN_DB_CONSTANTS_H
 /*
  * GENERATED: DO NOT EDIT BY HAND.
- * Rendered by `omx-contract render --target c --package plugin-db` from data/constants.json, the numbers
+ * Rendered by `omx-contract render --target c --package plugin-db` from the domain plugin-db, the numbers
  * plugin-db declares. It includes nothing, so a consumer that needs a number and no digest builds without OpenSSL;
  * the values are changed where they are declared and the file is rendered again, never edited here.
  */
