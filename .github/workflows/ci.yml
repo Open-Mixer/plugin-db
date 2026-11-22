@@ -21,7 +21,7 @@ jobs:
       matrix:
         # ruling D25: while the org's OMX_RELEASE_MATRIX is quick, CI covers the quick cells only; bookworm is a full
         # cell, served its floors only at the wave-end full release, so it joins the matrix when the variable is full
-        image: ${{ fromJSON(vars.OMX_RELEASE_MATRIX == 'full' && '["fedora:44", "debian:bookworm", "debian:trixie"]' || '["fedora:44", "debian:trixie"]') }}
+        image: ${{ fromJSON(vars.OMX_RELEASE_MATRIX == 'full' && '["fedora:45", "debian:bookworm", "debian:trixie"]' || '["fedora:45", "debian:trixie"]') }}
     # privileged only to lower the runner kernel's mmap_rnd_bits: with the hosted image's 32 bits, bookworm's gcc 12
     # AddressSanitizer dies in DEADLYSIGNAL loops until the timeout (newer libasan copes)
     container:
@@ -74,7 +74,7 @@ jobs:
     name: reader twin (node)
     runs-on: ubuntu-latest
     timeout-minutes: 15
-    container: fedora:44
+    container: fedora:45
     steps:
       - name: Toolchain
         run: dnf -y install gcc make pkgconf-pkg-config openssl-devel python3 diffutils nodejs
@@ -96,7 +96,7 @@ jobs:
     name: declared words (render, contract directory)
     runs-on: ubuntu-latest
     timeout-minutes: 15
-    container: fedora:44
+    container: fedora:45
     steps:
       - name: Toolchain
         run: dnf -y install git make gcc pkgconf-pkg-config openssl-devel python3 diffutils
