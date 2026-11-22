@@ -13,11 +13,11 @@ BuildRequires: pkgconfig
 BuildRequires: python3
 BuildRequires: python3-devel
 BuildRequires: pkgconfig(libcrypto)
-BuildRequires: plugin-hostd-protocol-devel >= 0.5.8
+BuildRequires: plugin-hostd-protocol-devel >= 0.8.0
 # the verdict and pool words of a pin are the domain pin of plugin-hostd-protocol (its contract package), which the renders of the tables and the twins read
 BuildRequires: plugin-hostd-protocol-contract >= 0.8.0
 # install-contract installs the domains with omx-contract's script
-BuildRequires: omx-contract-devel >= 3.20.0
+BuildRequires: omx-contract-devel >= 3.21.0
 # the format words are read from the domain plugin-db through libomx-domain (omxcontract/omx_domain.h)
 BuildRequires: libomx-domain-devel >= 3.20.0
 
@@ -68,7 +68,7 @@ Requires: python3
 Requires: plugin-db = %{version}-%{release}
 Requires: plugin-db-contract = %{version}-%{release}
 # the catalog reader of text() (a catalog entry with its provenance, a stale one skipped)
-Requires: omx-contract-data >= 3.20.0
+Requires: omx-contract-data >= 3.21.0
 
 %description -n python3-plugin-db
 The Python module plugin_db: query() gives the answer of plugin-db query --json
