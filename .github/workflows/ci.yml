@@ -11,6 +11,16 @@ concurrency:
   cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
 jobs:
+  # no Fedora release written into a job: every Fedora cell comes from check-matrix (ruling D25)
+  fedora-cells:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout: .github/workflows
+      - uses: Open-Mixer/.github/.github/actions/fedora-cells@openmixer-v1
+
   # the cells the test job runs: check-matrix's answer (ruling D25: the quick set while a release wave is open, the whole
   # matrix declared here otherwise). Each cell names its container image and the runner of its own architecture: the
   # channel's development debs are trixie arm64 only, and an amd64 container resolves an arm64 -dev package that dpkg
@@ -19,6 +29,8 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 5
     outputs:
+      rpm: ${{ steps.m.outputs.rpm }}
+      rpm-count: ${{ steps.m.outputs.rpm-count }}
       cells: ${{ steps.m.outputs.cells }}
       count: ${{ steps.m.outputs.count }}
     steps:
@@ -92,10 +104,17 @@ jobs:
   # conformance check of the sources and the arms that must turn them red. Node is the distribution's, not installed
   # from a package manager: the twin has no dependency.
   twin:
-    name: reader twin (node)
-    runs-on: ubuntu-latest
+    name: reader twin (node) (${{ matrix.cell.image }})
+    needs: checks
+    if: needs.checks.outputs.rpm-count != '0'
+    runs-on: ${{ matrix.cell.runner }}
     timeout-minutes: 15
-    container: fedora:45
+    strategy:
+      fail-fast: false
+      matrix:
+        cell: ${{ fromJSON(needs.checks.outputs.rpm) }}
+    container:
+      image: ${{ matrix.cell.image }}
     steps:
       - name: Toolchain
         run: dnf -y install gcc make pkgconf-pkg-config openssl-devel python3 diffutils nodejs
@@ -114,10 +133,17 @@ jobs:
   # The declared words, with the tools a package build does not carry: the rendered header is what the installed
   # omx-contract renders from data/ (and a header changed by hand is red), and data/ as a package validates.
   words:
-    name: declared words (render, contract directory)
-    runs-on: ubuntu-latest
+    name: declared words (render, contract directory) (${{ matrix.cell.image }})
+    needs: checks
+    if: needs.checks.outputs.rpm-count != '0'
+    runs-on: ${{ matrix.cell.runner }}
     timeout-minutes: 15
-    container: fedora:45
+    strategy:
+      fail-fast: false
+      matrix:
+        cell: ${{ fromJSON(needs.checks.outputs.rpm) }}
+    container:
+      image: ${{ matrix.cell.image }}
     steps:
       - name: Toolchain
         run: dnf -y install git make gcc pkgconf-pkg-config openssl-devel python3 diffutils
