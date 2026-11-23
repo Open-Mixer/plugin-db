@@ -53,6 +53,14 @@ class Text(unittest.TestCase):
             write(os.path.join(d, "fr.json"), "{ not json")
             self.assertEqual(text(v.reasons, v.reasons.noCell, "fr", d), en)
 
+    def test_the_catalog_reader_is_the_installed_package_s(self):
+        # omx-contract's reader is imported as omx_contract.catalog (python3-omx-contract), never loaded by a path
+        import importlib
+        import omx_contract.catalog
+        module = importlib.import_module("plugin_db.text")
+        self.assertIs(module.sentence_of, omx_contract.catalog.sentence_of)
+        self.assertFalse(hasattr(module, "READER"), "a path to the reader is still kept")
+
     def test_english_is_never_a_catalog_s(self):
         with tempfile.TemporaryDirectory() as d:
             key = f"PLUGIN_DB_REASONS.{v.reasons.noCell}"

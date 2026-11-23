@@ -20,6 +20,8 @@ BuildRequires: plugin-hostd-protocol-contract >= 0.8.0
 BuildRequires: omx-contract-devel >= 3.21.0
 # the format words are read from the domain plugin-db through libomx-domain (omxcontract/omx_domain.h)
 BuildRequires: libomx-domain-devel >= 3.20.0
+# make test reads the catalogs through omx-contract's reader, imported as omx_contract.catalog
+BuildRequires: python3-omx-contract >= 3.21.0
 
 # the command reads the domain plugin-db at start-up and refuses by name without it
 Requires: libomx-domain >= 3.20.0
@@ -67,8 +69,8 @@ Requires: python3
 # query() asks the command; the catalogs of the sentences come with the contract package
 Requires: plugin-db = %{version}-%{release}
 Requires: plugin-db-contract = %{version}-%{release}
-# the catalog reader of text() (a catalog entry with its provenance, a stale one skipped)
-Requires: omx-contract-data >= 3.21.0
+# the catalog reader of text(), imported as omx_contract.catalog (a catalog entry with its provenance, a stale one skipped)
+Requires: python3-omx-contract >= 3.21.0
 
 %description -n python3-plugin-db
 The Python module plugin_db: query() gives the answer of plugin-db query --json
