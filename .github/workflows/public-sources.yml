@@ -20,10 +20,6 @@ jobs:
     timeout-minutes: 5
     steps:
       - uses: actions/checkout@v4
-      - name: No Fedora 44 reference in the workflows
-        run: |
-          tools/test/workflow-fedora-check.sh --self-test
-          tools/test/workflow-fedora-check.sh .
       - uses: Open-Mixer/.github/.github/actions/trigger-gate@openmixer-v1
         with:
           lint-workflow: public-sources.yml
@@ -41,6 +37,8 @@ jobs:
     uses: Open-Mixer/.github/.github/workflows/public-sources-check.yml@openmixer-v1
     with:
       commit-identity: true
+      # the one shared Fedora workflow guard: no workflow names a Fedora release outside 45 (the owner rule)
+      fedora-workflows: true
 
   pr-fixes-issue:
     if: github.event_name == 'pull_request'
