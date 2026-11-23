@@ -23,7 +23,7 @@ and `pdb_collect`. The manifest reader behind them (`src/manifest.c`) is private
 `lv2:minorVersion` and `lv2:microVersion`. A Turtle graph of a plugin's own files (its ports, units, groups) is the
 scanned layer's to hold, and no graph API is added to plugin-db.
 
-**The bundle rule is `newest-version`**, the only word of `PLUGIN_DB_BUNDLE_RULES` in `data/db.json`: of the bundles
+**The bundle rule is `newest-version`**, the only word of `PLUGIN_DB_BUNDLE_RULES` in the domain plugin-db (`contract.d/plugin-db/plugin-db.json`): of the bundles
 that realise the plugin (an `lv2:binary`), or when none does the bundles that name it, the highest minor, then micro
 version; of equal versions the first in the search path, the bundles of one directory in byte order of their names.
 

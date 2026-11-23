@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 # SPDX-License-Identifier: GPL-3.0-or-later
 # Copyright (C) 2026 Pau Aliagas <linuxnow@gmail.com>
-"""Derive include/plugin-db/plugin_db_tables.h from data/pin.json, data/db.json and data/store.schema.json.
+"""Derive include/plugin-db/plugin_db_tables.h from the domain plugin-db (tools/dbwords.py), data/store.schema.json and the domain pin of
+plugin-hostd-protocol (the verdict and pool words of a pin: tools/pinwords.py).
 
 The words themselves are omx-contract's render (plugin_db_vocabulary.h); this adds what that render does not carry:
 each word's index as a C enum, the group each word of a grouped item falls in, the store layout of
@@ -10,8 +11,12 @@ x-plugin-db-store, the envelope's version and every key name the schema declares
     render-db.py [--check] <data dir> <out header>
 """
 import json
+import os
 import re
 import sys
+
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import pinwords  # noqa: E402
 
 
 def snake(name):
@@ -34,9 +39,7 @@ def keys_of(node, out):
 
 
 def render(data_dir):
-    db = {}
-    for name in ("pin.json", "db.json"):
-        db.update(json.load(open(f"{data_dir}/{name}")))
+    db = pinwords.load(data_dir)
     schema = json.load(open(f"{data_dir}/store.schema.json"))
     out = [
         "// SPDX-License-Identifier: GPL-3.0-or-later",
@@ -45,9 +48,10 @@ def render(data_dir):
         "#define PLUGIN_DB_TABLES_H",
         "/*",
         " * GENERATED: DO NOT EDIT BY HAND.",
-        " * Produced by tools/render-db.py from data/pin.json, data/db.json and data/store.schema.json. Each words item is an",
+        " * Produced by tools/render-db.py from the domain plugin-db (tools/dbwords.py) and data/store.schema.json, and from the domain pin of",
+        " * plugin-hostd-protocol for the verdict and pool words of a pin (PIN_VERDICTS, PIN_POOLS; also their _INIT). Each words item is an",
         " * enum of its words' indexes in their order, PDB_<ITEM>_<NAME>, the index into the item's _INIT of",
-        " * plugin_db_vocabulary.h; a grouped item has a _GROUP_INIT, the index of each word's group in the item it names.",
+        " * plugin_db_vocabulary.h (the pin items': of this file); a grouped item has a _GROUP_INIT, the index of each word's group in the item it names.",
         " * The store layout is x-plugin-db-store's, PDB_STORE_<NAME>, and every key the schema declares is PDB_KEY_<NAME>.",
         " */",
         "",
@@ -66,6 +70,9 @@ def render(data_dir):
             out.append(f"    PDB_{short(item)}_{snake(name)} = {n},")
         out.append("};")
         out.append(f"#define PDB_{short(item)}_COUNT {len(names)}")
+        if item in pinwords.ITEMS:  # the words themselves, for the validators of pin.h: plugin-hostd-protocol's, not plugin-db's
+            words = ", ".join(json.dumps(w["word"]) for w in body["words"].values())
+            out.append(f"#define PDB_{short(item)}_INIT {{ {words} }}")
         out.append("")
     for item, body in db.items():
         if not isinstance(body, dict) or "groups" not in body:

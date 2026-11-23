@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # SPDX-License-Identifier: GPL-3.0-or-later
 # Copyright (C) 2026 Pau Aliagas <linuxnow@gmail.com>
-"""Derive python/plugin_db/vocabulary.py, the Python twin's words, from data/pin.json and data/db.json.
+"""Derive python/plugin_db/vocabulary.py, the Python twin's words, from the domain plugin-db (tools/dbwords.py) (and plugin-hostd-protocol's domain pin, tools/pinwords.py).
 
 Each words item becomes a Words object of its words in their order, keyed as data/ keys them and named in snake case
 (PLUGIN_DB_RECORD_CHANGES is `record_changes`); a grouped item also has <item>_group, the group word of each word, and
@@ -11,7 +11,11 @@ catalog keys its messages. Nothing here is typed twice, and the twin's source ty
     render-py.py [--check] <data dir> <out file>
 """
 import json
+import os
 import sys
+
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import pinwords  # noqa: E402
 
 
 def snake(item):
@@ -19,15 +23,13 @@ def snake(item):
 
 
 def render(data_dir):
-    db = {}
-    for name in ("pin.json", "db.json"):
-        db.update(json.load(open(f"{data_dir}/{name}")))
+    db = pinwords.load(data_dir)
     items = {i: b for i, b in db.items() if isinstance(b, dict) and b.get("kind") == "words"}
     out = [
         "# SPDX-License-Identifier: GPL-3.0-or-later",
         "# Copyright (C) 2026 Pau Aliagas <linuxnow@gmail.com>",
         "# GENERATED: DO NOT EDIT BY HAND.",
-        "# Produced by tools/render-py.py from data/pin.json and data/db.json. Each words item is a Words object of its words",
+        "# Produced by tools/render-py.py from the domain plugin-db (tools/dbwords.py) and the domain pin of plugin-hostd-protocol. Each words item is a Words object of its words",
         "# in their order, keyed as data/ keys them; a grouped item has <item>_group (the group word of each word).",
         "",
         "",
