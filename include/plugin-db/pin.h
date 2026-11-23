@@ -18,7 +18,8 @@
  * Copyright (C) 2026 Pau Aliagas <linuxnow@gmail.com>
  */
 
-/* The pin of a plugin, computed once: the SHA-256 of a file over an open descriptor, and the fingerprint of a
+/** @file
+ * The pin of a plugin, computed once: the SHA-256 of a file over an open descriptor, and the fingerprint of a
  * parameter layout in the omx-layout/1 serialisation, with the rules of what is a pin's and what is not. Header-only,
  * on libc and libcrypto. A host fills the neutral records below from its own standard interface (CLAP params, LV2
  * control ports) and calls the digest; nothing else writes these bytes. A change to the serialisation is a new scheme,
