@@ -1,5 +1,5 @@
 Name: plugin-db
-Version: 0.5.0
+Version: 0.5.1
 Release: 1%{?dist}
 License: GPL-3.0-or-later
 Summary: The plugin database: the pin, the address form, the store and the state
@@ -212,6 +212,10 @@ English source sentence.
 # END langpacks
 
 %changelog
+* Mon Nov 23 2026 Pau Aliagas <linuxnow@gmail.com> - 0.5.1-1
+- The domain lv2 reads units:coef as the standard unit coef, not "x", which
+  omx-contract 3.22.0 (V23d) no longer has (#72).
+
 * Sun Nov 22 2026 Pau Aliagas <linuxnow@gmail.com> - 0.5.0-1
 - The sorting pass: plugin-db's words live in its own domains. V12: the pin
   verdict and pool words are read from plugin-hostd-protocol's domain pin
