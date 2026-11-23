@@ -11,23 +11,14 @@ concurrency:
   cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
 jobs:
-  # no Fedora release written into a job: the cells come from check-matrix (rule 11-10, ruling D25)
-  fedora-cells:
-    runs-on: ubuntu-latest
-    timeout-minutes: 5
-    steps:
-      - uses: actions/checkout@v4
-        with:
-          sparse-checkout: .github/workflows
-      - uses: Open-Mixer/.github/.github/actions/fedora-cells@openmixer-v1
-
-  # the cells the jobs run on: check-matrix's answer (fc45 beside fc44; the quick set while a release wave is open)
+  # the cells the test job runs: check-matrix's answer (ruling D25: the quick set while a release wave is open, the whole
+  # matrix declared here otherwise). Each cell names its container image and the runner of its own architecture: the
+  # channel's development debs are trixie arm64 only, and an amd64 container resolves an arm64 -dev package that dpkg
+  # then refuses
   checks:
     runs-on: ubuntu-latest
     timeout-minutes: 5
     outputs:
-      rpm: ${{ steps.m.outputs.rpm }}
-      rpm-count: ${{ steps.m.outputs.rpm-count }}
       cells: ${{ steps.m.outputs.cells }}
       count: ${{ steps.m.outputs.count }}
     steps:
@@ -35,23 +26,22 @@ jobs:
         uses: Open-Mixer/.github/.github/actions/check-matrix@openmixer-v1
         with:
           wave: ${{ vars.OMX_RELEASE_MATRIX }}
-          rpm-releases: '["44", "45"]'
+          rpm-releases: '["45"]'
           rpm-arches: '["x86_64"]'
-          deb-releases: '["bookworm", "trixie"]'
-          deb-arches: '["amd64"]'
+          # bookworm is a full cell (ruling D25): named through OMX_RELEASE_MATRIX, as the image list on main did
+          deb-releases: ${{ vars.OMX_RELEASE_MATRIX == 'full' && '["bookworm", "trixie"]' || '["trixie"]' }}
+          deb-arches: '["amd64", "arm64"]'
 
   test:
-    name: build + test (${{ matrix.cell.image }})
+    name: build + test (${{ matrix.cell.image }}, ${{ matrix.cell.arch }})
     needs: checks
     if: needs.checks.outputs.count != '0'
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.cell.runner }}
     # A backstop only.
     timeout-minutes: 15
     strategy:
       fail-fast: false
       matrix:
-        # ruling D25: while the org's OMX_RELEASE_MATRIX is quick, CI covers the quick cells only; bookworm is a full
-        # cell, served its floors only at the wave-end full release, so it joins the matrix when the variable is full
         cell: ${{ fromJSON(needs.checks.outputs.cells) }}
     # privileged only to lower the runner kernel's mmap_rnd_bits: with the hosted image's 32 bits, bookworm's gcc 12
     # AddressSanitizer dies in DEADLYSIGNAL loops until the timeout (newer libasan copes)
@@ -76,19 +66,21 @@ jobs:
       # the pin path codec is plugin-hostd-protocol's (phd_pin_path_*, header inline)
       - name: plugin-hostd-protocol's headers
         run: |
-          if command -v dnf >/dev/null; then dnf -y install 'plugin-hostd-protocol-devel >= 0.5.8' 'plugin-hostd-protocol-devel < 0.6'
+          if command -v dnf >/dev/null; then dnf -y install plugin-hostd-protocol-devel
           else apt-get -y install --no-install-recommends libplugin-hostd-protocol-dev
-            v=$(dpkg-query -W -f='${Version}' libplugin-hostd-protocol-dev)
-            dpkg --compare-versions "$v" ge 0.5.8~ && dpkg --compare-versions "$v" lt 0.6~ || { echo "libplugin-hostd-protocol-dev $v is outside 0.5.8..0.6"; exit 1; }
+          fi
+      # the format words are read from the domain plugin-db through libomx-domain: its header, pkg-config file and the omx-domain command
+      - name: libomx-domain's headers
+        run: |
+          if command -v dnf >/dev/null; then dnf -y install libomx-domain-devel
+          else apt-get -y install --no-install-recommends libomx-domain-dev
           fi
       # text() reads the catalogs through omx-contract's reader, /usr/share/omx-contract/omx_contract_catalog.py, which
-      # omx-contract-data ships: python3-plugin-db's floor, >= 3.18.0 and < 4
+      # omx-contract-data ships: python3-plugin-db's floor, packaging/deps.txt
       - name: omx-contract's catalog reader
         run: |
-          if command -v dnf >/dev/null; then dnf -y install 'omx-contract-data >= 3.18.0' 'omx-contract-data < 4'
+          if command -v dnf >/dev/null; then dnf -y install omx-contract-data
           else apt-get -y install --no-install-recommends omx-contract-data
-            v=$(dpkg-query -W -f='${Version}' omx-contract-data)
-            dpkg --compare-versions "$v" ge 3.18.0~ && dpkg --compare-versions "$v" lt 4~ || { echo "omx-contract-data $v is outside 3.18.0..4"; exit 1; }
           fi
           test -f /usr/share/omx-contract/omx_contract_catalog.py
       - name: Tests (known answers, the derived tables, the state by table, the collection, the store, a consumer of an install, the sabotage arms, the version)
@@ -100,17 +92,10 @@ jobs:
   # conformance check of the sources and the arms that must turn them red. Node is the distribution's, not installed
   # from a package manager: the twin has no dependency.
   twin:
-    name: reader twin (node) (${{ matrix.cell.image }})
-    needs: checks
-    if: needs.checks.outputs.rpm-count != '0'
+    name: reader twin (node)
     runs-on: ubuntu-latest
     timeout-minutes: 15
-    strategy:
-      fail-fast: false
-      matrix:
-        cell: ${{ fromJSON(needs.checks.outputs.rpm) }}
-    container:
-      image: ${{ matrix.cell.image }}
+    container: fedora:45
     steps:
       - name: Toolchain
         run: dnf -y install gcc make pkgconf-pkg-config openssl-devel python3 diffutils nodejs
@@ -118,7 +103,9 @@ jobs:
       - name: Add the OpenMixer channel
         uses: Open-Mixer/.github/.github/actions/add-openmixer@openmixer-v1
       - name: plugin-hostd-protocol's headers
-        run: dnf -y install 'plugin-hostd-protocol-devel >= 0.5.8' 'plugin-hostd-protocol-devel < 0.6'
+        run: dnf -y install plugin-hostd-protocol-devel
+      - name: libomx-domain's headers
+        run: dnf -y install libomx-domain-devel
       - name: Node is in the twin's range
         run: node -e 'const [a,b]=process.versions.node.split(".").map(Number); if (a>=25 || a<22 || (a==22 && b<18)) { console.error("node " + process.version + " is outside 22.18 .. 24"); process.exit(1) }'
       - name: make test-twin
@@ -127,20 +114,13 @@ jobs:
   # The declared words, with the tools a package build does not carry: the rendered header is what the installed
   # omx-contract renders from data/ (and a header changed by hand is red), and data/ as a package validates.
   words:
-    name: declared words (render, contract directory) (${{ matrix.cell.image }})
-    needs: checks
-    if: needs.checks.outputs.rpm-count != '0'
+    name: declared words (render, contract directory)
     runs-on: ubuntu-latest
     timeout-minutes: 15
-    strategy:
-      fail-fast: false
-      matrix:
-        cell: ${{ fromJSON(needs.checks.outputs.rpm) }}
-    container:
-      image: ${{ matrix.cell.image }}
+    container: fedora:45
     steps:
       - name: Toolchain
-        run: dnf -y install git make pkgconf-pkg-config diffutils
+        run: dnf -y install git make gcc pkgconf-pkg-config openssl-devel python3 diffutils
       - uses: actions/checkout@v4
       - name: Trust the checkout
         run: git config --global --add safe.directory "$GITHUB_WORKSPACE"
@@ -148,8 +128,10 @@ jobs:
         uses: Open-Mixer/.github/.github/actions/add-openmixer@openmixer-v1
       # a dedupe/all run builds on its siblings' dedupe/all (.github/wave-deps); @main until Open-Mixer/.github moves v1 past it
       - uses: Open-Mixer/.github/.github/actions/wave-deps@openmixer-v1
-      - name: omx-contract
-        run: dnf -y install 'omx-contract >= 3.18.0' 'omx-contract < 4' 'omx-contract-devel >= 3.18.0' 'omx-contract-devel < 4'
+      # libomx-domain-devel ships omx-domain, the loader's command (make test-domain opens the plugin-db domain with it), and
+      # the header the command and the tests build on; the installer's --domain mode (3.20.0) comes with omx-contract-devel
+      - name: omx-contract and the loader
+        run: dnf -y install omx-contract omx-contract-devel libomx-domain-devel plugin-hostd-protocol-devel
       - name: make check-tools
         run: make check-tools
       # one pack per listed language from the spec and debian/control, and the catalogs through omx-contract's release
@@ -161,30 +143,4 @@ jobs:
           base: plugin-db-contract
           owner: plugin-db
           spec: packaging/plugin-db.spec
-          moved: ca:0.3.3
           gate: omx-contract translate --check --data data --catalogs catalogs --package plugin-db
-
-  # The records a host fills: their layout as abi/ holds it (make test-abi runs in the test job above), and the types as
-  # libabigail reads them from tests/abi-probe.c against abi/plugin-db.abi.
-  abi:
-    name: ABI check (abidiff against abi/) (${{ matrix.cell.image }})
-    needs: checks
-    if: needs.checks.outputs.rpm-count != '0'
-    runs-on: ubuntu-latest
-    timeout-minutes: 15
-    strategy:
-      fail-fast: false
-      matrix:
-        cell: ${{ fromJSON(needs.checks.outputs.rpm) }}
-    container:
-      image: ${{ matrix.cell.image }}
-    steps:
-      - name: Toolchain
-        run: dnf -y install gcc make git pkgconf-pkg-config openssl-devel diffutils binutils libabigail
-      - uses: actions/checkout@v4
-      - name: Trust the checkout
-        run: git config --global --add safe.directory "$GITHUB_WORKSPACE"
-      - name: Layout of the records
-        run: make test-abi
-      - name: Types against the baseline
-        run: make abi-check

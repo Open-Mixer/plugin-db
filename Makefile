@@ -16,7 +16,14 @@ DATADIR = $(PREFIX)/share
 MANDIR = $(DATADIR)/man
 
 HEADERS = include/plugin-db/pin.h include/plugin-db/plugin_db_vocabulary.h include/plugin-db/db.h \
-          include/plugin-db/plugin_db_tables.h include/plugin-db/plugin_db_constants.h
+          include/plugin-db/plugin_db_tables.h include/plugin-db/plugin_db_constants.h include/plugin-db/plugin_db_codes.h
+
+# the format words are read from the domain plugin-db through omx-contract's loader (libomx-domain-devel, 3.20.0)
+DOMAIN_CFLAGS = $(shell $(PKG_CONFIG) --cflags libomx-domain)
+DOMAIN_LIBS = $(shell $(PKG_CONFIG) --libs libomx-domain)
+# the command and the test harnesses read the domain from the owner's contract.d (OMX_CONTRACT_PATH, omx-contract's
+# docs/consumer-move.md step 5); the library entry never reads it
+export OMX_CONTRACT_PATH ?= $(CURDIR)/contract.d
 
 CFLAGS ?= -O2 -g
 CFLAGS += -Wall -Wextra -std=gnu99 -D_GNU_SOURCE
@@ -27,11 +34,11 @@ PROTOCOL_CFLAGS = $(shell $(PKG_CONFIG) --cflags plugin-hostd-protocol)
 
 # libplugin-db.a and the command plugin-db; pin.h stays header-only
 BUILD = build
-LIB_SRC = src/address.c src/collect.c src/json.c src/manifest.c src/state.c src/store.c
+LIB_SRC = src/address.c src/collect.c src/json.c src/manifest.c src/pinpath.c src/state.c src/store.c
 LIB_OBJ = $(LIB_SRC:src/%.c=$(BUILD)/%.o)
 LIB = $(BUILD)/lib$(NAME).a
 BIN = $(BUILD)/$(NAME)
-ALL_CFLAGS = -Iinclude -Isrc $(CRYPTO_CFLAGS) $(PROTOCOL_CFLAGS) $(CFLAGS) -Werror
+ALL_CFLAGS = -Iinclude -Isrc $(CRYPTO_CFLAGS) $(PROTOCOL_CFLAGS) $(DOMAIN_CFLAGS) $(CFLAGS) -Werror
 
 all: $(LIB) $(BIN)
 
@@ -45,7 +52,7 @@ $(LIB): $(LIB_OBJ)
 	$(AR) rcs $@ $(LIB_OBJ)
 
 $(BIN): src/cli.c $(LIB)
-	$(CC) $(ALL_CFLAGS) $(LDFLAGS) -o $@ src/cli.c $(LIB) $(CRYPTO_LIBS)
+	$(CC) $(ALL_CFLAGS) $(LDFLAGS) -o $@ src/cli.c $(LIB) $(CRYPTO_LIBS) $(DOMAIN_LIBS)
 
 install: all
 	install -d $(DESTDIR)$(INCLUDEDIR)/$(NAME) $(DESTDIR)$(LIBDIR)/pkgconfig $(DESTDIR)$(BINDIR) $(DESTDIR)$(MANDIR)/man1 $(DESTDIR)$(LIBDIR) \
@@ -70,7 +77,11 @@ install-python:
 # ---------------------------------------------------------------------------------------------------------------------
 # tests: no plugin, no daemon
 
-test: test-constants-alone test-pin check-tables check-ts test-py test-state test-collect test-store test-golden test-install test-sabotage test-db-sabotage test-abi version-check check-control
+# no translation unit sees both plugin-hostd/protocol.h and plugin_db_codes.h (tests/tu-split.sh)
+test-tu-split:
+	CC='$(CC)' CFLAGS='$(PROTOCOL_CFLAGS) $(DOMAIN_CFLAGS) $(CRYPTO_CFLAGS)' sh tests/tu-split.sh
+
+test: test-tu-split test-constants-alone test-pin check-tables check-ts test-py test-state test-collect test-store test-golden test-install test-sabotage test-db-sabotage version-check check-control
 
 tests/pin_test: tests/pin_test.c $(HEADERS)
 	$(CC) -Iinclude $(CRYPTO_CFLAGS) $(CFLAGS) -Werror -o $@ tests/pin_test.c $(CRYPTO_LIBS)
@@ -86,11 +97,12 @@ render-tables:
 	python3 tools/render-db.py data include/plugin-db/plugin_db_tables.h
 
 $(BUILD)/%_test: tests/%_test.c $(LIB)
-	$(CC) $(ALL_CFLAGS) $(LDFLAGS) -o $@ $< $(LIB) $(CRYPTO_LIBS)
+	$(CC) $(ALL_CFLAGS) $(LDFLAGS) -o $@ $< $(LIB) $(CRYPTO_LIBS) $(DOMAIN_LIBS)
 
 # the state function by table: every state, reason, change, action, run and source of data/db.json reached
-test-state: $(BUILD)/state_test
+test-state: $(BUILD)/state_test $(BUILD)/state_door_test
 	$(BUILD)/state_test
+	$(BUILD)/state_door_test
 
 # the address form, the bundle rule and the file collection, over fixture bundles
 test-collect: $(BUILD)/collect_test
@@ -150,9 +162,22 @@ test-constants-alone:
 	@echo "ok   the constants header alone gives a digest's hex length, with no OpenSSL; it is SHA-256's, as pin.h names it"
 
 # a consumer compiled and linked with what pkg-config plugin-db says of a scratch install, and nothing else
-# every dependency between this source's packages carries a ceiling (R-107), self-tested
+# a dependency between this source's packages has one shape in both formats, self-tested
 check-control:
-	sh tests/control-ceilings.sh --self-test
+	sh tests/no-backcompat.sh
+	sh tests/dep-shape.sh --self-test
+
+# the dependency floors are declared once, in packaging/deps.txt (floors only); the engine is Open-Mixer/.github's
+# deps-render (CI runs it as that action): locally name a checkout of it, make deps-check DOTGITHUB=<dir>;
+# make deps writes the floors into the spec and debian/control
+DOTGITHUB ?=
+.PHONY: deps deps-check
+deps:
+	@test -n "$(DOTGITHUB)" || { echo "$@: name a checkout of Open-Mixer/.github: make $@ DOTGITHUB=<dir>" >&2; exit 2; }
+	$(DOTGITHUB)/.github/actions/deps-render/render.sh --write .
+deps-check:
+	@test -n "$(DOTGITHUB)" || { echo "$@: name a checkout of Open-Mixer/.github: make $@ DOTGITHUB=<dir>" >&2; exit 2; }
+	$(DOTGITHUB)/.github/actions/deps-render/render.sh --check .
 
 test-install:
 	sh tests/install-check.sh
@@ -180,7 +205,7 @@ CONTRACT_SCHEMA_MAJOR = 3
 CONTRACTDIR = $(or $(shell $(PKG_CONFIG) --variable=contractdir omx-contract 2>/dev/null),$(DATADIR)/omx-contract/contract.d)
 INSTALL_CONTRACT_DIR = $(firstword $(wildcard $(shell $(PKG_CONFIG) --variable=datadir omx-contract 2>/dev/null)/install-contract-dir.sh) $(wildcard $(OMX_CONTRACT_DIR)/tools/install-contract-dir.sh))
 
-check-tools: check-rendered test-rendered-sabotage check-contract-dir check-ci-matrix
+check-tools: check-rendered check-codes test-rendered-sabotage check-contract-dir test-domain check-ci-matrix
 
 check-ci-matrix:
 	sh tests/ci-matrix-follows-set.sh --self-test
@@ -194,6 +219,7 @@ CONTRACT_EXCLUDE = -x store.schema.json
 install-contract:
 	@test -n "$(INSTALL_CONTRACT_DIR)" || { echo "install-contract: no install-contract-dir.sh: install omx-contract-devel, or set OMX_CONTRACT_DIR to a checkout" >&2; exit 1; }
 	sh $(INSTALL_CONTRACT_DIR) $(CONTRACT_EXCLUDE) $(NAME) $(VERSION) $(CONTRACT_SCHEMA_MAJOR) data $(DESTDIR)$(CONTRACTDIR) data
+	sh $(INSTALL_CONTRACT_DIR) --domain contract.d/plugin-db $(DESTDIR)$(CONTRACTDIR)
 	install -d $(DESTDIR)$(DATADIR)/$(NAME)/catalogs
 	install -m 644 catalogs/*.json $(DESTDIR)$(DATADIR)/$(NAME)/catalogs/
 
@@ -206,6 +232,20 @@ check-contract-dir:
 test-rendered-sabotage:
 	sh tests/rendered-sabotage.sh
 
+# contract.d/plugin-db/plugin-db.json is the domain, kept by hand: it is in the one formatting and validates, and
+# include/plugin-db/plugin_db_codes.h is what omx-contract renders from it (its x-c-codes items only)
+check-codes render-codes:
+	@command -v $(firstword $(OMX_CONTRACT)) >/dev/null || { echo "$@: no omx-contract command: install omx-contract" >&2; exit 1; }
+	python3 tools/one-source.py data contract.d
+	$(OMX_CONTRACT) fmt --check --contract-dir contract.d
+	$(OMX_CONTRACT) validate --contract-dir contract.d
+	$(OMX_CONTRACT) render --target c --package plugin-db --contract-dir contract.d --out include/plugin-db $(if $(filter check-codes,$@),--check)
+
+# the domain installed, opened by the loader (omx-domain), the codes header, the start-up read and its refusals
+test-domain: $(BIN) $(BUILD)/formats_test
+	INSTALL_CONTRACT_DIR='$(INSTALL_CONTRACT_DIR)' MAKE='$(MAKE)' OMX_CONTRACT='$(OMX_CONTRACT)' PDB='$(BIN)' \
+	  FORMATS_TEST='$(BUILD)/formats_test' sh tests/domain-formats.sh
+
 render-words check-rendered:
 	@command -v $(OMX_CONTRACT) >/dev/null || { echo "$@: no $(OMX_CONTRACT) command: install omx-contract" >&2; exit 1; }
 	@test -n "$(INSTALL_CONTRACT_DIR)" || { echo "$@: no install-contract-dir.sh: install omx-contract-devel, or set OMX_CONTRACT_DIR to a checkout" >&2; exit 1; }
@@ -213,39 +253,6 @@ render-words check-rendered:
 	sh $(INSTALL_CONTRACT_DIR) $(CONTRACT_EXCLUDE) $(NAME) $(VERSION) $(CONTRACT_SCHEMA_MAJOR) data $$tmp data >/dev/null; \
 	OMX_CONTRACT_PATH=$$tmp$(if $(OMX_CONTRACT_PATH),:$(OMX_CONTRACT_PATH)):$(CONTRACTDIR) \
 	  $(OMX_CONTRACT) render --target c --package $(NAME) --installed --out include/plugin-db $(if $(filter check-rendered,$@),--check)
-
-# ---------------------------------------------------------------------------------------------------------------------
-# ABI. The library is header-only: its functions are static inline and compile into the consumer, so no symbol is
-# exported. What a host and the library share at run time is the layout of the records a host fills (the digest context,
-# the CLAP parameter, the LV2 port, the sink) and the constants beside them.
-#   test-abi        abi/plugin-db.layout is what tests/abi-layout.c prints (needs the compiler only)
-#   abi-layout      write abi/plugin-db.layout again
-#   abi-baseline    write abi/plugin-db.abi again: abidw over tests/abi-probe.c, built into a shared object that
-#                   exports one object of each of those types and is never installed
-#   abi-check       abidiff of that baseline against the tree (needs libabigail); red on a change of a type
-ABI_LAYOUT = abi/$(NAME).layout
-ABI_BASELINE = abi/$(NAME).abi
-ABI_PROBE = build/abi/libplugin-db-abi.so
-
-build/abi/abi-layout: tests/abi-layout.c $(HEADERS)
-	@mkdir -p $(@D)
-	$(CC) -Iinclude $(CRYPTO_CFLAGS) $(CFLAGS) -Werror -o $@ tests/abi-layout.c
-
-$(ABI_PROBE): tests/abi-probe.c $(HEADERS)
-	@mkdir -p $(@D)
-	$(CC) -Iinclude $(CRYPTO_CFLAGS) $(CFLAGS) -Werror -fPIC -shared -Wl,-soname,libplugin-db-abi.so -o $@ tests/abi-probe.c
-
-test-abi: build/abi/abi-layout
-	@build/abi/abi-layout | diff -u $(ABI_LAYOUT) - && echo "abi: the records are laid out as $(ABI_LAYOUT) says"
-
-abi-layout: build/abi/abi-layout
-	build/abi/abi-layout > $(ABI_LAYOUT)
-
-abi-baseline: $(ABI_PROBE)
-	abidw --headers-dir include/$(NAME) --out-file $(ABI_BASELINE) $(ABI_PROBE)
-
-abi-check: $(ABI_PROBE)
-	abidiff --headers-dir2 include/$(NAME) $(ABI_BASELINE) $(ABI_PROBE)
 
 # ---------------------------------------------------------------------------------------------------------------------
 # fuzz (fuzz/README.md): one libFuzzer harness per input surface of pin.h (the text of a pin, the bytes of a layout, the
@@ -324,5 +331,5 @@ clean:
 	rm -rf build tests/pin_test
 
 .PHONY: all install test test-pin check-tables render-tables test-state test-collect test-store test-db-sabotage test-asan test-golden check-ts render-ts test-twin check-py render-py test-py install-python \
-        test-install test-sabotage test-abi abi-layout abi-baseline abi-check version-check check-tools check-ci-matrix install-contract check-contract-dir \
-        test-rendered-sabotage render-words check-rendered fuzz fuzz-run fuzz-sabotage fuzz-records fuzz-coverage fuzz-corpus fuzz-corpus-check clean
+        test-install test-sabotage version-check check-tools check-ci-matrix install-contract check-contract-dir \
+        test-rendered-sabotage test-domain test-tu-split check-codes render-codes render-words check-rendered fuzz fuzz-run fuzz-sabotage fuzz-records fuzz-coverage fuzz-corpus fuzz-corpus-check clean

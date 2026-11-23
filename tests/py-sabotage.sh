@@ -15,7 +15,7 @@ TWIN='PYTHONPATH=python python3 -W error -m unittest discover -s python/tests'
 arm() { # <what> <file> <text => replacement | append: text> <command, default the twin's tests>
     rm -rf "$tmp/t"
     mkdir "$tmp/t"
-    cp -r Makefile VERSION catalogs data python tests tools "$tmp/t/"
+    cp -r Makefile VERSION catalogs data python tests tools contract.d "$tmp/t/"
     if ! python3 - "$tmp/t/$2" "$3" <<'PY'
 import sys
 path, spec = sys.argv[1:]
