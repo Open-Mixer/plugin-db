@@ -5588,7 +5588,7 @@
                 "omx-plugins:plugins/omx-rotary/generated/omx-rotary.lv2/omx-rotary.ttl",
                 "omx-contract:schema/omx-contract.schema.json#/$defs/descriptorUnit"
               ],
-              "word": "%"
+              "word": "percent"
             }
           },
           {
@@ -6165,9 +6165,9 @@
             "x-uri": "urn:openmixer:unit#dBu"
           },
           {
-            "const": "dB-oct",
+            "const": "dBPerOct",
             "title": "dboct",
-            "description": "urn:openmixer:unit#dBoct is the standard unit dB-oct",
+            "description": "urn:openmixer:unit#dBoct is the standard unit dBPerOct",
             "x-code": 4,
             "x-uri": "urn:openmixer:unit#dBoct"
           }

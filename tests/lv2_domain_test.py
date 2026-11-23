@@ -49,7 +49,7 @@ GOLDEN_UNITS = {"units:bar": "bar", "units:beat": "beat", "units:bpm": "bpm", "u
                 "units:ms": "ms", "units:oct": "oct", "units:pc": "percent", "units:s": "s",
                 "units:semitone12TET": "st", "urn:openmixer:unit#dBFS": "dBFS", "urn:openmixer:unit#LUFS": "LUFS",
                 "urn:openmixer:unit#ratio": "ratio", "urn:openmixer:unit#dBu": "dBu",
-                "urn:openmixer:unit#dBoct": "dB-oct"}
+                "urn:openmixer:unit#dBoct": "dBPerOct"}
 GOLDEN_MEANINGS = {k: k for k in ["attack", "bypass", "cutoffFrequency", "decay", "delay", "frequency", "gain", "hold",
                                   "ratio", "release", "resonance", "threshold", "wetDryRatio", "enabled"]}
 GOLDEN_SCALES = {"integer": "stepped", "logarithmic": "log"}
