@@ -23,7 +23,7 @@ check "$@"
 echo "ok   no workflow names bookworm outside the OMX_RELEASE_MATRIX switch ($#)"
 if [ -n "$self_test" ]; then
   tmp=$(mktemp -d); trap 'rm -rf "$tmp"' EXIT
-  printf '    strategy:\n      matrix:\n        image: [%s]\n' "'fedora:44', 'debian:bookworm'" > "$tmp/planted.yml"
+  printf '    strategy:\n      matrix:\n        image: [%s]\n' "'fedora:45', 'debian:bookworm'" > "$tmp/planted.yml"
   if check "$tmp/planted.yml" 2>/dev/null; then echo "FAIL the self-test's hand bookworm cell passed" >&2; exit 1; fi
   echo "ok   a hand bookworm cell is red"
 fi
