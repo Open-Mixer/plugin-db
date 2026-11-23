@@ -43,7 +43,7 @@ GOLDEN_KINDS = ["specification", "class", "plugin-class", "property", "datatype"
 GOLDEN_STATUSES = ["used", "supported-later", "out-of-scope"]
 # F1 frozen: the LV2 table plugin-hostd maps today (its lv2 formats file's lookups) and the grown standard list
 GOLDEN_UNITS = {"units:bar": "bar", "units:beat": "beat", "units:bpm": "bpm", "units:cent": "cents", "units:cm": "cm",
-                "units:coef": "x", "units:db": "dB", "units:degree": "deg", "units:frame": "frames", "units:hz": "Hz",
+                "units:coef": "coef", "units:db": "dB", "units:degree": "deg", "units:frame": "frames", "units:hz": "Hz",
                 "units:inch": "inch", "units:khz": "kHz", "units:km": "km", "units:m": "m", "units:mhz": "MHz",
                 "units:midiNote": "midiNote", "units:mile": "mile", "units:min": "min", "units:mm": "mm",
                 "units:ms": "ms", "units:oct": "oct", "units:pc": "percent", "units:s": "s",

@@ -5344,7 +5344,7 @@
               "by": [
                 "omx-plugins:plugins/omx-rotary/generated/omx-rotary.lv2/omx-rotary.ttl"
               ],
-              "word": "x"
+              "word": "coef"
             }
           },
           {
@@ -5902,9 +5902,9 @@
             ]
           },
           {
-            "const": "x",
+            "const": "coef",
             "title": "coef",
-            "description": "units:coef (http://lv2plug.in/ns/extensions/units#coef) is the standard unit x",
+            "description": "units:coef (http://lv2plug.in/ns/extensions/units#coef) is the standard unit coef",
             "x-code": 5,
             "x-from": [
               {
