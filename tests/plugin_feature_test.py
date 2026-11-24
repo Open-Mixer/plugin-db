@@ -57,11 +57,13 @@ def read(doc):
 
 
 def requires(doc):
-    """info.x-requires: a sorted JSON array of package or domain names, with no version; None for any other form (the
-    old map {name: ">= x.y.z"} is refused, never read)"""
-    req = doc["info"].get("x-requires", [])
-    if not isinstance(req, list) or not all(isinstance(n, str) for n in req) or req != sorted(set(req)):
-        return None
+    """info.x-requires: a sorted, non-empty JSON array of package or domain names, with no version; an absent field refers
+    to nothing; None for any other form (the old map {name: ">= x.y.z"} and an empty [] are refused, never read)"""
+    if "x-requires" not in doc["info"]:
+        return []  # absent: the domain refers to nothing outside itself
+    req = doc["info"]["x-requires"]
+    if not isinstance(req, list) or not req or not all(isinstance(n, str) for n in req) or req != sorted(set(req)):
+        return None  # the map form, an empty [] (write no field instead), or an unsorted or doubled list
     return req
 
 
@@ -71,7 +73,7 @@ def outside(doc):
             for w in s["oneOf"] for f in w.get("x-from", [])}
     req = requires(doc)
     if req is None:
-        return ["info.x-requires (not an array of names)"]
+        return ["info.x-requires (not a non-empty sorted array of names)"]
     return sorted((set(req) | refs) - {"lv2"})
 
 
@@ -140,8 +142,15 @@ def main():
     check(outside(back) == ["clap"], "sabotage: a CLAP from put back names the domain clap and is refused")
     old_map = copy.deepcopy(doc)
     old_map["info"]["x-requires"] = {"lv2": ">= 1.0.0"}
-    check(requires(old_map) is None and outside(old_map) == ["info.x-requires (not an array of names)"],
+    check(requires(old_map) is None and outside(old_map) == ["info.x-requires (not a non-empty sorted array of names)"],
           "sabotage: the old map form of info.x-requires is refused by name")
+    empty = copy.deepcopy(doc)
+    empty["info"]["x-requires"] = []
+    check(outside(empty) == ["info.x-requires (not a non-empty sorted array of names)"],
+          "sabotage: an empty [] info.x-requires is refused by name (an absent field is how a domain refers to nothing)")
+    absent = copy.deepcopy(doc)
+    absent["info"].pop("x-requires")
+    check(requires(absent) == [], "an absent info.x-requires refers to nothing")
 
     print(f"{'FAIL' if failures else 'ok  '} plugin_feature_test: {len(failures)} failed")
     return 1 if failures else 0
