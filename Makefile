@@ -135,7 +135,7 @@ check-ts:
 render-ts:
 	python3 tools/render-ts.py data ts/src/vocabulary.ts
 
-# the TypeScript twin of the reader (node >= 22.18, < 25; no package is installed): its tests over the golden fixtures,
+# the TypeScript twin of the reader (node >= 22.18, no ceiling; no package is installed): its tests over the golden fixtures,
 # the vocabulary and the conformance check, then the arms that must turn them red. CI runs it in its own job.
 test-twin: $(BIN) check-ts
 	cd ts && node --test "test/*.test.ts"
@@ -257,7 +257,7 @@ check-ci-matrix:
 # <contractdir>/<domain>/; data/store.schema.json is a JSON Schema of the store, not a file of omx-contract's: it is
 # installed to $(DATADIR)/plugin-db/, never into the contract directory
 install-contract:
-	@test -n "$(INSTALL_CONTRACT_DIR)" || { echo "install-contract: no install-contract-dir.sh: install omx-contract-devel 3.22.0 or later (its --domain mode names the installing package), or set OMX_CONTRACT_DIR to a checkout" >&2; exit 1; }
+	@test -n "$(INSTALL_CONTRACT_DIR)" || { echo "install-contract: no install-contract-dir.sh: install omx-contract-devel (its --domain mode names the installing package), or set OMX_CONTRACT_DIR to a checkout" >&2; exit 1; }
 	sh $(INSTALL_CONTRACT_DIR) --domain contract.d/plugin-db $(DESTDIR)$(CONTRACTDIR) $(NAME)
 	sh $(INSTALL_CONTRACT_DIR) --domain contract.d/format $(DESTDIR)$(CONTRACTDIR) $(NAME)
 	sh $(INSTALL_CONTRACT_DIR) --domain contract.d/lv2 $(DESTDIR)$(CONTRACTDIR) $(NAME)

@@ -104,7 +104,7 @@ and read from there by plugin-hostd and the surfaces.
 The console reads the TypeScript twin in `ts/` (`ts/src/reader.ts`, with its words generated from `data/` into
 `ts/src/vocabulary.ts` by `make render-ts`). It is given the entry's layers and what the check found of the files, and
 answers as the C reader does. `tests/golden/` holds one fixture for each state of the spec, and the way to it, that
-`plugin-db query --json` (`make test-golden`) and the twin (`make test-twin`, node 22.18 or later, below 25) must both
+`plugin-db query --json` (`make test-golden`) and the twin (`make test-twin`, node 22.18 or later) must both
 answer exactly. No source types a state, run, reason, tier, bar or standing word, or a sentence of `data/`; the
 conformance test in `ts/test/` refuses it.
 

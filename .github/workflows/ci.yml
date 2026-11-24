@@ -129,8 +129,8 @@ jobs:
         run: dnf -y install omx-contract-devel
       - name: libomx-domain's headers
         run: dnf -y install libomx-domain-devel
-      - name: Node is in the twin's range
-        run: node -e 'const [a,b]=process.versions.node.split(".").map(Number); if (a>=25 || a<22 || (a==22 && b<18)) { console.error("node " + process.version + " is outside 22.18 .. 24"); process.exit(1) }'
+      - name: Node is at or above the twin's floor (third-party, kept; no ceiling)
+        run: node -e 'const [a,b]=process.versions.node.split(".").map(Number); if (a<22 || (a==22 && b<18)) { console.error("node " + process.version + " is below 22.18"); process.exit(1) }'
       - name: make test-twin
         run: make test-twin
 
