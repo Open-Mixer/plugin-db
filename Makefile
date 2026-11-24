@@ -375,3 +375,19 @@ clean:
 .PHONY: all install test test-pin check-tables render-tables test-state test-collect test-store test-db-sabotage test-asan test-golden check-ts render-ts test-twin check-py render-py test-py install-python \
         test-install test-sabotage version-check check-tools check-ci-matrix install-contract check-contract-dir \
         test-rendered-sabotage test-domain test-tu-split check-codes render-codes render-words check-rendered fuzz fuzz-run fuzz-sabotage fuzz-records fuzz-coverage fuzz-corpus fuzz-corpus-check clean
+
+# The published reference: Open-Mixer/.github's docs-publish.yml runs this with DOCS_OUT, an empty absolute directory,
+# then renders the Markdown and the man page and, at a release tag, publishes the tree under
+# https://www.openmixer.org/reference/plugin-db/<version>/. Only what the tree generates or keeps: the C API reference
+# doxygen renders from the installed headers with the Doxyfile the documentation gate reads (api/), the man page,
+# README and COPYING. The gate itself (doc-gate, against the pull request's base) runs in public-sources.yml.
+.PHONY: docs-site
+docs-site:
+	@case "$(DOCS_OUT)" in /*) ;; *) echo "docs-site: FAIL - DOCS_OUT '$(DOCS_OUT)' is not an absolute directory: name the directory the reference is written to" >&2; exit 1;; esac
+	rm -rf $(BUILD)/doxygen && mkdir -p $(BUILD)/doxygen
+	doxygen Doxyfile
+	@test -f $(BUILD)/doxygen/html/index.html || { echo "docs-site: FAIL - doxygen wrote no $(BUILD)/doxygen/html/index.html" >&2; exit 1; }
+	mkdir -p $(DOCS_OUT)/api $(DOCS_OUT)/man
+	cp -a $(BUILD)/doxygen/html/. $(DOCS_OUT)/api/
+	cp README.md COPYING $(DOCS_OUT)/
+	cp man/plugin-db.1 $(DOCS_OUT)/man/

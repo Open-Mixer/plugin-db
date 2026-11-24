@@ -1,0 +1,161 @@
+include/plugin-db/db.h: Compound PDB_ADDRESS_T is not documented.
+include/plugin-db/db.h: Compound PDB_ANSWER_T is not documented.
+include/plugin-db/db.h: Compound PDB_COLLECTION_T is not documented.
+include/plugin-db/db.h: Compound PDB_DETAIL_T is not documented.
+include/plugin-db/db.h: Compound PDB_HERE_T is not documented.
+include/plugin-db/db.h: Compound PDB_NAMES_T is not documented.
+include/plugin-db/db.h: Compound PDB_RECORD_T is not documented.
+include/plugin-db/db.h: Compound PDB_STATE_IN_T is not documented.
+include/plugin-db/db.h: Member PDB_ERR_FORMATS (macro definition) of file db.h is not documented.
+include/plugin-db/db.h: Member PDB_PATH_MAX (macro definition) of file db.h is not documented.
+include/plugin-db/db.h: Member action (variable) of struct PDB_ANSWER_T is not documented.
+include/plugin-db/db.h: Member address[PDB_PATH_MAX] (variable) of struct PDB_DETAIL_T is not documented.
+include/plugin-db/db.h: Member cells)[2] (variable) of struct PDB_RECORD_T is not documented.
+include/plugin-db/db.h: Member change (variable) of struct PDB_ANSWER_T is not documented.
+include/plugin-db/db.h: Member conditions (variable) of struct PDB_RECORD_T is not documented.
+include/plugin-db/db.h: Member entry[PDB_PATH_MAX] (variable) of struct PDB_DETAIL_T is not documented.
+include/plugin-db/db.h: Member facts (variable) of struct PDB_HERE_T is not documented.
+include/plugin-db/db.h: Member files (variable) of struct PDB_ANSWER_T is not documented.
+include/plugin-db/db.h: Member files (variable) of struct PDB_COLLECTION_T is not documented.
+include/plugin-db/db.h: Member files (variable) of struct PDB_STATE_IN_T is not documented.
+include/plugin-db/db.h: Member format (variable) of struct PDB_ADDRESS_T is not documented.
+include/plugin-db/db.h: Member has_cell (variable) of struct PDB_DETAIL_T is not documented.
+include/plugin-db/db.h: Member has_latency (variable) of struct PDB_DETAIL_T is not documented.
+include/plugin-db/db.h: Member has_line (variable) of struct PDB_DETAIL_T is not documented.
+include/plugin-db/db.h: Member host_name (variable) of struct PDB_HERE_T is not documented.
+include/plugin-db/db.h: Member host_name (variable) of struct PDB_RECORD_T is not documented.
+include/plugin-db/db.h: Member host_name[64] (variable) of struct PDB_DETAIL_T is not documented.
+include/plugin-db/db.h: Member host_version (variable) of struct PDB_HERE_T is not documented.
+include/plugin-db/db.h: Member host_version (variable) of struct PDB_RECORD_T is not documented.
+include/plugin-db/db.h: Member host_version[64] (variable) of struct PDB_DETAIL_T is not documented.
+include/plugin-db/db.h: Member hosting_epoch (variable) of struct PDB_HERE_T is not documented.
+include/plugin-db/db.h: Member hosting_epoch (variable) of struct PDB_RECORD_T is not documented.
+include/plugin-db/db.h: Member id (variable) of struct PDB_ADDRESS_T is not documented.
+include/plugin-db/db.h: Member latency_ms (variable) of struct PDB_DETAIL_T is not documented.
+include/plugin-db/db.h: Member layout (variable) of struct PDB_ANSWER_T is not documented.
+include/plugin-db/db.h: Member layout (variable) of struct PDB_STATE_IN_T is not documented.
+include/plugin-db/db.h: Member layout[128] (variable) of struct PDB_DETAIL_T is not documented.
+include/plugin-db/db.h: Member line_ms (variable) of struct PDB_DETAIL_T is not documented.
+include/plugin-db/db.h: Member local (variable) of struct PDB_STATE_IN_T is not documented.
+include/plugin-db/db.h: Member machine_class (variable) of struct PDB_HERE_T is not documented.
+include/plugin-db/db.h: Member machine_class (variable) of struct PDB_RECORD_T is not documented.
+include/plugin-db/db.h: Member machine_class[64] (variable) of struct PDB_DETAIL_T is not documented.
+include/plugin-db/db.h: Member n (variable) of struct PDB_NAMES_T is not documented.
+include/plugin-db/db.h: Member name (variable) of struct PDB_NAMES_T is not documented.
+include/plugin-db/db.h: Member ncells (variable) of struct PDB_RECORD_T is not documented.
+include/plugin-db/db.h: Member nconditions (variable) of struct PDB_RECORD_T is not documented.
+include/plugin-db/db.h: Member nfacts (variable) of struct PDB_HERE_T is not documented.
+include/plugin-db/db.h: Member pdb_address_parse(const char *text, pdb_address_t *address) (function) of file db.h is not documented.
+include/plugin-db/db.h: Member pdb_address_t (typedef) of file db.h is not documented.
+include/plugin-db/db.h: Member pdb_answer_t (typedef) of file db.h is not documented.
+include/plugin-db/db.h: Member pdb_check(const char *store, const char *address, const pdb_here_t *here, const char *current_layout, pdb_answer_t *out, pdb_detail_t *detail, char *why, size_t why_size) (function) of file db.h is not documented.
+include/plugin-db/db.h: Member pdb_collect(const pdb_address_t *address, const char *where, pdb_collection_t *out, char *why, size_t why_size) (function) of file db.h is not documented.
+include/plugin-db/db.h: Member pdb_collection_free(pdb_collection_t *collection) (function) of file db.h is not documented.
+include/plugin-db/db.h: Member pdb_collection_t (typedef) of file db.h is not documented.
+include/plugin-db/db.h: Member pdb_detail_t (typedef) of file db.h is not documented.
+include/plugin-db/db.h: Member pdb_entries(const char *store, int(*fn)(void *ctx, const char *address), void *ctx) (function) of file db.h is not documented.
+include/plugin-db/db.h: Member pdb_format_word(int format) (function) of file db.h is not documented.
+include/plugin-db/db.h: Member pdb_formats_load(const omx_domain *domain) (function) of file db.h is not documented.
+include/plugin-db/db.h: Member pdb_formats_why(void) (function) of file db.h is not documented.
+include/plugin-db/db.h: Member pdb_here_t (typedef) of file db.h is not documented.
+include/plugin-db/db.h: Member pdb_latency_standing(int has_latency, double latency_ms, int has_line, double line_ms) (function) of file db.h is not documented.
+include/plugin-db/db.h: Member pdb_layer_put(const char *store, const char *address, int layer, const char *writer, const char *body, char *why, size_t why_size) (function) of file db.h is not documented.
+include/plugin-db/db.h: Member pdb_lv2_bundle(const char *search, const char *uri) (function) of file db.h is not documented.
+include/plugin-db/db.h: Member pdb_names_t (typedef) of file db.h is not documented.
+include/plugin-db/db.h: Member pdb_pin(const char *store, const char *address, const char *where, const char *layout, char *why, size_t why_size) (function) of file db.h is not documented.
+include/plugin-db/db.h: Member pdb_record_t (typedef) of file db.h is not documented.
+include/plugin-db/db.h: Member pdb_state(const pdb_state_in_t *in, const pdb_here_t *here, pdb_answer_t *out) (function) of file db.h is not documented.
+include/plugin-db/db.h: Member pdb_state_in_t (typedef) of file db.h is not documented.
+include/plugin-db/db.h: Member pdb_state_refusals(void) (function) of file db.h is not documented.
+include/plugin-db/db.h: Member pdb_store_default(int system, char *out, size_t size) (function) of file db.h is not documented.
+include/plugin-db/db.h: Member pdb_word(const char *const *words, int count, int index) (function) of file db.h is not documented.
+include/plugin-db/db.h: Member pin[PHD_SHA256_HEX_LEN+1] (variable) of struct PDB_ADDRESS_T is not documented.
+include/plugin-db/db.h: Member pin_files (variable) of struct PDB_RECORD_T is not documented.
+include/plugin-db/db.h: Member pin_layout (variable) of struct PDB_RECORD_T is not documented.
+include/plugin-db/db.h: Member pinned (variable) of struct PDB_STATE_IN_T is not documented.
+include/plugin-db/db.h: Member present (variable) of struct PDB_RECORD_T is not documented.
+include/plugin-db/db.h: Member problem[PDB_PATH_MAX] (variable) of struct PDB_DETAIL_T is not documented.
+include/plugin-db/db.h: Member quantum (variable) of struct PDB_DETAIL_T is not documented.
+include/plugin-db/db.h: Member quantum (variable) of struct PDB_HERE_T is not documented.
+include/plugin-db/db.h: Member rate (variable) of struct PDB_DETAIL_T is not documented.
+include/plugin-db/db.h: Member rate (variable) of struct PDB_HERE_T is not documented.
+include/plugin-db/db.h: Member reason (variable) of struct PDB_ANSWER_T is not documented.
+include/plugin-db/db.h: Member record (variable) of struct PDB_ANSWER_T is not documented.
+include/plugin-db/db.h: Member record_schema (variable) of struct PDB_HERE_T is not documented.
+include/plugin-db/db.h: Member record_schema (variable) of struct PDB_RECORD_T is not documented.
+include/plugin-db/db.h: Member reference (variable) of struct PDB_STATE_IN_T is not documented.
+include/plugin-db/db.h: Member root[PDB_PATH_MAX] (variable) of struct PDB_COLLECTION_T is not documented.
+include/plugin-db/db.h: Member root[PDB_PATH_MAX] (variable) of struct PDB_DETAIL_T is not documented.
+include/plugin-db/db.h: Member rules (variable) of struct PDB_HERE_T is not documented.
+include/plugin-db/db.h: Member rules (variable) of struct PDB_RECORD_T is not documented.
+include/plugin-db/db.h: Member runs (variable) of struct PDB_ANSWER_T is not documented.
+include/plugin-db/db.h: Member source (variable) of struct PDB_ANSWER_T is not documented.
+include/plugin-db/db.h: Member standing (variable) of struct PDB_DETAIL_T is not documented.
+include/plugin-db/db.h: Member state (variable) of struct PDB_ANSWER_T is not documented.
+include/plugin-db/db.h: Member verdict (variable) of struct PDB_RECORD_T is not documented.
+include/plugin-db/db.h: Member verdict[16] (variable) of struct PDB_DETAIL_T is not documented.
+include/plugin-db/db.h: Member warned_override (variable) of struct PDB_STATE_IN_T is not documented.
+include/plugin-db/pin.h: Compound PHD_LAYOUT_CLAP_PARAM_T is not documented.
+include/plugin-db/pin.h: Compound PHD_LAYOUT_LV2_PORT_T is not documented.
+include/plugin-db/pin.h: Compound PHD_SHA256_T is not documented.
+include/plugin-db/pin.h: Found unknown command '\t'
+include/plugin-db/pin.h: Member PHD_LAYOUT_HAS_DEF (macro definition) of file pin.h is not documented.
+include/plugin-db/pin.h: Member PHD_LAYOUT_HAS_MAX (macro definition) of file pin.h is not documented.
+include/plugin-db/pin.h: Member PHD_LAYOUT_HAS_MIN (macro definition) of file pin.h is not documented.
+include/plugin-db/pin.h: Member PHD_PIN_LAYOUT_CLAP (macro definition) of file pin.h is not documented.
+include/plugin-db/pin.h: Member PHD_PIN_LAYOUT_LV2 (macro definition) of file pin.h is not documented.
+include/plugin-db/pin.h: Member PHD_PIN_LAYOUT_SCHEME (macro definition) of file pin.h is not documented.
+include/plugin-db/pin.h: Member PHD_SHA256_HEX_LEN (macro definition) of file pin.h is not documented.
+include/plugin-db/pin.h: Member ctx (variable) of struct PHD_SHA256_T is not documented.
+include/plugin-db/pin.h: Member def (variable) of struct PHD_LAYOUT_CLAP_PARAM_T is not documented.
+include/plugin-db/pin.h: Member def (variable) of struct PHD_LAYOUT_LV2_PORT_T is not documented.
+include/plugin-db/pin.h: Member flags (variable) of struct PHD_LAYOUT_CLAP_PARAM_T is not documented.
+include/plugin-db/pin.h: Member has (variable) of struct PHD_LAYOUT_LV2_PORT_T is not documented.
+include/plugin-db/pin.h: Member id (variable) of struct PHD_LAYOUT_CLAP_PARAM_T is not documented.
+include/plugin-db/pin.h: Member index (variable) of struct PHD_LAYOUT_LV2_PORT_T is not documented.
+include/plugin-db/pin.h: Member max (variable) of struct PHD_LAYOUT_CLAP_PARAM_T is not documented.
+include/plugin-db/pin.h: Member max (variable) of struct PHD_LAYOUT_LV2_PORT_T is not documented.
+include/plugin-db/pin.h: Member min (variable) of struct PHD_LAYOUT_CLAP_PARAM_T is not documented.
+include/plugin-db/pin.h: Member min (variable) of struct PHD_LAYOUT_LV2_PORT_T is not documented.
+include/plugin-db/pin.h: Member name (variable) of struct PHD_LAYOUT_CLAP_PARAM_T is not documented.
+include/plugin-db/pin.h: Member nproperties (variable) of struct PHD_LAYOUT_LV2_PORT_T is not documented.
+include/plugin-db/pin.h: Member ok (variable) of struct PHD_SHA256_T is not documented.
+include/plugin-db/pin.h: Member output (variable) of struct PHD_LAYOUT_LV2_PORT_T is not documented.
+include/plugin-db/pin.h: Member phd_layout_bytewise(const void *a, const void *b) (function) of file pin.h is not documented.
+include/plugin-db/pin.h: Member phd_layout_clap_digest(const phd_layout_clap_param_t *params, size_t count, char hex[PHD_SHA256_HEX_LEN+1]) (function) of file pin.h is not documented.
+include/plugin-db/pin.h: Member phd_layout_clap_order(const void *a, const void *b) (function) of file pin.h is not documented.
+include/plugin-db/pin.h: Member phd_layout_clap_param_t (typedef) of file pin.h is not documented.
+include/plugin-db/pin.h: Member phd_layout_clap_write(const phd_layout_clap_param_t *params, size_t count, phd_layout_sink_t sink, void *ctx) (function) of file pin.h is not documented.
+include/plugin-db/pin.h: Member phd_layout_hash_sink(void *ctx, const char *data, size_t size) (function) of file pin.h is not documented.
+include/plugin-db/pin.h: Member phd_layout_lv2_digest(const phd_layout_lv2_port_t *ports, size_t count, char hex[PHD_SHA256_HEX_LEN+1]) (function) of file pin.h is not documented.
+include/plugin-db/pin.h: Member phd_layout_lv2_order(const void *a, const void *b) (function) of file pin.h is not documented.
+include/plugin-db/pin.h: Member phd_layout_lv2_port_t (typedef) of file pin.h is not documented.
+include/plugin-db/pin.h: Member phd_layout_lv2_write(const phd_layout_lv2_port_t *ports, size_t count, phd_layout_sink_t sink, void *ctx) (function) of file pin.h is not documented.
+include/plugin-db/pin.h: Member phd_layout_number(phd_layout_sink_t sink, void *ctx, double value, int declared) (function) of file pin.h is not documented.
+include/plugin-db/pin.h: Member phd_layout_put(phd_layout_sink_t sink, void *ctx, const char *s) (function) of file pin.h is not documented.
+include/plugin-db/pin.h: Member phd_layout_sink_t)(void *ctx, const char *data, size_t size) (typedef) of file pin.h is not documented.
+include/plugin-db/pin.h: Member phd_layout_text(phd_layout_sink_t sink, void *ctx, const char *s) (function) of file pin.h is not documented.
+include/plugin-db/pin.h: Member phd_layout_uint(phd_layout_sink_t sink, void *ctx, uint32_t value, int hex8) (function) of file pin.h is not documented.
+include/plugin-db/pin.h: Member phd_pin_fd_digest(int fd, char hex[PHD_SHA256_HEX_LEN+1]) (function) of file pin.h is not documented.
+include/plugin-db/pin.h: Member phd_pin_hex_valid(const char *s) (function) of file pin.h is not documented.
+include/plugin-db/pin.h: Member phd_pin_layout_parse(const char *token, char *scheme, size_t scheme_size, char hex[PHD_SHA256_HEX_LEN+1]) (function) of file pin.h is not documented.
+include/plugin-db/pin.h: Member phd_pin_pool_valid(const char *s) (function) of file pin.h is not documented.
+include/plugin-db/pin.h: Member phd_pin_verdict_valid(const char *s) (function) of file pin.h is not documented.
+include/plugin-db/pin.h: Member phd_pin_word_in(const char *s, const char *const *words, size_t count) (function) of file pin.h is not documented.
+include/plugin-db/pin.h: Member phd_sha256_abandon(phd_sha256_t *c) (function) of file pin.h is not documented.
+include/plugin-db/pin.h: Member phd_sha256_final(phd_sha256_t *c, char hex[PHD_SHA256_HEX_LEN+1]) (function) of file pin.h is not documented.
+include/plugin-db/pin.h: Member phd_sha256_hex(const void *data, size_t size, char hex[PHD_SHA256_HEX_LEN+1]) (function) of file pin.h is not documented.
+include/plugin-db/pin.h: Member phd_sha256_init(phd_sha256_t *c) (function) of file pin.h is not documented.
+include/plugin-db/pin.h: Member phd_sha256_t (typedef) of file pin.h is not documented.
+include/plugin-db/pin.h: Member phd_sha256_update(phd_sha256_t *c, const void *data, size_t size) (function) of file pin.h is not documented.
+include/plugin-db/pin.h: Member properties (variable) of struct PHD_LAYOUT_LV2_PORT_T is not documented.
+include/plugin-db/pin.h: Member symbol (variable) of struct PHD_LAYOUT_LV2_PORT_T is not documented.
+include/plugin-db/pin.h: Unsupported xml/html tag <default> found
+include/plugin-db/pin.h: Unsupported xml/html tag <flags> found
+include/plugin-db/pin.h: Unsupported xml/html tag <id> found
+include/plugin-db/pin.h: Unsupported xml/html tag <index> found
+include/plugin-db/pin.h: Unsupported xml/html tag <max> found
+include/plugin-db/pin.h: Unsupported xml/html tag <min> found
+include/plugin-db/pin.h: Unsupported xml/html tag <name> found
+include/plugin-db/pin.h: Unsupported xml/html tag <properties> found
+include/plugin-db/pin.h: Unsupported xml/html tag <symbol> found

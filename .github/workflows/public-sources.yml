@@ -3,9 +3,9 @@
 name: public-sources
 # The fast checks, on every pull request: the trigger gate (no other workflow of this repository runs on a push or a
 # pull request), and the shared checks from Open-Mixer/.github (this pull request's commit messages, no tracked file
-# pointing into a private repository, no local copy of the checks, the public layout). Each takes seconds. The builds,
-# the test suites, the packages and the fuzzing are in the other workflows, run by workflow_dispatch (ci.yml on a pull
-# request's head before it is merged) and on a v* tag.
+# pointing into a private repository, no local copy of the checks, the public layout), and the documentation gate.
+# Each takes seconds. The builds, the test suites, the packages and the fuzzing are in the other workflows, run by
+# workflow_dispatch (ci.yml on a pull request's head before it is merged) and on a v* tag.
 on:
   pull_request:
 concurrency:
@@ -47,3 +47,9 @@ jobs:
       contents: read
       pull-requests: read
     uses: Open-Mixer/.github/.github/workflows/pr-fixes-issue.yml@openmixer-v1
+
+  # the documentation gate, from Open-Mixer/.github (docs/doc-gate.md): doxygen's warnings over the installed headers
+  # held to docs/doxygen-baseline.txt, which only shrinks against the pull request's base, under the doxygen
+  # docs/doxygen-version.txt pins. The rendered reference is `make docs-site`, published by docs.yml at a tag.
+  docs:
+    uses: Open-Mixer/.github/.github/workflows/doc-gate.yml@openmixer-v1
