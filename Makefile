@@ -81,7 +81,7 @@ install-python:
 test-tu-split:
 	CC='$(CC)' CFLAGS='$(PROTOCOL_CFLAGS) $(DOMAIN_CFLAGS) $(CRYPTO_CFLAGS)' sh tests/tu-split.sh
 
-test: test-tu-split test-constants-alone test-pin test-pin-read test-pin-old-items check-tables check-ts test-py test-state test-collect test-store test-golden test-install test-sabotage test-db-sabotage version-check check-control
+test: test-tu-split test-constants-alone test-pin test-pin-read test-pin-old-items check-tables check-ts test-py test-state test-collect test-store test-golden test-install test-sabotage test-db-sabotage version-check test-version-check check-control
 
 tests/pin_test: tests/pin_test.c $(HEADERS)
 	$(CC) -Iinclude $(CRYPTO_CFLAGS) $(CFLAGS) -Werror -o $@ tests/pin_test.c $(CRYPTO_LIBS)
@@ -197,10 +197,15 @@ test-sabotage:
 # VERSION, the spec's Version and the newest debian/changelog entry say the same (the shared release workflows require it)
 version-check:
 	@spec=$$(sed -n 's/^Version:[[:space:]]*//p' packaging/$(NAME).spec | head -1); \
-	deb=$$(sed -n '1s/^[^ ]* (\([^)]*\)).*/\1/p' debian/changelog); deb=$${deb%%~git*}; \
+	deb=$$(sed -n '1s/^[^ ]* (\([^)]*\)).*/\1/p' debian/changelog); deb=$${deb%%[~+]git*}; \
 	test "$$spec" = "$(VERSION)" && test "$$deb" = "$(VERSION)" || \
 	  { echo "version-check: VERSION $(VERSION), spec $$spec, debian/changelog $$deb" >&2; exit 1; }; \
 	echo "ok   version $(VERSION) in VERSION, the spec and debian/changelog"
+
+# version-check in the trees a DEB build sees: a +git or ~git snapshot entry is green, another version red (#89)
+.PHONY: test-version-check
+test-version-check:
+	sh tests/version-check.sh
 
 # ---------------------------------------------------------------------------------------------------------------------
 # The checks that need tools a package build does not: run by CI (.github/workflows/ci.yml, job words).
