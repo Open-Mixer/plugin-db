@@ -1,3 +1,10 @@
+plugin-db (0.5.1) unstable; urgency=medium
+
+  * The domain lv2 reads units:coef as the standard unit coef, not "x", which
+    omx-contract 3.22.0 (V23d) no longer has (#72).
+
+ -- Pau Aliagas <linuxnow@gmail.com>  Mon, 23 Nov 2026 22:00:00 +0100
+
 plugin-db (0.5.0) unstable; urgency=medium
 
   * The sorting pass: plugin-db's words live in its own domains, read where
