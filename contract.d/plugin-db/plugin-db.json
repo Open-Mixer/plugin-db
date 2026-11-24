@@ -27,7 +27,696 @@
             "x-code": 1
           }
         ]
+      },
+      "PLUGIN_DB_PIN_SHA256_HEX_LEN": {
+        "description": "The characters of a SHA-256 digest written in hex, two a byte: the length of every file digest a pin records and of the buffer a reader writes one into. Declared here so that a consumer that needs the length and no digest (plugin-hostd's command parser) reads it without OpenSSL; pin.h names it PHD_SHA256_HEX_LEN.",
+        "x-since": "0.4.1",
+        "x-kind": "scalar",
+        "x-file": "constants.json",
+        "x-unit": "",
+        "x-value": 64
+      },
+      "PLUGIN_DB_BUNDLE_RULES": {
+        "description": "Which LV2 bundle is the plugin, when several bundles of the search path name it: the one rule in force, and the only word of this item. A bundle realises the plugin when its manifest names the plugin with an lv2:binary; one that only names it (a MOD GUI, a preset bundle) complements it. The candidates are the realising bundles, or, when none realises it, the bundles that name it.",
+        "x-since": "0.2.0",
+        "oneOf": [
+          {
+            "const": "newest-version",
+            "title": "newestVersion",
+            "description": "of the candidates, the one whose manifest gives the plugin the highest lv2:minorVersion, then the highest lv2:microVersion, a version not stated counting as 0; of equal versions the first in the search path, its directories in order and the bundles of one directory in byte order of their names. This is lilv's rule, so the host loads the bundle plugin-db pins.",
+            "x-code": 0
+          }
+        ],
+        "x-kind": "words",
+        "x-file": "db.json"
+      },
+      "PLUGIN_DB_LAYERS": {
+        "description": "The layers of an entry, each with one writer. An entry is a directory of the store, and each layer is one file of it, the word and .json, in the envelope data/store.schema.json declares. The entry is the join of its layers at read time and is never stored.",
+        "x-since": "0.2.0",
+        "oneOf": [
+          {
+            "const": "declared",
+            "title": "declared",
+            "description": "meaning, units, travel and defaults, installed with the package by the plugin's owner, read only",
+            "x-code": 0
+          },
+          {
+            "const": "scanned",
+            "title": "scanned",
+            "description": "identity, controls, ports, presets and GUI evidence, written by plugin-qualify under its runner",
+            "x-code": 1
+          },
+          {
+            "const": "pinned",
+            "title": "pinned",
+            "description": "the files of the plugin with their digests and the layout fingerprint, written through plugin-db",
+            "x-code": 2
+          },
+          {
+            "const": "measured",
+            "title": "measured",
+            "description": "latency, cost and behaviour per rate and quantum with the conditions, written by the probes; may be wiped",
+            "x-code": 3
+          },
+          {
+            "const": "judged",
+            "title": "judged",
+            "description": "the record: verdict, conditions and what it was measured under, written by plugin-qualify's judgement",
+            "x-code": 4
+          },
+          {
+            "const": "reference",
+            "title": "reference",
+            "description": "a record from a reference machine, installed by plugin-db-qualification, read only",
+            "x-code": 5
+          },
+          {
+            "const": "corrected",
+            "title": "corrected",
+            "description": "renames, hidden controls and scale a person chose, written by the override module",
+            "x-code": 6
+          },
+          {
+            "const": "warned-override",
+            "title": "warnedOverride",
+            "description": "a person's choice to run a refused plugin anyway, alone; it binds the pin it was written for and does not survive an upgrade",
+            "x-code": 7
+          },
+          {
+            "const": "observed",
+            "title": "observed",
+            "description": "crash and xrun history, written by plugin-hostd and the engine",
+            "x-code": 8
+          }
+        ],
+        "x-kind": "words",
+        "x-file": "db.json"
+      },
+      "PLUGIN_DB_FILES": {
+        "description": "What the check found of the plugin's files against its pinned layer, as rpm -V reports an attribute. Could not test is never same.",
+        "x-since": "0.2.0",
+        "oneOf": [
+          {
+            "const": "same",
+            "title": "same",
+            "description": "every file the plugin loads is held by the pin and has the digest the pin holds",
+            "x-code": 0
+          },
+          {
+            "const": "changed",
+            "title": "changed",
+            "description": "a file differs from its digest, is gone, is new, or another bundle is now the plugin",
+            "x-code": 1
+          },
+          {
+            "const": "absent",
+            "title": "absent",
+            "description": "the plugin is in no file of the search path any more, or its pinned file is gone",
+            "x-code": 2
+          },
+          {
+            "const": "could-not-test",
+            "title": "couldNotTest",
+            "description": "there is no pinned layer, or a file or the pin could not be read",
+            "x-code": 3
+          }
+        ],
+        "x-kind": "words",
+        "x-file": "db.json"
+      },
+      "PLUGIN_DB_LAYOUT": {
+        "description": "What the check found of the plugin's parameter layout against the layout fingerprint of its pinned layer.",
+        "x-since": "0.2.0",
+        "oneOf": [
+          {
+            "const": "same",
+            "title": "same",
+            "description": "the layout has the pinned fingerprint: the files are the pinned bytes, or a host found the pinned fingerprint",
+            "x-code": 0
+          },
+          {
+            "const": "changed",
+            "title": "changed",
+            "description": "a host found another fingerprint than the pinned one",
+            "x-code": 1
+          },
+          {
+            "const": "not-yet-known",
+            "title": "notYetKnown",
+            "description": "the pin holds no layout, or the files changed and no host has found their layout yet",
+            "x-code": 2
+          }
+        ],
+        "x-kind": "words",
+        "x-file": "db.json"
+      },
+      "PLUGIN_DB_RECORD": {
+        "description": "Whether the judged layer, the record, answers for these bytes on this machine now.",
+        "x-since": "0.2.0",
+        "oneOf": [
+          {
+            "const": "current",
+            "title": "current",
+            "description": "it was written for the pinned bytes and layout, and nothing of PLUGIN_DB_RECORD_CHANGES makes it stale",
+            "x-code": 0,
+            "x-text": "Its record is current."
+          },
+          {
+            "const": "stale",
+            "title": "stale",
+            "description": "it exists, and a change of PLUGIN_DB_RECORD_CHANGES, or files that could not be tested, keep it from answering",
+            "x-code": 1,
+            "x-text": "Its record no longer applies."
+          },
+          {
+            "const": "none",
+            "title": "none",
+            "description": "there is no judged layer",
+            "x-code": 2,
+            "x-text": "It has no record."
+          }
+        ],
+        "x-kind": "words",
+        "x-file": "db.json"
+      },
+      "PLUGIN_DB_RECORD_ACTIONS": {
+        "description": "What a change since a record was written asks for, each in the group of PLUGIN_DB_RECORD it leaves the record in.",
+        "x-since": "0.2.0",
+        "x-groups": "PLUGIN_DB_RECORD",
+        "oneOf": [
+          {
+            "const": "full-path",
+            "title": "fullPath",
+            "description": "scan, pin, measure and judge again",
+            "x-code": 0,
+            "x-text": "Scan, measure and judge it again.",
+            "x-group": "stale"
+          },
+          {
+            "const": "measure-here",
+            "title": "measureHere",
+            "description": "measure and judge on this class of machine; the record stays valid for its own class",
+            "x-code": 1,
+            "x-text": "Measure it on this machine.",
+            "x-group": "stale"
+          },
+          {
+            "const": "convert",
+            "title": "convert",
+            "description": "convert the record to the schema in force, with no new measurement",
+            "x-code": 2,
+            "x-text": "Convert the record; nothing is measured again.",
+            "x-group": "stale"
+          },
+          {
+            "const": "rejudge",
+            "title": "rejudge",
+            "description": "judge the measurements again, automatically, with no new measurement",
+            "x-code": 3,
+            "x-text": "Judge the measurements again; nothing is measured again.",
+            "x-group": "stale"
+          },
+          {
+            "const": "remeasure-background",
+            "title": "remeasureBackground",
+            "description": "the record stays current, shown as measured under the host it names, and is measured again in the background",
+            "x-code": 4,
+            "x-text": "The record still applies; it is measured again in the background.",
+            "x-group": "current"
+          }
+        ],
+        "x-kind": "words",
+        "x-file": "db.json"
+      },
+      "PLUGIN_DB_RECORD_CHANGES": {
+        "description": "What may have changed since a record was written, each the row of the staleness table with the action it asks for. When several changed, the first in this order answers.",
+        "x-since": "0.2.0",
+        "x-groups": "PLUGIN_DB_RECORD_ACTIONS",
+        "oneOf": [
+          {
+            "const": "files",
+            "title": "files",
+            "description": "the plugin's files are not the bytes the record was written for, or could not be tested",
+            "x-code": 0,
+            "x-text": "Its files changed.",
+            "x-group": "full-path"
+          },
+          {
+            "const": "layout",
+            "title": "layout",
+            "description": "the parameter layout is not the one the record was written for, or is not yet known",
+            "x-code": 1,
+            "x-text": "Its parameters changed.",
+            "x-group": "full-path"
+          },
+          {
+            "const": "hosting-change",
+            "title": "hostingChange",
+            "description": "the host is a release that declares a hosting change: its hosting epoch is past the record's. The host's owner declares it in the contract; no reader guesses",
+            "x-code": 2,
+            "x-text": "The host changed how it hosts plugins.",
+            "x-group": "full-path"
+          },
+          {
+            "const": "machine-class",
+            "title": "machineClass",
+            "description": "this machine is of another class than the record's",
+            "x-code": 3,
+            "x-text": "This is another kind of machine.",
+            "x-group": "measure-here"
+          },
+          {
+            "const": "schema",
+            "title": "schema",
+            "description": "the record schema in force is not the record's",
+            "x-code": 4,
+            "x-text": "The record format changed.",
+            "x-group": "convert"
+          },
+          {
+            "const": "rules",
+            "title": "rules",
+            "description": "the judgement rules in force are not the ones the record was judged by",
+            "x-code": 5,
+            "x-text": "The qualification rules changed.",
+            "x-group": "rejudge"
+          },
+          {
+            "const": "host-version",
+            "title": "hostVersion",
+            "description": "the host is a normal release other than the one the record was measured under",
+            "x-code": 6,
+            "x-text": "The host is another release.",
+            "x-group": "remeasure-background"
+          }
+        ],
+        "x-kind": "words",
+        "x-file": "db.json"
+      },
+      "PLUGIN_DB_STATES": {
+        "description": "What a plugin is, from its attributes, its record, a shipped record and a warned override, answered by one function and by no reader for itself. There is no upgraded and no crashed state: new bytes have no record, so they are unqualified. Each state is in the group of PLUGIN_DB_RUNS it runs as; a refusal a warned override covers runs alone instead.",
+        "x-since": "0.2.0",
+        "x-groups": "PLUGIN_DB_RUNS",
+        "oneOf": [
+          {
+            "const": "unqualified",
+            "title": "unqualified",
+            "description": "no current record, for any reason: runs alone in its own limited worker, never grouped; shown as not qualified, with the reason",
+            "x-code": 0,
+            "x-text": "Not qualified: it runs alone, in a worker of its own.",
+            "x-group": "alone"
+          },
+          {
+            "const": "qualified",
+            "title": "qualified",
+            "description": "a current record whose verdict allows it and whose conditions are met here: runs as the verdict and the placement rules allow",
+            "x-code": 1,
+            "x-text": "Qualified: it runs as its record allows.",
+            "x-group": "shared"
+          },
+          {
+            "const": "isolated-only",
+            "title": "isolatedOnly",
+            "description": "a current record that says it is safe only alone: runs alone",
+            "x-code": 2,
+            "x-text": "Qualified to run alone only.",
+            "x-group": "alone"
+          },
+          {
+            "const": "conditions-unmet",
+            "title": "conditionsUnmet",
+            "description": "a current record with no cell for this rate or quantum, or a condition that fails here: runs alone, as unqualified",
+            "x-code": 3,
+            "x-text": "Its record does not cover this machine's settings: it runs alone.",
+            "x-group": "alone"
+          },
+          {
+            "const": "refused",
+            "title": "refused",
+            "description": "a current record or a shipped refusal says refused: not loaded, unless a warned override says run alone",
+            "x-code": 4,
+            "x-text": "Refused: it is not loaded.",
+            "x-group": "not-loaded"
+          },
+          {
+            "const": "absent",
+            "title": "absent",
+            "description": "the files are gone: not loaded",
+            "x-code": 5,
+            "x-text": "Its files are gone: it is not loaded.",
+            "x-group": "not-loaded"
+          }
+        ],
+        "x-kind": "words",
+        "x-file": "db.json"
+      },
+      "PLUGIN_DB_RUNS": {
+        "description": "How a state runs at load.",
+        "x-since": "0.2.0",
+        "oneOf": [
+          {
+            "const": "shared",
+            "title": "shared",
+            "description": "as the verdict and the placement rules allow, in a worker other plugins may share",
+            "x-code": 0,
+            "x-text": "Runs in a shared worker."
+          },
+          {
+            "const": "alone",
+            "title": "alone",
+            "description": "in its own limited worker, never grouped",
+            "x-code": 1,
+            "x-text": "Runs alone, in a worker of its own."
+          },
+          {
+            "const": "not-loaded",
+            "title": "notLoaded",
+            "description": "not loaded: shown with its reason and its saved values kept; an effect passes audio through, an instrument is silent",
+            "x-code": 2,
+            "x-text": "Not loaded: an effect passes audio through, an instrument is silent."
+          }
+        ],
+        "x-kind": "words",
+        "x-file": "db.json"
+      },
+      "PLUGIN_DB_REASONS": {
+        "description": "Why a plugin is in its state, each in the group of PLUGIN_DB_STATES it explains: what show prints beside the state.",
+        "x-since": "0.2.0",
+        "x-groups": "PLUGIN_DB_STATES",
+        "oneOf": [
+          {
+            "const": "never-pinned",
+            "title": "neverPinned",
+            "description": "there is no pinned layer: never scanned or never pinned",
+            "x-code": 0,
+            "x-text": "It has never been scanned.",
+            "x-group": "unqualified"
+          },
+          {
+            "const": "measurement-pending",
+            "title": "measurementPending",
+            "description": "pinned, and there is no record yet",
+            "x-code": 1,
+            "x-text": "It has not been measured yet.",
+            "x-group": "unqualified"
+          },
+          {
+            "const": "could-not-test",
+            "title": "couldNotTest",
+            "description": "the files or the pin could not be read",
+            "x-code": 2,
+            "x-text": "Its files could not be read.",
+            "x-group": "unqualified"
+          },
+          {
+            "const": "files-changed",
+            "title": "filesChanged",
+            "description": "the files are not the pinned bytes",
+            "x-code": 3,
+            "x-text": "Its files have changed since they were scanned.",
+            "x-group": "unqualified"
+          },
+          {
+            "const": "layout-changed",
+            "title": "layoutChanged",
+            "description": "the layout is not the pinned one",
+            "x-code": 4,
+            "x-text": "Its parameters have changed since they were scanned.",
+            "x-group": "unqualified"
+          },
+          {
+            "const": "layout-not-yet-known",
+            "title": "layoutNotYetKnown",
+            "description": "the pin holds no layout, so a record cannot bind one",
+            "x-code": 5,
+            "x-text": "Its parameters are not known yet.",
+            "x-group": "unqualified"
+          },
+          {
+            "const": "record-stale",
+            "title": "recordStale",
+            "description": "the record is stale for a change of PLUGIN_DB_RECORD_CHANGES, which show names with its action",
+            "x-code": 6,
+            "x-text": "Its record no longer applies and it needs measuring again.",
+            "x-group": "unqualified"
+          },
+          {
+            "const": "not-measured-under-host",
+            "title": "notMeasuredUnderHost",
+            "description": "the verdict says alone, and the record was not measured under plugin-hostd, which isolated only needs",
+            "x-code": 7,
+            "x-text": "Its record says alone, but it was not measured under plugin-hostd.",
+            "x-group": "unqualified"
+          },
+          {
+            "const": "verdict-allows",
+            "title": "verdictAllows",
+            "description": "the record's verdict allows a shared worker and its conditions are met here",
+            "x-code": 8,
+            "x-text": "Its record allows a shared worker.",
+            "x-group": "qualified"
+          },
+          {
+            "const": "verdict-isolated",
+            "title": "verdictIsolated",
+            "description": "the record's verdict says it is safe only alone",
+            "x-code": 9,
+            "x-text": "Its record says it is safe only alone.",
+            "x-group": "isolated-only"
+          },
+          {
+            "const": "reference-only",
+            "title": "referenceOnly",
+            "description": "a shipped record matches the pin and was measured on another class of machine: reference figures only, until measured here",
+            "x-code": 10,
+            "x-text": "Measured on another kind of machine: reference figures only.",
+            "x-group": "isolated-only"
+          },
+          {
+            "const": "no-cell",
+            "title": "noCell",
+            "description": "the record has no cell for this rate and quantum",
+            "x-code": 11,
+            "x-text": "Its record has no measurement at this rate and quantum.",
+            "x-group": "conditions-unmet"
+          },
+          {
+            "const": "condition-fails",
+            "title": "conditionFails",
+            "description": "a condition of the record does not hold here, or is not known here",
+            "x-code": 12,
+            "x-text": "A condition of its record does not hold on this machine.",
+            "x-group": "conditions-unmet"
+          },
+          {
+            "const": "record-refused",
+            "title": "recordRefused",
+            "description": "the record says refused; the way back is a rescan, a requalification or a warned override that runs it alone",
+            "x-code": 13,
+            "x-text": "Its record says refused.",
+            "x-group": "refused"
+          },
+          {
+            "const": "shipped-refusal",
+            "title": "shippedRefusal",
+            "description": "a shipped record of these bytes says refused, which wins over everything and no warned override overrides",
+            "x-code": 14,
+            "x-text": "These files are refused by the record shipped with them.",
+            "x-group": "refused"
+          },
+          {
+            "const": "files-gone",
+            "title": "filesGone",
+            "description": "the plugin's files are gone; show names the path that was pinned",
+            "x-code": 15,
+            "x-text": "Its files are gone.",
+            "x-group": "absent"
+          }
+        ],
+        "x-kind": "words",
+        "x-file": "db.json"
+      },
+      "PLUGIN_DB_ISOLATION_HOSTS": {
+        "description": "The hosts a verdict of isolated must have been measured under to make a plugin isolated only: a record that says alone and names another host leaves the plugin unqualified.",
+        "x-since": "0.2.0",
+        "oneOf": [
+          {
+            "const": "plugin-hostd",
+            "title": "pluginHostd",
+            "description": "the daemon that hosts plugins for use, in workers of their own",
+            "x-code": 0
+          }
+        ],
+        "x-kind": "words",
+        "x-file": "db.json"
+      },
+      "PLUGIN_DB_SOURCES": {
+        "description": "Where the record that answers comes from, as show prints it.",
+        "x-since": "0.2.0",
+        "oneOf": [
+          {
+            "const": "none",
+            "title": "none",
+            "description": "no record answers",
+            "x-code": 0,
+            "x-text": "No record."
+          },
+          {
+            "const": "local",
+            "title": "local",
+            "description": "the judged layer: measured here",
+            "x-code": 1,
+            "x-text": "Measured on this machine."
+          },
+          {
+            "const": "reference",
+            "title": "reference",
+            "description": "the reference layer: a shipped record, measured on a reference machine",
+            "x-code": 2,
+            "x-text": "Measured on a reference machine."
+          }
+        ],
+        "x-kind": "words",
+        "x-file": "db.json"
+      },
+      "PLUGIN_DB_BAR": {
+        "description": "The bar a person sets for what may load, a user setting on both surfaces whose three words are declared here and read by plugin-hostd and both surfaces: the picker's and the menu's default view follow it. It filters a view and never changes what the reader answers; a refused plugin stays listed with its reason.",
+        "x-since": "0.3.0",
+        "oneOf": [
+          {
+            "const": "qualified-only",
+            "title": "qualifiedOnly",
+            "description": "only plugins whose state is qualified are offered by default",
+            "x-code": 0,
+            "x-text": "Offer qualified plugins only."
+          },
+          {
+            "const": "warn-on-crashes",
+            "title": "warnOnCrashes",
+            "description": "every plugin that is not refused or absent is offered, and only a crash is asked about",
+            "x-code": 1,
+            "x-text": "Offer every plugin that is not refused; ask only after a crash."
+          },
+          {
+            "const": "load-all",
+            "title": "loadAll",
+            "description": "every plugin is offered, the way back from a refusal included",
+            "x-code": 2,
+            "x-text": "Offer every plugin, refused ones included."
+          }
+        ],
+        "x-kind": "words",
+        "x-file": "db.json"
+      },
+      "PLUGIN_DB_LATENCY": {
+        "description": "Where a measured latency figure stands against the latency line, which plugin-qualify's judgement declares once and writes into the record as latencyLineMs beside the figure of each cell as latencyMs. Over the line is information: the plugin loads. A record without the line, or a cell without the figure, is unmeasured and never a guess.",
+        "x-since": "0.3.0",
+        "oneOf": [
+          {
+            "const": "within",
+            "title": "within",
+            "description": "the figure is at or under the line",
+            "x-code": 0,
+            "x-text": "Latency within the line."
+          },
+          {
+            "const": "over",
+            "title": "over",
+            "description": "the figure is over the line: shown by the owner's text, and the plugin loads",
+            "x-code": 1,
+            "x-text": "Latency over the line; it still loads."
+          },
+          {
+            "const": "unmeasured",
+            "title": "unmeasured",
+            "description": "the record has no line, or the cell has no figure",
+            "x-code": 2,
+            "x-text": "Latency not measured."
+          }
+        ],
+        "x-kind": "words",
+        "x-file": "db.json"
+      },
+      "PLUGIN_DB_PIN_KEYS": {
+        "description": "The optional words of a pin, each this key, an equals sign and its value. Each appears at most once, in either order; a word with any other key is not a pin's.",
+        "x-since": "0.1.0",
+        "oneOf": [
+          {
+            "const": "verdict",
+            "title": "verdict",
+            "description": "the qualification verdict of the pinned bytes, a word of PIN_VERDICTS of plugin-hostd-protocol's domain pin",
+            "x-code": 0
+          },
+          {
+            "const": "pool",
+            "title": "pool",
+            "description": "the thread pool word of the pinned bytes, a word of PIN_POOLS of plugin-hostd-protocol's domain pin",
+            "x-code": 1
+          }
+        ],
+        "x-kind": "words",
+        "x-file": "pin.json"
+      },
+      "PLUGIN_DB_PIN_CHANGES": {
+        "description": "What counts as changed: a pin holds the digests of the plugin's files and the fingerprint of its parameter layout, and only these two differ from it. Anything else about a plugin, its name or its version included, changes no pin.",
+        "x-since": "0.1.0",
+        "oneOf": [
+          {
+            "const": "files",
+            "title": "files",
+            "description": "a pinned file is gone, or its bytes no longer have the digest the pin holds",
+            "x-code": 0
+          },
+          {
+            "const": "layout",
+            "title": "layout",
+            "description": "the plugin's parameter layout no longer has the fingerprint the pin holds",
+            "x-code": 1
+          }
+        ],
+        "x-kind": "words",
+        "x-file": "pin.json"
+      },
+      "PLUGIN_DB_PIN_LAYOUT_FORMATS": {
+        "description": "The formats the layout serialisation is written for, as the first line of its bytes names them.",
+        "x-since": "0.1.0",
+        "oneOf": [
+          {
+            "const": "clap",
+            "title": "clap",
+            "description": "every parameter clap.params gives, sorted by id",
+            "x-code": 0
+          },
+          {
+            "const": "lv2",
+            "title": "lv2",
+            "description": "every control port, sorted by index",
+            "x-code": 1
+          }
+        ],
+        "x-kind": "words",
+        "x-file": "pin.json"
       }
     }
-  }
+  },
+  "x-render": {
+    "c": [
+      {
+        "header": "plugin_db_constants.h",
+        "guard": "PLUGIN_DB_CONSTANTS_H",
+        "project": "plugin-db",
+        "banner": [
+          "Rendered by `omx-contract render --target c --package plugin-db` from the domain plugin-db, the numbers",
+          "plugin-db declares. It includes nothing, so a consumer that needs a number and no digest builds without OpenSSL;",
+          "the values are changed where they are declared and the file is rendered again, never edited here."
+        ],
+        "brief": "The numbers plugin-db declares: the length of a digest written in hex.",
+        "scope": "file",
+        "scalars": {
+          "comment": "the numbers plugin-db declares"
+        }
+      }
+    ]
+  },
+  "x-file": "constants.json"
 }

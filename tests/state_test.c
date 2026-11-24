@@ -1,7 +1,7 @@
 /* SPDX-License-Identifier: GPL-3.0-or-later */
 /* Copyright (C) 2026 Pau Aliagas <linuxnow@gmail.com> */
 /* The state function, by table: each row is a fixture, one change from a plugin qualified here, and the answer it must
- * give. Every state, reason, change, action, run and source of data/db.json must be reached by a row: a word no
+ * give. Every state, reason, change, action, run and source of the domain plugin-db must be reached by a row: a word no
  * fixture reaches is red. */
 
 #include <stdio.h>
@@ -238,7 +238,7 @@ int main(void)
     REACHED(reached_record, g_record, PDB_RECORD_COUNT, "record attribute")
     if (fail)
         return 1;
-    printf("ok   state: %d fixtures, every state, reason, change, action, run and source of data/db.json reached\n",
+    printf("ok   state: %d fixtures, every state, reason, change, action, run and source of the domain plugin-db reached\n",
            (int)(sizeof(g_rows) / sizeof(g_rows[0])));
     return 0;
 }

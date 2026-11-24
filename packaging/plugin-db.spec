@@ -1,5 +1,5 @@
 Name: plugin-db
-Version: 0.4.7
+Version: 0.5.0
 Release: 1%{?dist}
 License: GPL-3.0-or-later
 Summary: The plugin database: the pin, the address form, the store and the state
@@ -13,9 +13,11 @@ BuildRequires: pkgconfig
 BuildRequires: python3
 BuildRequires: python3-devel
 BuildRequires: pkgconfig(libcrypto)
-BuildRequires: plugin-hostd-protocol-devel >= 0.5.8
-# install-contract writes the contract directory's package with omx-contract's script
-BuildRequires: omx-contract-devel >= 3.20.0
+BuildRequires: plugin-hostd-protocol-devel >= 0.8.0
+# the verdict and pool words of a pin are the domain pin of plugin-hostd-protocol (its contract package), which the renders of the tables and the twins read
+BuildRequires: plugin-hostd-protocol-contract >= 0.8.0
+# install-contract installs the domains with omx-contract's script
+BuildRequires: omx-contract-devel >= 3.21.0
 # the format words are read from the domain plugin-db through libomx-domain (omxcontract/omx_domain.h)
 BuildRequires: libomx-domain-devel >= 3.20.0
 
@@ -47,14 +49,15 @@ Its documentation is on openmixer.org.
 
 %package contract
 Summary: The words of the plugin database in omx-contract's contract directory
-Requires: omx-contract >= 3.20.0
+Requires: omx-contract >= 3.21.0
 
 %description contract
-data/pin.json of plugin-db, the words of a pin, and data/db.json, the address
-formats, the bundle rule, the layers, the attributes, the record changes and
-their actions, the states and the reasons, as the package plugin-db of
-omx-contract's contract directory, under
-share/omx-contract/contract.d/3/plugin-db.
+The domains of plugin-db in omx-contract's contract directory: plugin-db (the
+words of a pin, the address formats, the bundle rule, the layers, the
+attributes, the record changes and their actions, the states and the
+reasons), lv2 (the LV2 terms and their mapping to the standard words), format
+(the kinds and statuses of a format's terms) and plugin-feature (the plugin
+features), under share/omx-contract/contract.d/.
 Its documentation is on openmixer.org.
 
 %package -n python3-plugin-db
@@ -65,7 +68,7 @@ Requires: python3
 Requires: plugin-db = %{version}-%{release}
 Requires: plugin-db-contract = %{version}-%{release}
 # the catalog reader of text() (a catalog entry with its provenance, a stale one skipped)
-Requires: omx-contract-data >= 3.20.0
+Requires: omx-contract-data >= 3.21.0
 
 %description -n python3-plugin-db
 The Python module plugin_db: query() gives the answer of plugin-db query --json
@@ -112,8 +115,10 @@ make test
 
 %files contract
 %license COPYING
-%{_datadir}/omx-contract/contract.d/3/plugin-db
 %{omx_contract_domain_dir}/plugin-db/
+%{omx_contract_domain_dir}/format/
+%{omx_contract_domain_dir}/lv2/
+%{omx_contract_domain_dir}/plugin-feature/
 %dir %{_datadir}/plugin-db/catalogs
 
 %files -n python3-plugin-db
@@ -207,6 +212,20 @@ English source sentence.
 # END langpacks
 
 %changelog
+* Sun Nov 22 2026 Pau Aliagas <linuxnow@gmail.com> - 0.5.0-1
+- The sorting pass: plugin-db's words live in its own domains. V12: the pin
+  verdict and pool words are read from plugin-hostd-protocol's domain pin
+  (#57, #58). V11, V13 (#60): the 18 PLUGIN_DB_* items move into the domain
+  plugin-db; data/db.json, pin.json and constants.json are removed, every
+  render is rebuilt from the domain byte for byte, and the contract package
+  plugin-db is gone (the domains are installed). V24 (#61): the plugin
+  features are the domain plugin-feature, naming no CLAP domain. V27a, F1, O1
+  (#62, #63, #64): the LV2 terms are the domain lv2 and the words of format
+  terms the domain format, folded from omx-formats; F1 maps LV2 units,
+  designations, port properties and resource kinds to the standard words;
+  the LV2 inventory and its coverage check come with the terms. Floors:
+  omx-contract >= 3.21.0, plugin-hostd-protocol-contract >= 0.8.0.
+
 * Thu Nov 19 2026 Pau Aliagas <linuxnow@gmail.com> - 0.4.7-1
 - Everything merged since 0.4.6: the store schema $id moves to
   https://openmixer.org/schema/plugin-db/store.schema.json (#41); the address

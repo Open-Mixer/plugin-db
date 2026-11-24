@@ -2,7 +2,7 @@ Source: plugin-db
 Section: libdevel
 Priority: optional
 Maintainer: Pau Aliagas <linuxnow@gmail.com>
-Build-Depends: debhelper-compat (= 13), gcc, libc6-dev, libssl-dev, libplugin-hostd-protocol-dev (>= 0.5.8~), libomx-contract-dev (>= 3.20.0~), libomx-domain-dev (>= 3.20.0~), pkgconf, python3, dh-python
+Build-Depends: debhelper-compat (= 13), gcc, libc6-dev, libssl-dev, libplugin-hostd-protocol-dev (>= 0.8.0~), plugin-hostd-protocol-contract (>= 0.8.0~), libomx-contract-dev (>= 3.21.0~), libomx-domain-dev (>= 3.20.0~), pkgconf, python3, dh-python
 Standards-Version: 4.6.2
 Homepage: https://github.com/Open-Mixer/plugin-db
 Vcs-Git: https://github.com/Open-Mixer/plugin-db.git
@@ -37,20 +37,21 @@ Package: plugin-db-contract
 Section: libs
 Architecture: all
 Multi-Arch: foreign
-Depends: omx-contract (>= 3.20.0~), ${misc:Depends}
+Depends: omx-contract (>= 3.21.0~), ${misc:Depends}
 Description: words of the plugin database in omx-contract's contract directory
- data/pin.json of plugin-db, the words of a pin, and data/db.json, the address
- formats, the bundle rule, the layers, the attributes, the record changes and
- their actions, the states and the reasons, as the package plugin-db of
- omx-contract's contract directory, under
- /usr/share/omx-contract/contract.d/3/plugin-db.
+ The domains of plugin-db in omx-contract's contract directory: plugin-db (the
+ words of a pin, the address formats, the bundle rule, the layers, the
+ attributes, the record changes and their actions, the states and the
+ reasons), lv2 (the LV2 terms and their mapping to the standard words), format
+ (the kinds and statuses of a format's terms) and plugin-feature (the plugin
+ features), under /usr/share/omx-contract/contract.d/.
  .
  Its documentation is on openmixer.org.
 
 Package: python3-plugin-db
 Section: python
 Architecture: all
-Depends: plugin-db (= ${source:Version}), plugin-db-contract (= ${source:Version}), omx-contract-data (>= 3.20.0~), ${python3:Depends}, ${misc:Depends}
+Depends: plugin-db (= ${source:Version}), plugin-db-contract (= ${source:Version}), omx-contract-data (>= 3.21.0~), ${python3:Depends}, ${misc:Depends}
 Description: plugin database: reader for Python
  The Python module plugin_db: query() gives the answer of plugin-db query
  --json for a plugin of the store, read() is the Python twin of the reader for

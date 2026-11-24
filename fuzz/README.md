@@ -31,7 +31,7 @@ A check that takes its expected value from the code it judges holds for a header
 the same way. So no check here calls the header to say what is right. `fuzz/spec.h` holds the
 format as the harnesses read it: the digest rule, the escapes, the number and the integer
 forms (written with `snprintf`), and a SHA-256 from FIPS 180-4 of the harness's own. The words
-of a verdict and a pool are written out in `fuzz_pin.c` from `data/pin.json`.
+of a verdict and a pool are written out in `fuzz_pin.c` from plugin-hostd-protocol's domain pin.
 
 `fuzz_layout` writes nothing itself but reads what the library wrote, with a cursor: each check
 eats the text the harness expects at that place, so the first field that differs aborts in the

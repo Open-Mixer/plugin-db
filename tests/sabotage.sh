@@ -37,8 +37,8 @@ arm "the CLAP parameters are not sorted" "qsort(order, count, sizeof(*order), ph
 arm "the file digest starts where the descriptor is" "if (lseek(fd, 0, SEEK_SET) != 0) => if (0)"
 arm "upper-case hex passes as a digest" "(s[n] >= 'a' && s[n] <= 'f') => ((s[n] | 32) >= 'a' && (s[n] | 32) <= 'f')"
 arm "a digest of 65 digits passes" "return s[n] == '\\0'; => return 1;"
-arm "any word is a verdict" "return phd_pin_word_in(s, words, OMX_PLUGIN_DB_PIN_VERDICTS_COUNT); => return 1;"
-arm "any word is a pool word" "return phd_pin_word_in(s, words, OMX_PLUGIN_DB_PIN_POOLS_COUNT); => return 1;"
+arm "any word is a verdict" "return phd_pin_word_in(s, words, PDB_PIN_VERDICTS_COUNT); => return 1;"
+arm "any word is a pool word" "return phd_pin_word_in(s, words, PDB_PIN_POOLS_COUNT); => return 1;"
 
 # the door is the one place that looks inside a plugin: this tree opens none
 if grep -nE 'dlopen|dlsym|lilv|clap/clap\.h|lv2/' include/plugin-db/pin.h tests/pin_test.c tests/consumer.c; then

@@ -1,0 +1,475 @@
+{
+  "kind": "catalog",
+  "lang": "es",
+  "owner": "plugin-db",
+  "messages": {
+    "PLUGIN_FEATURE_ANALYZER.clap.analyzer": {
+      "text": "El analizador de características del plugin CLAP: un plugin que lee audio e informa una medición, sin más salida.",
+      "by": "machine",
+      "model": "draft-prose",
+      "source": "0bdbc83447c4591ed453387ca7ed1ba4fb8e6ba9a92642d47fc16b4fce9c8b9e"
+    },
+    "PLUGIN_FEATURE_ANALYZER.clap.note-detector": {
+      "text": "El detector de notas de características del plugin CLAP: un analizador que lee el tono del audio.",
+      "by": "machine",
+      "model": "draft-prose",
+      "source": "6fde3ddf657657d20f5e3b3379a5d36e89551cbd766beb5db1a3df8cbf404862"
+    },
+    "PLUGIN_FEATURE_ANALYZER.lv2.Analyser": {
+      "text": "La clase de plugin LV2 AnalyserPlugin: un plugin que lee audio e informa una medición.",
+      "by": "machine",
+      "model": "draft-prose",
+      "source": "98834a2def7a3be41cce417453bd4450759ac561b8602f63105201217f584cb9"
+    },
+    "PLUGIN_FEATURE_AUDIO_EFFECT.clap.audio-effect": {
+      "text": "La función de plugin CLAP audio-effect: cualquier efecto de audio sin una función más específica declarada.",
+      "by": "machine",
+      "model": "draft-prose",
+      "source": "f2c0e6600ac61f3f9bc25a673565374a02df6515e2dd2130540c0539aa3b4bbb"
+    },
+    "PLUGIN_FEATURE_AUDIO_EFFECT.clap.chorus": {
+      "text": "La función de plugin CLAP chorus: un efecto que engrosa un sonido con copias retrasadas y desafinadas de él.",
+      "by": "machine",
+      "model": "draft-prose",
+      "source": "f55bc920b3e31809bbf4c3d89128738072d96ff98ef03c9ff3626482335aff95"
+    },
+    "PLUGIN_FEATURE_AUDIO_EFFECT.clap.compressor": {
+      "text": "El compresor de la función PLUGIN_FEATURE_AUDIO_EFFECT.clap: un efecto que reduce el rango dinámico de un sonido.",
+      "by": "machine",
+      "model": "draft-prose",
+      "source": "aa4b098d31b862d6a434356cf1d23fdb7ad8c153840f44ac8f95eace9ffbc069"
+    },
+    "PLUGIN_FEATURE_AUDIO_EFFECT.clap.de-esser": {
+      "text": "El de-esser de la función PLUGIN_FEATURE_AUDIO_EFFECT.clap: un efecto que atenúa la sibilancia en una voz.",
+      "by": "machine",
+      "model": "draft-prose",
+      "source": "66bcf4c9fd923fe3ae4ff90387f8542bd6ed5b2c3bc949e48e4d5bb83be4d00b"
+    },
+    "PLUGIN_FEATURE_AUDIO_EFFECT.clap.delay": {
+      "text": "El delay de la función PLUGIN_FEATURE_AUDIO_EFFECT.clap: un efecto que repite un sonido después de una pausa.",
+      "by": "machine",
+      "model": "draft-prose",
+      "source": "63f8737dc3294854fa01d4d38af8d2b1bf520e2332d04c50461625b8cc1edd26"
+    },
+    "PLUGIN_FEATURE_AUDIO_EFFECT.clap.distortion": {
+      "text": "La distorsión de la función PLUGIN_FEATURE_AUDIO_EFFECT.clap: un efecto que añade armónicos sobrecargando un sonido.",
+      "by": "machine",
+      "model": "draft-prose",
+      "source": "6ccc39b865d07d23c972335c5f55e55cff7690f59ad35680d1999c62df608d8f"
+    },
+    "PLUGIN_FEATURE_AUDIO_EFFECT.clap.equalizer": {
+      "text": "El ecualizador de la función PLUGIN_FEATURE_AUDIO_EFFECT.clap: un efecto que da forma al balance de frecuencias de un sonido.",
+      "by": "machine",
+      "model": "draft-prose",
+      "source": "72943f43dd3a8d2b5e74315e5c0c9e6a8392b8be0b3a5ab41d7c2cf5422c46dd"
+    },
+    "PLUGIN_FEATURE_AUDIO_EFFECT.clap.expander": {
+      "text": "El expansor de la función PLUGIN_FEATURE_AUDIO_EFFECT.clap: un efecto que amplía el rango dinámico de un sonido.",
+      "by": "machine",
+      "model": "draft-prose",
+      "source": "ef83cfeb66e9464e22b5c5e3ef64a74149dc7fa8cf1be6d4b93469b821c9e1b7"
+    },
+    "PLUGIN_FEATURE_AUDIO_EFFECT.clap.filter": {
+      "text": "El filtro de la función PLUGIN_FEATURE_AUDIO_EFFECT.clap: un efecto que elimina o da forma a una banda de frecuencias.",
+      "by": "machine",
+      "model": "draft-prose",
+      "source": "20781ca216576e5f7ddb7e1d803dd2b7a5dcadd22d45fb27824f376de49aa85e"
+    },
+    "PLUGIN_FEATURE_AUDIO_EFFECT.clap.flanger": {
+      "text": "El flanger de la función PLUGIN_FEATURE_AUDIO_EFFECT.clap: un efecto que barre un delay corto y modulado contra el sonido original.",
+      "by": "machine",
+      "model": "draft-prose",
+      "source": "e76ae47b1c6a78f76f4a5fe5d5da63d7515846d48b9304b2524c92814ccace7a"
+    },
+    "PLUGIN_FEATURE_AUDIO_EFFECT.clap.frequency-shifter": {
+      "text": "El frequency-shifter de la función PLUGIN_FEATURE_AUDIO_EFFECT.clap: un efecto que desplaza cada frecuencia de un sonido por la misma cantidad.",
+      "by": "machine",
+      "model": "draft-prose",
+      "source": "3c2834d008a7b5cd0a6e44f8f1ae30dab98832abdf91d37894f630bd1fb9898a"
+    },
+    "PLUGIN_FEATURE_AUDIO_EFFECT.clap.gate": {
+      "text": "El gate de la función PLUGIN_FEATURE_AUDIO_EFFECT.clap: un efecto que silencia un sonido por debajo de un nivel.",
+      "by": "machine",
+      "model": "draft-prose",
+      "source": "235305e32291804f1e889b9bd10978ec36aa09e0626bc1f94cb0f6c46a829a2f"
+    },
+    "PLUGIN_FEATURE_AUDIO_EFFECT.clap.glitch": {
+      "text": "El glitch de la función PLUGIN_FEATURE_AUDIO_EFFECT.clap: un efecto que corta, tartamudea o corrompe un sonido a propósito.",
+      "by": "machine",
+      "model": "draft-prose",
+      "source": "7e714319fe2558369b88851235a92418eb488dbdf0dcc1ddd581fd668dc87742"
+    },
+    "PLUGIN_FEATURE_AUDIO_EFFECT.clap.granular": {
+      "text": "El granular de la función PLUGIN_FEATURE_AUDIO_EFFECT.clap: un efecto construido a partir de granos cortos de un sonido.",
+      "by": "machine",
+      "model": "draft-prose",
+      "source": "4255f2bb5bb8d6217112fbdc9e6e342224afa0fad65f416a2213f2b7f357ea86"
+    },
+    "PLUGIN_FEATURE_AUDIO_EFFECT.clap.limiter": {
+      "text": "El limiter de la función PLUGIN_FEATURE_AUDIO_EFFECT.clap: un efecto que mantiene un sonido por debajo de un límite.",
+      "by": "machine",
+      "model": "draft-prose",
+      "source": "1b5591343dfa87c17d6bf651babb0048c131112048dc785a75a48254c0154f99"
+    },
+    "PLUGIN_FEATURE_AUDIO_EFFECT.clap.mastering": {
+      "text": "El mastering de la función PLUGIN_FEATURE_AUDIO_EFFECT.clap: un efecto diseñado para la etapa final de una mezcla.",
+      "by": "machine",
+      "model": "draft-prose",
+      "source": "62326142396920d2e7750a654df95d2d792e19e10731294482cd74013100dc91"
+    },
+    "PLUGIN_FEATURE_AUDIO_EFFECT.clap.mixing": {
+      "text": "El mixing de la función PLUGIN_FEATURE_AUDIO_EFFECT.clap: un efecto diseñado para usarse durante la mezcla, como una cadena de canal.",
+      "by": "machine",
+      "model": "draft-prose",
+      "source": "3cb101bf7764327b72fd3c888da3607fd40b13301b5018662ee470eb72826e37"
+    },
+    "PLUGIN_FEATURE_AUDIO_EFFECT.clap.multi-effects": {
+      "text": "Los multi-efectos de la función PLUGIN_FEATURE_AUDIO_EFFECT.clap: varios efectos combinados en un solo plugin.",
+      "by": "machine",
+      "model": "draft-prose",
+      "source": "353170ee0f5fae552a45d8f27d2454adf23a8d3c776af99c2830a452d5b7968e"
+    },
+    "PLUGIN_FEATURE_AUDIO_EFFECT.clap.phase-vocoder": {
+      "text": "El phase-vocoder de la función PLUGIN_FEATURE_AUDIO_EFFECT.clap: un efecto construido sobre un phase vocoder, típicamente para estirar o desplazar un sonido independientemente del tono y el tiempo.",
+      "by": "machine",
+      "model": "draft-prose",
+      "source": "76abf39efe5483c6f3163fad23054cb93126f20ab5e4fcf4ef6a4c388946d1fa"
+    },
+    "PLUGIN_FEATURE_AUDIO_EFFECT.clap.phaser": {
+      "text": "El phaser de la función PLUGIN_FEATURE_AUDIO_EFFECT.clap: un efecto que barre muescas a través de un sonido con una cadena de filtros de todo paso.",
+      "by": "machine",
+      "model": "draft-prose",
+      "source": "ab37e2346d5cc85d4de3c20be26be501fdba6156f185c6343be8332eeff470f6"
+    },
+    "PLUGIN_FEATURE_AUDIO_EFFECT.clap.pitch-correction": {
+      "text": "La corrección de tono de la función PLUGIN_FEATURE_AUDIO_EFFECT.clap: un efecto que atrae el tono de un sonido hacia una escala.",
+      "by": "machine",
+      "model": "draft-prose",
+      "source": "8438613756e6b79fd93cca761290d2deea5e0394809478fd67dadbe91dfa43bf"
+    },
+    "PLUGIN_FEATURE_AUDIO_EFFECT.clap.pitch-shifter": {
+      "text": "El pitch-shifter de la función PLUGIN_FEATURE_AUDIO_EFFECT.clap: un efecto que cambia el tono de un sonido sin cambiar su duración.",
+      "by": "machine",
+      "model": "draft-prose",
+      "source": "a56d1f161b2e92334ac2039d15b511d9c127d915217a5a75a67b648180e95d22"
+    },
+    "PLUGIN_FEATURE_AUDIO_EFFECT.clap.restoration": {
+      "text": "La restauración de la función PLUGIN_FEATURE_AUDIO_EFFECT.clap: un efecto que elimina ruido, clics u otros daños de una grabación.",
+      "by": "machine",
+      "model": "draft-prose",
+      "source": "49be52e291ad0816e1a156cf2ddf539f291b0ab8fdc498566f8f3e19f9efc44c"
+    },
+    "PLUGIN_FEATURE_AUDIO_EFFECT.clap.reverb": {
+      "text": "La reverberación de la función PLUGIN_FEATURE_AUDIO_EFFECT.clap: un efecto que añade las reflexiones de un espacio a un sonido.",
+      "by": "machine",
+      "model": "draft-prose",
+      "source": "23559bf1d4f3a3cca35b7ba06266ed3488fa6ef3c4054f93a6840a3b3a79d064"
+    },
+    "PLUGIN_FEATURE_AUDIO_EFFECT.clap.transient-shaper": {
+      "text": "El modelador de transitorios de la función PLUGIN_FEATURE_AUDIO_EFFECT.clap: un efecto que remodela el ataque y el sustain de un sonido.",
+      "by": "machine",
+      "model": "draft-prose",
+      "source": "5e57d92e824701c38c2a06659163b92309abb6752bb1c769bee04bc9cf9e6bb5"
+    },
+    "PLUGIN_FEATURE_AUDIO_EFFECT.clap.tremolo": {
+      "text": "El tremolo de la función PLUGIN_FEATURE_AUDIO_EFFECT.clap: un efecto que modula el nivel de un sonido a lo largo del tiempo.",
+      "by": "machine",
+      "model": "draft-prose",
+      "source": "05c643d32e37b630251f5a4477b7d684940bf8ebd455c59ed2fba0a7f51e0ac0"
+    },
+    "PLUGIN_FEATURE_AUDIO_EFFECT.clap.utility": {
+      "text": "La utilidad de la función PLUGIN_FEATURE_AUDIO_EFFECT.clap: un plugin que realiza tareas de mantenimiento de audio en lugar de un efecto creativo.",
+      "by": "machine",
+      "model": "draft-prose",
+      "source": "b14ec3150674ffd663c3a3e152f337a67597f06ef03e7394a1ac431825ee9e1c"
+    },
+    "PLUGIN_FEATURE_AUDIO_EFFECT.lv2.Allpass": {
+      "text": "La clase de plugin LV2 AllpassPlugin: un filtro de paso total, que desplaza la fase sin cambiar el nivel.",
+      "by": "machine",
+      "model": "draft-prose",
+      "source": "1c261e92e8128f0bf80ce8e112481ce32f38a264a8854423bf3bf25affdd2397"
+    },
+    "PLUGIN_FEATURE_AUDIO_EFFECT.lv2.Amplifier": {
+      "text": "La clase de plugin LV2 AmplifierPlugin: un plugin que cambia el nivel de un sonido.",
+      "by": "machine",
+      "model": "draft-prose",
+      "source": "15caf1c5d3e647a2cde2c01b6541b4c1eaee49ec8cbea69ffafd283c2d0a3979"
+    },
+    "PLUGIN_FEATURE_AUDIO_EFFECT.lv2.Bandpass": {
+      "text": "La clase de plugin LV2 BandpassPlugin: un filtro que pasa una banda de frecuencias.",
+      "by": "machine",
+      "model": "draft-prose",
+      "source": "94e577c1d5c240292c73145cd1895d5e48485403df3ec84ff96adb96ba65080a"
+    },
+    "PLUGIN_FEATURE_AUDIO_EFFECT.lv2.Chorus": {
+      "text": "La clase de plugin LV2 ChorusPlugin: un efecto que engrosa un sonido con copias desafinadas y retardadas de él.",
+      "by": "machine",
+      "model": "draft-prose",
+      "source": "2940b0576d0e380cfb97463ab730d0cb743c79ed8bc9141c4695e4c80956e50f"
+    },
+    "PLUGIN_FEATURE_AUDIO_EFFECT.lv2.Comb": {
+      "text": "La clase de plugin LV2 CombPlugin: un filtro de peine, que añade una copia retardada corta de un sonido a sí mismo.",
+      "by": "machine",
+      "model": "draft-prose",
+      "source": "d7f5e383ae54f83f4c77611b33a8a970145a6761180447121be27625350c334f"
+    },
+    "PLUGIN_FEATURE_AUDIO_EFFECT.lv2.Compressor": {
+      "text": "La clase de plugin LV2 `CompressorPlugin`: un efecto que reduce el rango dinámico de un sonido.",
+      "by": "machine",
+      "model": "draft-prose",
+      "source": "b1b1737185b84b232d0d71ac2c100721bab89486c90e96ccb7db4565e2be65e8"
+    },
+    "PLUGIN_FEATURE_AUDIO_EFFECT.lv2.Converter": {
+      "text": "La clase de plugin LV2 `ConverterPlugin`: un plugin que convierte una señal de una representación a otra.",
+      "by": "machine",
+      "model": "draft-prose",
+      "source": "da00790231d6f29c5d10279104ae497898c2b32839558d1cb29c876e76ab555b"
+    },
+    "PLUGIN_FEATURE_AUDIO_EFFECT.lv2.Delay": {
+      "text": "La clase de plugin LV2 `DelayPlugin`: un efecto que repite un sonido después de una pausa.",
+      "by": "machine",
+      "model": "draft-prose",
+      "source": "49191ef8d046df0e3d9551cb7e107bdd25f4be5990b8b105759d82be70d96f6d"
+    },
+    "PLUGIN_FEATURE_AUDIO_EFFECT.lv2.Distortion": {
+      "text": "La clase de plugin LV2 `DistortionPlugin`: un efecto que añade armónicos sobrecargando un sonido.",
+      "by": "machine",
+      "model": "draft-prose",
+      "source": "4ce058269e0b6bf7bbb904f7c61cc90be8e9af7760c762f973d379b1e4d69e76"
+    },
+    "PLUGIN_FEATURE_AUDIO_EFFECT.lv2.Dynamics": {
+      "text": "La clase de plugin LV2 `DynamicsPlugin`: un efecto que cambia el rango dinámico de un sonido.",
+      "by": "machine",
+      "model": "draft-prose",
+      "source": "e96692b7c4cc512a408b6e1215bbffaadae1400cf1569b91dd2d2afb9213ac2c"
+    },
+    "PLUGIN_FEATURE_AUDIO_EFFECT.lv2.EQ": {
+      "text": "La clase de plugin LV2 `EQPlugin`: un efecto que da forma al equilibrio de frecuencias de un sonido.",
+      "by": "machine",
+      "model": "draft-prose",
+      "source": "5f14dcc490751ccf3c9c0a301b0bf548dfb5b09559ecfe55ca7e2836360bacbb"
+    },
+    "PLUGIN_FEATURE_AUDIO_EFFECT.lv2.Envelope": {
+      "text": "La clase de plugin LV2 `EnvelopePlugin`: un plugin que sigue o aplica una envolvente a lo largo del tiempo.",
+      "by": "machine",
+      "model": "draft-prose",
+      "source": "b3da9f02907b00538bc1dde9bb97200dd9c9083f7d4cf3eca0da3b90a034626a"
+    },
+    "PLUGIN_FEATURE_AUDIO_EFFECT.lv2.Expander": {
+      "text": "La clase de plugin LV2 `ExpanderPlugin`: un efecto que amplía el rango dinámico de un sonido.",
+      "by": "machine",
+      "model": "draft-prose",
+      "source": "bc305af89a4ea378832aad423b515e6dc5a7bc74e27556bb87a3b64f1e91e739"
+    },
+    "PLUGIN_FEATURE_AUDIO_EFFECT.lv2.Filter": {
+      "text": "La clase de plugin LV2 `FilterPlugin`: un efecto que elimina o da forma a una banda de frecuencias.",
+      "by": "machine",
+      "model": "draft-prose",
+      "source": "b9a19ad28606625dda593fe54bad8b30b3d2c6434eb5402e4c77e749c078ee5a"
+    },
+    "PLUGIN_FEATURE_AUDIO_EFFECT.lv2.Flanger": {
+      "text": "La clase de plugin LV2 `FlangerPlugin`: un efecto que barre un retardo corto y modulado contra el sonido original.",
+      "by": "machine",
+      "model": "draft-prose",
+      "source": "68d567182882f290c65f1114e948ba5b2965f228aba95453c04c097f77d577c2"
+    },
+    "PLUGIN_FEATURE_AUDIO_EFFECT.lv2.Gate": {
+      "text": "La clase de plugin LV2 `GatePlugin`: un efecto que silencia un sonido por debajo de un nivel.",
+      "by": "machine",
+      "model": "draft-prose",
+      "source": "a8830bf5e595e02932e76fc735cf38b405b1cad7ce189a3f044c1cf7d1ac339f"
+    },
+    "PLUGIN_FEATURE_AUDIO_EFFECT.lv2.Highpass": {
+      "text": "La clase de plugin LV2 `HighpassPlugin`: un filtro que pasa frecuencias por encima de un corte.",
+      "by": "machine",
+      "model": "draft-prose",
+      "source": "71224f9e5fefec8a31b8a4906764b4d5c6fa0c1b1cd3400ba7165ad05891058e"
+    },
+    "PLUGIN_FEATURE_AUDIO_EFFECT.lv2.Limiter": {
+      "text": "La clase de plugin LV2 `LimiterPlugin`: un efecto que mantiene un sonido por debajo de un techo.",
+      "by": "machine",
+      "model": "draft-prose",
+      "source": "49948d146c622e390a40038fbe7332e83268d1f4014f07e5ebb2a98a19022045"
+    },
+    "PLUGIN_FEATURE_AUDIO_EFFECT.lv2.Lowpass": {
+      "text": "La clase de plugin LV2 `LowpassPlugin`: un filtro que pasa frecuencias por debajo de un corte.",
+      "by": "machine",
+      "model": "draft-prose",
+      "source": "cef5592a5d3dc7be0632b448f5c262d9a160af9627d06389e8611fb974f6b720"
+    },
+    "PLUGIN_FEATURE_AUDIO_EFFECT.lv2.Mixer": {
+      "text": "La clase de plugin LV2 `MixerPlugin`: un plugin que combina varias señales en una.",
+      "by": "machine",
+      "model": "draft-prose",
+      "source": "685203892be4b89e0fbf4bf3d4929d29f263d0acfa1808e95c0b9d433e32ffe2"
+    },
+    "PLUGIN_FEATURE_AUDIO_EFFECT.lv2.Modulator": {
+      "text": "La clase de plugin LV2 `ModulatorPlugin`: un plugin que modula una señal con otra.",
+      "by": "machine",
+      "model": "draft-prose",
+      "source": "4b8779ae15dfbf2a8d7b92268581f5ea69100e1913fdb32c820f89392065c824"
+    },
+    "PLUGIN_FEATURE_AUDIO_EFFECT.lv2.MultiEQ": {
+      "text": "La clase de plugin LV2 `MultiEQPlugin`: un ecualizador multibanda.",
+      "by": "machine",
+      "model": "draft-prose",
+      "source": "58267c865eb41ca65edc40a2c559d7a23cea84b2b052cc5f78576b27d8cb9c10"
+    },
+    "PLUGIN_FEATURE_AUDIO_EFFECT.lv2.ParaEQ": {
+      "text": "La clase de plugin LV2 `ParaEQPlugin`: un ecualizador paramétrico.",
+      "by": "machine",
+      "model": "draft-prose",
+      "source": "a7ad644963f2e39badabb843dcdb543119a0b7cb828ade7d6e0b52176fa7ce43"
+    },
+    "PLUGIN_FEATURE_AUDIO_EFFECT.lv2.Phaser": {
+      "text": "La clase de plugin LV2 `PhaserPlugin`: un efecto que barre muescas a través de un sonido con una cadena de filtros de todo paso.",
+      "by": "machine",
+      "model": "draft-prose",
+      "source": "aa6c5f924226920fd342359b79ea8a9a050a14d2f346eb788abc038e813d6e89"
+    },
+    "PLUGIN_FEATURE_AUDIO_EFFECT.lv2.Pitch": {
+      "text": "La clase de plugin LV2 `PitchPlugin`: un plugin que cambia o rastrea el tono de un sonido.",
+      "by": "machine",
+      "model": "draft-prose",
+      "source": "1cf5b8b16314b9884a3502c373b344d3e4d0c8608a801d3e5897997d4f79a6ea"
+    },
+    "PLUGIN_FEATURE_AUDIO_EFFECT.lv2.Reverb": {
+      "text": "La clase de plugin LV2 `ReverbPlugin`: un efecto que agrega los reflejos de un espacio a un sonido.",
+      "by": "machine",
+      "model": "draft-prose",
+      "source": "d1d37926dc010c2b2d5d1aad50f8e2e007f38208f3e354c37428fb1bc5d5b9a0"
+    },
+    "PLUGIN_FEATURE_AUDIO_EFFECT.lv2.Simulator": {
+      "text": "La clase de plugin LV2 `SimulatorPlugin`: un plugin que modela un dispositivo o espacio físico.",
+      "by": "machine",
+      "model": "draft-prose",
+      "source": "43c6b0a3b9636b7781a7808e443be3e526d90b47b6c7e0ae52f186b6a9644a5f"
+    },
+    "PLUGIN_FEATURE_AUDIO_EFFECT.lv2.Spatial": {
+      "text": "La clase de plugin LV2 `SpatialPlugin`: un plugin que coloca o mueve un sonido en el espacio.",
+      "by": "machine",
+      "model": "draft-prose",
+      "source": "973fb5612a7628a1dd2d43da1c986080d1642b45dba56408a7fb474fa0c2c691"
+    },
+    "PLUGIN_FEATURE_AUDIO_EFFECT.lv2.Spectral": {
+      "text": "La clase de plugin LV2 `SpectralPlugin`: un plugin que procesa un sonido en el dominio de la frecuencia.",
+      "by": "machine",
+      "model": "draft-prose",
+      "source": "acc5aae2d689fa97d073f07dbc59b2cf625aae42d19f792db3163e8298206dd6"
+    },
+    "PLUGIN_FEATURE_AUDIO_EFFECT.lv2.Utility": {
+      "text": "La clase de plugin LV2 `UtilityPlugin`: un plugin que realiza tareas de mantenimiento de audio en lugar de un efecto creativo.",
+      "by": "machine",
+      "model": "draft-prose",
+      "source": "c8dd500f59da4ee47d958e3627dd03797842c7745ad83adac1d3fd8f52e45be5"
+    },
+    "PLUGIN_FEATURE_AUDIO_EFFECT.lv2.Waveshaper": {
+      "text": "La clase de plugin LV2 `WaveshaperPlugin`: un plugin que remodela una forma de onda para agregar armónicos.",
+      "by": "machine",
+      "model": "draft-prose",
+      "source": "61bc9a2044b730e9d0546da8d9043853f49f40f0777074dc5986a374304c9419"
+    },
+    "PLUGIN_FEATURE_INSTRUMENT.clap.drum": {
+      "text": "La función de plugin CLAP `drum`: un instrumento que reproduce sonidos de batería.",
+      "by": "machine",
+      "model": "draft-prose",
+      "source": "770da4d938e70fb03f955ed2cfe86bcbae551906f8d1fde5452b9d4f0cb7cb1c"
+    },
+    "PLUGIN_FEATURE_INSTRUMENT.clap.drum-machine": {
+      "text": "La función de plugin CLAP `drum-machine`: un instrumento que secuencia y reproduce sonidos de batería.",
+      "by": "machine",
+      "model": "draft-prose",
+      "source": "a976c5ff2f737a407ea0cdecce506ec2ce5d6194b603c27e8929f386c3331889"
+    },
+    "PLUGIN_FEATURE_INSTRUMENT.clap.instrument": {
+      "text": "La función de plugin CLAP `instrument`: un plugin que se toca con notas, sin declarar un tipo más específico.",
+      "by": "machine",
+      "model": "draft-prose",
+      "source": "f969731cd42a58ddf9b38a9f6b3b154809c57be321c0951194ecff7c9c8c4143"
+    },
+    "PLUGIN_FEATURE_INSTRUMENT.clap.sampler": {
+      "text": "La función de plugin CLAP `sampler`: un instrumento que reproduce muestras grabadas.",
+      "by": "machine",
+      "model": "draft-prose",
+      "source": "929e06d8bec57156be00bef572915a102470985de8a14970733960c905ca1d9d"
+    },
+    "PLUGIN_FEATURE_INSTRUMENT.clap.synthesizer": {
+      "text": "El sintetizador de características del plugin CLAP: un instrumento que genera su propio sonido en lugar de reproducir muestras.",
+      "by": "machine",
+      "model": "draft-prose",
+      "source": "7482a845220b3954033aaf121cd118ebc8d8c36ca7e468c8bd6d7a3ca84a085c"
+    },
+    "PLUGIN_FEATURE_INSTRUMENT.lv2.Instrument": {
+      "text": "La clase de plugin LV2 InstrumentPlugin: un plugin que se toca con notas.",
+      "by": "machine",
+      "model": "draft-prose",
+      "source": "93fe5f5e1358baef3dde50e7e415091d55cbae4d51da1bb3b126552e6d073ab8"
+    },
+    "PLUGIN_FEATURE_NOTE_EFFECT.clap.note-effect": {
+      "text": "La característica de efecto de nota del plugin CLAP: un plugin que lee notas y escribe notas, como un arpegiador.",
+      "by": "machine",
+      "model": "draft-prose",
+      "source": "244b8c3c599337adc841a58db762a23f316db154e1071f29064b998ad74fe1a4"
+    },
+    "PLUGIN_FEATURE_NOTE_EFFECT.lv2.MIDI": {
+      "text": "La clase de plugin LV2 MIDIPlugin: un plugin que procesa MIDI, nota de entrada a nota de salida.",
+      "by": "machine",
+      "model": "draft-prose",
+      "source": "4813a5beef6082a2724cbd18041e9435c4e2155669f43364f0e62394d845432e"
+    },
+    "PLUGIN_FEATURE_OTHER.clap.ambisonic": {
+      "text": "La característica de ambisonic del plugin CLAP: un plugin declarado para funcionar en una disposición de canales ambisónica.",
+      "by": "machine",
+      "model": "draft-prose",
+      "source": "73fa55c73adeaa31f9b183c160a45880deee997fd23635e5264a58b35dbb5048"
+    },
+    "PLUGIN_FEATURE_OTHER.clap.mono": {
+      "text": "La característica mono del plugin CLAP: un plugin declarado para funcionar en una disposición de canales mono.",
+      "by": "machine",
+      "model": "draft-prose",
+      "source": "c6cc2810eb40535526ee8d088b057bf3ff07e6438bf584be0aba946c806f3cd0"
+    },
+    "PLUGIN_FEATURE_OTHER.clap.stereo": {
+      "text": "La característica estéreo del plugin CLAP: un plugin declarado para funcionar en una disposición de canales estéreo.",
+      "by": "machine",
+      "model": "draft-prose",
+      "source": "f2a8a842433321e520b35f76ef29ea87ce546d4864b599f942e6b91b51b5e6a3"
+    },
+    "PLUGIN_FEATURE_OTHER.clap.surround": {
+      "text": "La característica envolvente del plugin CLAP: un plugin declarado para funcionar en una disposición de canales envolvente.",
+      "by": "machine",
+      "model": "draft-prose",
+      "source": "fd86c8e2f827f732b6fcb351dd9552e6f6b8ef2f2b824da42371df575ec925d2"
+    },
+    "PLUGIN_FEATURE_OTHER.lv2.Constant": {
+      "text": "La clase de plugin LV2 ConstantPlugin: un plugin sin entrada que produce una constante.",
+      "by": "machine",
+      "model": "draft-prose",
+      "source": "33cc34362eb925a34d1734aeec2a3ca65b3900900e5ff15cb44012eee3fa2e50"
+    },
+    "PLUGIN_FEATURE_OTHER.lv2.Function": {
+      "text": "La clase de plugin LV2 FunctionPlugin: un plugin sin entrada ni salida de audio, utilizado solo por sus efectos secundarios o parámetros.",
+      "by": "machine",
+      "model": "draft-prose",
+      "source": "ec2d0c4ac007f653b5cba6406328a1879e7a355421c1acbe4cb6d049b81c86d3"
+    },
+    "PLUGIN_FEATURE_OTHER.lv2.Generator": {
+      "text": "La clase de plugin LV2 GeneratorPlugin: un plugin sin entrada de audio que genera un sonido.",
+      "by": "machine",
+      "model": "draft-prose",
+      "source": "d2cf5f12e2b8098257b47d384dc0558a691f5974e933539d7d63883e0b821f84"
+    },
+    "PLUGIN_FEATURE_OTHER.lv2.Oscillator": {
+      "text": "La clase de plugin LV2 OscillatorPlugin: un generador que produce una forma de onda periódica.",
+      "by": "machine",
+      "model": "draft-prose",
+      "source": "3ef9c616e467962fd0cb636f231acd6e0c83fd214d165314ab02baec2f9bf3fe"
+    },
+    "PLUGIN_FEATURE_OTHER.lv2.Plugin": {
+      "text": "La clase de plugin LV2 Plugin: la clase base del plugin LV2, sin una clase más específica declarada.",
+      "by": "machine",
+      "model": "draft-prose",
+      "source": "b9faece095545f20b68ed9e15a6d893e2006da2d87e9a9c9814e63bba3418c14"
+    }
+  }
+}

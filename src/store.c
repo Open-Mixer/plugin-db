@@ -23,7 +23,7 @@
 #include "names.h"
 
 static const char *const g_layers[] = OMX_PLUGIN_DB_LAYERS_INIT;
-static const char *const g_verdicts[] = OMX_PLUGIN_DB_PIN_VERDICTS_INIT;
+static const char *const g_verdicts[] = PDB_PIN_VERDICTS_INIT;
 static const char *const g_rules[] = OMX_PLUGIN_DB_BUNDLE_RULES_INIT;
 static const char *const g_envelope_required[] = PDB_ENVELOPE_REQUIRED_INIT;
 static const char *const g_pin_required[] = PDB_PIN_REQUIRED_INIT;
@@ -303,7 +303,7 @@ static int body_valid(int layer, const pdb_json_t *body, char *why, size_t size)
                      "the record's host", why, size) != 0)
             return -1;
         if (!verdict || !phd_pin_verdict_valid(verdict))
-            return say(why, size, "the record's verdict is no word of PLUGIN_DB_PIN_VERDICTS");
+            return say(why, size, "the record's verdict is no word of PIN_VERDICTS (plugin-hostd-protocol's domain pin)");
     }
     return 0;
 }
