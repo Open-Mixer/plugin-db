@@ -17,7 +17,7 @@ BuildRequires: plugin-hostd-protocol-devel >= 0.8.0
 # the verdict and pool words of a pin are the domain pin of plugin-hostd-protocol (its contract package), which the renders of the tables and the twins read
 BuildRequires: plugin-hostd-protocol-contract >= 0.8.0
 # install-contract installs the domains with omx-contract's script
-BuildRequires: omx-contract-devel >= 3.21.0
+BuildRequires: omx-contract-devel >= 3.22.0
 # the format words are read from the domain plugin-db through libomx-domain (omxcontract/omx_domain.h)
 BuildRequires: libomx-domain-devel >= 3.20.0
 # make test reads the catalogs through omx-contract's reader, imported as omx_contract.catalog
