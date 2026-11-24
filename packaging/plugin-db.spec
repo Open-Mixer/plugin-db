@@ -47,11 +47,12 @@ function; the headers of the words and tables rendered from data/, with the
 pkg-config file plugin-db.
 Its documentation is on openmixer.org.
 
-%package contract
+%package -n plugin-db-contract
 Summary: The words of the plugin database in omx-contract's contract directory
 Requires: omx-contract >= 3.21.0
+BuildArch: noarch
 
-%description contract
+%description -n plugin-db-contract
 The domains of plugin-db in omx-contract's contract directory: plugin-db (the
 words of a pin, the address formats, the bundle rule, the layers, the
 attributes, the record changes and their actions, the states and the
@@ -113,7 +114,7 @@ make test
 %{_libdir}/libplugin-db.a
 %{_libdir}/pkgconfig/plugin-db.pc
 
-%files contract
+%files -n plugin-db-contract
 %license COPYING
 %{omx_contract_domain_dir}/plugin-db/
 %{omx_contract_domain_dir}/format/
