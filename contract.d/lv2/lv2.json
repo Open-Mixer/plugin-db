@@ -6170,6 +6170,13 @@
             "description": "urn:openmixer:unit#dBoct is the standard unit dBPerOct",
             "x-code": 4,
             "x-uri": "urn:openmixer:unit#dBoct"
+          },
+          {
+            "const": "dBPerS",
+            "title": "dbs",
+            "description": "urn:openmixer:unit#dBs is the standard unit dBPerS",
+            "x-code": 5,
+            "x-uri": "urn:openmixer:unit#dBs"
           }
         ],
         "x-kind": "words"
