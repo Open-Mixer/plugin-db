@@ -17,13 +17,13 @@ export const pinPools = {
   off: "off",
 } as const;
 
-/** PLUGIN_DB_PIN_KEYS */
+/** PIN_KEYS */
 export const pinKeys = {
   verdict: "verdict",
   pool: "pool",
 } as const;
 
-/** PLUGIN_DB_PIN_CHANGES */
+/** PIN_CHANGES */
 export const pinChanges = {
   files: "files",
   layout: "layout",

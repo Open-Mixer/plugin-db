@@ -637,46 +637,6 @@
         "x-kind": "words",
         "x-file": "db.json"
       },
-      "PLUGIN_DB_PIN_KEYS": {
-        "description": "The optional words of a pin, each this key, an equals sign and its value. Each appears at most once, in either order; a word with any other key is not a pin's.",
-        "x-since": "0.1.0",
-        "oneOf": [
-          {
-            "const": "verdict",
-            "title": "verdict",
-            "description": "the qualification verdict of the pinned bytes, a word of PIN_VERDICTS of plugin-hostd-protocol's domain pin",
-            "x-code": 0
-          },
-          {
-            "const": "pool",
-            "title": "pool",
-            "description": "the thread pool word of the pinned bytes, a word of PIN_POOLS of plugin-hostd-protocol's domain pin",
-            "x-code": 1
-          }
-        ],
-        "x-kind": "words",
-        "x-file": "pin.json"
-      },
-      "PLUGIN_DB_PIN_CHANGES": {
-        "description": "What counts as changed: a pin holds the digests of the plugin's files and the fingerprint of its parameter layout, and only these two differ from it. Anything else about a plugin, its name or its version included, changes no pin.",
-        "x-since": "0.1.0",
-        "oneOf": [
-          {
-            "const": "files",
-            "title": "files",
-            "description": "a pinned file is gone, or its bytes no longer have the digest the pin holds",
-            "x-code": 0
-          },
-          {
-            "const": "layout",
-            "title": "layout",
-            "description": "the plugin's parameter layout no longer has the fingerprint the pin holds",
-            "x-code": 1
-          }
-        ],
-        "x-kind": "words",
-        "x-file": "pin.json"
-      },
       "PLUGIN_DB_PIN_LAYOUT_FORMATS": {
         "description": "The formats the layout serialisation is written for, as the first line of its bytes names them.",
         "x-since": "0.1.0",

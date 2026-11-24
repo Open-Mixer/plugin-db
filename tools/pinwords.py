@@ -1,8 +1,9 @@
 # SPDX-License-Identifier: GPL-3.0-or-later
 # Copyright (C) 2026 Pau Aliagas <linuxnow@gmail.com>
-"""The words of a pin's verdict and pool key are plugin-hostd-protocol's, not plugin-db's: its domain `pin`
-(<contract directory>/pin/pin.json, the package plugin-hostd-protocol-contract 0.8.0), items PIN_VERDICTS and PIN_POOLS.
-The renders read them there. load() is the two items of the domain, each as a words item (key: its title, word: its const,
+"""The words of a pin's verdict and pool, its keys and what counts as a changed pin are plugin-hostd-protocol's, not plugin-db's:
+its domain `pin` (<contract directory>/pin/pin.json, the package plugin-hostd-protocol-contract), items PIN_VERDICTS and
+PIN_POOLS (V12), PIN_KEYS and PIN_CHANGES (plugin-db#34, ruling R5). The renders read them there. load() is the four items
+of the domain, each as a words item (key: its title, word: its const,
 doc: its description, in the order of its codes), then plugin-db's own items of its domain plugin-db that rebuild pin.json and
 db.json (tools/dbwords.py), in that order.
 
@@ -14,7 +15,7 @@ import sys
 
 import dbwords
 
-ITEMS = ("PIN_VERDICTS", "PIN_POOLS")
+ITEMS = ("PIN_VERDICTS", "PIN_POOLS", "PIN_KEYS", "PIN_CHANGES")
 
 
 def domain_path():
@@ -30,7 +31,7 @@ def domain_items():
         doc = json.load(open(path))
     except (OSError, ValueError) as e:
         sys.exit(f"pinwords: the domain pin of plugin-hostd-protocol is not readable ({path}): {e}; install "
-                 "plugin-hostd-protocol-contract 0.8.0 or later, or set PIN_DOMAIN_DIR to a contract directory holding pin/pin.json")
+                 "plugin-hostd-protocol-contract, or set PIN_DOMAIN_DIR to a contract directory holding pin/pin.json")
     schemas = doc["components"]["schemas"]
     out = {}
     for item in ITEMS:
@@ -43,7 +44,7 @@ def domain_items():
 
 
 def load(data_dir=None):
-    """the domain's two items first, then plugin-db's items of pin.json and db.json, in the renders' order (data_dir,
+    """the domain's four items first, then plugin-db's items of pin.json and db.json, in the renders' order (data_dir,
     which held them, is no longer read)"""
     db = dict(domain_items())
     for name in ("pin.json", "db.json"):

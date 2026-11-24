@@ -313,28 +313,6 @@
 #define OMX_PLUGIN_DB_LATENCY(X) \
     X(0u, "within", WITHIN) X(1u, "over", OVER) X(2u, "unmeasured", UNMEASURED)
 
-/* PLUGIN_DB_PIN_KEYS (contract.d/plugin-db/plugin-db.json) */
-#define OMX_PLUGIN_DB_PIN_KEYS_VERDICT "verdict" ///< the qualification verdict of the pinned bytes, a word of PIN_VERDICTS of plugin-hostd-protocol's domain pin
-#define OMX_PLUGIN_DB_PIN_KEYS_POOL "pool" ///< the thread pool word of the pinned bytes, a word of PIN_POOLS of plugin-hostd-protocol's domain pin
-/** The number of words of PLUGIN_DB_PIN_KEYS. */
-#define OMX_PLUGIN_DB_PIN_KEYS_COUNT 2u
-/** The words of PLUGIN_DB_PIN_KEYS in their declared order, as a C initializer list. */
-#define OMX_PLUGIN_DB_PIN_KEYS_INIT { "verdict", "pool" }
-/** Expands `X(code, "word", NAME)` once per word of PLUGIN_DB_PIN_KEYS, in order, the code being its place in the order. The optional words of a pin, each this key, an equals sign and its value. Each appears at most once, in either order; a word with any other key is not a pin's. */
-#define OMX_PLUGIN_DB_PIN_KEYS(X) \
-    X(0u, "verdict", VERDICT) X(1u, "pool", POOL)
-
-/* PLUGIN_DB_PIN_CHANGES (contract.d/plugin-db/plugin-db.json) */
-#define OMX_PLUGIN_DB_PIN_CHANGES_FILES "files" ///< a pinned file is gone, or its bytes no longer have the digest the pin holds
-#define OMX_PLUGIN_DB_PIN_CHANGES_LAYOUT "layout" ///< the plugin's parameter layout no longer has the fingerprint the pin holds
-/** The number of words of PLUGIN_DB_PIN_CHANGES. */
-#define OMX_PLUGIN_DB_PIN_CHANGES_COUNT 2u
-/** The words of PLUGIN_DB_PIN_CHANGES in their declared order, as a C initializer list. */
-#define OMX_PLUGIN_DB_PIN_CHANGES_INIT { "files", "layout" }
-/** Expands `X(code, "word", NAME)` once per word of PLUGIN_DB_PIN_CHANGES, in order, the code being its place in the order. What counts as changed: a pin holds the digests of the plugin's files and the fingerprint of its parameter layout, and only these two differ from it. Anything else about a plugin, its name or its version included, changes no pin. */
-#define OMX_PLUGIN_DB_PIN_CHANGES(X) \
-    X(0u, "files", FILES) X(1u, "layout", LAYOUT)
-
 /* PLUGIN_DB_PIN_LAYOUT_FORMATS (contract.d/plugin-db/plugin-db.json) */
 #define OMX_PLUGIN_DB_PIN_LAYOUT_FORMATS_CLAP "clap" ///< every parameter clap.params gives, sorted by id
 #define OMX_PLUGIN_DB_PIN_LAYOUT_FORMATS_LV2 "lv2" ///< every control port, sorted by index
