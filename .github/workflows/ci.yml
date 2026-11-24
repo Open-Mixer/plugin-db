@@ -88,7 +88,7 @@ jobs:
           else apt-get -y install --no-install-recommends libomx-domain-dev
           fi
       # text() reads the catalogs through omx-contract's reader, /usr/share/omx-contract/omx_contract_catalog.py, which
-      # omx-contract-data ships: python3-plugin-db's floor, packaging/deps.txt. omx-contract-devel's pkg-config file names
+      # omx-contract-data ships (python3-plugin-db requires it). omx-contract-devel's pkg-config file names
       # the contract directory the pin words are read from (CONTRACTDIR); without it the Makefile looks under /usr/local.
       - name: omx-contract's catalog reader and contract directory
         run: |
@@ -159,7 +159,7 @@ jobs:
       # a dedupe/all run builds on its siblings' dedupe/all (.github/wave-deps); @main until Open-Mixer/.github moves v1 past it
       - uses: Open-Mixer/.github/.github/actions/wave-deps@openmixer-v1
       # libomx-domain-devel ships omx-domain, the loader's command (make test-domain opens the plugin-db domain with it), and
-      # the header the command and the tests build on; the installer's --domain mode (3.20.0) comes with omx-contract-devel
+      # the header the command and the tests build on; the installer's --domain mode comes with omx-contract-devel
       - name: omx-contract and the loader
         run: dnf -y install omx-contract omx-contract-devel libomx-domain-devel plugin-hostd-protocol-devel plugin-hostd-protocol-contract
       # validate --installed reads every installed domain: plugin-hostd-protocol's verbs refer to omx-clap's HOST_REPLY_CODES,

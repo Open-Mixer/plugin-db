@@ -18,7 +18,7 @@ MANDIR = $(DATADIR)/man
 HEADERS = include/plugin-db/pin.h include/plugin-db/plugin_db_vocabulary.h include/plugin-db/db.h \
           include/plugin-db/plugin_db_tables.h include/plugin-db/plugin_db_constants.h include/plugin-db/plugin_db_codes.h
 
-# the format words are read from the domain plugin-db through omx-contract's loader (libomx-domain-devel, 3.20.0)
+# the format words are read from the domain plugin-db through omx-contract's loader (libomx-domain-devel)
 DOMAIN_CFLAGS = $(shell $(PKG_CONFIG) --cflags libomx-domain)
 DOMAIN_LIBS = $(shell $(PKG_CONFIG) --libs libomx-domain)
 # the command and the test harnesses read the domain from the owner's contract.d (OMX_CONTRACT_PATH, omx-contract's
@@ -178,14 +178,11 @@ check-control:
 	sh tests/no-backcompat.sh
 	sh tests/dep-shape.sh --self-test
 
-# the dependency floors are declared once, in packaging/deps.txt (floors only); the engine is Open-Mixer/.github's
-# deps-render (CI runs it as that action): locally name a checkout of it, make deps-check DOTGITHUB=<dir>;
-# make deps writes the floors into the spec and debian/control
+# no hand-kept version floor (ops wave 2026-11-24): the spec and debian/control name each dependency with no version,
+# and Open-Mixer/.github's deps-render (CI runs it as that action) refuses a ceiling in them; locally name a checkout
+# of it, make deps-check DOTGITHUB=<dir>
 DOTGITHUB ?=
-.PHONY: deps deps-check
-deps:
-	@test -n "$(DOTGITHUB)" || { echo "$@: name a checkout of Open-Mixer/.github: make $@ DOTGITHUB=<dir>" >&2; exit 2; }
-	$(DOTGITHUB)/.github/actions/deps-render/render.sh --write .
+.PHONY: deps-check
 deps-check:
 	@test -n "$(DOTGITHUB)" || { echo "$@: name a checkout of Open-Mixer/.github: make $@ DOTGITHUB=<dir>" >&2; exit 2; }
 	$(DOTGITHUB)/.github/actions/deps-render/render.sh --check .

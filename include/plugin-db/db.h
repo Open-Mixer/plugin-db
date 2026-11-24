@@ -52,14 +52,14 @@ typedef struct PDB_ADDRESS_T {
 int pdb_address_parse(const char *text, pdb_address_t *address);
 
 /* The result of a function of this library that needs the words of the formats when they could not be read: the domain
- * plugin-db is absent, below 1.0.0 or does not hold the formats. It is never the result of an address that is merely
+ * plugin-db is absent or does not hold the formats. It is never the result of an address that is merely
  * wrong (-1): pdb_address_parse, pdb_pin, pdb_layer_put and pdb_check return it, with the reason in why naming the
  * domain, and a caller must not report such an address as invalid or absent. */
 #define PDB_ERR_FORMATS (-2)
 
 /* The words of the formats are plugin-db's domain item PLUGIN_DB_ADDRESS_FORMATS, read at start-up through
  * omx-contract's loader, never copied here; the codes (OMX_PLUGIN_DB_ADDRESS_FORMATS_CLAP, _LV2) are the header rendered
- * from the domain. A program opens the domain "plugin-db" (floor 1.0.0) once and hands it over: 0, or -1 when the domain
+ * from the domain. A program opens the domain "plugin-db" (no version floor) once and hands it over: 0, or -1 when the domain
  * does not hold exactly OMX_PLUGIN_DB_ADDRESS_FORMATS_COUNT words. The library never reads OMX_CONTRACT_PATH: only a
  * command-line program or a test harness may, and it passes the directory to omx_domain_open_at. A program that never
  * hands one over has the library open the installed directory (omx_domain_open) on its first need, once, through

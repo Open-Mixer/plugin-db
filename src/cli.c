@@ -271,14 +271,14 @@ static int verify_one(void *ctx, const char *address)
 
 /* the formats of PLUGIN_DB_ADDRESS_FORMATS, read from the domain plugin-db at start-up. A command-line program reads
  * OMX_CONTRACT_PATH (the directories standing where the contract directory stands) and passes it to omx_domain_open_at;
- * without it the installed directory is read. A domain that is absent or below 1.0.0 is refused by name: exit 78 */
+ * without it the installed directory is read, with no version floor. A domain that is absent is refused by name: exit 78 */
 static int formats_open(char *why, size_t size)
 {
     const char *path = getenv("OMX_CONTRACT_PATH");
     omx_domain *d = NULL;
     omx_domain_error err;
-    int rc = path && *path ? omx_domain_open_at(path, "plugin-db", "1.0.0", &d, &err)
-                           : omx_domain_open("plugin-db", "1.0.0", &d, &err);
+    int rc = path && *path ? omx_domain_open_at(path, "plugin-db", NULL, &d, &err)
+                           : omx_domain_open("plugin-db", NULL, &d, &err);
 
     if (rc != 0)
     {

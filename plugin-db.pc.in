@@ -7,6 +7,6 @@ Description: The plugin database: the pin, the address form, the files of a plug
 Version: @VERSION@
 # pin.h's SHA-256 is libcrypto's (EVP_Digest): a program that includes it links libcrypto, and so does libplugin-db.a;
 # db.h includes omxcontract/omx_domain.h, and libplugin-db.a reads the formats of the domain plugin-db through libomx-domain
-Requires: libcrypto, libomx-domain >= 3.20.0
+Requires: libcrypto, libomx-domain
 Cflags: -I${includedir}
 Libs: -L${libdir} -lplugin-db

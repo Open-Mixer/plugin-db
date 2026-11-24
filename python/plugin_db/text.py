@@ -23,7 +23,7 @@ def _installed(*parts):
 #: where the contract package installs the catalogs (<lang>.json, messages keyed <ITEM>.<word>)
 CATALOGS = _installed("share", "plugin-db", "catalogs")
 SOURCE = "en"
-#: omx-contract's catalog reader (omx-contract-data, 3.16.0 or later): a catalog's entry is the sentence or
+#: omx-contract's catalog reader (omx-contract-data): a catalog's entry is the sentence or
 #: {text, by[, model, source]}, and one made from another English sentence is stale and gives the English
 READER = _installed("share", "omx-contract", "omx_contract_catalog.py")
 _reader = None

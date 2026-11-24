@@ -13,8 +13,8 @@ the TypeScript twin's pinVerdicts and pinPools (tools/render-ts.py).
 (b) the domain's words are the golden ones (the only holder: tests/pin_old_items_test.py holds plugin-db to none);
 (c) sabotage, through the real readers: a domain with the word `refused` and the word `off` removed makes the validators
     of a tree rendered from it refuse them, and the twins of that render lack them;
-(e) packaging: packaging/deps.txt, the spec and debian/control floor plugin-hostd-protocol-contract at 0.8.0 or above,
-    the release that carries the domain (floors only: no ceiling, no Breaks, Replaces, Conflicts or Provides);
+(e) packaging: the spec and debian/control build on plugin-hostd-protocol-contract by name, with no version (no
+    hand-kept floor: the build installs the lower level's published package, ops wave 2026-11-24);
 
 Environment: PIN_DOMAIN_DIR (a contract directory holding pin/pin.json: protocol's contract.d, or the installed contract
 directory, the default), CC. Exit 0 all green, 1 a FAIL line."""
@@ -148,14 +148,13 @@ def main():
                   "(c) the twins of that render lack them")
         # (e) packaging
         import re
-        floors = []
-        for f, rx in (("packaging/deps.txt", r"^plugin-hostd-protocol-contract\s+\S+\s+(\d+\.\d+\.\d+)\s*$"),
-                      ("packaging/plugin-db.spec", r"^BuildRequires:\s*plugin-hostd-protocol-contract\s*>=\s*(\d+\.\d+\.\d+)\s*$"),
-                      ("debian/control", r"plugin-hostd-protocol-contract \(>= (\d+\.\d+\.\d+)~\)")):
-            m = re.search(rx, open(os.path.join(ROOT, f)).read(), re.M)
-            floors.append((f, m.group(1) if m else None))
-        check(all(v and tuple(map(int, v.split("."))) >= (0, 8, 0) for _, v in floors),
-              "(e) plugin-hostd-protocol-contract is floored at 0.8.0 or above in %s" % ", ".join("%s (%s)" % f for f in floors))
+        decl = []
+        for f, rx in (("packaging/plugin-db.spec", r"^BuildRequires:\s*plugin-hostd-protocol-contract\s*$"),
+                      ("debian/control", r"^Build-Depends:.*[ ,]plugin-hostd-protocol-contract(,|$)")):
+            decl.append((f, bool(re.search(rx, open(os.path.join(ROOT, f)).read(), re.M))))
+        check(all(ok for _, ok in decl) and not os.path.exists(os.path.join(ROOT, "packaging", "deps.txt")),
+              "(e) plugin-hostd-protocol-contract is a build dependency with no version in %s, and no packaging/deps.txt"
+              % ", ".join("%s (%s)" % (f, "declared" if ok else "MISSING or versioned") for f, ok in decl))
     return 1 if failed else 0
 
 

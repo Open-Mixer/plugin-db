@@ -30,7 +30,7 @@ def domain_items():
         doc = json.load(open(path))
     except (OSError, ValueError) as e:
         sys.exit(f"pinwords: the domain pin of plugin-hostd-protocol is not readable ({path}): {e}; install "
-                 "plugin-hostd-protocol-contract 0.8.0 or later, or set PIN_DOMAIN_DIR to a contract directory holding pin/pin.json")
+                 "plugin-hostd-protocol-contract, or set PIN_DOMAIN_DIR to a contract directory holding pin/pin.json")
     schemas = doc["components"]["schemas"]
     out = {}
     for item in ITEMS:

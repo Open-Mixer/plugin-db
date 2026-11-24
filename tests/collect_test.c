@@ -301,7 +301,7 @@ int main(void)
     omx_domain_error err;
 
     /* a test harness reads OMX_CONTRACT_PATH (make test sets it to contract.d) and hands the domain to the library */
-    if (!dir || omx_domain_open_at(dir, "plugin-db", "1.0.0", &domain, &err) != 0 || pdb_formats_load(domain) != 0)
+    if (!dir || omx_domain_open_at(dir, "plugin-db", NULL, &domain, &err) != 0 || pdb_formats_load(domain) != 0)
     {
         fprintf(stderr, "collect_test: OMX_CONTRACT_PATH does not hold the domain plugin-db >= 1.0.0\n");
         return 2;

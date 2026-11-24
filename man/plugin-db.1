@@ -58,11 +58,11 @@ The store. Otherwise /var/lib/plugin-db with \fB\-\-system\fR, else $XDG_STATE_H
 The JSON Schema of a layer file.
 .TP
 .I /usr/share/omx-contract/contract.d/plugin-db/plugin-db.json
-The domain plugin-db (floor 1.0.0), whose item PLUGIN_DB_ADDRESS_FORMATS holds the formats of an address. It is read at start-up
+The domain plugin-db, whose item PLUGIN_DB_ADDRESS_FORMATS holds the formats of an address. It is read at start-up
 through omx-contract's loader; $OMX_CONTRACT_PATH, a list of directories standing where the contract directory stands,
 names the place instead, for a test.
 .SH EXIT STATUS
 0 on success, 1 when \fBverify\fR finds an entry that is not current or a command fails, 2 on a usage error, 78 when
-the domain plugin-db is absent, below 1.0.0 or does not hold the address formats.
+the domain plugin-db is absent or does not hold the address formats.
 .SH LICENSE
 GPL-3.0-or-later.
