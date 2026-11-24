@@ -10,7 +10,7 @@ import unittest
 
 ROOT = os.path.join(os.path.dirname(__file__), "..", "..")
 PKG = os.path.join(ROOT, "python", "plugin_db")
-ITEMS = ["PLUGIN_DB_STATES", "PLUGIN_DB_RUNS", "PLUGIN_DB_REASONS", "PLUGIN_DB_PIN_VERDICTS", "PLUGIN_DB_BAR", "PLUGIN_DB_LATENCY"]
+ITEMS = ["PLUGIN_DB_STATES", "PLUGIN_DB_RUNS", "PLUGIN_DB_REASONS", "PIN_VERDICTS", "PLUGIN_DB_BAR", "PLUGIN_DB_LATENCY"]
 GENERATED = {"vocabulary.py"}
 
 
@@ -20,17 +20,20 @@ def slurp(*path):
 
 
 def vocabulary():
+    # data/ as the renders read it: the verdict and pool words are plugin-hostd-protocol's domain pin (tools/pinwords.py)
+    import sys
+    sys.path.insert(0, os.path.join(ROOT, "tools"))
+    import pinwords
     words, sentences = set(), set()
-    for f in ("db.json", "pin.json"):
-        for item, body in json.loads(slurp(ROOT, "data", f)).items():
-            if not isinstance(body, dict) or body.get("kind") != "words":
-                continue
-            for w in body["words"].values():
-                if item in ITEMS:
-                    words.add(w["word"])
-                if w.get("doc"):
-                    sentences.add(w["doc"])
-                sentences.update(w.get("text", {}).values())
+    for item, body in pinwords.load(os.path.join(ROOT, "data")).items():
+        if not isinstance(body, dict) or body.get("kind") != "words":
+            continue
+        for w in body["words"].values():
+            if item in ITEMS:
+                words.add(w["word"])
+            if w.get("doc"):
+                sentences.add(w["doc"])
+            sentences.update(w.get("text", {}).values())
     return words, sentences
 
 

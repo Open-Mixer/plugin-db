@@ -2,7 +2,7 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://openmixer.org/schema/plugin-db/store.schema.json",
   "title": "plugin-db layer file",
-  "description": "One layer of one entry of the plugin-db store, as a file. The store is a directory, per machine for system services and per user otherwise; it holds one directory per entry, and an entry holds one file per layer, named the layer's word of PLUGIN_DB_LAYERS (data/db.json) and .json. Every file is written to a temporary name in its entry's directory and renamed over its name, so a reader sees the old file or the new one, never a part. Each file records the pin it was written for, so a layer written for other bytes is found stale and never trusted. The entry is the join of its files at read time; no file holds it, and an index, if one is ever added, is derived and disposable. x-plugin-db-store states the layout; tools/render-db.py derives include/plugin-db/plugin_db_tables.h from this file and data/db.json.",
+  "description": "One layer of one entry of the plugin-db store, as a file. The store is a directory, per machine for system services and per user otherwise; it holds one directory per entry, and an entry holds one file per layer, named the layer's word of PLUGIN_DB_LAYERS (the domain plugin-db) and .json. Every file is written to a temporary name in its entry's directory and renamed over its name, so a reader sees the old file or the new one, never a part. Each file records the pin it was written for, so a layer written for other bytes is found stale and never trusted. The entry is the join of its files at read time; no file holds it, and an index, if one is ever added, is derived and disposable. x-plugin-db-store states the layout; tools/render-db.py derives include/plugin-db/plugin_db_tables.h from this file and the domain plugin-db.",
   "x-plugin-db-store": {
     "env": "PLUGIN_DB_STORE",
     "systemRoot": "/var/lib/plugin-db",
@@ -90,7 +90,7 @@
       "additionalProperties": false
     },
     "recordFields": {
-      "description": "The fields of a record the state function reads: the verdict (PLUGIN_DB_PIN_VERDICTS), the class of machine it was measured on, the host it was measured under with its version and hosting epoch, the judgement rules and the record schema it was written by, the cells of rate and quantum it covers and the conditions, each a fact that must hold here. Step 3 declares the whole record.",
+      "description": "The fields of a record the state function reads: the verdict (PIN_VERDICTS of plugin-hostd-protocol's domain pin), the class of machine it was measured on, the host it was measured under with its version and hosting epoch, the judgement rules and the record schema it was written by, the cells of rate and quantum it covers and the conditions, each a fact that must hold here. Step 3 declares the whole record.",
       "type": "object",
       "properties": {
         "verdict": { "type": "string" },

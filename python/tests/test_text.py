@@ -1,6 +1,6 @@
 # SPDX-License-Identifier: GPL-3.0-or-later
 # Copyright (C) 2026 Pau Aliagas <linuxnow@gmail.com>
-"""The sentence of a word: the owners' English from data/ (in the generated vocabulary), another language from its
+"""The sentence of a word: the owners' English from the domain plugin-db (in the generated vocabulary), another language from its
 catalog, and the English where a catalog has no sentence for the word."""
 import hashlib
 import json
@@ -26,7 +26,11 @@ def write(path, said):
 
 class Text(unittest.TestCase):
     def setUp(self):
-        self.db = load(ROOT, "data", "db.json")
+        # the domain's items as the renders read them (tools/dbwords.py)
+        import sys
+        sys.path.insert(0, os.path.join(ROOT, "tools"))
+        import dbwords
+        self.db = dbwords.items("db.json")
         # an entry is the sentence or {text, by[, model, source]} (omx-contract 3.16.0): the sentence is its text
         self.ca = {k: e if isinstance(e, str) else e["text"] for k, e in load(CATALOGS, "ca.json")["messages"].items()}
 

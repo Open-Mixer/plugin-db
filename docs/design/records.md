@@ -49,7 +49,7 @@ answer `query --json` and the two twins must all give. They are the examples a r
 4. **The tier.** The record carries `tiers`; the reader takes the verdict word as the tier.
 5. **The probe output.** Its schema is plugin-hostd's (`protocol/probe-output.schema.json`, `formatVersion` 1.1);
    plugin-qualify keeps copies of its examples at 1.0, held to nothing.
-6. **The reference writer.** `data/db.json` names `plugin-db-qualification` as the reference layer's writer; the
+6. **The reference writer.** The domain plugin-db (`contract.d/plugin-db/plugin-db.json`) names `plugin-db-qualification` as the reference layer's writer; the
    shipped records are `omx-qualification-records`.
 
 ## Open
@@ -67,7 +67,7 @@ from it:
 
 1. **Owner text: written.** omx-contract 3.12.0 gives a word `text`, the source sentence in English, with `args`, and
    every word a menu says (state, run, reason, source, record, change, action, bar, standing) carries plugin-db's in
-   `data/db.json`. The Catalan is `catalogs/ca.json` (`<ITEM>.<word>` keys), installed to
+   the domain plugin-db. The Catalan is `catalogs/ca.json` (`<ITEM>.<word>` keys), installed to
    `/usr/share/plugin-db/catalogs/ca.json` with the contract package and checked by `make check-contract-dir`. The C
    vocabulary header has the source sentence as `OMX_<ITEM>_<WORD>_TEXT_EN`, the TypeScript twin's vocabulary as
    `<item>Text` and the Python twin's as `<item>_text`; the Python module's `text(words, word, lang)` and

@@ -1,0 +1,200 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://openmixer.org/contract/format",
+  "info": {
+    "title": "The terms every plugin format shares",
+    "version": "1.0.0",
+    "x-owner": "plugin-db",
+    "x-stability": "experimental"
+  },
+  "components": {
+    "schemas": {
+      "FORMAT_TERM_KINDS": {
+        "description": "What a term of a plugin format is.",
+        "x-since": "1.0.0",
+        "oneOf": [
+          {
+            "const": "specification",
+            "title": "specification",
+            "description": "A specification as a whole.",
+            "x-code": 0
+          },
+          {
+            "const": "class",
+            "title": "class",
+            "description": "A class of things a specification defines.",
+            "x-code": 1
+          },
+          {
+            "const": "plugin-class",
+            "title": "pluginClass",
+            "description": "A class a plugin is of.",
+            "x-code": 2
+          },
+          {
+            "const": "property",
+            "title": "property",
+            "description": "A property a thing may carry.",
+            "x-code": 3
+          },
+          {
+            "const": "datatype",
+            "title": "datatype",
+            "description": "A datatype a value may have.",
+            "x-code": 4
+          },
+          {
+            "const": "port-property",
+            "title": "portProperty",
+            "description": "A property a port may carry.",
+            "x-code": 5
+          },
+          {
+            "const": "feature",
+            "title": "feature",
+            "description": "A feature a plugin may require or offer.",
+            "x-code": 6
+          },
+          {
+            "const": "extension-data",
+            "title": "extensionData",
+            "description": "Data a plugin hands a host to extend it.",
+            "x-code": 7
+          },
+          {
+            "const": "option",
+            "title": "option",
+            "description": "An option a host sets.",
+            "x-code": 8
+          },
+          {
+            "const": "parameter",
+            "title": "parameter",
+            "description": "A parameter a host or plugin states.",
+            "x-code": 9
+          },
+          {
+            "const": "channel",
+            "title": "channel",
+            "description": "A channel designation.",
+            "x-code": 10
+          },
+          {
+            "const": "port-protocol",
+            "title": "portProtocol",
+            "description": "A protocol a port speaks.",
+            "x-code": 11
+          },
+          {
+            "const": "unit",
+            "title": "unit",
+            "description": "A unit a value is measured in.",
+            "x-code": 12
+          },
+          {
+            "const": "individual",
+            "title": "individual",
+            "description": "A named individual of a class.",
+            "x-code": 13
+          },
+          {
+            "const": "extension",
+            "title": "extension",
+            "description": "An extension a host or plugin may offer.",
+            "x-code": 14
+          },
+          {
+            "const": "factory",
+            "title": "factory",
+            "description": "A factory a library exposes.",
+            "x-code": 15
+          },
+          {
+            "const": "plugin-feature",
+            "title": "pluginFeature",
+            "description": "A feature a plugin declares about itself.",
+            "x-code": 16
+          },
+          {
+            "const": "port-type",
+            "title": "portType",
+            "description": "A type a port may have.",
+            "x-code": 17
+          },
+          {
+            "const": "window-api",
+            "title": "windowApi",
+            "description": "A windowing API a graphical interface may use.",
+            "x-code": 18
+          },
+          {
+            "const": "event-type",
+            "title": "eventType",
+            "description": "A type of event.",
+            "x-code": 19
+          },
+          {
+            "const": "note-dialect",
+            "title": "noteDialect",
+            "description": "A dialect a note port speaks.",
+            "x-code": 20
+          },
+          {
+            "const": "process-status",
+            "title": "processStatus",
+            "description": "A status a process call returns.",
+            "x-code": 21
+          },
+          {
+            "const": "log-severity",
+            "title": "logSeverity",
+            "description": "A severity a log line carries.",
+            "x-code": 22
+          },
+          {
+            "const": "flag",
+            "title": "flag",
+            "description": "A bit of a set of flags.",
+            "x-code": 23
+          },
+          {
+            "const": "enum-value",
+            "title": "enumValue",
+            "description": "A value of an enumeration.",
+            "x-code": 24
+          },
+          {
+            "const": "constant",
+            "title": "constant",
+            "description": "A constant a header declares.",
+            "x-code": 25
+          }
+        ]
+      },
+      "FORMAT_TERM_STATUSES": {
+        "description": "What a term is to us.",
+        "x-since": "1.0.0",
+        "oneOf": [
+          {
+            "const": "used",
+            "title": "used",
+            "description": "A consumer reads or writes the term today.",
+            "x-code": 0
+          },
+          {
+            "const": "supported-later",
+            "title": "supportedLater",
+            "description": "An issue brings the term.",
+            "x-code": 1
+          },
+          {
+            "const": "out-of-scope",
+            "title": "outOfScope",
+            "description": "A ruling keeps the term out.",
+            "x-code": 2
+          }
+        ]
+      }
+    }
+  }
+}

@@ -20,7 +20,7 @@ static const char *const g_runs[] = OMX_PLUGIN_DB_RUNS_INIT;
 static const char *const g_reasons[] = OMX_PLUGIN_DB_REASONS_INIT;
 static const char *const g_sources[] = OMX_PLUGIN_DB_SOURCES_INIT;
 static const char *const g_layers[] = OMX_PLUGIN_DB_LAYERS_INIT;
-static const char *const g_verdicts[] = OMX_PLUGIN_DB_PIN_VERDICTS_INIT;
+static const char *const g_verdicts[] = PDB_PIN_VERDICTS_INIT;
 static const char *const g_standings[] = OMX_PLUGIN_DB_LATENCY_INIT;
 
 #define WORD(table, item, index) pdb_word(table, PDB_##item##_COUNT, index)
