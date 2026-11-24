@@ -1,5 +1,5 @@
 Name: plugin-db
-Version: 0.5.0
+Version: 0.5.1
 Release: 1%{?dist}
 License: GPL-3.0-or-later
 Summary: The plugin database: the pin, the address form, the store and the state
@@ -20,6 +20,8 @@ BuildRequires: plugin-hostd-protocol-contract
 BuildRequires: omx-contract-devel
 # the format words are read from the domain plugin-db through libomx-domain (omxcontract/omx_domain.h)
 BuildRequires: libomx-domain-devel
+# make test reads the catalogs through omx-contract's reader, imported as omx_contract.catalog
+BuildRequires: python3-omx-contract
 
 # libomx-domain comes from the soname rpm finds in the command; the command reads the domain plugin-db at start-up and refuses by name without it
 Requires: plugin-db-contract = %{version}-%{release}
@@ -46,11 +48,12 @@ function; the headers of the words and tables rendered from data/, with the
 pkg-config file plugin-db.
 Its documentation is on openmixer.org.
 
-%package contract
+%package -n plugin-db-contract
 Summary: The words of the plugin database in omx-contract's contract directory
 Requires: omx-contract
+BuildArch: noarch
 
-%description contract
+%description -n plugin-db-contract
 The domains of plugin-db in omx-contract's contract directory: plugin-db (the
 words of a pin, the address formats, the bundle rule, the layers, the
 attributes, the record changes and their actions, the states and the
@@ -66,8 +69,8 @@ Requires: python3
 # query() asks the command; the catalogs of the sentences come with the contract package
 Requires: plugin-db = %{version}-%{release}
 Requires: plugin-db-contract = %{version}-%{release}
-# the catalog reader of text() (a catalog entry with its provenance, a stale one skipped)
-Requires: omx-contract-data
+# the catalog reader of text(), imported as omx_contract.catalog (a catalog entry with its provenance, a stale one skipped)
+Requires: python3-omx-contract
 
 %description -n python3-plugin-db
 The Python module plugin_db: query() gives the answer of plugin-db query --json
@@ -112,7 +115,7 @@ make test
 %{_libdir}/libplugin-db.a
 %{_libdir}/pkgconfig/plugin-db.pc
 
-%files contract
+%files -n plugin-db-contract
 %license COPYING
 %{omx_contract_domain_dir}/plugin-db/
 %{omx_contract_domain_dir}/format/
@@ -211,6 +214,10 @@ English source sentence.
 # END langpacks
 
 %changelog
+* Mon Nov 23 2026 Pau Aliagas <linuxnow@gmail.com> - 0.5.1-1
+- The domain lv2 reads units:coef as the standard unit coef, not "x", which
+  omx-contract 3.22.0 (V23d) no longer has (#72).
+
 * Sun Nov 22 2026 Pau Aliagas <linuxnow@gmail.com> - 0.5.0-1
 - The sorting pass: plugin-db's words live in its own domains. V12: the pin
   verdict and pool words are read from plugin-hostd-protocol's domain pin

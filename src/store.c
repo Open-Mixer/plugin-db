@@ -610,10 +610,13 @@ int pdb_pin(const char *store, const char *address, const char *where, const cha
             const char *binary = pdb_json_string(old.body, PDB_KEY_BINARY);
             int other = binary && where && strcmp(binary, where);
 
+            /* binary points into old.tree: the refusal is written before the tree is freed */
+            if (other)
+                say(why, why_size, "%s and %s share the CLAP id %s: address each as clap@<sha256>:%s", binary, where,
+                    a.id, a.id);
             pdb_json_free(old.tree);
             if (other)
-                return say(why, why_size, "%s and %s share the CLAP id %s: address each as clap@<sha256>:%s", binary,
-                           where, a.id, a.id);
+                return -1;
         }
     }
     switch (pdb_collect(&a, where, &c, why, why_size))

@@ -45,7 +45,7 @@ $OMX_CONTRACT validate --contract-dir "$tmp/pd" >/dev/null || bad "the domain do
 
 # the installed tree holds the domain, and the loader opens it
 mkdir -p "$tmp/dest/contractdir"
-sh "$INSTALL_CONTRACT_DIR" --domain contract.d/plugin-db "$tmp/dest/contractdir" >/dev/null
+sh "$INSTALL_CONTRACT_DIR" --domain contract.d/plugin-db "$tmp/dest/contractdir" plugin-db >/dev/null
 test -f "$tmp/dest/contractdir/plugin-db/plugin-db.json" || bad "the installed tree has no plugin-db/plugin-db.json"
 words=$(OMX_CONTRACT_PATH="$tmp/dest/contractdir" "$OMX_DOMAIN" plugin-db "" PLUGIN_DB_ADDRESS_FORMATS) || bad "the loader does not open plugin-db"
 for w in clap lv2; do
