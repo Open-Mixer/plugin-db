@@ -2,12 +2,12 @@ Breaks the check of fuzz/fuzz_layout.c:126 (`"omx-layout/1"` is `"omx-layout/2"`
 Caught by the seed input "clap-basic" of fuzz_layout.
 
 diff --git a/include/plugin-db/pin.h b/include/plugin-db/pin.h
-index bf3024f..fb88e2b 100644
+index 775103f..39bb08c 100644
 --- a/include/plugin-db/pin.h
 +++ b/include/plugin-db/pin.h
 @@ -47,7 +47,7 @@
  #include <plugin-db/plugin_db_constants.h>
- #include <plugin-db/plugin_db_vocabulary.h>
+ #include <plugin-db/plugin_db_tables.h> /* and through it plugin_db_vocabulary.h */
  
 -#define PHD_PIN_LAYOUT_SCHEME "omx-layout/1"
 +#define PHD_PIN_LAYOUT_SCHEME "omx-layout/2"
