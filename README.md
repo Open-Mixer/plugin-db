@@ -7,12 +7,18 @@ loads no plugin: it reads LV2 manifests as text and hashes files.
 
 ## What is declared, and where
 
-Everything a reader compares is declared once in `data/` and derived from there, never typed twice:
+Everything a reader compares is declared once in plugin-db's domains under `contract.d/` and derived from there, never
+typed twice:
 
-- `data/pin.json`: the words of a pin (verdicts, pool words, optional keys, what counts as changed, layout formats).
-- `data/db.json`: the bundle rule, the layers, the attributes the check reports (files, layout,
-  record), what changes a record and the action each change asks for, the states with how each runs, the reasons, the
-  sources, and the hosts an isolated verdict must be measured under.
+- `contract.d/plugin-db/plugin-db.json`, the domain plugin-db: the words of a pin (optional keys, what counts as changed,
+  layout formats; a pin's verdict and pool words are plugin-hostd-protocol's domain pin), the address formats, the
+  bundle rule, the layers, the attributes the check reports (files, layout, record), what changes a record and the
+  action each change asks for, the states with how each runs, the reasons, the sources, the hosts an isolated verdict
+  must be measured under, and the hex length of a digest.
+- `contract.d/lv2/lv2.json`, the domain lv2: the LV2 terms, and their mapping to the standard units, meanings and scales.
+- `contract.d/format/format.json`, the domain format: the kinds and statuses of a format's terms.
+- `contract.d/plugin-feature/plugin-feature.json`, the domain plugin-feature: the plugin features, each from its
+  format's term.
 - `data/store.schema.json`: the JSON Schema of a layer file, with the store's layout in `x-plugin-db-store`.
 - `contract.d/plugin-db/plugin-db.json`: the domain `plugin-db`, kept by hand at its own version: the address formats
   (`PLUGIN_DB_ADDRESS_FORMATS`, `clap` and `lv2`). They are in no other file: the command reads the words at start-up
@@ -24,7 +30,10 @@ omx-contract renders the words of `pin.json` and `db.json` to `<plugin-db/plugin
 `plugin-db-contract` puts them in its contract directory. `tools/render-db.py` derives
 `<plugin-db/plugin_db_tables.h>` from all three: each word's index as an enum, the group each word of a grouped item
 falls in (a change's action, an action's record attribute, a state's run, a reason's state), the store's layout and
-every key the schema names. `make test` holds that header to `data/`; `make check-tools` holds the vocabulary header.
+every key the schema names. The verdict and pool words of a pin are not plugin-db's: they are the domain `pin` of
+plugin-hostd-protocol (`PIN_VERDICTS`, `PIN_POOLS`, its package `plugin-hostd-protocol-contract` 0.8.0), which the
+renders read from the installed contract directory (`PIN_DOMAIN_DIR` names another) and `pin.h`'s validators take
+from `plugin_db_tables.h`. `make test` holds that header to `data/` and that domain; `make check-tools` holds the vocabulary header.
 
 ## The one address form
 
@@ -89,7 +98,7 @@ every entry). A fact of here that is not given is not known, and no record match
 at the rate and quantum: the latency measured there, the latency line the record declares (plugin-qualify's judgement
 writes it beside the figure of each cell) and whether the figure is within it, over it or unmeasured. A record that
 lacks the line or the figure is unmeasured; the reader never guesses one. Over the line is information: the plugin
-loads. The bar a person sets for what may load (qualified-only, warn-on-crashes, load-all) is declared in `data/db.json`
+loads. The bar a person sets for what may load (qualified-only, warn-on-crashes, load-all) is declared in the domain plugin-db
 and read from there by plugin-hostd and the surfaces.
 
 The console reads the TypeScript twin in `ts/` (`ts/src/reader.ts`, with its words generated from `data/` into

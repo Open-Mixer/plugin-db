@@ -20,7 +20,7 @@
 
 /* The plugin database: the one address form, which files are a plugin (the LV2 bundle rule of
  * PLUGIN_DB_BUNDLE_RULES included), the store of layers, and the one state function. libplugin-db.a, on libc and
- * libcrypto; nothing here loads a plugin. The words are data/db.json's (plugin_db_vocabulary.h) and their indexes,
+ * libcrypto; nothing here loads a plugin. The words are the domain plugin-db's (plugin_db_vocabulary.h) and their indexes,
  * the store's layout and the schema's keys are derived from data/ (plugin_db_tables.h). */
 
 #ifndef PLUGIN_DB_DB_H

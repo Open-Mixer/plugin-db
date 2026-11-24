@@ -4,28 +4,31 @@
 #define PLUGIN_DB_TABLES_H
 /*
  * GENERATED: DO NOT EDIT BY HAND.
- * Produced by tools/render-db.py from data/pin.json, data/db.json and data/store.schema.json. Each words item is an
+ * Produced by tools/render-db.py from the domain plugin-db (tools/dbwords.py) and data/store.schema.json, and from the domain pin of
+ * plugin-hostd-protocol for the verdict and pool words of a pin (PIN_VERDICTS, PIN_POOLS; also their _INIT). Each words item is an
  * enum of its words' indexes in their order, PDB_<ITEM>_<NAME>, the index into the item's _INIT of
- * plugin_db_vocabulary.h; a grouped item has a _GROUP_INIT, the index of each word's group in the item it names.
+ * plugin_db_vocabulary.h (the pin items': of this file); a grouped item has a _GROUP_INIT, the index of each word's group in the item it names.
  * The store layout is x-plugin-db-store's, PDB_STORE_<NAME>, and every key the schema declares is PDB_KEY_<NAME>.
  */
 
 #include <plugin-db/plugin_db_vocabulary.h>
 
-/* PLUGIN_DB_PIN_VERDICTS */
+/* PIN_VERDICTS */
 enum {
     PDB_PIN_VERDICTS_IN_PROCESS = 0,
     PDB_PIN_VERDICTS_ISOLATED = 1,
     PDB_PIN_VERDICTS_REFUSED = 2,
 };
 #define PDB_PIN_VERDICTS_COUNT 3
+#define PDB_PIN_VERDICTS_INIT { "in-process", "isolated", "refused" }
 
-/* PLUGIN_DB_PIN_POOLS */
+/* PIN_POOLS */
 enum {
     PDB_PIN_POOLS_CORES = 0,
     PDB_PIN_POOLS_OFF = 1,
 };
 #define PDB_PIN_POOLS_COUNT 2
+#define PDB_PIN_POOLS_INIT { "cores", "off" }
 
 /* PLUGIN_DB_PIN_KEYS */
 enum {

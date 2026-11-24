@@ -183,11 +183,11 @@ static void layout_pin_words(void)
 
 static void pin_words(void)
 {
-    check(phd_pin_verdict_valid(OMX_PLUGIN_DB_PIN_VERDICTS_IN_PROCESS) && phd_pin_verdict_valid(OMX_PLUGIN_DB_PIN_VERDICTS_ISOLATED) &&
-          phd_pin_verdict_valid(OMX_PLUGIN_DB_PIN_VERDICTS_REFUSED), "every declared verdict");
+    check(phd_pin_verdict_valid("in-process") && phd_pin_verdict_valid("isolated") &&
+          phd_pin_verdict_valid("refused"), "every declared verdict");
     check(!phd_pin_verdict_valid("in_process") && !phd_pin_verdict_valid("") && !phd_pin_verdict_valid("Refused"),
           "a word outside the verdicts is not a pin's");
-    check(phd_pin_pool_valid(OMX_PLUGIN_DB_PIN_POOLS_CORES) && phd_pin_pool_valid(OMX_PLUGIN_DB_PIN_POOLS_OFF), "every declared pool word");
+    check(phd_pin_pool_valid("cores") && phd_pin_pool_valid("off"), "every declared pool word");
     check(!phd_pin_pool_valid("on") && !phd_pin_pool_valid(""), "a word outside the pool words is not a pin's");
     check(!strcmp(PHD_PIN_LAYOUT_CLAP, "clap") && !strcmp(PHD_PIN_LAYOUT_LV2, "lv2"), "the formats of the first line");
 }

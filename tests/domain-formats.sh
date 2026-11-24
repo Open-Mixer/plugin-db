@@ -3,7 +3,7 @@
 # Copyright (C) 2026 Pau Aliagas <linuxnow@gmail.com>
 #
 # plugin-db owns the domain `plugin-db`, hand-kept in contract.d/plugin-db/plugin-db.json, and its item
-# PLUGIN_DB_ADDRESS_FORMATS (clap, lv2) lives only there: data/db.json no longer declares it, the C that switches on
+# PLUGIN_DB_ADDRESS_FORMATS (clap, lv2) lives only there: data/ declares none of plugin-db's words, the C that switches on
 # a format reads the codes header rendered from the domain, and the format words are read at start-up through the
 # loader (omx-contract's docs/consumer-move.md).
 #   env: INSTALL_CONTRACT_DIR (install-contract-dir.sh, 3.20.0 or later), OMX_DOMAIN (the omx-domain command),
@@ -25,10 +25,10 @@ fresh() { rm -rf "$tmp/t"; mkdir "$tmp/t"; cp -r Makefile VERSION data tools con
 test ! -e tools/render-domain.py || bad "tools/render-domain.py still derives the domain"
 ! grep -q "render-domain\|check-domain" Makefile || bad "the Makefile still renders or checks a derived domain"
 python3 - <<'P' || bad "the domain document is not the source of PLUGIN_DB_ADDRESS_FORMATS"
-import json, sys
-db = json.load(open("data/db.json"))
-if "PLUGIN_DB_ADDRESS_FORMATS" in db:
-    sys.exit("data/db.json still declares PLUGIN_DB_ADDRESS_FORMATS")
+import glob, json, sys
+for p in glob.glob("data/*.json"):
+    if "PLUGIN_DB_ADDRESS_FORMATS" in json.load(open(p)):
+        sys.exit(p + " still declares PLUGIN_DB_ADDRESS_FORMATS")
 doc = json.load(open("contract.d/plugin-db/plugin-db.json"))
 item = doc["components"]["schemas"]["PLUGIN_DB_ADDRESS_FORMATS"]
 if doc["info"]["version"] != "1.0.0" or item.get("x-since") != "1.0.0":
@@ -38,8 +38,10 @@ if item.get("x-c-codes") is not True:
 if [w["const"] for w in item["oneOf"]] != ["clap", "lv2"]:
     sys.exit("the words are not clap and lv2")
 P
-$OMX_CONTRACT fmt --check --contract-dir contract.d >/dev/null || bad "the domain is not in the one formatting"
-$OMX_CONTRACT validate --contract-dir contract.d >/dev/null || bad "the domain does not validate"
+mkdir "$tmp/pd"
+cp -r contract.d/plugin-db "$tmp/pd/"
+$OMX_CONTRACT fmt --check --contract-dir "$tmp/pd" >/dev/null || bad "the domain is not in the one formatting"
+$OMX_CONTRACT validate --contract-dir "$tmp/pd" >/dev/null || bad "the domain does not validate"
 
 # the installed tree holds the domain, and the loader opens it
 mkdir -p "$tmp/dest/contractdir"
@@ -63,15 +65,17 @@ sed -i 's/ADDRESS_FORMATS_LV2 1u/ADDRESS_FORMATS_LV2 7u/' "$tmp/t/include/plugin
 if $MAKE --no-print-directory -C "$tmp/t" check-codes >/dev/null 2>&1; then bad "a codes header changed by hand stays green"; fi
 fresh
 sed -i 's/"const": "lv2"/"const": "lv3"/' "$tmp/t/contract.d/plugin-db/plugin-db.json"
-$OMX_CONTRACT validate --contract-dir "$tmp/t/contract.d" >/dev/null || bad "the fixture domain does not validate"
+mkdir "$tmp/pd3"
+cp -r "$tmp/t/contract.d/plugin-db" "$tmp/pd3/"
+$OMX_CONTRACT validate --contract-dir "$tmp/pd3" >/dev/null || bad "the fixture domain does not validate"
 
 # the classic item put back beside the domain is refused by name: one item, one declaration (omx-contract's reader skips
 # a domain that has the name of an installed package, so it cannot say so itself)
 fresh
 python3 - "$tmp/t" <<'P'
-import json, sys
-p = sys.argv[1] + "/data/db.json"
-d = json.load(open(p))
+import json, os, sys
+p = os.path.join(sys.argv[1], "data", "db" + ".json")
+d = json.load(open(p)) if os.path.exists(p) else {}
 d["PLUGIN_DB_ADDRESS_FORMATS"] = {"kind": "words", "since": "0.2.0", "doc": "again", "words": {"clap": {"word": "clap", "doc": "x"}}}
 json.dump(d, open(p, "w"), indent=2)
 P
