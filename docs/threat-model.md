@@ -58,13 +58,13 @@ who can write the store directory controls the layers read back, including the s
   on a libcrypto failure. There is no size cap on a hashed file.
 - Store reads: `read_all()` refuses a non-regular file and one over 64 MiB. `layer_read()` requires the envelope keys,
   the layer and address it was written for, a 64-hex files digest, an `omx-layout/1` layout pin, the body keys of
-  its layer and a verdict word of `data/pin.json`. An entry directory name must be 64 lowercase hex digits.
+  its layer and a verdict word of plugin-hostd-protocol's domain pin. An entry directory name must be 64 lowercase hex digits.
 - JSON: `pdb_json_parse()` is strict RFC 8259, refuses nesting deeper than 64 (`DEPTH_MAX`), a string holding NUL
   a repeated key, and a number of 64 bytes or more.
 - Store writes: `write_atomic()` writes to a `mkstemp` name, `fchmod` 0644, `fsync`, then `rename`; directories are
   made 0755.
 - Standard input for `put`: `read_stdin()` grows without a cap. Not enforced.
-- Addresses: `pdb_address_parse()` accepts only a format of `data/db.json`, a 64-hex pin on `clap@`, a non-empty id,
+- Addresses: `pdb_address_parse()` accepts only a format of the domain plugin-db (`PLUGIN_DB_ADDRESS_FORMATS`), a 64-hex pin on `clap@`, a non-empty id,
   no control byte or space in the id, and no leading `/` in a CLAP id.
 - Pin words: `phd_pin_hex_valid()` takes exactly 64 lowercase hex digits; `phd_pin_layout_parse()` splits at the last
   `:` and refuses a scheme that does not fit its buffer.

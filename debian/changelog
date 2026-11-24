@@ -1,3 +1,24 @@
+plugin-db (0.5.0) unstable; urgency=medium
+
+  * The sorting pass: plugin-db's words live in its own domains, read where
+    they are owned. V12: the pin verdict and pool words are read from
+    plugin-hostd-protocol's domain pin and leave data/pin.json (#57, #58).
+  * V11, V13 (#60): the 18 PLUGIN_DB_* items move into the domain plugin-db;
+    data/db.json, data/pin.json and data/constants.json are removed, every
+    render is rebuilt from the domain byte for byte, and the package
+    plugin-db of the contract directory is gone (the domains are installed).
+  * V24 (#61): the plugin features are plugin-db's domain plugin-feature,
+    with its catalogs; it names no CLAP domain.
+  * V27a, F1, O1 (#62, #63, #64): the LV2 terms are plugin-db's domain lv2
+    and the words of format terms its domain format, folded from
+    omx-formats; F1 maps the LV2 units, designations, port properties and
+    resource kinds to omx-contract's standard words; the LV2 inventory and
+    its coverage check come with the terms.
+  * Floors: omx-contract >= 3.21.0 (was 3.20.0), plugin-hostd-protocol-contract
+    >= 0.8.0; libomx-domain and omx-contract-devel stay >= 3.20.0.
+
+ -- Pau Aliagas <linuxnow@gmail.com>  Sun, 22 Nov 2026 12:00:00 +0100
+
 plugin-db (0.4.7) unstable; urgency=medium
 
   * Everything merged since 0.4.6: the store schema $id moves from the

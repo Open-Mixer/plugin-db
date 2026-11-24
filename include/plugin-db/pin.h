@@ -22,7 +22,7 @@
  * parameter layout in the omx-layout/1 serialisation, with the rules of what is a pin's and what is not. Header-only,
  * on libc and libcrypto. A host fills the neutral records below from its own standard interface (CLAP params, LV2
  * control ports) and calls the digest; nothing else writes these bytes. A change to the serialisation is a new scheme,
- * never an edit of this one. Nothing here opens or loads a plugin: that is the host's. The words are data/pin.json's,
+ * never an edit of this one. Nothing here opens or loads a plugin: that is the host's. The words are the domain plugin-db's,
  * rendered in plugin_db_vocabulary.h.
  *
  * omx-layout/1, UTF-8, one '\n' after every line:
@@ -45,7 +45,7 @@
 #include <openssl/evp.h>
 
 #include <plugin-db/plugin_db_constants.h>
-#include <plugin-db/plugin_db_vocabulary.h>
+#include <plugin-db/plugin_db_tables.h> /* and through it plugin_db_vocabulary.h */
 
 #define PHD_PIN_LAYOUT_SCHEME "omx-layout/1"
 #define PHD_PIN_LAYOUT_CLAP   OMX_PLUGIN_DB_PIN_LAYOUT_FORMATS_CLAP
@@ -172,20 +172,20 @@ static inline int phd_pin_word_in(const char *s, const char *const *words, size_
     return 0;
 }
 
-/* whether s is a verdict a pin can carry */
+/* whether s is a verdict a pin can carry: a word of plugin-hostd-protocol's PIN_VERDICTS (its domain pin) */
 static inline int phd_pin_verdict_valid(const char *s)
 {
-    static const char *const words[] = OMX_PLUGIN_DB_PIN_VERDICTS_INIT;
+    static const char *const words[] = PDB_PIN_VERDICTS_INIT;
 
-    return phd_pin_word_in(s, words, OMX_PLUGIN_DB_PIN_VERDICTS_COUNT);
+    return phd_pin_word_in(s, words, PDB_PIN_VERDICTS_COUNT);
 }
 
-/* whether s is a pool word a pin can carry */
+/* whether s is a pool word a pin can carry: a word of plugin-hostd-protocol's PIN_POOLS (its domain pin) */
 static inline int phd_pin_pool_valid(const char *s)
 {
-    static const char *const words[] = OMX_PLUGIN_DB_PIN_POOLS_INIT;
+    static const char *const words[] = PDB_PIN_POOLS_INIT;
 
-    return phd_pin_word_in(s, words, OMX_PLUGIN_DB_PIN_POOLS_COUNT);
+    return phd_pin_word_in(s, words, PDB_PIN_POOLS_COUNT);
 }
 
 /* ---------------------------------------------------------------- omx-layout/1 */

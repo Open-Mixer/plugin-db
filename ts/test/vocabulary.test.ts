@@ -1,21 +1,23 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 // Copyright (C) 2026 Pau Aliagas <linuxnow@gmail.com>
-// The vocabulary the twin reads is the one data/ declares, in its order, and the bar and the latency standings are
+// The vocabulary the twin reads is the one plugin-db's domain plugin-db declares, in its order, and the bar and the latency standings are
 // declared once, here, for plugin-hostd and both surfaces to read.
 import { test } from "node:test";
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 import * as v from "../src/vocabulary.ts";
+import { pinWords } from "./pin-domain.ts";
 
-const data = { ...JSON.parse(readFileSync(new URL("../../data/pin.json", import.meta.url), "utf8")),
-               ...JSON.parse(readFileSync(new URL("../../data/db.json", import.meta.url), "utf8")) };
-const words = (item: string) => Object.values<any>(data[item].words).map((w) => w.word);
+const domain = JSON.parse(readFileSync(new URL("../../contract.d/plugin-db/plugin-db.json", import.meta.url), "utf8")).components.schemas;
+const words = (item: string): string[] => domain[item].oneOf.map((w: { const: string }) => w.const);
+const titles = (item: string): string[] => domain[item].oneOf.map((w: { title: string }) => w.title);
 
-test("each words item of data/ is in the vocabulary, its words in their order", () => {
+test("each words item of the domain is in the vocabulary, its words in their order", () => {
   assert.deepEqual(Object.values(v.states), words("PLUGIN_DB_STATES"));
   assert.deepEqual(Object.values(v.runs), words("PLUGIN_DB_RUNS"));
   assert.deepEqual(Object.values(v.reasons), words("PLUGIN_DB_REASONS"));
-  assert.deepEqual(Object.values(v.pinVerdicts), words("PLUGIN_DB_PIN_VERDICTS"));
+  assert.deepEqual(Object.values(v.pinVerdicts), pinWords("PIN_VERDICTS").map((w) => w.word));
+  assert.deepEqual(Object.values(v.pinPools), pinWords("PIN_POOLS").map((w) => w.word));
 });
 
 test("the bar's three words are declared once", () => {
@@ -58,7 +60,7 @@ test("every word a menu says has its Catalan in catalogs/ca.json under <ITEM>.<w
 test("every word a menu says has its source sentence in the C vocabulary header too, and no translation", () => {
   const h = readFileSync(new URL("../../include/plugin-db/plugin_db_vocabulary.h", import.meta.url), "utf8");
   for (const item of SAID) {
-    for (const n of Object.keys(data[item].words)) {
+    for (const n of titles(item)) {
       const m = `OMX_${item}_${snake(n)}_TEXT_EN`;
       assert.match(h, new RegExp(`^#define ${m} "`, "m"), m);
     }
