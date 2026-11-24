@@ -2,7 +2,7 @@ Breaks the check of fuzz/fuzz_pin.c:129 (`phd_pin_word_in(s, words, PDB_PIN_VERD
 Caught by the seed input "verdict-bogus" of fuzz_pin.
 
 diff --git a/include/plugin-db/pin.h b/include/plugin-db/pin.h
-index bf3024f..6f7694f 100644
+index 775103f..0e4f260 100644
 --- a/include/plugin-db/pin.h
 +++ b/include/plugin-db/pin.h
 @@ -177,7 +177,7 @@ static inline int phd_pin_verdict_valid(const char *s)
@@ -13,4 +13,4 @@ index bf3024f..6f7694f 100644
 +    return 1;
  }
  
- /* whether s is a pool word a pin can carry */
+ /* whether s is a pool word a pin can carry: a word of plugin-hostd-protocol's PIN_POOLS (its domain pin) */
