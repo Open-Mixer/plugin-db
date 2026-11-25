@@ -81,7 +81,7 @@ install-python:
 test-tu-split:
 	CC='$(CC)' CFLAGS='$(PROTOCOL_CFLAGS) $(DOMAIN_CFLAGS) $(CRYPTO_CFLAGS)' sh tests/tu-split.sh
 
-test: test-tu-split test-constants-alone test-pin test-pin-read test-pin-old-items check-tables check-ts test-py test-state test-collect test-store test-golden test-install test-sabotage test-db-sabotage version-check test-version-check check-control
+test: test-tu-split test-constants-alone test-pin test-pin-read test-pin-old-items check-tables check-ts test-py test-state test-collect test-store test-golden test-install test-owner-manifest test-sabotage test-db-sabotage version-check test-version-check check-control
 
 tests/pin_test: tests/pin_test.c $(HEADERS)
 	$(CC) -Iinclude $(CRYPTO_CFLAGS) $(CFLAGS) -Werror -o $@ tests/pin_test.c $(CRYPTO_LIBS)
@@ -189,6 +189,11 @@ deps-check:
 
 test-install:
 	sh tests/install-check.sh
+
+# plugin-db owns its domains: install-contract writes its owner manifest (#84)
+.PHONY: test-owner-manifest
+test-owner-manifest:
+	sh tests/owner-manifest.sh
 
 # every rule and every byte of the format has an arm that must go red
 test-sabotage:
@@ -396,3 +401,7 @@ docs-site:
 	cp -a $(BUILD)/doxygen/html/. $(DOCS_OUT)/api/
 	cp README.md COPYING $(DOCS_OUT)/
 	cp man/plugin-db.1 $(DOCS_OUT)/man/
+# the contract directory install-contract writes under (tests/owner-manifest.sh)
+.PHONY: print-contractdir
+print-contractdir:
+	@echo $(CONTRACTDIR)
