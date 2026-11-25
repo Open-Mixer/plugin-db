@@ -18,7 +18,7 @@ MANDIR = $(DATADIR)/man
 HEADERS = include/plugin-db/pin.h include/plugin-db/plugin_db_vocabulary.h include/plugin-db/db.h \
           include/plugin-db/plugin_db_tables.h include/plugin-db/plugin_db_constants.h include/plugin-db/plugin_db_codes.h
 
-# the format words are read from the domain plugin-db through omx-contract's loader (libomx-domain-devel, 3.20.0)
+# the format words are read from the domain plugin-db through omx-contract's loader (libomx-domain-devel)
 DOMAIN_CFLAGS = $(shell $(PKG_CONFIG) --cflags libomx-domain)
 DOMAIN_LIBS = $(shell $(PKG_CONFIG) --libs libomx-domain)
 # the command and the test harnesses read the domain from the owner's contract.d (OMX_CONTRACT_PATH, omx-contract's
@@ -81,7 +81,7 @@ install-python:
 test-tu-split:
 	CC='$(CC)' CFLAGS='$(PROTOCOL_CFLAGS) $(DOMAIN_CFLAGS) $(CRYPTO_CFLAGS)' sh tests/tu-split.sh
 
-test: test-tu-split test-constants-alone test-pin test-pin-read test-pin-old-items check-tables check-ts test-py test-state test-collect test-store test-golden test-install test-sabotage test-db-sabotage version-check check-control
+test: test-tu-split test-constants-alone test-pin test-pin-read test-pin-old-items check-tables check-ts test-py test-state test-collect test-store test-golden test-install test-sabotage test-db-sabotage version-check test-version-check check-control
 
 tests/pin_test: tests/pin_test.c $(HEADERS)
 	$(CC) -Iinclude $(CRYPTO_CFLAGS) $(CFLAGS) -Werror -o $@ tests/pin_test.c $(CRYPTO_LIBS)
@@ -135,7 +135,7 @@ check-ts:
 render-ts:
 	python3 tools/render-ts.py data ts/src/vocabulary.ts
 
-# the TypeScript twin of the reader (node >= 22.18, < 25; no package is installed): its tests over the golden fixtures,
+# the TypeScript twin of the reader (node >= 22.18, no ceiling; no package is installed): its tests over the golden fixtures,
 # the vocabulary and the conformance check, then the arms that must turn them red. CI runs it in its own job.
 test-twin: $(BIN) check-ts
 	cd ts && node --test "test/*.test.ts"
@@ -178,14 +178,11 @@ check-control:
 	sh tests/no-backcompat.sh
 	sh tests/dep-shape.sh --self-test
 
-# the dependency floors are declared once, in packaging/deps.txt (floors only); the engine is Open-Mixer/.github's
-# deps-render (CI runs it as that action): locally name a checkout of it, make deps-check DOTGITHUB=<dir>;
-# make deps writes the floors into the spec and debian/control
+# no hand-kept version floor (ops wave 2026-11-24): the spec and debian/control name each dependency with no version,
+# and Open-Mixer/.github's deps-render (CI runs it as that action) refuses a ceiling in them; locally name a checkout
+# of it, make deps-check DOTGITHUB=<dir>
 DOTGITHUB ?=
-.PHONY: deps deps-check
-deps:
-	@test -n "$(DOTGITHUB)" || { echo "$@: name a checkout of Open-Mixer/.github: make $@ DOTGITHUB=<dir>" >&2; exit 2; }
-	$(DOTGITHUB)/.github/actions/deps-render/render.sh --write .
+.PHONY: deps-check
 deps-check:
 	@test -n "$(DOTGITHUB)" || { echo "$@: name a checkout of Open-Mixer/.github: make $@ DOTGITHUB=<dir>" >&2; exit 2; }
 	$(DOTGITHUB)/.github/actions/deps-render/render.sh --check .
@@ -200,10 +197,15 @@ test-sabotage:
 # VERSION, the spec's Version and the newest debian/changelog entry say the same (the shared release workflows require it)
 version-check:
 	@spec=$$(sed -n 's/^Version:[[:space:]]*//p' packaging/$(NAME).spec | head -1); \
-	deb=$$(sed -n '1s/^[^ ]* (\([^)]*\)).*/\1/p' debian/changelog); deb=$${deb%%~git*}; \
+	deb=$$(sed -n '1s/^[^ ]* (\([^)]*\)).*/\1/p' debian/changelog); deb=$${deb%%[~+]git*}; \
 	test "$$spec" = "$(VERSION)" && test "$$deb" = "$(VERSION)" || \
 	  { echo "version-check: VERSION $(VERSION), spec $$spec, debian/changelog $$deb" >&2; exit 1; }; \
 	echo "ok   version $(VERSION) in VERSION, the spec and debian/changelog"
+
+# version-check in the trees a DEB build sees: a +git or ~git snapshot entry is green, another version red (#89)
+.PHONY: test-version-check
+test-version-check:
+	sh tests/version-check.sh
 
 # ---------------------------------------------------------------------------------------------------------------------
 # The checks that need tools a package build does not: run by CI (.github/workflows/ci.yml, job words).
@@ -260,11 +262,11 @@ check-ci-matrix:
 # <contractdir>/<domain>/; data/store.schema.json is a JSON Schema of the store, not a file of omx-contract's: it is
 # installed to $(DATADIR)/plugin-db/, never into the contract directory
 install-contract:
-	@test -n "$(INSTALL_CONTRACT_DIR)" || { echo "install-contract: no install-contract-dir.sh: install omx-contract-devel, or set OMX_CONTRACT_DIR to a checkout" >&2; exit 1; }
-	sh $(INSTALL_CONTRACT_DIR) --domain contract.d/plugin-db $(DESTDIR)$(CONTRACTDIR)
-	sh $(INSTALL_CONTRACT_DIR) --domain contract.d/format $(DESTDIR)$(CONTRACTDIR)
-	sh $(INSTALL_CONTRACT_DIR) --domain contract.d/lv2 $(DESTDIR)$(CONTRACTDIR)
-	sh $(INSTALL_CONTRACT_DIR) --domain contract.d/plugin-feature $(DESTDIR)$(CONTRACTDIR)
+	@test -n "$(INSTALL_CONTRACT_DIR)" || { echo "install-contract: no install-contract-dir.sh: install omx-contract-devel (its --domain mode names the installing package), or set OMX_CONTRACT_DIR to a checkout" >&2; exit 1; }
+	sh $(INSTALL_CONTRACT_DIR) --domain contract.d/plugin-db $(DESTDIR)$(CONTRACTDIR) $(NAME)
+	sh $(INSTALL_CONTRACT_DIR) --domain contract.d/format $(DESTDIR)$(CONTRACTDIR) $(NAME)
+	sh $(INSTALL_CONTRACT_DIR) --domain contract.d/lv2 $(DESTDIR)$(CONTRACTDIR) $(NAME)
+	sh $(INSTALL_CONTRACT_DIR) --domain contract.d/plugin-feature $(DESTDIR)$(CONTRACTDIR) $(NAME)
 	install -d $(DESTDIR)$(DATADIR)/$(NAME)/catalogs
 	install -m 644 catalogs/*.json $(DESTDIR)$(DATADIR)/$(NAME)/catalogs/
 
@@ -378,3 +380,19 @@ clean:
 .PHONY: all install test test-pin check-tables render-tables test-state test-collect test-store test-db-sabotage test-asan test-golden check-ts render-ts test-twin check-py render-py test-py install-python \
         test-install test-sabotage version-check check-tools check-ci-matrix install-contract check-contract-dir \
         test-rendered-sabotage test-domain test-tu-split check-codes render-codes render-words check-rendered fuzz fuzz-run fuzz-sabotage fuzz-records fuzz-coverage fuzz-corpus fuzz-corpus-check clean
+
+# The published reference: Open-Mixer/.github's docs-publish.yml runs this with DOCS_OUT, an empty absolute directory,
+# then renders the Markdown and the man page and, at a release tag, publishes the tree under
+# https://www.openmixer.org/reference/plugin-db/<version>/. Only what the tree generates or keeps: the C API reference
+# doxygen renders from the installed headers with the Doxyfile the documentation gate reads (api/), the man page,
+# README and COPYING. The gate itself (doc-gate, against the pull request's base) runs in public-sources.yml.
+.PHONY: docs-site
+docs-site:
+	@case "$(DOCS_OUT)" in /*) ;; *) echo "docs-site: FAIL - DOCS_OUT '$(DOCS_OUT)' is not an absolute directory: name the directory the reference is written to" >&2; exit 1;; esac
+	rm -rf $(BUILD)/doxygen && mkdir -p $(BUILD)/doxygen
+	doxygen Doxyfile
+	@test -f $(BUILD)/doxygen/html/index.html || { echo "docs-site: FAIL - doxygen wrote no $(BUILD)/doxygen/html/index.html" >&2; exit 1; }
+	mkdir -p $(DOCS_OUT)/api $(DOCS_OUT)/man
+	cp -a $(BUILD)/doxygen/html/. $(DOCS_OUT)/api/
+	cp README.md COPYING $(DOCS_OUT)/
+	cp man/plugin-db.1 $(DOCS_OUT)/man/

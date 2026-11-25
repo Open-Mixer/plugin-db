@@ -34,7 +34,7 @@ int main(int argc, char **argv)
         return 1;
     printf("%s\n", hex);
     /* a test harness reads OMX_CONTRACT_PATH and hands the domain over; the library entry never does */
-    if (!dir || omx_domain_open_at(dir, "plugin-db", "1.0.0", &domain, &err) != 0 || pdb_formats_load(domain) != 0)
+    if (!dir || omx_domain_open_at(dir, "plugin-db", NULL, &domain, &err) != 0 || pdb_formats_load(domain) != 0)
         return 1;
     omx_domain_close(domain);
     if (pdb_address_parse("lv2:http://example.org/amp", &address) != 0)

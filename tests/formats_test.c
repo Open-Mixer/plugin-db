@@ -63,7 +63,7 @@ int main(int argc, char **argv)
         omx_domain *d = NULL;
         omx_domain_error err;
 
-        if (omx_domain_open_at(argv[2], "plugin-db", "1.0.0", &d, &err) != 0)
+        if (omx_domain_open_at(argv[2], "plugin-db", NULL, &d, &err) != 0)
         {
             printf("FAIL the harness cannot open %s: %s %s\n", argv[2], err.code, err.message);
             return 1;

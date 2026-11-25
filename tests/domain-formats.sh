@@ -6,7 +6,7 @@
 # PLUGIN_DB_ADDRESS_FORMATS (clap, lv2) lives only there: data/ declares none of plugin-db's words, the C that switches on
 # a format reads the codes header rendered from the domain, and the format words are read at start-up through the
 # loader (omx-contract's docs/consumer-move.md).
-#   env: INSTALL_CONTRACT_DIR (install-contract-dir.sh, 3.20.0 or later), OMX_DOMAIN (the omx-domain command),
+#   env: INSTALL_CONTRACT_DIR (install-contract-dir.sh), OMX_DOMAIN (the omx-domain command),
 #        OMX_CONTRACT (the omx-contract command), PDB (the plugin-db command), FORMATS_TEST (tests/formats_test.c, built)
 set -eu
 : "${MAKE:=make}"
@@ -15,7 +15,7 @@ set -eu
 for v in INSTALL_CONTRACT_DIR PDB FORMATS_TEST; do
   eval "[ -n \"\${$v:-}\" ]" || { echo "FAIL domain-formats: $v is not set" >&2; exit 1; }
 done
-command -v "$OMX_DOMAIN" >/dev/null || { echo "FAIL domain-formats: no $OMX_DOMAIN command: install libomx-domain-devel (3.20.0 or later)" >&2; exit 1; }
+command -v "$OMX_DOMAIN" >/dev/null || { echo "FAIL domain-formats: no $OMX_DOMAIN command: install libomx-domain-devel" >&2; exit 1; }
 tmp=$(mktemp -d)
 trap 'rm -rf "$tmp"' EXIT
 bad() { echo "FAIL $1"; exit 1; }
@@ -45,7 +45,7 @@ $OMX_CONTRACT validate --contract-dir "$tmp/pd" >/dev/null || bad "the domain do
 
 # the installed tree holds the domain, and the loader opens it
 mkdir -p "$tmp/dest/contractdir"
-sh "$INSTALL_CONTRACT_DIR" --domain contract.d/plugin-db "$tmp/dest/contractdir" >/dev/null
+sh "$INSTALL_CONTRACT_DIR" --domain contract.d/plugin-db "$tmp/dest/contractdir" plugin-db >/dev/null
 test -f "$tmp/dest/contractdir/plugin-db/plugin-db.json" || bad "the installed tree has no plugin-db/plugin-db.json"
 words=$(OMX_CONTRACT_PATH="$tmp/dest/contractdir" "$OMX_DOMAIN" plugin-db "" PLUGIN_DB_ADDRESS_FORMATS) || bad "the loader does not open plugin-db"
 for w in clap lv2; do
@@ -98,14 +98,9 @@ printf '%s\n' "$old" | grep -q "is no address" || bad "the command still accepts
 "$FORMATS_TEST" load "$fixture" lv3 lv2 >/dev/null || bad "the library does not see the changed word"
 OMX_CONTRACT_PATH="$PWD/contract.d" "$FORMATS_TEST" unloaded >/dev/null || bad "the library entry read OMX_CONTRACT_PATH"
 
-# an absent or too-old domain is refused by name at start-up, exit 78
+# an absent domain is refused by name at start-up, exit 78 (no version floor: a domain is never refused as too old)
 mkdir "$tmp/empty"
 rc=0; out=$(OMX_CONTRACT_PATH="$tmp/empty" "$PDB" --store "$store" show "lv2:$AMP" 2>&1) || rc=$?
 [ "$rc" = 78 ] && printf '%s\n' "$out" | grep -q "plugin-db" || bad "an absent domain is not refused by name with 78 ($rc): $out"
-mkdir -p "$tmp/old"
-cp -r contract.d/plugin-db "$tmp/old/"
-sed -i 's/"version": "1.0.0"/"version": "0.9.0"/' "$tmp/old/plugin-db/plugin-db.json"
-rc=0; out=$(OMX_CONTRACT_PATH="$tmp/old" "$PDB" --store "$store" show "lv2:$AMP" 2>&1) || rc=$?
-[ "$rc" = 78 ] && printf '%s\n' "$out" | grep -q "too-old" || bad "a too-old domain is not refused by name with 78 ($rc): $out"
 
-echo "ok   domain formats: the domain is the source, installed, opened by the loader; the codes header and the start-up read hold; an absent, too-old or doubled domain is refused"
+echo "ok   domain formats: the domain is the source, installed, opened by the loader; the codes header and the start-up read hold; an absent or doubled domain is refused"
