@@ -10,9 +10,11 @@ LV2 words keep their from, a term of plugin-db's own domain lv2.
 (a) golden: the five PLUGIN_FEATURE_* items, read as a reader reads a domain (each word's const, title, text and from),
     have the digest of tests/golden/plugin-features.digest, frozen from omx-contract 3.20.2's plugin-features file
     with the CLAP froms left out, and the catalogs hold one message per word in each of the six languages;
-(b) the domain: every LV2 from names a term of the domain lv2, and the domain requires and names no domain but lv2.
+(b) the domain: every LV2 from names a term of the domain lv2, and the domain requires and names no domain but lv2;
+    its info.x-requires is a sorted array of names with no version (ops wave 2026-11-24).
     It is the one source of the plugin features: no old home in omx-contract is read (tests/old_home_test.py);
-(c) sabotage: a word dropped, a text changed, a from naming no term and a CLAP from put back are each seen."""
+(c) sabotage: a word dropped, a text changed, a from naming no term, a CLAP from put back and the old map form
+    {name: ">= x.y.z"} of info.x-requires are each seen."""
 import copy
 import hashlib
 import json
@@ -54,11 +56,25 @@ def read(doc):
     return out
 
 
+def requires(doc):
+    """info.x-requires: a sorted, non-empty JSON array of package or domain names, with no version; an absent field refers
+    to nothing; None for any other form (the old map {name: ">= x.y.z"} and an empty [] are refused, never read)"""
+    if "x-requires" not in doc["info"]:
+        return []  # absent: the domain refers to nothing outside itself
+    req = doc["info"]["x-requires"]
+    if not isinstance(req, list) or not req or not all(isinstance(n, str) for n in req) or req != sorted(set(req)):
+        return None  # the map form, an empty [] (write no field instead), or an unsorted or doubled list
+    return req
+
+
 def outside(doc):
     """the domains the document requires or names other than lv2"""
     refs = {f["$ref"].split("/contract/", 1)[1].split("#", 1)[0] for s in doc["components"]["schemas"].values()
             for w in s["oneOf"] for f in w.get("x-from", [])}
-    return sorted((set(doc["info"].get("x-requires", {})) | refs) - {"lv2"})
+    req = requires(doc)
+    if req is None:
+        return ["info.x-requires (not a non-empty sorted array of names)"]
+    return sorted((set(req) | refs) - {"lv2"})
 
 
 def digest(items):
@@ -102,6 +118,7 @@ def main():
         check(set(msgs) == keys, f"catalogs/{lang}.json holds one message per word ({len(msgs)} of {n})")
 
     # (b) the domain
+    check(requires(doc) is not None, f"info.x-requires is a sorted array of names with no version ({doc['info'].get('x-requires')!r})")
     check(outside(doc) == [], f"the domain requires and names no domain but lv2 ({outside(doc)})")
     bad = unresolved(mine, LV2)
     check(not bad, "every from names a term of the domain lv2" + ("" if not bad else ": " + "; ".join(bad[:5])))
@@ -123,6 +140,17 @@ def main():
     w["x-from"] = [{"$ref": "https://openmixer.org/contract/clap#/components/schemas/CLAP_PLUGIN_FEATURES_TERMS",
                     "x-term": w["const"].split(".", 1)[1]}]
     check(outside(back) == ["clap"], "sabotage: a CLAP from put back names the domain clap and is refused")
+    old_map = copy.deepcopy(doc)
+    old_map["info"]["x-requires"] = {"lv2": ">= 1.0.0"}
+    check(requires(old_map) is None and outside(old_map) == ["info.x-requires (not a non-empty sorted array of names)"],
+          "sabotage: the old map form of info.x-requires is refused by name")
+    empty = copy.deepcopy(doc)
+    empty["info"]["x-requires"] = []
+    check(outside(empty) == ["info.x-requires (not a non-empty sorted array of names)"],
+          "sabotage: an empty [] info.x-requires is refused by name (an absent field is how a domain refers to nothing)")
+    absent = copy.deepcopy(doc)
+    absent["info"].pop("x-requires")
+    check(requires(absent) == [], "an absent info.x-requires refers to nothing")
 
     print(f"{'FAIL' if failures else 'ok  '} plugin_feature_test: {len(failures)} failed")
     return 1 if failures else 0

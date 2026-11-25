@@ -1,5 +1,5 @@
 Name: plugin-db
-Version: 0.5.0
+Version: 0.5.1
 Release: 1%{?dist}
 License: GPL-3.0-or-later
 Summary: The plugin database: the pin, the address form, the store and the state
@@ -13,16 +13,17 @@ BuildRequires: pkgconfig
 BuildRequires: python3
 BuildRequires: python3-devel
 BuildRequires: pkgconfig(libcrypto)
-BuildRequires: plugin-hostd-protocol-devel >= 0.8.0
+BuildRequires: plugin-hostd-protocol-devel
 # the verdict and pool words of a pin are the domain pin of plugin-hostd-protocol (its contract package), which the renders of the tables and the twins read
-BuildRequires: plugin-hostd-protocol-contract >= 0.8.0
+BuildRequires: plugin-hostd-protocol-contract
 # install-contract installs the domains with omx-contract's script
-BuildRequires: omx-contract-devel >= 3.21.0
+BuildRequires: omx-contract-devel
 # the format words are read from the domain plugin-db through libomx-domain (omxcontract/omx_domain.h)
-BuildRequires: libomx-domain-devel >= 3.20.0
+BuildRequires: libomx-domain-devel
+# make test reads the catalogs through omx-contract's reader, imported as omx_contract.catalog
+BuildRequires: python3-omx-contract
 
-# the command reads the domain plugin-db at start-up and refuses by name without it
-Requires: libomx-domain >= 3.20.0
+# libomx-domain comes from the soname rpm finds in the command; the command reads the domain plugin-db at start-up and refuses by name without it
 Requires: plugin-db-contract = %{version}-%{release}
 
 %description
@@ -37,7 +38,7 @@ Its documentation is on openmixer.org.
 Summary: The plugin database: headers, a static library and its pkg-config file
 Requires: pkgconfig(libcrypto)
 # db.h includes omxcontract/omx_domain.h, and libplugin-db.a opens the domain plugin-db
-Requires: libomx-domain-devel >= 3.20.0
+Requires: libomx-domain-devel
 Requires: plugin-db-contract = %{version}-%{release}
 
 %description devel
@@ -47,11 +48,12 @@ function; the headers of the words and tables rendered from data/, with the
 pkg-config file plugin-db.
 Its documentation is on openmixer.org.
 
-%package contract
+%package -n plugin-db-contract
 Summary: The words of the plugin database in omx-contract's contract directory
-Requires: omx-contract >= 3.21.0
+Requires: omx-contract
+BuildArch: noarch
 
-%description contract
+%description -n plugin-db-contract
 The domains of plugin-db in omx-contract's contract directory: plugin-db (the
 words of a pin, the address formats, the bundle rule, the layers, the
 attributes, the record changes and their actions, the states and the
@@ -67,8 +69,8 @@ Requires: python3
 # query() asks the command; the catalogs of the sentences come with the contract package
 Requires: plugin-db = %{version}-%{release}
 Requires: plugin-db-contract = %{version}-%{release}
-# the catalog reader of text() (a catalog entry with its provenance, a stale one skipped)
-Requires: omx-contract-data >= 3.21.0
+# the catalog reader of text(), imported as omx_contract.catalog (a catalog entry with its provenance, a stale one skipped)
+Requires: python3-omx-contract
 
 %description -n python3-plugin-db
 The Python module plugin_db: query() gives the answer of plugin-db query --json
@@ -113,12 +115,13 @@ make test
 %{_libdir}/libplugin-db.a
 %{_libdir}/pkgconfig/plugin-db.pc
 
-%files contract
+%files -n plugin-db-contract
 %license COPYING
 %{omx_contract_domain_dir}/plugin-db/
 %{omx_contract_domain_dir}/format/
 %{omx_contract_domain_dir}/lv2/
 %{omx_contract_domain_dir}/plugin-feature/
+%{omx_contract_domain_dir}/3/plugin-db/
 %dir %{_datadir}/plugin-db/catalogs
 
 %files -n python3-plugin-db
@@ -212,6 +215,10 @@ English source sentence.
 # END langpacks
 
 %changelog
+* Mon Nov 23 2026 Pau Aliagas <linuxnow@gmail.com> - 0.5.1-1
+- The domain lv2 reads units:coef as the standard unit coef, not "x", which
+  omx-contract 3.22.0 (V23d) no longer has (#72).
+
 * Sun Nov 22 2026 Pau Aliagas <linuxnow@gmail.com> - 0.5.0-1
 - The sorting pass: plugin-db's words live in its own domains. V12: the pin
   verdict and pool words are read from plugin-hostd-protocol's domain pin

@@ -45,7 +45,7 @@ static void open_installed(void)
 
     if (g_formats[0][0])
         return;
-    if (omx_domain_open("plugin-db", "1.0.0", &d, &err) != 0)
+    if (omx_domain_open("plugin-db", NULL, &d, &err) != 0)
     {
         snprintf(g_why, sizeof(g_why), "%s: %s", err.code, err.message);
         return;

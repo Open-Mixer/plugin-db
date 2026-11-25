@@ -2,16 +2,19 @@
 # Copyright (C) 2026 Pau Aliagas <linuxnow@gmail.com>
 """The sentence of a word. The answer of the reader stays words; a menu shows the sentence of the word, from the
 catalog of its language, else the owners' source sentence in English (data/, in the generated vocabulary)."""
-import importlib.util
 import json
 import os
 import sys
+
+# omx-contract's catalog reader (python3-omx-contract): a catalog's entry is the sentence or {text, by[, model, source]},
+# and one made from another English sentence is stale and gives the English
+from omx_contract.catalog import sentence_of
 
 from . import vocabulary as v
 
 
 def _installed(*parts):
-    """an installed file or directory: the venv's when the venv holds it (the package installed into the venv), else
+    """an installed directory: the venv's when the venv holds it (the package installed into the venv), else
     the system prefix's, where the packages install it (#14); outside a venv the two prefixes are one"""
     for prefix in (sys.prefix, sys.base_prefix):
         path = os.path.join(prefix, *parts)
@@ -23,19 +26,6 @@ def _installed(*parts):
 #: where the contract package installs the catalogs (<lang>.json, messages keyed <ITEM>.<word>)
 CATALOGS = _installed("share", "plugin-db", "catalogs")
 SOURCE = "en"
-#: omx-contract's catalog reader (omx-contract-data, 3.16.0 or later): a catalog's entry is the sentence or
-#: {text, by[, model, source]}, and one made from another English sentence is stale and gives the English
-READER = _installed("share", "omx-contract", "omx_contract_catalog.py")
-_reader = None
-
-
-def _catalog_reader():
-    global _reader
-    if _reader is None:
-        spec = importlib.util.spec_from_file_location("omx_contract_catalog", READER)
-        _reader = importlib.util.module_from_spec(spec)
-        spec.loader.exec_module(_reader)
-    return _reader
 
 
 def _item(words):
@@ -57,7 +47,7 @@ def text(words, word, lang=SOURCE, catalogs=None):
             catalog = json.load(f)
     except (OSError, ValueError):
         return source
-    said = _catalog_reader().sentence_of(catalog if isinstance(catalog, dict) else None, f"{item}.{word}", source)
+    said = sentence_of(catalog if isinstance(catalog, dict) else None, f"{item}.{word}", source)
     return said if isinstance(said, str) and said else source
 
 

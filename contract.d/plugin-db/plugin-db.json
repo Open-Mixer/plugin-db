@@ -33,7 +33,7 @@
         "x-since": "0.4.1",
         "x-kind": "scalar",
         "x-file": "constants.json",
-        "x-unit": "",
+        "x-unit": "none",
         "x-value": 64
       },
       "PLUGIN_DB_BUNDLE_RULES": {

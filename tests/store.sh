@@ -176,8 +176,12 @@ pdb pin "clap@$sha_b:com.example.synth" --file "$tmp/clap/b/synth.clap" --layout
 if err=$(pdb show clap:com.example.synth 2>&1); then bad "an id two files share answers for one"
 else case $err in *"2 files share the CLAP id com.example.synth"*) ok "an id two files share needs the pin" ;; *) bad "said '$err'" ;; esac; fi
 pdb pin clap:com.example.other --file "$tmp/clap/a/synth.clap"
-if pdb pin clap:com.example.other --file "$tmp/clap/b/synth.clap" 2>/dev/null; then bad "a second file takes an id's entry"
-else ok "a second file of an id is refused its entry"; fi
+if err=$(pdb pin clap:com.example.other --file "$tmp/clap/b/synth.clap" 2>&1); then bad "a second file takes an id's entry"
+else case $err in
+    *"$tmp/clap/a/synth.clap and $tmp/clap/b/synth.clap share the CLAP id com.example.other"*)
+        ok "a second file of an id is refused its entry, naming both files" ;;
+    *) bad "the refusal of a second file said '$err'" ;;
+    esac; fi
 expect "a CLAP entry" files same "clap@$sha_b:com.example.synth" $HERE
 rm "$tmp/clap/b/synth.clap"
 expect "a CLAP file gone" state absent "clap@$sha_b:com.example.synth" $HERE
