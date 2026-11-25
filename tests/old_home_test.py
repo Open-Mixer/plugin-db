@@ -35,7 +35,7 @@ def check(ok, what):
 
 def poison(std):
     """write a changed copy of each old home into the standard std"""
-    om = os.path.join(std, "3", "omx-contract")
+    om = os.path.join(std, "omx-contract")
     os.makedirs(os.path.join(om, "formats", "lv2"), exist_ok=True)
     json.dump({"LV2_WORKER_TERMS": {"kind": "terms", "doc": "poisoned", "format": "lv2",
                                     "spec": "http://lv2plug.in/ns/ext/worker", "version": "0.0",

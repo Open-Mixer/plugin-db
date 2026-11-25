@@ -132,8 +132,8 @@ def by_term(doc, item):
 
 def resource_profile(std_dir):
     """(RESOURCE_KINDS words, RESOURCE_UNITS words) of the standard, from the one form omx-contract installs them in,
-    <contractdir>/3/omx-contract/resource-profile.json; None when it is not there"""
-    p = os.path.join(std_dir, "3", "omx-contract", "resource-profile.json")
+    <contractdir>/omx-contract/resource-profile.json; None when it is not there"""
+    p = os.path.join(std_dir, "omx-contract", "resource-profile.json")
     if not os.path.exists(p):
         return None
     d = json.load(open(p))
@@ -269,7 +269,7 @@ def main():
           + ("" if not bad else ": " + "; ".join(bad)))
 
     rp = resource_profile(cdir)
-    check(rp is not None, f"the standard holds RESOURCE_KINDS and RESOURCE_UNITS ({cdir}/3/omx-contract/resource-profile.json)")
+    check(rp is not None, f"the standard holds RESOURCE_KINDS and RESOURCE_UNITS ({cdir}/omx-contract/resource-profile.json)")
     rkinds, runits = rp or (set(), set())
     bad = resource_refusals(doc, rkinds, runits)
     check(not bad, "F1: every resource word names held terms once and is a RESOURCE_KINDS word; the resource units are"
