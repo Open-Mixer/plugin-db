@@ -31,7 +31,7 @@
  * @brief The numbers plugin-db declares: the length of a digest written in hex. */
 
 /** the numbers plugin-db declares */
-/** The characters of a SHA-256 digest written in hex, two a byte: the length of every file digest a pin records and of the buffer a reader writes one into. Declared here so that a consumer that needs the length and no digest (plugin-hostd's command parser) reads it without OpenSSL; pin.h names it PHD_SHA256_HEX_LEN. (none; since 0.4.1) */
+/** The characters of a SHA-256 digest written in hex, two a byte: the length of every file digest a pin records and of the buffer a reader writes one into. Declared here so that a consumer that needs the length and no digest (plugin-hostd's command parser) reads it without OpenSSL; pin.h names it PHD_SHA256_HEX_LEN. (none; since 0.1.0) */
 #define OMX_PLUGIN_DB_PIN_SHA256_HEX_LEN 64
 
 #endif /* PLUGIN_DB_CONSTANTS_H */

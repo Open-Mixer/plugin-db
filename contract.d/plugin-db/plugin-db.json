@@ -3,7 +3,7 @@
   "$id": "https://openmixer.org/contract/plugin-db",
   "info": {
     "title": "The words of the plugin database",
-    "version": "0.5.1",
+    "version": "0.1.0",
     "x-owner": "plugin-db",
     "x-stability": "experimental"
   },
@@ -11,7 +11,7 @@
     "schemas": {
       "PLUGIN_DB_ADDRESS_FORMATS": {
         "description": "The one address form of a plugin: <format>:<id>, or clap@<sha256>:<id> when several files share one CLAP id, the sha256 that of the .clap file. An LV2 address carries no sha256: the bundle rule makes one bundle the plugin. A path is never part of an address, so a session keeps its plugins on another machine. The format is one of these words; an id is the plugin's own, its CLAP id or its LV2 URI, and a CLAP id that begins with '/' is a path and no address.",
-        "x-since": "0.5.1",
+        "x-since": "0.1.0",
         "x-c-codes": true,
         "oneOf": [
           {
@@ -30,7 +30,7 @@
       },
       "PLUGIN_DB_PIN_SHA256_HEX_LEN": {
         "description": "The characters of a SHA-256 digest written in hex, two a byte: the length of every file digest a pin records and of the buffer a reader writes one into. Declared here so that a consumer that needs the length and no digest (plugin-hostd's command parser) reads it without OpenSSL; pin.h names it PHD_SHA256_HEX_LEN.",
-        "x-since": "0.4.1",
+        "x-since": "0.1.0",
         "x-kind": "scalar",
         "x-file": "constants.json",
         "x-unit": "none",
@@ -38,7 +38,7 @@
       },
       "PLUGIN_DB_BUNDLE_RULES": {
         "description": "Which LV2 bundle is the plugin, when several bundles of the search path name it: the one rule in force, and the only word of this item. A bundle realises the plugin when its manifest names the plugin with an lv2:binary; one that only names it (a MOD GUI, a preset bundle) complements it. The candidates are the realising bundles, or, when none realises it, the bundles that name it.",
-        "x-since": "0.2.0",
+        "x-since": "0.1.0",
         "oneOf": [
           {
             "const": "newest-version",
@@ -52,7 +52,7 @@
       },
       "PLUGIN_DB_LAYERS": {
         "description": "The layers of an entry, each with one writer. An entry is a directory of the store, and each layer is one file of it, the word and .json, in the envelope data/store.schema.json declares. The entry is the join of its layers at read time and is never stored.",
-        "x-since": "0.2.0",
+        "x-since": "0.1.0",
         "oneOf": [
           {
             "const": "declared",
@@ -114,7 +114,7 @@
       },
       "PLUGIN_DB_FILES": {
         "description": "What the check found of the plugin's files against its pinned layer, as rpm -V reports an attribute. Could not test is never same.",
-        "x-since": "0.2.0",
+        "x-since": "0.1.0",
         "oneOf": [
           {
             "const": "same",
@@ -146,7 +146,7 @@
       },
       "PLUGIN_DB_LAYOUT": {
         "description": "What the check found of the plugin's parameter layout against the layout fingerprint of its pinned layer.",
-        "x-since": "0.2.0",
+        "x-since": "0.1.0",
         "oneOf": [
           {
             "const": "same",
@@ -172,7 +172,7 @@
       },
       "PLUGIN_DB_RECORD": {
         "description": "Whether the judged layer, the record, answers for these bytes on this machine now.",
-        "x-since": "0.2.0",
+        "x-since": "0.1.0",
         "oneOf": [
           {
             "const": "current",
@@ -201,7 +201,7 @@
       },
       "PLUGIN_DB_RECORD_ACTIONS": {
         "description": "What a change since a record was written asks for, each in the group of PLUGIN_DB_RECORD it leaves the record in.",
-        "x-since": "0.2.0",
+        "x-since": "0.1.0",
         "x-groups": "PLUGIN_DB_RECORD",
         "oneOf": [
           {
@@ -250,7 +250,7 @@
       },
       "PLUGIN_DB_RECORD_CHANGES": {
         "description": "What may have changed since a record was written, each the row of the staleness table with the action it asks for. When several changed, the first in this order answers.",
-        "x-since": "0.2.0",
+        "x-since": "0.1.0",
         "x-groups": "PLUGIN_DB_RECORD_ACTIONS",
         "oneOf": [
           {
@@ -315,7 +315,7 @@
       },
       "PLUGIN_DB_STATES": {
         "description": "What a plugin is, from its attributes, its record, a shipped record and a warned override, answered by one function and by no reader for itself. There is no upgraded and no crashed state: new bytes have no record, so they are unqualified. Each state is in the group of PLUGIN_DB_RUNS it runs as; a refusal a warned override covers runs alone instead.",
-        "x-since": "0.2.0",
+        "x-since": "0.1.0",
         "x-groups": "PLUGIN_DB_RUNS",
         "oneOf": [
           {
@@ -372,7 +372,7 @@
       },
       "PLUGIN_DB_RUNS": {
         "description": "How a state runs at load.",
-        "x-since": "0.2.0",
+        "x-since": "0.1.0",
         "oneOf": [
           {
             "const": "shared",
@@ -401,7 +401,7 @@
       },
       "PLUGIN_DB_REASONS": {
         "description": "Why a plugin is in its state, each in the group of PLUGIN_DB_STATES it explains: what show prints beside the state.",
-        "x-since": "0.2.0",
+        "x-since": "0.1.0",
         "x-groups": "PLUGIN_DB_STATES",
         "oneOf": [
           {
@@ -538,7 +538,7 @@
       },
       "PLUGIN_DB_ISOLATION_HOSTS": {
         "description": "The hosts a verdict of isolated must have been measured under to make a plugin isolated only: a record that says alone and names another host leaves the plugin unqualified.",
-        "x-since": "0.2.0",
+        "x-since": "0.1.0",
         "oneOf": [
           {
             "const": "plugin-hostd",
@@ -552,7 +552,7 @@
       },
       "PLUGIN_DB_SOURCES": {
         "description": "Where the record that answers comes from, as show prints it.",
-        "x-since": "0.2.0",
+        "x-since": "0.1.0",
         "oneOf": [
           {
             "const": "none",
@@ -581,7 +581,7 @@
       },
       "PLUGIN_DB_BAR": {
         "description": "The bar a person sets for what may load, a user setting on both surfaces whose three words are declared here and read by plugin-hostd and both surfaces: the picker's and the menu's default view follow it. It filters a view and never changes what the reader answers; a refused plugin stays listed with its reason.",
-        "x-since": "0.3.0",
+        "x-since": "0.1.0",
         "oneOf": [
           {
             "const": "qualified-only",
@@ -610,7 +610,7 @@
       },
       "PLUGIN_DB_LATENCY": {
         "description": "Where a measured latency figure stands against the latency line, which plugin-qualify's judgement declares once and writes into the record as latencyLineMs beside the figure of each cell as latencyMs. Over the line is information: the plugin loads. A record without the line, or a cell without the figure, is unmeasured and never a guess.",
-        "x-since": "0.3.0",
+        "x-since": "0.1.0",
         "oneOf": [
           {
             "const": "within",

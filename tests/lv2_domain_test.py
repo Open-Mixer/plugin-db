@@ -91,7 +91,7 @@ def terms_of(item):
 
 def data_form(name, item):
     """the item as omx-contract's LV2 formats directory held it, the shape the golden digest hashes; its since is left out, a
-    version of the domain that holds it (the package's in lv2, omx-contract's own release before)"""
+    version of the domain that holds it (0.1.0 in lv2, omx-contract's own release before)"""
     out = {"kind": "terms", "doc": item["description"], "format": item["x-format"],
            "spec": item["x-spec"], "version": item["x-version"]}
     if "x-deprecated" in item:
