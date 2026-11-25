@@ -6,9 +6,7 @@
     "version": "1.0.0",
     "x-owner": "plugin-db",
     "x-stability": "experimental",
-    "x-requires": {
-      "lv2": ">= 1.0.0"
-    }
+    "x-requires": ["lv2"]
   },
   "components": {
     "schemas": {
