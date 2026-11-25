@@ -5,7 +5,8 @@
 
 (a) golden: the 24 LV2_*_TERMS of the domain lv2, read as a reader reads them (each item's terms by key), have the
     digest of tests/golden/lv2-terms.digest, frozen from omx-contract 3.20.2's LV2 formats directory (each item's since left out, and the 20 users
-    omx-contract's plugin-features file named by their new home, plugin-db's domain plugin-feature); the domain format's
+    omx-contract's plugin-features file named by their new home, plugin-db's domain plugin-feature, and the words of
+    units:coef and units:pc the unit ids of omx-contract 3.22.0, coef and percent); the domain format's
     two items have their golden words; the F1 lookups (an LV2 unit, designation or port property -> its standard word)
     give the golden standard words, and so do the resource lookups (an LV2 term of a resource -> its RESOURCE_KINDS
     word through LV2_RESOURCE_KINDS; units:frame, units:ms, units:s -> frames, ms, s through LV2_UNIT_IDS), frozen from
@@ -43,13 +44,13 @@ GOLDEN_KINDS = ["specification", "class", "plugin-class", "property", "datatype"
 GOLDEN_STATUSES = ["used", "supported-later", "out-of-scope"]
 # F1 frozen: the LV2 table plugin-hostd maps today (its lv2 formats file's lookups) and the grown standard list
 GOLDEN_UNITS = {"units:bar": "bar", "units:beat": "beat", "units:bpm": "bpm", "units:cent": "cents", "units:cm": "cm",
-                "units:coef": "x", "units:db": "dB", "units:degree": "deg", "units:frame": "frames", "units:hz": "Hz",
+                "units:coef": "coef", "units:db": "dB", "units:degree": "deg", "units:frame": "frames", "units:hz": "Hz",
                 "units:inch": "inch", "units:khz": "kHz", "units:km": "km", "units:m": "m", "units:mhz": "MHz",
                 "units:midiNote": "midiNote", "units:mile": "mile", "units:min": "min", "units:mm": "mm",
                 "units:ms": "ms", "units:oct": "oct", "units:pc": "percent", "units:s": "s",
                 "units:semitone12TET": "st", "urn:openmixer:unit#dBFS": "dBFS", "urn:openmixer:unit#LUFS": "LUFS",
                 "urn:openmixer:unit#ratio": "ratio", "urn:openmixer:unit#dBu": "dBu",
-                "urn:openmixer:unit#dBoct": "dB-oct"}
+                "urn:openmixer:unit#dBoct": "dBPerOct"}
 GOLDEN_MEANINGS = {k: k for k in ["attack", "bypass", "cutoffFrequency", "decay", "delay", "frequency", "gain", "hold",
                                   "ratio", "release", "resonance", "threshold", "wetDryRatio", "enabled"]}
 GOLDEN_SCALES = {"integer": "stepped", "logarithmic": "log"}
