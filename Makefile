@@ -81,7 +81,7 @@ install-python:
 test-tu-split:
 	CC='$(CC)' CFLAGS='$(PROTOCOL_CFLAGS) $(DOMAIN_CFLAGS) $(CRYPTO_CFLAGS)' sh tests/tu-split.sh
 
-test: test-tu-split test-constants-alone test-pin test-pin-read test-pin-old-items check-tables check-ts test-py test-state test-collect test-store test-golden test-install test-sabotage test-db-sabotage version-check test-version-check check-control
+test: test-tu-split test-constants-alone test-pin test-pin-read test-pin-old-items check-tables check-ts test-py test-state test-collect test-store test-golden test-install test-owner-manifest test-sabotage test-db-sabotage version-check test-version-check check-control
 
 tests/pin_test: tests/pin_test.c $(HEADERS)
 	$(CC) -Iinclude $(CRYPTO_CFLAGS) $(CFLAGS) -Werror -o $@ tests/pin_test.c $(CRYPTO_LIBS)
@@ -190,6 +190,11 @@ deps-check:
 test-install:
 	sh tests/install-check.sh
 
+# plugin-db owns its domains: install-contract writes its owner manifest (#84)
+.PHONY: test-owner-manifest
+test-owner-manifest:
+	sh tests/owner-manifest.sh
+
 # every rule and every byte of the format has an arm that must go red
 test-sabotage:
 	sh tests/sabotage.sh
@@ -258,15 +263,15 @@ test-db-domain:
 check-ci-matrix:
 	sh tests/ci-matrix-follows-set.sh --self-test
 
-# plugin-db's domains (plugin-db, format, lv2, plugin-feature) as omx-contract's script installs a domain,
-# <contractdir>/<domain>/; data/store.schema.json is a JSON Schema of the store, not a file of omx-contract's: it is
+# plugin-db's domains, each as omx-contract's script installs a domain at <contractdir>/<domain>/, and the owner
+# manifest that names them, <contractdir>/3/plugin-db/MANIFEST.json (#84: a domain requiring plugin-db reads the package
+# as installed); data/store.schema.json is a JSON Schema of the store, not a file of omx-contract's: it is
 # installed to $(DATADIR)/plugin-db/, never into the contract directory
+CONTRACT_DOMAINS = plugin-db format lv2 plugin-feature
 install-contract:
 	@test -n "$(INSTALL_CONTRACT_DIR)" || { echo "install-contract: no install-contract-dir.sh: install omx-contract-devel (its --domain mode names the installing package), or set OMX_CONTRACT_DIR to a checkout" >&2; exit 1; }
-	sh $(INSTALL_CONTRACT_DIR) --domain contract.d/plugin-db $(DESTDIR)$(CONTRACTDIR) $(NAME)
-	sh $(INSTALL_CONTRACT_DIR) --domain contract.d/format $(DESTDIR)$(CONTRACTDIR) $(NAME)
-	sh $(INSTALL_CONTRACT_DIR) --domain contract.d/lv2 $(DESTDIR)$(CONTRACTDIR) $(NAME)
-	sh $(INSTALL_CONTRACT_DIR) --domain contract.d/plugin-feature $(DESTDIR)$(CONTRACTDIR) $(NAME)
+	for d in $(CONTRACT_DOMAINS); do sh $(INSTALL_CONTRACT_DIR) --domain contract.d/$$d $(DESTDIR)$(CONTRACTDIR) $(NAME) || exit 1; done
+	sh $(INSTALL_CONTRACT_DIR) --owner $(NAME) $(VERSION) 3 $(DESTDIR)$(CONTRACTDIR) $(CONTRACT_DOMAINS)
 	install -d $(DESTDIR)$(DATADIR)/$(NAME)/catalogs
 	install -m 644 catalogs/*.json $(DESTDIR)$(DATADIR)/$(NAME)/catalogs/
 
@@ -396,3 +401,7 @@ docs-site:
 	cp -a $(BUILD)/doxygen/html/. $(DOCS_OUT)/api/
 	cp README.md COPYING $(DOCS_OUT)/
 	cp man/plugin-db.1 $(DOCS_OUT)/man/
+# the contract directory install-contract writes under (tests/owner-manifest.sh)
+.PHONY: print-contractdir
+print-contractdir:
+	@echo $(CONTRACTDIR)

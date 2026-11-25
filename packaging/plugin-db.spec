@@ -121,6 +121,7 @@ make test
 %{omx_contract_domain_dir}/format/
 %{omx_contract_domain_dir}/lv2/
 %{omx_contract_domain_dir}/plugin-feature/
+%{omx_contract_domain_dir}/3/plugin-db/
 %dir %{_datadir}/plugin-db/catalogs
 
 %files -n python3-plugin-db
