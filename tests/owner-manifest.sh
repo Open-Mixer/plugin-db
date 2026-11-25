@@ -20,9 +20,10 @@ if [ -f "$m" ]; then
   want="plugin-db $(cat "$here/VERSION") format lv2 plugin-db plugin-feature"
   [ "$got" = "$want" ] && ok "the manifest names plugin-db $(cat "$here/VERSION") and its four domains" || bad "the manifest is '$got', not '$want'"
 fi
-# read back: every domain is still read beside the manifest (an old reader hides the domain named like its package)
+# read back: every domain is still read beside the manifest (an old reader hides the domain named like its package);
+# plugin-db's install alone, so another owner's installed files (theirs to keep valid) never decide this check
 if command -v omx-contract >/dev/null; then
-  out=$(OMX_CONTRACT_PATH="$tmp$cdir:$cdir" omx-contract validate --installed 2>&1) && ok "omx-contract validates the directory with the manifest" \
+  out=$(OMX_CONTRACT_PATH="$tmp$cdir" omx-contract validate --installed 2>&1) && ok "omx-contract validates the directory with the manifest" \
     || { echo "$out" | tail -5; bad "omx-contract refuses the directory with the manifest"; }
 else
   bad "no omx-contract command"
