@@ -58,6 +58,9 @@ jobs:
       republish: ${{ github.event_name == 'workflow_dispatch' && inputs.republish == true }}
       catch-up: ${{ github.event_name == 'workflow_dispatch' && inputs.catch-up == true }}
       needs-mod-host: false
+      # x86_64 only: plugin-hostd-protocol-devel, a build requirement, has no Fedora aarch64 RPM (omx-dsp builds none, owner ruling 2026-11-19), and a devel
+      # push builds the full matrix of this list
+      arch-matrix: '["x86_64"]'
       # omx-contract-devel (the contract directory's install script) is the channel's
       channel-deps: true
     secrets: inherit
