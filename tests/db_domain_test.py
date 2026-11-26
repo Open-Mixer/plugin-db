@@ -1,9 +1,10 @@
 # SPDX-License-Identifier: GPL-3.0-or-later
 # Copyright (C) 2026 Pau Aliagas <linuxnow@gmail.com>
-"""plugin-db's 18 items are its domain plugin-db (contract.d/plugin-db/plugin-db.json), sorting pass rows V11 and V13.
+"""plugin-db's 16 items are its domain plugin-db (contract.d/plugin-db/plugin-db.json), sorting pass rows V11 and V13; the pin
+    keys and changes are plugin-hostd-protocol's since plugin-db#34 (18 before).
 
 (a) golden: tools/dbwords.py, the read every render of plugin-db makes (render-db, render-py, render-ts through
-    tools/pinwords.py), gives the 18 items with the digest of tests/golden/plugin-db-words.digest, frozen from the pin, db and constants
+    tools/pinwords.py), gives the 16 items with the digest of tests/golden/plugin-db-words.digest, frozen from the pin, db and constants
     files of data/ before the move, and each in the file it came from;
 (b) one source: data/ holds no file of the contract directory (store.schema.json, the store's own schema, alone), and no
     file of the tree outside contract.d/ and the changelogs names the pin, db or constants file of data/ as
@@ -27,7 +28,7 @@ FILES = {"constants.json": ["PLUGIN_DB_PIN_SHA256_HEX_LEN"],
                      "PLUGIN_DB_RECORD", "PLUGIN_DB_RECORD_ACTIONS", "PLUGIN_DB_RECORD_CHANGES", "PLUGIN_DB_STATES",
                      "PLUGIN_DB_RUNS", "PLUGIN_DB_REASONS", "PLUGIN_DB_ISOLATION_HOSTS", "PLUGIN_DB_SOURCES",
                      "PLUGIN_DB_BAR", "PLUGIN_DB_LATENCY"],
-         "pin.json": ["PLUGIN_DB_PIN_KEYS", "PLUGIN_DB_PIN_CHANGES", "PLUGIN_DB_PIN_LAYOUT_FORMATS"]}
+         "pin.json": ["PLUGIN_DB_PIN_LAYOUT_FORMATS"]}
 
 failures = []
 

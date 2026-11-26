@@ -1,9 +1,10 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://openmixer.org/contract/lv2",
+  "x-omx-contract": "0.23",
   "info": {
     "title": "The LV2 terms",
-    "version": "1.0.0",
+    "version": "0.1.0",
     "x-owner": "plugin-db",
     "x-stability": "experimental"
   },
@@ -11,7 +12,7 @@
     "schemas": {
       "LV2_ATOM_TERMS": {
         "description": "The terms of the LV2 Atom specification (atom.lv2, from lv2 1.18.10), each mapped under its own name with its status for us (docs/data-layout.md).",
-        "x-since": "1.0.0",
+        "x-since": "0.1.0",
         "oneOf": [
           {
             "const": "Atom",
@@ -410,7 +411,7 @@
       },
       "LV2_BUF_SIZE_TERMS": {
         "description": "The terms of the LV2 Buf Size specification (buf-size.lv2, from lv2 1.18.10), each mapped under its own name with its status for us (docs/data-layout.md).",
-        "x-since": "1.0.0",
+        "x-since": "0.1.0",
         "oneOf": [
           {
             "const": "boundedBlockLength",
@@ -545,7 +546,7 @@
       },
       "LV2_CORE_TERMS": {
         "description": "The terms of the LV2 specification (core.lv2, from lv2 1.18.10), each mapped under its own name with its status for us (docs/data-layout.md).",
-        "x-since": "1.0.0",
+        "x-since": "0.1.0",
         "oneOf": [
           {
             "const": "AllpassPlugin",
@@ -1835,7 +1836,7 @@
       },
       "LV2_DATA_ACCESS_TERMS": {
         "description": "The terms of the data access specification (data-access.lv2, from lv2 1.18.10), each mapped under its own name with its status for us (docs/data-layout.md).",
-        "x-since": "1.0.0",
+        "x-since": "0.1.0",
         "oneOf": [
           {
             "const": "data-access.lv2",
@@ -1858,7 +1859,7 @@
       },
       "LV2_DYNMANIFEST_TERMS": {
         "description": "The terms of the LV2 Dyn Manifest specification (dynmanifest.lv2, from lv2 1.18.10), each mapped under its own name with its status for us (docs/data-layout.md).",
-        "x-since": "1.0.0",
+        "x-since": "0.1.0",
         "oneOf": [
           {
             "const": "DynManifest",
@@ -1890,7 +1891,7 @@
       },
       "LV2_EVENT_TERMS": {
         "description": "The terms of the LV2 Event specification (event.lv2, from lv2 1.18.10), each mapped under its own name with its status for us (docs/data-layout.md).",
-        "x-since": "1.0.0",
+        "x-since": "0.1.0",
         "oneOf": [
           {
             "const": "Event",
@@ -2029,7 +2030,7 @@
       },
       "LV2_INSTANCE_ACCESS_TERMS": {
         "description": "The terms of the instance access specification (instance-access.lv2, from lv2 1.18.10), each mapped under its own name with its status for us (docs/data-layout.md).",
-        "x-since": "1.0.0",
+        "x-since": "0.1.0",
         "oneOf": [
           {
             "const": "instance-access.lv2",
@@ -2052,7 +2053,7 @@
       },
       "LV2_LOG_TERMS": {
         "description": "The terms of the LV2 Log specification (log.lv2, from lv2 1.18.10), each mapped under its own name with its status for us (docs/data-layout.md).",
-        "x-since": "1.0.0",
+        "x-since": "0.1.0",
         "oneOf": [
           {
             "const": "Entry",
@@ -2153,7 +2154,7 @@
       },
       "LV2_MIDI_TERMS": {
         "description": "The terms of the LV2 MIDI specification (midi.lv2, from lv2 1.18.10), each mapped under its own name with its status for us (docs/data-layout.md).",
-        "x-since": "1.0.0",
+        "x-since": "0.1.0",
         "oneOf": [
           {
             "const": "ActiveSense",
@@ -2633,7 +2634,7 @@
       },
       "LV2_MORPH_TERMS": {
         "description": "The terms of the LV2 Morph specification (morph.lv2, from lv2 1.18.10), each mapped under its own name with its status for us (docs/data-layout.md).",
-        "x-since": "1.0.0",
+        "x-since": "0.1.0",
         "oneOf": [
           {
             "const": "AutoMorphPort",
@@ -2698,7 +2699,7 @@
       },
       "LV2_OPTIONS_TERMS": {
         "description": "The terms of the LV2 Options specification (options.lv2, from lv2 1.18.10), each mapped under its own name with its status for us (docs/data-layout.md).",
-        "x-since": "1.0.0",
+        "x-since": "0.1.0",
         "oneOf": [
           {
             "const": "Option",
@@ -2781,7 +2782,7 @@
       },
       "LV2_PARAMETERS_TERMS": {
         "description": "The terms of the LV2 Parameters specification (parameters.lv2, from lv2 1.18.10), each mapped under its own name with its status for us (docs/data-layout.md).",
-        "x-since": "1.0.0",
+        "x-since": "0.1.0",
         "oneOf": [
           {
             "const": "CompressorControls",
@@ -3120,7 +3121,7 @@
       },
       "LV2_PATCH_TERMS": {
         "description": "The terms of the LV2 Patch specification (patch.lv2, from lv2 1.18.10), each mapped under its own name with its status for us (docs/data-layout.md).",
-        "x-since": "1.0.0",
+        "x-since": "0.1.0",
         "oneOf": [
           {
             "const": "Ack",
@@ -3461,7 +3462,7 @@
       },
       "LV2_PORT_GROUPS_TERMS": {
         "description": "The terms of the LV2 Port Groups specification (port-groups.lv2, from lv2 1.18.10), each mapped under its own name with its status for us (docs/data-layout.md).",
-        "x-since": "1.0.0",
+        "x-since": "0.1.0",
         "oneOf": [
           {
             "const": "ACN0",
@@ -4199,7 +4200,7 @@
       },
       "LV2_PORT_PROPS_TERMS": {
         "description": "The terms of the LV2 Port Properties specification (port-props.lv2, from lv2 1.18.10), each mapped under its own name with its status for us (docs/data-layout.md).",
-        "x-since": "1.0.0",
+        "x-since": "0.1.0",
         "oneOf": [
           {
             "const": "causesArtifacts",
@@ -4367,7 +4368,7 @@
       },
       "LV2_PRESETS_TERMS": {
         "description": "The terms of the LV2 Presets specification (presets.lv2, from lv2 1.18.10), each mapped under its own name with its status for us (docs/data-layout.md).",
-        "x-since": "1.0.0",
+        "x-since": "0.1.0",
         "oneOf": [
           {
             "const": "Bank",
@@ -4450,7 +4451,7 @@
       },
       "LV2_RESIZE_PORT_TERMS": {
         "description": "The terms of the LV2 Resize Port specification (resize-port.lv2, from lv2 1.18.10), each mapped under its own name with its status for us (docs/data-layout.md).",
-        "x-since": "1.0.0",
+        "x-since": "0.1.0",
         "oneOf": [
           {
             "const": "asLargeAs",
@@ -4508,7 +4509,7 @@
       },
       "LV2_STATE_TERMS": {
         "description": "The terms of the LV2 State specification (state.lv2, from lv2 1.18.10), each mapped under its own name with its status for us (docs/data-layout.md).",
-        "x-since": "1.0.0",
+        "x-since": "0.1.0",
         "oneOf": [
           {
             "const": "State",
@@ -4643,7 +4644,7 @@
       },
       "LV2_TIME_TERMS": {
         "description": "The terms of the LV2 Time specification (time.lv2, from lv2 1.18.10), each mapped under its own name with its status for us (docs/data-layout.md).",
-        "x-since": "1.0.0",
+        "x-since": "0.1.0",
         "oneOf": [
           {
             "const": "Position",
@@ -4828,7 +4829,7 @@
       },
       "LV2_UI_TERMS": {
         "description": "The terms of the LV2 UI specification (ui.lv2, from lv2 1.18.10), each mapped under its own name with its status for us (docs/data-layout.md).",
-        "x-since": "1.0.0",
+        "x-since": "0.1.0",
         "oneOf": [
           {
             "const": "CocoaUI",
@@ -5243,7 +5244,7 @@
       },
       "LV2_UNITS_TERMS": {
         "description": "The terms of the LV2 Units specification (units.lv2, from lv2 1.18.10), each mapped under its own name with its status for us (docs/data-layout.md).",
-        "x-since": "1.0.0",
+        "x-since": "0.1.0",
         "oneOf": [
           {
             "const": "Conversion",
@@ -5710,7 +5711,7 @@
       },
       "LV2_URI_MAP_TERMS": {
         "description": "The terms of the LV2 URI Map specification (uri-map.lv2, from lv2 1.18.10), each mapped under its own name with its status for us (docs/data-layout.md).",
-        "x-since": "1.0.0",
+        "x-since": "0.1.0",
         "oneOf": [
           {
             "const": "uri-map.lv2",
@@ -5733,7 +5734,7 @@
       },
       "LV2_URID_TERMS": {
         "description": "The terms of the LV2 URID specification (urid.lv2, from lv2 1.18.10), each mapped under its own name with its status for us (docs/data-layout.md).",
-        "x-since": "1.0.0",
+        "x-since": "0.1.0",
         "oneOf": [
           {
             "const": "map",
@@ -5787,7 +5788,7 @@
       },
       "LV2_WORKER_TERMS": {
         "description": "The terms of the LV2 Worker specification (worker.lv2, from lv2 1.18.10), each mapped under its own name with its status for us (docs/data-layout.md).",
-        "x-since": "1.0.0",
+        "x-since": "0.1.0",
         "oneOf": [
           {
             "const": "interface",
@@ -5839,7 +5840,7 @@
       },
       "LV2_UNIT_IDS": {
         "description": "F1, the LV2 units mapped to the standard units: one word per unit term of LV2_UNITS_TERMS (kind unit), its x-from the term (the term's uri is the unit as an LV2 file writes it, units:<key>), its const the word of omx-contract's PARAM_UNITS it is. A reader finds the word whose x-from names the term and reads the standard unit; it keeps no table of its own. Every unit term of LV2_UNITS_TERMS has one word here.",
-        "x-since": "1.0.0",
+        "x-since": "0.1.0",
         "oneOf": [
           {
             "const": "bar",
@@ -6134,7 +6135,7 @@
       },
       "LV2_OPENMIXER_UNIT_IDS": {
         "description": "F1 for the OpenMixer unit spellings (Q7): an LV2 file writes urn:openmixer:unit#<name> for a standard unit that units.lv2 has no term for, and the plugin's TTL defines it (units:Unit). One word per spelling, its title the <name> in lower case, its const the word of omx-contract's PARAM_UNITS it is; its description names the URI as written. A reader lower-cases the name after urn:openmixer:unit# and reads the word of that title. Each word's x-uri is the exact urn spelling an LV2 file writes (urn:openmixer:unit#dBoct), which lower-cased after # is its title.",
-        "x-since": "1.0.0",
+        "x-since": "0.1.0",
         "oneOf": [
           {
             "const": "dBFS",
@@ -6183,7 +6184,7 @@
       },
       "LV2_DESIGNATION_MEANINGS": {
         "description": "F1, the LV2 designations mapped to the standard meanings: one word per designation a reader maps, its title the term's key (of LV2_PARAMETERS_TERMS, or LV2_CORE_TERMS for lv2:enabled), its const the standard meaning (omx-contract's descriptor meaning). A designation with no word here maps to no meaning.",
-        "x-since": "1.0.0",
+        "x-since": "0.1.0",
         "oneOf": [
           {
             "const": "attack",
@@ -6358,7 +6359,7 @@
       },
       "LV2_PORT_PROPERTY_SCALES": {
         "description": "F1, the LV2 port properties mapped to the standard scales: one word per port property that sets a control's scale, its title the term's key, its const the word of omx-contract's PARAM_SCALES. lv2:toggled is no scale (a toggle is a kind of control, not a scale), the one port property of the three the mapping names that has no word here.",
-        "x-since": "1.0.0",
+        "x-since": "0.1.0",
         "oneOf": [
           {
             "const": "stepped",
@@ -6389,7 +6390,7 @@
       },
       "LV2_RESOURCE_KINDS": {
         "description": "F1, the LV2 terms mapped to the standard resource kinds: one word per resource kind an LV2 plugin shows through its own terms, its x-from those terms (each named once), its const the word of omx-contract's RESOURCE_KINDS it is (copied from the from of omx-contract's data/resource-profile.json, which no longer names LV2 terms). A reader finds the word whose x-from names the term and reads the standard kind. The resource units LV2 names (units:frame, units:ms, units:s) are words of LV2_UNIT_IDS, whose consts frames, ms and s are also RESOURCE_UNITS words.",
-        "x-since": "1.0.0",
+        "x-since": "0.1.0",
         "oneOf": [
           {
             "const": "latency",

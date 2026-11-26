@@ -28,13 +28,13 @@ pin_pools = Words(
     off="off",
 )
 
-# PLUGIN_DB_PIN_KEYS
+# PIN_KEYS
 pin_keys = Words(
     verdict="verdict",
     pool="pool",
 )
 
-# PLUGIN_DB_PIN_CHANGES
+# PIN_CHANGES
 pin_changes = Words(
     files="files",
     layout="layout",
@@ -397,8 +397,8 @@ reasons_group = {
 ITEMS = {
     "pin_verdicts": "PIN_VERDICTS",
     "pin_pools": "PIN_POOLS",
-    "pin_keys": "PLUGIN_DB_PIN_KEYS",
-    "pin_changes": "PLUGIN_DB_PIN_CHANGES",
+    "pin_keys": "PIN_KEYS",
+    "pin_changes": "PIN_CHANGES",
     "pin_layout_formats": "PLUGIN_DB_PIN_LAYOUT_FORMATS",
     "bundle_rules": "PLUGIN_DB_BUNDLE_RULES",
     "layers": "PLUGIN_DB_LAYERS",

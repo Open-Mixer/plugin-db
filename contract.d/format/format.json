@@ -1,9 +1,10 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://openmixer.org/contract/format",
+  "x-omx-contract": "0.23",
   "info": {
     "title": "The terms every plugin format shares",
-    "version": "1.0.0",
+    "version": "0.1.0",
     "x-owner": "plugin-db",
     "x-stability": "experimental"
   },
@@ -11,7 +12,7 @@
     "schemas": {
       "FORMAT_TERM_KINDS": {
         "description": "What a term of a plugin format is.",
-        "x-since": "1.0.0",
+        "x-since": "0.1.0",
         "oneOf": [
           {
             "const": "specification",
@@ -173,7 +174,7 @@
       },
       "FORMAT_TERM_STATUSES": {
         "description": "What a term is to us.",
-        "x-since": "1.0.0",
+        "x-since": "0.1.0",
         "oneOf": [
           {
             "const": "used",

@@ -1,9 +1,10 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://openmixer.org/contract/plugin-feature",
+  "x-omx-contract": "0.23",
   "info": {
     "title": "The plugin features: what a plugin is, read from its format's own words",
-    "version": "1.0.0",
+    "version": "0.1.0",
     "x-owner": "plugin-db",
     "x-stability": "experimental",
     "x-requires": [
@@ -14,7 +15,7 @@
     "schemas": {
       "PLUGIN_FEATURE_AUDIO_EFFECT": {
         "description": "The CLAP plugin features and LV2 plugin classes that become the descriptor feature audio-effect: every kind of effect, a filter, a dynamics processor, a modulation or a space, and the channel-less roles of a processor (utility, mixing, mastering).",
-        "x-since": "1.0.0",
+        "x-since": "0.1.0",
         "x-why": "The four feature words stay; every CLAP plugin feature and LV2 plugin class is mapped onto them, or onto other, as data (FreeMixer/omx-contract#120). One item per target, so a word is the source term and is named once; a test holds the five items to the terms.",
         "oneOf": [
           {
@@ -555,7 +556,7 @@
       },
       "PLUGIN_FEATURE_INSTRUMENT": {
         "description": "The CLAP plugin features and LV2 plugin classes that become the descriptor feature instrument: notes in, audio out.",
-        "x-since": "1.0.0",
+        "x-since": "0.1.0",
         "oneOf": [
           {
             "const": "clap.drum",
@@ -603,7 +604,7 @@
       },
       "PLUGIN_FEATURE_NOTE_EFFECT": {
         "description": "The CLAP plugin features and LV2 plugin classes that become the descriptor feature note-effect: notes in, notes out.",
-        "x-since": "1.0.0",
+        "x-since": "0.1.0",
         "oneOf": [
           {
             "const": "clap.note-effect",
@@ -627,7 +628,7 @@
       },
       "PLUGIN_FEATURE_ANALYZER": {
         "description": "The CLAP plugin features and LV2 plugin classes that become the descriptor feature analyzer: audio in, a reading out (a note detector reads pitch from audio).",
-        "x-since": "1.0.0",
+        "x-since": "0.1.0",
         "oneOf": [
           {
             "const": "clap.analyzer",
@@ -657,7 +658,7 @@
       },
       "PLUGIN_FEATURE_OTHER": {
         "description": "The CLAP plugin features and LV2 plugin classes that fit none of the four feature words: a channel layout stated as a feature (mono, stereo, surround, ambisonic), and the LV2 classes of a generator, an oscillator, a constant and a function, which take no notes and so are no instrument. A scan carries them in the extension bag.",
-        "x-since": "1.0.0",
+        "x-since": "0.1.0",
         "oneOf": [
           {
             "const": "clap.ambisonic",

@@ -31,8 +31,8 @@ for p in glob.glob("data/*.json"):
         sys.exit(p + " still declares PLUGIN_DB_ADDRESS_FORMATS")
 doc = json.load(open("contract.d/plugin-db/plugin-db.json"))
 item = doc["components"]["schemas"]["PLUGIN_DB_ADDRESS_FORMATS"]
-if doc["info"]["version"] != "1.0.0" or item.get("x-since") != "1.0.0":
-    sys.exit("the domain's own version is 1.0.0 and the item's x-since 1.0.0")
+if doc["info"]["version"] != "0.1.0" or item.get("x-since") != "0.1.0":
+    sys.exit("the domain's own version is 0.1.0 (its vocabulary's, never the package's) and the item's x-since 0.1.0")
 if item.get("x-c-codes") is not True:
     sys.exit("the item is not marked x-c-codes: C switches on its words")
 if [w["const"] for w in item["oneOf"]] != ["clap", "lv2"]:

@@ -5,7 +5,7 @@
 /*
  * GENERATED: DO NOT EDIT BY HAND.
  * Produced by tools/render-db.py from the domain plugin-db (tools/dbwords.py) and data/store.schema.json, and from the domain pin of
- * plugin-hostd-protocol for the verdict and pool words of a pin (PIN_VERDICTS, PIN_POOLS; also their _INIT). Each words item is an
+ * plugin-hostd-protocol for the words of a pin (PIN_VERDICTS, PIN_POOLS, PIN_KEYS, PIN_CHANGES; also their _INIT). Each words item is an
  * enum of its words' indexes in their order, PDB_<ITEM>_<NAME>, the index into the item's _INIT of
  * plugin_db_vocabulary.h (the pin items': of this file); a grouped item has a _GROUP_INIT, the index of each word's group in the item it names.
  * The store layout is x-plugin-db-store's, PDB_STORE_<NAME>, and every key the schema declares is PDB_KEY_<NAME>.
@@ -30,19 +30,21 @@ enum {
 #define PDB_PIN_POOLS_COUNT 2
 #define PDB_PIN_POOLS_INIT { "cores", "off" }
 
-/* PLUGIN_DB_PIN_KEYS */
+/* PIN_KEYS */
 enum {
     PDB_PIN_KEYS_VERDICT = 0,
     PDB_PIN_KEYS_POOL = 1,
 };
 #define PDB_PIN_KEYS_COUNT 2
+#define PDB_PIN_KEYS_INIT { "verdict", "pool" }
 
-/* PLUGIN_DB_PIN_CHANGES */
+/* PIN_CHANGES */
 enum {
     PDB_PIN_CHANGES_FILES = 0,
     PDB_PIN_CHANGES_LAYOUT = 1,
 };
 #define PDB_PIN_CHANGES_COUNT 2
+#define PDB_PIN_CHANGES_INIT { "files", "layout" }
 
 /* PLUGIN_DB_PIN_LAYOUT_FORMATS */
 enum {

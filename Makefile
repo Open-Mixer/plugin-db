@@ -92,7 +92,7 @@ tests/pin_test: tests/pin_test.c $(HEADERS)
 test-pin-read:
 	PIN_DOMAIN_DIR='$(PIN_DOMAIN_DIR)' CC='$(CC)' python3 tests/pin_read_test.py
 
-# plugin-db holds neither of the two pin items that moved to plugin-hostd-protocol, in data/, the vocabulary or any file (tests/pin_old_items_test.py)
+# plugin-db holds none of the four pin items that are plugin-hostd-protocol's (its domain pin), in data/, the vocabulary or any file (tests/pin_old_items_test.py)
 .PHONY: test-pin-old-items
 test-pin-old-items:
 	python3 tests/pin_old_items_test.py
@@ -219,7 +219,6 @@ test-version-check:
 #   check-contract-dir  the installed domains validate with the installed contract directory, and catalogs/ against them
 #   check-ci-matrix     no CI matrix names bookworm by hand: the cells follow OMX_RELEASE_MATRIX (ruling D25), self-tested
 OMX_CONTRACT ?= omx-contract
-CONTRACT_SCHEMA_MAJOR = 3
 CONTRACTDIR = $(or $(shell $(PKG_CONFIG) --variable=contractdir omx-contract 2>/dev/null),$(DATADIR)/omx-contract/contract.d)
 # the contract directory holding plugin-hostd-protocol's domain pin (pin/pin.json), the words of a pin's verdict and pool
 PIN_DOMAIN_DIR ?= $(CONTRACTDIR)
@@ -264,14 +263,14 @@ check-ci-matrix:
 	sh tests/ci-matrix-follows-set.sh --self-test
 
 # plugin-db's domains, each as omx-contract's script installs a domain at <contractdir>/<domain>/, and the owner
-# manifest that names them, <contractdir>/3/plugin-db/MANIFEST.json (#84: a domain requiring plugin-db reads the package
+# manifest that names them, <contractdir>/plugin-db/MANIFEST.json (#84: a domain requiring plugin-db reads the package
 # as installed); data/store.schema.json is a JSON Schema of the store, not a file of omx-contract's: it is
 # installed to $(DATADIR)/plugin-db/, never into the contract directory
 CONTRACT_DOMAINS = plugin-db format lv2 plugin-feature
 install-contract:
 	@test -n "$(INSTALL_CONTRACT_DIR)" || { echo "install-contract: no install-contract-dir.sh: install omx-contract-devel (its --domain mode names the installing package), or set OMX_CONTRACT_DIR to a checkout" >&2; exit 1; }
 	for d in $(CONTRACT_DOMAINS); do sh $(INSTALL_CONTRACT_DIR) --domain contract.d/$$d $(DESTDIR)$(CONTRACTDIR) $(NAME) || exit 1; done
-	sh $(INSTALL_CONTRACT_DIR) --owner $(NAME) $(VERSION) 3 $(DESTDIR)$(CONTRACTDIR) $(CONTRACT_DOMAINS)
+	sh $(INSTALL_CONTRACT_DIR) --owner $(NAME) $(VERSION) $(DESTDIR)$(CONTRACTDIR) $(CONTRACT_DOMAINS)
 	install -d $(DESTDIR)$(DATADIR)/$(NAME)/catalogs
 	install -m 644 catalogs/*.json $(DESTDIR)$(DATADIR)/$(NAME)/catalogs/
 
