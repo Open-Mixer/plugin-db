@@ -1,5 +1,5 @@
 Name: plugin-db
-Version: 0.5.1
+Version: 0.5.2
 Release: 1%{?dist}
 License: GPL-3.0-or-later
 Summary: The plugin database: the pin, the address form, the store and the state
@@ -214,6 +214,13 @@ English source sentence.
 # END langpacks
 
 %changelog
+* Thu Nov 26 2026 Pau Aliagas <linuxnow@gmail.com> - 0.5.2-1
+- The RPMs are built for Fedora aarch64 as well as x86_64: the release
+  matrix is Open-Mixer/.github's shared releases and architectures, with no
+  list of this repository's own.
+- Published by the devel release of the full matrix, with every change
+  merged to devel since 0.5.1.
+
 * Mon Nov 23 2026 Pau Aliagas <linuxnow@gmail.com> - 0.5.1-1
 - The domain lv2 reads units:coef as the standard unit coef, not "x", which
   omx-contract 3.22.0 (V23d) no longer has (#72).
