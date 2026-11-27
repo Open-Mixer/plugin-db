@@ -4,7 +4,7 @@
   "x-omx-contract": "0.23",
   "info": {
     "title": "The plugin features: what a plugin is, read from its format's own words",
-    "version": "0.1.0",
+    "version": "0.2.0",
     "x-owner": "plugin-db",
     "x-stability": "experimental",
     "x-requires": [
@@ -17,6 +17,7 @@
         "description": "The CLAP plugin features and LV2 plugin classes that become the descriptor feature audio-effect: every kind of effect, a filter, a dynamics processor, a modulation or a space, and the channel-less roles of a processor (utility, mixing, mastering).",
         "x-since": "0.1.0",
         "x-why": "The four feature words stay; every CLAP plugin feature and LV2 plugin class is mapped onto them, or onto other, as data (FreeMixer/omx-contract#120). One item per target, so a word is the source term and is named once; a test holds the five items to the terms.",
+        "x-groups": "PLUGIN_FEATURE_ROLES",
         "oneOf": [
           {
             "const": "clap.audio-effect",
@@ -28,67 +29,78 @@
             "const": "clap.chorus",
             "title": "clapChorus",
             "x-code": 1,
-            "x-text": "The CLAP plugin feature chorus: an effect that thickens a sound with detuned, delayed copies of it."
+            "x-text": "The CLAP plugin feature chorus: an effect that thickens a sound with detuned, delayed copies of it.",
+            "x-group": "modulation"
           },
           {
             "const": "clap.compressor",
             "title": "clapCompressor",
             "x-code": 2,
-            "x-text": "The CLAP plugin feature compressor: an effect that narrows a sound's dynamic range."
+            "x-text": "The CLAP plugin feature compressor: an effect that narrows a sound's dynamic range.",
+            "x-group": "dynamics"
           },
           {
             "const": "clap.de-esser",
             "title": "clapDeEsser",
             "x-code": 3,
-            "x-text": "The CLAP plugin feature de-esser: an effect that tames sibilance in a voice."
+            "x-text": "The CLAP plugin feature de-esser: an effect that tames sibilance in a voice.",
+            "x-group": "dynamics"
           },
           {
             "const": "clap.delay",
             "title": "clapDelay",
             "x-code": 4,
-            "x-text": "The CLAP plugin feature delay: an effect that repeats a sound after a gap."
+            "x-text": "The CLAP plugin feature delay: an effect that repeats a sound after a gap.",
+            "x-group": "delay"
           },
           {
             "const": "clap.distortion",
             "title": "clapDistortion",
             "x-code": 5,
-            "x-text": "The CLAP plugin feature distortion: an effect that adds harmonics by overdriving a sound."
+            "x-text": "The CLAP plugin feature distortion: an effect that adds harmonics by overdriving a sound.",
+            "x-group": "saturation-and-amps"
           },
           {
             "const": "clap.equalizer",
             "title": "clapEqualizer",
             "x-code": 6,
-            "x-text": "The CLAP plugin feature equalizer: an effect that shapes a sound's frequency balance."
+            "x-text": "The CLAP plugin feature equalizer: an effect that shapes a sound's frequency balance.",
+            "x-group": "equalisers"
           },
           {
             "const": "clap.expander",
             "title": "clapExpander",
             "x-code": 7,
-            "x-text": "The CLAP plugin feature expander: an effect that widens a sound's dynamic range."
+            "x-text": "The CLAP plugin feature expander: an effect that widens a sound's dynamic range.",
+            "x-group": "dynamics"
           },
           {
             "const": "clap.filter",
             "title": "clapFilter",
             "x-code": 8,
-            "x-text": "The CLAP plugin feature filter: an effect that removes or shapes a band of frequencies."
+            "x-text": "The CLAP plugin feature filter: an effect that removes or shapes a band of frequencies.",
+            "x-group": "filters"
           },
           {
             "const": "clap.flanger",
             "title": "clapFlanger",
             "x-code": 9,
-            "x-text": "The CLAP plugin feature flanger: an effect that sweeps a short, modulated delay against the dry sound."
+            "x-text": "The CLAP plugin feature flanger: an effect that sweeps a short, modulated delay against the dry sound.",
+            "x-group": "modulation"
           },
           {
             "const": "clap.frequency-shifter",
             "title": "clapFrequencyShifter",
             "x-code": 10,
-            "x-text": "The CLAP plugin feature frequency-shifter: an effect that shifts every frequency of a sound by the same amount."
+            "x-text": "The CLAP plugin feature frequency-shifter: an effect that shifts every frequency of a sound by the same amount.",
+            "x-group": "pitch-and-spectral"
           },
           {
             "const": "clap.gate",
             "title": "clapGate",
             "x-code": 11,
-            "x-text": "The CLAP plugin feature gate: an effect that mutes a sound below a level."
+            "x-text": "The CLAP plugin feature gate: an effect that mutes a sound below a level.",
+            "x-group": "dynamics"
           },
           {
             "const": "clap.glitch",
@@ -100,13 +112,15 @@
             "const": "clap.granular",
             "title": "clapGranular",
             "x-code": 13,
-            "x-text": "The CLAP plugin feature granular: an effect built from short grains of a sound."
+            "x-text": "The CLAP plugin feature granular: an effect built from short grains of a sound.",
+            "x-group": "pitch-and-spectral"
           },
           {
             "const": "clap.limiter",
             "title": "clapLimiter",
             "x-code": 14,
-            "x-text": "The CLAP plugin feature limiter: an effect that holds a sound under a ceiling."
+            "x-text": "The CLAP plugin feature limiter: an effect that holds a sound under a ceiling.",
+            "x-group": "dynamics"
           },
           {
             "const": "clap.mastering",
@@ -118,7 +132,8 @@
             "const": "clap.mixing",
             "title": "clapMixing",
             "x-code": 16,
-            "x-text": "The CLAP plugin feature mixing: an effect meant for use while mixing, such as a channel strip."
+            "x-text": "The CLAP plugin feature mixing: an effect meant for use while mixing, such as a channel strip.",
+            "x-group": "utility"
           },
           {
             "const": "clap.multi-effects",
@@ -130,25 +145,29 @@
             "const": "clap.phase-vocoder",
             "title": "clapPhaseVocoder",
             "x-code": 18,
-            "x-text": "The CLAP plugin feature phase-vocoder: an effect built on a phase vocoder, typically to stretch or shift a sound independently of pitch and time."
+            "x-text": "The CLAP plugin feature phase-vocoder: an effect built on a phase vocoder, typically to stretch or shift a sound independently of pitch and time.",
+            "x-group": "pitch-and-spectral"
           },
           {
             "const": "clap.phaser",
             "title": "clapPhaser",
             "x-code": 19,
-            "x-text": "The CLAP plugin feature phaser: an effect that sweeps notches through a sound with an all-pass filter chain."
+            "x-text": "The CLAP plugin feature phaser: an effect that sweeps notches through a sound with an all-pass filter chain.",
+            "x-group": "modulation"
           },
           {
             "const": "clap.pitch-correction",
             "title": "clapPitchCorrection",
             "x-code": 20,
-            "x-text": "The CLAP plugin feature pitch-correction: an effect that pulls a sound's pitch toward a scale."
+            "x-text": "The CLAP plugin feature pitch-correction: an effect that pulls a sound's pitch toward a scale.",
+            "x-group": "pitch-and-spectral"
           },
           {
             "const": "clap.pitch-shifter",
             "title": "clapPitchShifter",
             "x-code": 21,
-            "x-text": "The CLAP plugin feature pitch-shifter: an effect that changes a sound's pitch without changing its duration."
+            "x-text": "The CLAP plugin feature pitch-shifter: an effect that changes a sound's pitch without changing its duration.",
+            "x-group": "pitch-and-spectral"
           },
           {
             "const": "clap.restoration",
@@ -160,25 +179,29 @@
             "const": "clap.reverb",
             "title": "clapReverb",
             "x-code": 23,
-            "x-text": "The CLAP plugin feature reverb: an effect that adds the reflections of a space to a sound."
+            "x-text": "The CLAP plugin feature reverb: an effect that adds the reflections of a space to a sound.",
+            "x-group": "reverb"
           },
           {
             "const": "clap.transient-shaper",
             "title": "clapTransientShaper",
             "x-code": 24,
-            "x-text": "The CLAP plugin feature transient-shaper: an effect that reshapes a sound's attack and sustain."
+            "x-text": "The CLAP plugin feature transient-shaper: an effect that reshapes a sound's attack and sustain.",
+            "x-group": "dynamics"
           },
           {
             "const": "clap.tremolo",
             "title": "clapTremolo",
             "x-code": 25,
-            "x-text": "The CLAP plugin feature tremolo: an effect that modulates a sound's level over time."
+            "x-text": "The CLAP plugin feature tremolo: an effect that modulates a sound's level over time.",
+            "x-group": "modulation"
           },
           {
             "const": "clap.utility",
             "title": "clapUtility",
             "x-code": 26,
-            "x-text": "The CLAP plugin feature utility: a plugin that does audio housekeeping rather than a creative effect."
+            "x-text": "The CLAP plugin feature utility: a plugin that does audio housekeeping rather than a creative effect.",
+            "x-group": "utility"
           },
           {
             "const": "lv2.Allpass",
@@ -190,7 +213,8 @@
                 "$ref": "https://openmixer.org/contract/lv2#/components/schemas/LV2_CORE_TERMS",
                 "x-term": "AllpassPlugin"
               }
-            ]
+            ],
+            "x-group": "filters"
           },
           {
             "const": "lv2.Amplifier",
@@ -202,7 +226,8 @@
                 "$ref": "https://openmixer.org/contract/lv2#/components/schemas/LV2_CORE_TERMS",
                 "x-term": "AmplifierPlugin"
               }
-            ]
+            ],
+            "x-group": "dynamics"
           },
           {
             "const": "lv2.Bandpass",
@@ -214,7 +239,8 @@
                 "$ref": "https://openmixer.org/contract/lv2#/components/schemas/LV2_CORE_TERMS",
                 "x-term": "BandpassPlugin"
               }
-            ]
+            ],
+            "x-group": "filters"
           },
           {
             "const": "lv2.Chorus",
@@ -226,7 +252,8 @@
                 "$ref": "https://openmixer.org/contract/lv2#/components/schemas/LV2_CORE_TERMS",
                 "x-term": "ChorusPlugin"
               }
-            ]
+            ],
+            "x-group": "modulation"
           },
           {
             "const": "lv2.Comb",
@@ -238,7 +265,8 @@
                 "$ref": "https://openmixer.org/contract/lv2#/components/schemas/LV2_CORE_TERMS",
                 "x-term": "CombPlugin"
               }
-            ]
+            ],
+            "x-group": "filters"
           },
           {
             "const": "lv2.Compressor",
@@ -250,7 +278,8 @@
                 "$ref": "https://openmixer.org/contract/lv2#/components/schemas/LV2_CORE_TERMS",
                 "x-term": "CompressorPlugin"
               }
-            ]
+            ],
+            "x-group": "dynamics"
           },
           {
             "const": "lv2.Converter",
@@ -262,7 +291,8 @@
                 "$ref": "https://openmixer.org/contract/lv2#/components/schemas/LV2_CORE_TERMS",
                 "x-term": "ConverterPlugin"
               }
-            ]
+            ],
+            "x-group": "utility"
           },
           {
             "const": "lv2.Delay",
@@ -274,7 +304,8 @@
                 "$ref": "https://openmixer.org/contract/lv2#/components/schemas/LV2_CORE_TERMS",
                 "x-term": "DelayPlugin"
               }
-            ]
+            ],
+            "x-group": "delay"
           },
           {
             "const": "lv2.Distortion",
@@ -286,7 +317,8 @@
                 "$ref": "https://openmixer.org/contract/lv2#/components/schemas/LV2_CORE_TERMS",
                 "x-term": "DistortionPlugin"
               }
-            ]
+            ],
+            "x-group": "saturation-and-amps"
           },
           {
             "const": "lv2.Dynamics",
@@ -298,7 +330,8 @@
                 "$ref": "https://openmixer.org/contract/lv2#/components/schemas/LV2_CORE_TERMS",
                 "x-term": "DynamicsPlugin"
               }
-            ]
+            ],
+            "x-group": "dynamics"
           },
           {
             "const": "lv2.EQ",
@@ -310,7 +343,8 @@
                 "$ref": "https://openmixer.org/contract/lv2#/components/schemas/LV2_CORE_TERMS",
                 "x-term": "EQPlugin"
               }
-            ]
+            ],
+            "x-group": "equalisers"
           },
           {
             "const": "lv2.Envelope",
@@ -322,7 +356,8 @@
                 "$ref": "https://openmixer.org/contract/lv2#/components/schemas/LV2_CORE_TERMS",
                 "x-term": "EnvelopePlugin"
               }
-            ]
+            ],
+            "x-group": "dynamics"
           },
           {
             "const": "lv2.Expander",
@@ -334,7 +369,8 @@
                 "$ref": "https://openmixer.org/contract/lv2#/components/schemas/LV2_CORE_TERMS",
                 "x-term": "ExpanderPlugin"
               }
-            ]
+            ],
+            "x-group": "dynamics"
           },
           {
             "const": "lv2.Filter",
@@ -346,7 +382,8 @@
                 "$ref": "https://openmixer.org/contract/lv2#/components/schemas/LV2_CORE_TERMS",
                 "x-term": "FilterPlugin"
               }
-            ]
+            ],
+            "x-group": "filters"
           },
           {
             "const": "lv2.Flanger",
@@ -358,7 +395,8 @@
                 "$ref": "https://openmixer.org/contract/lv2#/components/schemas/LV2_CORE_TERMS",
                 "x-term": "FlangerPlugin"
               }
-            ]
+            ],
+            "x-group": "modulation"
           },
           {
             "const": "lv2.Gate",
@@ -370,7 +408,8 @@
                 "$ref": "https://openmixer.org/contract/lv2#/components/schemas/LV2_CORE_TERMS",
                 "x-term": "GatePlugin"
               }
-            ]
+            ],
+            "x-group": "dynamics"
           },
           {
             "const": "lv2.Highpass",
@@ -382,7 +421,8 @@
                 "$ref": "https://openmixer.org/contract/lv2#/components/schemas/LV2_CORE_TERMS",
                 "x-term": "HighpassPlugin"
               }
-            ]
+            ],
+            "x-group": "filters"
           },
           {
             "const": "lv2.Limiter",
@@ -394,7 +434,8 @@
                 "$ref": "https://openmixer.org/contract/lv2#/components/schemas/LV2_CORE_TERMS",
                 "x-term": "LimiterPlugin"
               }
-            ]
+            ],
+            "x-group": "dynamics"
           },
           {
             "const": "lv2.Lowpass",
@@ -406,7 +447,8 @@
                 "$ref": "https://openmixer.org/contract/lv2#/components/schemas/LV2_CORE_TERMS",
                 "x-term": "LowpassPlugin"
               }
-            ]
+            ],
+            "x-group": "filters"
           },
           {
             "const": "lv2.Mixer",
@@ -418,7 +460,8 @@
                 "$ref": "https://openmixer.org/contract/lv2#/components/schemas/LV2_CORE_TERMS",
                 "x-term": "MixerPlugin"
               }
-            ]
+            ],
+            "x-group": "utility"
           },
           {
             "const": "lv2.Modulator",
@@ -430,7 +473,8 @@
                 "$ref": "https://openmixer.org/contract/lv2#/components/schemas/LV2_CORE_TERMS",
                 "x-term": "ModulatorPlugin"
               }
-            ]
+            ],
+            "x-group": "modulation"
           },
           {
             "const": "lv2.MultiEQ",
@@ -442,7 +486,8 @@
                 "$ref": "https://openmixer.org/contract/lv2#/components/schemas/LV2_CORE_TERMS",
                 "x-term": "MultiEQPlugin"
               }
-            ]
+            ],
+            "x-group": "equalisers"
           },
           {
             "const": "lv2.ParaEQ",
@@ -454,7 +499,8 @@
                 "$ref": "https://openmixer.org/contract/lv2#/components/schemas/LV2_CORE_TERMS",
                 "x-term": "ParaEQPlugin"
               }
-            ]
+            ],
+            "x-group": "equalisers"
           },
           {
             "const": "lv2.Phaser",
@@ -466,7 +512,8 @@
                 "$ref": "https://openmixer.org/contract/lv2#/components/schemas/LV2_CORE_TERMS",
                 "x-term": "PhaserPlugin"
               }
-            ]
+            ],
+            "x-group": "modulation"
           },
           {
             "const": "lv2.Pitch",
@@ -478,7 +525,8 @@
                 "$ref": "https://openmixer.org/contract/lv2#/components/schemas/LV2_CORE_TERMS",
                 "x-term": "PitchPlugin"
               }
-            ]
+            ],
+            "x-group": "pitch-and-spectral"
           },
           {
             "const": "lv2.Reverb",
@@ -490,7 +538,8 @@
                 "$ref": "https://openmixer.org/contract/lv2#/components/schemas/LV2_CORE_TERMS",
                 "x-term": "ReverbPlugin"
               }
-            ]
+            ],
+            "x-group": "reverb"
           },
           {
             "const": "lv2.Simulator",
@@ -502,7 +551,8 @@
                 "$ref": "https://openmixer.org/contract/lv2#/components/schemas/LV2_CORE_TERMS",
                 "x-term": "SimulatorPlugin"
               }
-            ]
+            ],
+            "x-group": "saturation-and-amps"
           },
           {
             "const": "lv2.Spatial",
@@ -514,7 +564,8 @@
                 "$ref": "https://openmixer.org/contract/lv2#/components/schemas/LV2_CORE_TERMS",
                 "x-term": "SpatialPlugin"
               }
-            ]
+            ],
+            "x-group": "spatial"
           },
           {
             "const": "lv2.Spectral",
@@ -526,7 +577,8 @@
                 "$ref": "https://openmixer.org/contract/lv2#/components/schemas/LV2_CORE_TERMS",
                 "x-term": "SpectralPlugin"
               }
-            ]
+            ],
+            "x-group": "pitch-and-spectral"
           },
           {
             "const": "lv2.Utility",
@@ -538,7 +590,8 @@
                 "$ref": "https://openmixer.org/contract/lv2#/components/schemas/LV2_CORE_TERMS",
                 "x-term": "UtilityPlugin"
               }
-            ]
+            ],
+            "x-group": "utility"
           },
           {
             "const": "lv2.Waveshaper",
@@ -550,43 +603,50 @@
                 "$ref": "https://openmixer.org/contract/lv2#/components/schemas/LV2_CORE_TERMS",
                 "x-term": "WaveshaperPlugin"
               }
-            ]
+            ],
+            "x-group": "saturation-and-amps"
           }
         ]
       },
       "PLUGIN_FEATURE_INSTRUMENT": {
         "description": "The CLAP plugin features and LV2 plugin classes that become the descriptor feature instrument: notes in, audio out.",
         "x-since": "0.1.0",
+        "x-groups": "PLUGIN_FEATURE_ROLES",
         "oneOf": [
           {
             "const": "clap.drum",
             "title": "clapDrum",
             "x-code": 0,
-            "x-text": "The CLAP plugin feature drum: an instrument that plays drum sounds."
+            "x-text": "The CLAP plugin feature drum: an instrument that plays drum sounds.",
+            "x-group": "instruments"
           },
           {
             "const": "clap.drum-machine",
             "title": "clapDrumMachine",
             "x-code": 1,
-            "x-text": "The CLAP plugin feature drum-machine: an instrument that sequences and plays drum sounds."
+            "x-text": "The CLAP plugin feature drum-machine: an instrument that sequences and plays drum sounds.",
+            "x-group": "instruments"
           },
           {
             "const": "clap.instrument",
             "title": "clapInstrument",
             "x-code": 2,
-            "x-text": "The CLAP plugin feature instrument: a plugin played by notes, with no more specific kind declared."
+            "x-text": "The CLAP plugin feature instrument: a plugin played by notes, with no more specific kind declared.",
+            "x-group": "instruments"
           },
           {
             "const": "clap.sampler",
             "title": "clapSampler",
             "x-code": 3,
-            "x-text": "The CLAP plugin feature sampler: an instrument that plays recorded samples."
+            "x-text": "The CLAP plugin feature sampler: an instrument that plays recorded samples.",
+            "x-group": "instruments"
           },
           {
             "const": "clap.synthesizer",
             "title": "clapSynthesizer",
             "x-code": 4,
-            "x-text": "The CLAP plugin feature synthesizer: an instrument that generates its own sound rather than playing samples."
+            "x-text": "The CLAP plugin feature synthesizer: an instrument that generates its own sound rather than playing samples.",
+            "x-group": "instruments"
           },
           {
             "const": "lv2.Instrument",
@@ -598,19 +658,22 @@
                 "$ref": "https://openmixer.org/contract/lv2#/components/schemas/LV2_CORE_TERMS",
                 "x-term": "InstrumentPlugin"
               }
-            ]
+            ],
+            "x-group": "instruments"
           }
         ]
       },
       "PLUGIN_FEATURE_NOTE_EFFECT": {
         "description": "The CLAP plugin features and LV2 plugin classes that become the descriptor feature note-effect: notes in, notes out.",
         "x-since": "0.1.0",
+        "x-groups": "PLUGIN_FEATURE_ROLES",
         "oneOf": [
           {
             "const": "clap.note-effect",
             "title": "clapNoteEffect",
             "x-code": 0,
-            "x-text": "The CLAP plugin feature note-effect: a plugin that reads notes and writes notes, such as an arpeggiator."
+            "x-text": "The CLAP plugin feature note-effect: a plugin that reads notes and writes notes, such as an arpeggiator.",
+            "x-group": "midi"
           },
           {
             "const": "lv2.MIDI",
@@ -622,25 +685,29 @@
                 "$ref": "https://openmixer.org/contract/lv2#/components/schemas/LV2_CORE_TERMS",
                 "x-term": "MIDIPlugin"
               }
-            ]
+            ],
+            "x-group": "midi"
           }
         ]
       },
       "PLUGIN_FEATURE_ANALYZER": {
         "description": "The CLAP plugin features and LV2 plugin classes that become the descriptor feature analyzer: audio in, a reading out (a note detector reads pitch from audio).",
         "x-since": "0.1.0",
+        "x-groups": "PLUGIN_FEATURE_ROLES",
         "oneOf": [
           {
             "const": "clap.analyzer",
             "title": "clapAnalyzer",
             "x-code": 0,
-            "x-text": "The CLAP plugin feature analyzer: a plugin that reads audio and reports a measurement, with no further output."
+            "x-text": "The CLAP plugin feature analyzer: a plugin that reads audio and reports a measurement, with no further output.",
+            "x-group": "analysis"
           },
           {
             "const": "clap.note-detector",
             "title": "clapNoteDetector",
             "x-code": 1,
-            "x-text": "The CLAP plugin feature note-detector: an analyzer that reads pitch from audio."
+            "x-text": "The CLAP plugin feature note-detector: an analyzer that reads pitch from audio.",
+            "x-group": "analysis"
           },
           {
             "const": "lv2.Analyser",
@@ -652,13 +719,15 @@
                 "$ref": "https://openmixer.org/contract/lv2#/components/schemas/LV2_CORE_TERMS",
                 "x-term": "AnalyserPlugin"
               }
-            ]
+            ],
+            "x-group": "analysis"
           }
         ]
       },
       "PLUGIN_FEATURE_OTHER": {
         "description": "The CLAP plugin features and LV2 plugin classes that fit none of the four feature words: a channel layout stated as a feature (mono, stereo, surround, ambisonic), and the LV2 classes of a generator, an oscillator, a constant and a function, which take no notes and so are no instrument. A scan carries them in the extension bag.",
         "x-since": "0.1.0",
+        "x-groups": "PLUGIN_FEATURE_ROLES",
         "oneOf": [
           {
             "const": "clap.ambisonic",
@@ -694,7 +763,8 @@
                 "$ref": "https://openmixer.org/contract/lv2#/components/schemas/LV2_CORE_TERMS",
                 "x-term": "ConstantPlugin"
               }
-            ]
+            ],
+            "x-group": "utility"
           },
           {
             "const": "lv2.Function",
@@ -706,7 +776,8 @@
                 "$ref": "https://openmixer.org/contract/lv2#/components/schemas/LV2_CORE_TERMS",
                 "x-term": "FunctionPlugin"
               }
-            ]
+            ],
+            "x-group": "utility"
           },
           {
             "const": "lv2.Generator",
@@ -718,7 +789,8 @@
                 "$ref": "https://openmixer.org/contract/lv2#/components/schemas/LV2_CORE_TERMS",
                 "x-term": "GeneratorPlugin"
               }
-            ]
+            ],
+            "x-group": "instruments"
           },
           {
             "const": "lv2.Oscillator",
@@ -730,7 +802,8 @@
                 "$ref": "https://openmixer.org/contract/lv2#/components/schemas/LV2_CORE_TERMS",
                 "x-term": "OscillatorPlugin"
               }
-            ]
+            ],
+            "x-group": "instruments"
           },
           {
             "const": "lv2.Plugin",
@@ -743,6 +816,91 @@
                 "x-term": "Plugin"
               }
             ]
+          }
+        ]
+      },
+      "PLUGIN_FEATURE_ROLES": {
+        "description": "The role groups a plugin is offered under: what a plugin does in a mix, read from the CLAP plugin features and LV2 plugin classes it declares. Each word of the five PLUGIN_FEATURE_* items that names a role carries its group (x-group); an LV2 class files under the group of the role it names in lv2core, a subclass under its superclass's (lv2:ParaEQPlugin and lv2:MultiEQPlugin under lv2:EQPlugin, equalisers). A word that names no role (a channel layout, the bare audio-effect or lv2:Plugin, a role of use such as mastering or restoration) carries none: a plugin that declares only such words has no group here, and a reader files it by its own rule.",
+        "x-since": "0.2.0",
+        "x-why": "The console's picker groups every installed plugin by what it declares, through one table in the feature words' own domain, never a list in a consumer (owner ruling 2026-11-27, Open-Mixer/openmixer#958).",
+        "oneOf": [
+          {
+            "const": "equalisers",
+            "title": "equalisers",
+            "x-code": 0,
+            "x-text": "An equaliser: it shapes a sound's frequency balance."
+          },
+          {
+            "const": "filters",
+            "title": "filters",
+            "x-code": 1,
+            "x-text": "A filter: it removes or passes a band of frequencies."
+          },
+          {
+            "const": "dynamics",
+            "title": "dynamics",
+            "x-code": 2,
+            "x-text": "A dynamics processor: it changes a sound's level by its level (a compressor, a gate, a limiter)."
+          },
+          {
+            "const": "reverb",
+            "title": "reverb",
+            "x-code": 3,
+            "x-text": "A reverb: it adds the reflections of a space to a sound."
+          },
+          {
+            "const": "delay",
+            "title": "delay",
+            "x-code": 4,
+            "x-text": "A delay: it repeats a sound after a gap."
+          },
+          {
+            "const": "modulation",
+            "title": "modulation",
+            "x-code": 5,
+            "x-text": "A modulation effect: it moves a sound with a slow oscillation (a chorus, a flanger, a phaser, a tremolo)."
+          },
+          {
+            "const": "saturation-and-amps",
+            "title": "saturationAndAmps",
+            "x-code": 6,
+            "x-text": "Saturation and amp simulation: it adds harmonics by overdriving or modelling a circuit."
+          },
+          {
+            "const": "pitch-and-spectral",
+            "title": "pitchAndSpectral",
+            "x-code": 7,
+            "x-text": "Pitch and spectral: it changes a sound's pitch or works on its spectrum."
+          },
+          {
+            "const": "spatial",
+            "title": "spatial",
+            "x-code": 8,
+            "x-text": "A spatial processor: it places a sound in space or changes its width."
+          },
+          {
+            "const": "analysis",
+            "title": "analysis",
+            "x-code": 9,
+            "x-text": "Analysis and metering: it reads a sound and shows a reading."
+          },
+          {
+            "const": "utility",
+            "title": "utility",
+            "x-code": 10,
+            "x-text": "A utility: it routes, mixes, converts or computes, with no sound of its own."
+          },
+          {
+            "const": "instruments",
+            "title": "instruments",
+            "x-code": 11,
+            "x-text": "An instrument or generator: it makes a sound."
+          },
+          {
+            "const": "midi",
+            "title": "midi",
+            "x-code": 12,
+            "x-text": "A note processor: notes in, notes out."
           }
         ]
       }

@@ -470,6 +470,84 @@
       "by": "machine",
       "model": "draft-prose",
       "source": "b9faece095545f20b68ed9e15a6d893e2006da2d87e9a9c9814e63bba3418c14"
+    },
+    "PLUGIN_FEATURE_ROLES.equalisers": {
+      "text": "Ein Equalizer: er formt die Frequenzbalance eines Klangs.",
+      "by": "machine",
+      "model": "draft-prose",
+      "source": "1e7648732646e18964ee8218fc4cff7e689423b0b85e7486492b747e3827c117"
+    },
+    "PLUGIN_FEATURE_ROLES.filters": {
+      "text": "Ein Filter: er entfernt oder lässt ein Frequenzband durch.",
+      "by": "machine",
+      "model": "draft-prose",
+      "source": "37074990f02fe55e61829f7034e049efced09ee1b5e1dff29a66cd6f891d1840"
+    },
+    "PLUGIN_FEATURE_ROLES.dynamics": {
+      "text": "Ein Dynamikprozessor: er ändert den Pegel eines Klangs abhängig von seinem Pegel (ein Kompressor, ein Gate, ein Limiter).",
+      "by": "machine",
+      "model": "draft-prose",
+      "source": "ad07d14aeaa1cc545dc0f553a57c772c97c474c7e29bdc02fdec1d3b20541427"
+    },
+    "PLUGIN_FEATURE_ROLES.reverb": {
+      "text": "Ein Hall: er fügt einem Klang die Reflexionen eines Raums hinzu.",
+      "by": "machine",
+      "model": "draft-prose",
+      "source": "d8c90a0cb345fb73a2fcfaf09692f45f8500af78bee0e4e4475ec729073158e2"
+    },
+    "PLUGIN_FEATURE_ROLES.delay": {
+      "text": "Ein Delay: er wiederholt einen Klang nach einer Pause.",
+      "by": "machine",
+      "model": "draft-prose",
+      "source": "b18fe3819f763161147cfa578c6e8b3ff34e680c03ca803fcf9e8647cc5be789"
+    },
+    "PLUGIN_FEATURE_ROLES.modulation": {
+      "text": "Ein Modulationseffekt: er bewegt einen Klang mit einer langsamen Schwingung (ein Chorus, ein Flanger, ein Phaser, ein Tremolo).",
+      "by": "machine",
+      "model": "draft-prose",
+      "source": "535b858638b800e3f37dfd9ad00b70b19b8ad83a200764c80b8d26419921ce02"
+    },
+    "PLUGIN_FEATURE_ROLES.saturation-and-amps": {
+      "text": "Sättigung und Verstärkersimulation: fügt Obertöne durch Übersteuern oder Nachbilden einer Schaltung hinzu.",
+      "by": "machine",
+      "model": "draft-prose",
+      "source": "e0da2cce6b889854dbf3c74fda5e2396a98f568fdcf7ab157d8e2e8e707b0f96"
+    },
+    "PLUGIN_FEATURE_ROLES.pitch-and-spectral": {
+      "text": "Tonhöhe und Spektrum: ändert die Tonhöhe eines Klangs oder bearbeitet sein Spektrum.",
+      "by": "machine",
+      "model": "draft-prose",
+      "source": "3c5fd2c2f711768b76f89e2d543af796700f5ae9ed399ee205e3bfae06a33216"
+    },
+    "PLUGIN_FEATURE_ROLES.spatial": {
+      "text": "Ein Raumprozessor: er platziert einen Klang im Raum oder ändert seine Breite.",
+      "by": "machine",
+      "model": "draft-prose",
+      "source": "97128d58c7e0d04b8da0f52ace39842b418a282eb31e3feb3070a101fc193ead"
+    },
+    "PLUGIN_FEATURE_ROLES.analysis": {
+      "text": "Analyse und Messung: liest einen Klang und zeigt einen Messwert.",
+      "by": "machine",
+      "model": "draft-prose",
+      "source": "f7405d533ecfb153de62d3d7dd2d582f808d80aa373d957edcefe63d620854eb"
+    },
+    "PLUGIN_FEATURE_ROLES.utility": {
+      "text": "Ein Werkzeug: es routet, mischt, wandelt oder rechnet, ohne eigenen Klang.",
+      "by": "machine",
+      "model": "draft-prose",
+      "source": "d12be50c7a0104a50b7665fcb309f4cb702c91ebbffda2f54c885eb329df5170"
+    },
+    "PLUGIN_FEATURE_ROLES.instruments": {
+      "text": "Ein Instrument oder Generator: es erzeugt einen Klang.",
+      "by": "machine",
+      "model": "draft-prose",
+      "source": "b6db303659824cb5687688f14de0dc0a95b5868d79a053cdc260843296d73e52"
+    },
+    "PLUGIN_FEATURE_ROLES.midi": {
+      "text": "Ein Notenprozessor: Noten hinein, Noten heraus.",
+      "by": "machine",
+      "model": "draft-prose",
+      "source": "303e05bcabfb0f8791d46a4e1fbc7eeec77ff806a2c9e6e99698a36036e9f37d"
     }
   }
 }

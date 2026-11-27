@@ -466,6 +466,84 @@
       "by": "machine",
       "model": "draft-prose",
       "source": "b9faece095545f20b68ed9e15a6d893e2006da2d87e9a9c9814e63bba3418c14"
+    },
+    "PLUGIN_FEATURE_ROLES.equalisers": {
+      "text": "Un equalitzador: dona forma a l'equilibri de freqüències d'un so.",
+      "by": "machine",
+      "model": "draft-prose",
+      "source": "1e7648732646e18964ee8218fc4cff7e689423b0b85e7486492b747e3827c117"
+    },
+    "PLUGIN_FEATURE_ROLES.filters": {
+      "text": "Un filtre: elimina o deixa passar una banda de freqüències.",
+      "by": "machine",
+      "model": "draft-prose",
+      "source": "37074990f02fe55e61829f7034e049efced09ee1b5e1dff29a66cd6f891d1840"
+    },
+    "PLUGIN_FEATURE_ROLES.dynamics": {
+      "text": "Un processador de dinàmica: canvia el nivell d'un so segons el seu nivell (un compressor, una porta, un limitador).",
+      "by": "machine",
+      "model": "draft-prose",
+      "source": "ad07d14aeaa1cc545dc0f553a57c772c97c474c7e29bdc02fdec1d3b20541427"
+    },
+    "PLUGIN_FEATURE_ROLES.reverb": {
+      "text": "Una reverberació: afegeix a un so les reflexions d'un espai.",
+      "by": "machine",
+      "model": "draft-prose",
+      "source": "d8c90a0cb345fb73a2fcfaf09692f45f8500af78bee0e4e4475ec729073158e2"
+    },
+    "PLUGIN_FEATURE_ROLES.delay": {
+      "text": "Un retard: repeteix un so després d'un interval.",
+      "by": "machine",
+      "model": "draft-prose",
+      "source": "b18fe3819f763161147cfa578c6e8b3ff34e680c03ca803fcf9e8647cc5be789"
+    },
+    "PLUGIN_FEATURE_ROLES.modulation": {
+      "text": "Un efecte de modulació: mou un so amb una oscil·lació lenta (un chorus, un flanger, un phaser, un tremolo).",
+      "by": "machine",
+      "model": "draft-prose",
+      "source": "535b858638b800e3f37dfd9ad00b70b19b8ad83a200764c80b8d26419921ce02"
+    },
+    "PLUGIN_FEATURE_ROLES.saturation-and-amps": {
+      "text": "Saturació i simulació d'amplificador: afegeix harmònics saturant o modelant un circuit.",
+      "by": "machine",
+      "model": "draft-prose",
+      "source": "e0da2cce6b889854dbf3c74fda5e2396a98f568fdcf7ab157d8e2e8e707b0f96"
+    },
+    "PLUGIN_FEATURE_ROLES.pitch-and-spectral": {
+      "text": "To i espectre: canvia el to d'un so o treballa sobre el seu espectre.",
+      "by": "machine",
+      "model": "draft-prose",
+      "source": "3c5fd2c2f711768b76f89e2d543af796700f5ae9ed399ee205e3bfae06a33216"
+    },
+    "PLUGIN_FEATURE_ROLES.spatial": {
+      "text": "Un processador espacial: situa un so a l'espai o en canvia l'amplada.",
+      "by": "machine",
+      "model": "draft-prose",
+      "source": "97128d58c7e0d04b8da0f52ace39842b418a282eb31e3feb3070a101fc193ead"
+    },
+    "PLUGIN_FEATURE_ROLES.analysis": {
+      "text": "Anàlisi i mesura: llegeix un so i en mostra una lectura.",
+      "by": "machine",
+      "model": "draft-prose",
+      "source": "f7405d533ecfb153de62d3d7dd2d582f808d80aa373d957edcefe63d620854eb"
+    },
+    "PLUGIN_FEATURE_ROLES.utility": {
+      "text": "Una utilitat: encamina, mescla, converteix o calcula, sense so propi.",
+      "by": "machine",
+      "model": "draft-prose",
+      "source": "d12be50c7a0104a50b7665fcb309f4cb702c91ebbffda2f54c885eb329df5170"
+    },
+    "PLUGIN_FEATURE_ROLES.instruments": {
+      "text": "Un instrument o generador: fa un so.",
+      "by": "machine",
+      "model": "draft-prose",
+      "source": "b6db303659824cb5687688f14de0dc0a95b5868d79a053cdc260843296d73e52"
+    },
+    "PLUGIN_FEATURE_ROLES.midi": {
+      "text": "Un processador de notes: notes d'entrada, notes de sortida.",
+      "by": "machine",
+      "model": "draft-prose",
+      "source": "303e05bcabfb0f8791d46a4e1fbc7eeec77ff806a2c9e6e99698a36036e9f37d"
     }
   }
 }
