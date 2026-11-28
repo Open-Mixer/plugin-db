@@ -15,7 +15,7 @@ LV2 words keep their from, a term of plugin-db's own domain lv2.
     It is the one source of the plugin features: no old home in omx-contract is read (tests/old_home_test.py);
 (c) sabotage: a word dropped, a text changed, a from naming no term, a CLAP from put back and the old map form
     {name: ">= x.y.z"} of info.x-requires are each seen;
-(d) the role groups (openmixer#958, owner ruling 2026-11-27: a plugin is offered under the group its declared features
+(d) the role groups (owner ruling 2026-11-27: a plugin is offered under the group its declared features
     and classes name, through one table here and never a consumer's list): the five items name PLUGIN_FEATURE_ROLES as
     their x-groups, every x-group is a word of it, every role is reached by some word, the table is the golden
     tests/golden/plugin-roles.digest, and the words that carry no group are exactly the ones that name no role. A

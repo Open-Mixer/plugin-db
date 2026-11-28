@@ -822,7 +822,7 @@
       "PLUGIN_FEATURE_ROLES": {
         "description": "The role groups a plugin is offered under: what a plugin does in a mix, read from the CLAP plugin features and LV2 plugin classes it declares. Each word of the five PLUGIN_FEATURE_* items that names a role carries its group (x-group); an LV2 class files under the group of the role it names in lv2core, a subclass under its superclass's (lv2:ParaEQPlugin and lv2:MultiEQPlugin under lv2:EQPlugin, equalisers). A word that names no role (a channel layout, the bare audio-effect or lv2:Plugin, a role of use such as mastering or restoration) carries none: a plugin that declares only such words has no group here, and a reader files it by its own rule.",
         "x-since": "0.2.0",
-        "x-why": "The console's picker groups every installed plugin by what it declares, through one table in the feature words' own domain, never a list in a consumer (owner ruling 2026-11-27, Open-Mixer/openmixer#958).",
+        "x-why": "The console's picker groups every installed plugin by what it declares, through one table in the feature words' own domain, never a list in a consumer (owner ruling 2026-11-27).",
         "oneOf": [
           {
             "const": "equalisers",
