@@ -133,14 +133,14 @@ cc $(pkg-config --cflags plugin-db) your.c $(pkg-config --libs plugin-db)
 
 ## Install
 
-Fedora 45, x86_64:
+Fedora 45 (x86_64, aarch64):
 
 ```
 sudo dnf install https://www.openmixer.org/rpm/openmixer-release.noarch.rpm
 sudo dnf install plugin-db plugin-db-devel
 ```
 
-Debian trixie, arm64 (also Raspberry Pi OS and Zynthian):
+Debian trixie (amd64, arm64), also Raspberry Pi OS and Zynthian:
 
 ```
 curl -fsSLO https://www.openmixer.org/deb/openmixer-release.deb && sudo apt install ./openmixer-release.deb
