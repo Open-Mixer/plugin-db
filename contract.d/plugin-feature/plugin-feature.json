@@ -208,403 +208,403 @@
             "title": "lv2Allpass",
             "x-code": 27,
             "x-text": "The LV2 plugin class AllpassPlugin: an all-pass filter, which shifts phase without changing level.",
+            "x-group": "filters",
             "x-from": [
               {
                 "$ref": "https://openmixer.org/contract/lv2#/components/schemas/LV2_CORE_TERMS",
                 "x-term": "AllpassPlugin"
               }
-            ],
-            "x-group": "filters"
+            ]
           },
           {
             "const": "lv2.Amplifier",
             "title": "lv2Amplifier",
             "x-code": 28,
             "x-text": "The LV2 plugin class AmplifierPlugin: a plugin that changes a sound's level.",
+            "x-group": "dynamics",
             "x-from": [
               {
                 "$ref": "https://openmixer.org/contract/lv2#/components/schemas/LV2_CORE_TERMS",
                 "x-term": "AmplifierPlugin"
               }
-            ],
-            "x-group": "dynamics"
+            ]
           },
           {
             "const": "lv2.Bandpass",
             "title": "lv2Bandpass",
             "x-code": 29,
             "x-text": "The LV2 plugin class BandpassPlugin: a filter that passes one band of frequencies.",
+            "x-group": "filters",
             "x-from": [
               {
                 "$ref": "https://openmixer.org/contract/lv2#/components/schemas/LV2_CORE_TERMS",
                 "x-term": "BandpassPlugin"
               }
-            ],
-            "x-group": "filters"
+            ]
           },
           {
             "const": "lv2.Chorus",
             "title": "lv2Chorus",
             "x-code": 30,
             "x-text": "The LV2 plugin class ChorusPlugin: an effect that thickens a sound with detuned, delayed copies of it.",
+            "x-group": "modulation",
             "x-from": [
               {
                 "$ref": "https://openmixer.org/contract/lv2#/components/schemas/LV2_CORE_TERMS",
                 "x-term": "ChorusPlugin"
               }
-            ],
-            "x-group": "modulation"
+            ]
           },
           {
             "const": "lv2.Comb",
             "title": "lv2Comb",
             "x-code": 31,
             "x-text": "The LV2 plugin class CombPlugin: a comb filter, which adds a short delayed copy of a sound to itself.",
+            "x-group": "filters",
             "x-from": [
               {
                 "$ref": "https://openmixer.org/contract/lv2#/components/schemas/LV2_CORE_TERMS",
                 "x-term": "CombPlugin"
               }
-            ],
-            "x-group": "filters"
+            ]
           },
           {
             "const": "lv2.Compressor",
             "title": "lv2Compressor",
             "x-code": 32,
             "x-text": "The LV2 plugin class CompressorPlugin: an effect that narrows a sound's dynamic range.",
+            "x-group": "dynamics",
             "x-from": [
               {
                 "$ref": "https://openmixer.org/contract/lv2#/components/schemas/LV2_CORE_TERMS",
                 "x-term": "CompressorPlugin"
               }
-            ],
-            "x-group": "dynamics"
+            ]
           },
           {
             "const": "lv2.Converter",
             "title": "lv2Converter",
             "x-code": 33,
             "x-text": "The LV2 plugin class ConverterPlugin: a plugin that converts a signal from one representation to another.",
+            "x-group": "utility",
             "x-from": [
               {
                 "$ref": "https://openmixer.org/contract/lv2#/components/schemas/LV2_CORE_TERMS",
                 "x-term": "ConverterPlugin"
               }
-            ],
-            "x-group": "utility"
+            ]
           },
           {
             "const": "lv2.Delay",
             "title": "lv2Delay",
             "x-code": 34,
             "x-text": "The LV2 plugin class DelayPlugin: an effect that repeats a sound after a gap.",
+            "x-group": "delay",
             "x-from": [
               {
                 "$ref": "https://openmixer.org/contract/lv2#/components/schemas/LV2_CORE_TERMS",
                 "x-term": "DelayPlugin"
               }
-            ],
-            "x-group": "delay"
+            ]
           },
           {
             "const": "lv2.Distortion",
             "title": "lv2Distortion",
             "x-code": 35,
             "x-text": "The LV2 plugin class DistortionPlugin: an effect that adds harmonics by overdriving a sound.",
+            "x-group": "saturation-and-amps",
             "x-from": [
               {
                 "$ref": "https://openmixer.org/contract/lv2#/components/schemas/LV2_CORE_TERMS",
                 "x-term": "DistortionPlugin"
               }
-            ],
-            "x-group": "saturation-and-amps"
+            ]
           },
           {
             "const": "lv2.Dynamics",
             "title": "lv2Dynamics",
             "x-code": 36,
             "x-text": "The LV2 plugin class DynamicsPlugin: an effect that changes a sound's dynamic range.",
+            "x-group": "dynamics",
             "x-from": [
               {
                 "$ref": "https://openmixer.org/contract/lv2#/components/schemas/LV2_CORE_TERMS",
                 "x-term": "DynamicsPlugin"
               }
-            ],
-            "x-group": "dynamics"
+            ]
           },
           {
             "const": "lv2.EQ",
             "title": "lv2EQ",
             "x-code": 37,
             "x-text": "The LV2 plugin class EQPlugin: an effect that shapes a sound's frequency balance.",
+            "x-group": "equalisers",
             "x-from": [
               {
                 "$ref": "https://openmixer.org/contract/lv2#/components/schemas/LV2_CORE_TERMS",
                 "x-term": "EQPlugin"
               }
-            ],
-            "x-group": "equalisers"
+            ]
           },
           {
             "const": "lv2.Envelope",
             "title": "lv2Envelope",
             "x-code": 38,
             "x-text": "The LV2 plugin class EnvelopePlugin: a plugin that follows or applies an envelope over time.",
+            "x-group": "dynamics",
             "x-from": [
               {
                 "$ref": "https://openmixer.org/contract/lv2#/components/schemas/LV2_CORE_TERMS",
                 "x-term": "EnvelopePlugin"
               }
-            ],
-            "x-group": "dynamics"
+            ]
           },
           {
             "const": "lv2.Expander",
             "title": "lv2Expander",
             "x-code": 39,
             "x-text": "The LV2 plugin class ExpanderPlugin: an effect that widens a sound's dynamic range.",
+            "x-group": "dynamics",
             "x-from": [
               {
                 "$ref": "https://openmixer.org/contract/lv2#/components/schemas/LV2_CORE_TERMS",
                 "x-term": "ExpanderPlugin"
               }
-            ],
-            "x-group": "dynamics"
+            ]
           },
           {
             "const": "lv2.Filter",
             "title": "lv2Filter",
             "x-code": 40,
             "x-text": "The LV2 plugin class FilterPlugin: an effect that removes or shapes a band of frequencies.",
+            "x-group": "filters",
             "x-from": [
               {
                 "$ref": "https://openmixer.org/contract/lv2#/components/schemas/LV2_CORE_TERMS",
                 "x-term": "FilterPlugin"
               }
-            ],
-            "x-group": "filters"
+            ]
           },
           {
             "const": "lv2.Flanger",
             "title": "lv2Flanger",
             "x-code": 41,
             "x-text": "The LV2 plugin class FlangerPlugin: an effect that sweeps a short, modulated delay against the dry sound.",
+            "x-group": "modulation",
             "x-from": [
               {
                 "$ref": "https://openmixer.org/contract/lv2#/components/schemas/LV2_CORE_TERMS",
                 "x-term": "FlangerPlugin"
               }
-            ],
-            "x-group": "modulation"
+            ]
           },
           {
             "const": "lv2.Gate",
             "title": "lv2Gate",
             "x-code": 42,
             "x-text": "The LV2 plugin class GatePlugin: an effect that mutes a sound below a level.",
+            "x-group": "dynamics",
             "x-from": [
               {
                 "$ref": "https://openmixer.org/contract/lv2#/components/schemas/LV2_CORE_TERMS",
                 "x-term": "GatePlugin"
               }
-            ],
-            "x-group": "dynamics"
+            ]
           },
           {
             "const": "lv2.Highpass",
             "title": "lv2Highpass",
             "x-code": 43,
             "x-text": "The LV2 plugin class HighpassPlugin: a filter that passes frequencies above a cutoff.",
+            "x-group": "filters",
             "x-from": [
               {
                 "$ref": "https://openmixer.org/contract/lv2#/components/schemas/LV2_CORE_TERMS",
                 "x-term": "HighpassPlugin"
               }
-            ],
-            "x-group": "filters"
+            ]
           },
           {
             "const": "lv2.Limiter",
             "title": "lv2Limiter",
             "x-code": 44,
             "x-text": "The LV2 plugin class LimiterPlugin: an effect that holds a sound under a ceiling.",
+            "x-group": "dynamics",
             "x-from": [
               {
                 "$ref": "https://openmixer.org/contract/lv2#/components/schemas/LV2_CORE_TERMS",
                 "x-term": "LimiterPlugin"
               }
-            ],
-            "x-group": "dynamics"
+            ]
           },
           {
             "const": "lv2.Lowpass",
             "title": "lv2Lowpass",
             "x-code": 45,
             "x-text": "The LV2 plugin class LowpassPlugin: a filter that passes frequencies below a cutoff.",
+            "x-group": "filters",
             "x-from": [
               {
                 "$ref": "https://openmixer.org/contract/lv2#/components/schemas/LV2_CORE_TERMS",
                 "x-term": "LowpassPlugin"
               }
-            ],
-            "x-group": "filters"
+            ]
           },
           {
             "const": "lv2.Mixer",
             "title": "lv2Mixer",
             "x-code": 46,
             "x-text": "The LV2 plugin class MixerPlugin: a plugin that combines several signals into one.",
+            "x-group": "utility",
             "x-from": [
               {
                 "$ref": "https://openmixer.org/contract/lv2#/components/schemas/LV2_CORE_TERMS",
                 "x-term": "MixerPlugin"
               }
-            ],
-            "x-group": "utility"
+            ]
           },
           {
             "const": "lv2.Modulator",
             "title": "lv2Modulator",
             "x-code": 47,
             "x-text": "The LV2 plugin class ModulatorPlugin: a plugin that modulates one signal with another.",
+            "x-group": "modulation",
             "x-from": [
               {
                 "$ref": "https://openmixer.org/contract/lv2#/components/schemas/LV2_CORE_TERMS",
                 "x-term": "ModulatorPlugin"
               }
-            ],
-            "x-group": "modulation"
+            ]
           },
           {
             "const": "lv2.MultiEQ",
             "title": "lv2MultiEQ",
             "x-code": 48,
             "x-text": "The LV2 plugin class MultiEQPlugin: a multi-band equaliser.",
+            "x-group": "equalisers",
             "x-from": [
               {
                 "$ref": "https://openmixer.org/contract/lv2#/components/schemas/LV2_CORE_TERMS",
                 "x-term": "MultiEQPlugin"
               }
-            ],
-            "x-group": "equalisers"
+            ]
           },
           {
             "const": "lv2.ParaEQ",
             "title": "lv2ParaEQ",
             "x-code": 49,
             "x-text": "The LV2 plugin class ParaEQPlugin: a parametric equaliser.",
+            "x-group": "equalisers",
             "x-from": [
               {
                 "$ref": "https://openmixer.org/contract/lv2#/components/schemas/LV2_CORE_TERMS",
                 "x-term": "ParaEQPlugin"
               }
-            ],
-            "x-group": "equalisers"
+            ]
           },
           {
             "const": "lv2.Phaser",
             "title": "lv2Phaser",
             "x-code": 50,
             "x-text": "The LV2 plugin class PhaserPlugin: an effect that sweeps notches through a sound with an all-pass filter chain.",
+            "x-group": "modulation",
             "x-from": [
               {
                 "$ref": "https://openmixer.org/contract/lv2#/components/schemas/LV2_CORE_TERMS",
                 "x-term": "PhaserPlugin"
               }
-            ],
-            "x-group": "modulation"
+            ]
           },
           {
             "const": "lv2.Pitch",
             "title": "lv2Pitch",
             "x-code": 51,
             "x-text": "The LV2 plugin class PitchPlugin: a plugin that changes or tracks a sound's pitch.",
+            "x-group": "pitch-and-spectral",
             "x-from": [
               {
                 "$ref": "https://openmixer.org/contract/lv2#/components/schemas/LV2_CORE_TERMS",
                 "x-term": "PitchPlugin"
               }
-            ],
-            "x-group": "pitch-and-spectral"
+            ]
           },
           {
             "const": "lv2.Reverb",
             "title": "lv2Reverb",
             "x-code": 52,
             "x-text": "The LV2 plugin class ReverbPlugin: an effect that adds the reflections of a space to a sound.",
+            "x-group": "reverb",
             "x-from": [
               {
                 "$ref": "https://openmixer.org/contract/lv2#/components/schemas/LV2_CORE_TERMS",
                 "x-term": "ReverbPlugin"
               }
-            ],
-            "x-group": "reverb"
+            ]
           },
           {
             "const": "lv2.Simulator",
             "title": "lv2Simulator",
             "x-code": 53,
             "x-text": "The LV2 plugin class SimulatorPlugin: a plugin that models a physical device or space.",
+            "x-group": "saturation-and-amps",
             "x-from": [
               {
                 "$ref": "https://openmixer.org/contract/lv2#/components/schemas/LV2_CORE_TERMS",
                 "x-term": "SimulatorPlugin"
               }
-            ],
-            "x-group": "saturation-and-amps"
+            ]
           },
           {
             "const": "lv2.Spatial",
             "title": "lv2Spatial",
             "x-code": 54,
             "x-text": "The LV2 plugin class SpatialPlugin: a plugin that places or moves a sound in space.",
+            "x-group": "spatial",
             "x-from": [
               {
                 "$ref": "https://openmixer.org/contract/lv2#/components/schemas/LV2_CORE_TERMS",
                 "x-term": "SpatialPlugin"
               }
-            ],
-            "x-group": "spatial"
+            ]
           },
           {
             "const": "lv2.Spectral",
             "title": "lv2Spectral",
             "x-code": 55,
             "x-text": "The LV2 plugin class SpectralPlugin: a plugin that processes a sound in the frequency domain.",
+            "x-group": "pitch-and-spectral",
             "x-from": [
               {
                 "$ref": "https://openmixer.org/contract/lv2#/components/schemas/LV2_CORE_TERMS",
                 "x-term": "SpectralPlugin"
               }
-            ],
-            "x-group": "pitch-and-spectral"
+            ]
           },
           {
             "const": "lv2.Utility",
             "title": "lv2Utility",
             "x-code": 56,
             "x-text": "The LV2 plugin class UtilityPlugin: a plugin that does audio housekeeping rather than a creative effect.",
+            "x-group": "utility",
             "x-from": [
               {
                 "$ref": "https://openmixer.org/contract/lv2#/components/schemas/LV2_CORE_TERMS",
                 "x-term": "UtilityPlugin"
               }
-            ],
-            "x-group": "utility"
+            ]
           },
           {
             "const": "lv2.Waveshaper",
             "title": "lv2Waveshaper",
             "x-code": 57,
             "x-text": "The LV2 plugin class WaveshaperPlugin: a plugin that reshapes a waveform to add harmonics.",
+            "x-group": "saturation-and-amps",
             "x-from": [
               {
                 "$ref": "https://openmixer.org/contract/lv2#/components/schemas/LV2_CORE_TERMS",
                 "x-term": "WaveshaperPlugin"
               }
-            ],
-            "x-group": "saturation-and-amps"
+            ]
           }
         ]
       },
@@ -653,13 +653,13 @@
             "title": "lv2Instrument",
             "x-code": 5,
             "x-text": "The LV2 plugin class InstrumentPlugin: a plugin played by notes.",
+            "x-group": "instruments",
             "x-from": [
               {
                 "$ref": "https://openmixer.org/contract/lv2#/components/schemas/LV2_CORE_TERMS",
                 "x-term": "InstrumentPlugin"
               }
-            ],
-            "x-group": "instruments"
+            ]
           }
         ]
       },
@@ -680,13 +680,13 @@
             "title": "lv2MIDI",
             "x-code": 1,
             "x-text": "The LV2 plugin class MIDIPlugin: a plugin that processes MIDI, note in to note out.",
+            "x-group": "midi",
             "x-from": [
               {
                 "$ref": "https://openmixer.org/contract/lv2#/components/schemas/LV2_CORE_TERMS",
                 "x-term": "MIDIPlugin"
               }
-            ],
-            "x-group": "midi"
+            ]
           }
         ]
       },
@@ -714,13 +714,13 @@
             "title": "lv2Analyser",
             "x-code": 2,
             "x-text": "The LV2 plugin class AnalyserPlugin: a plugin that reads audio and reports a measurement.",
+            "x-group": "analysis",
             "x-from": [
               {
                 "$ref": "https://openmixer.org/contract/lv2#/components/schemas/LV2_CORE_TERMS",
                 "x-term": "AnalyserPlugin"
               }
-            ],
-            "x-group": "analysis"
+            ]
           }
         ]
       },
@@ -758,52 +758,52 @@
             "title": "lv2Constant",
             "x-code": 4,
             "x-text": "The LV2 plugin class ConstantPlugin: a plugin with no input that outputs a constant.",
+            "x-group": "utility",
             "x-from": [
               {
                 "$ref": "https://openmixer.org/contract/lv2#/components/schemas/LV2_CORE_TERMS",
                 "x-term": "ConstantPlugin"
               }
-            ],
-            "x-group": "utility"
+            ]
           },
           {
             "const": "lv2.Function",
             "title": "lv2Function",
             "x-code": 5,
             "x-text": "The LV2 plugin class FunctionPlugin: a plugin with no audio input or output, used only for its side effects or parameters.",
+            "x-group": "utility",
             "x-from": [
               {
                 "$ref": "https://openmixer.org/contract/lv2#/components/schemas/LV2_CORE_TERMS",
                 "x-term": "FunctionPlugin"
               }
-            ],
-            "x-group": "utility"
+            ]
           },
           {
             "const": "lv2.Generator",
             "title": "lv2Generator",
             "x-code": 6,
             "x-text": "The LV2 plugin class GeneratorPlugin: a plugin with no audio input that generates a sound.",
+            "x-group": "instruments",
             "x-from": [
               {
                 "$ref": "https://openmixer.org/contract/lv2#/components/schemas/LV2_CORE_TERMS",
                 "x-term": "GeneratorPlugin"
               }
-            ],
-            "x-group": "instruments"
+            ]
           },
           {
             "const": "lv2.Oscillator",
             "title": "lv2Oscillator",
             "x-code": 7,
             "x-text": "The LV2 plugin class OscillatorPlugin: a generator that outputs a periodic waveform.",
+            "x-group": "instruments",
             "x-from": [
               {
                 "$ref": "https://openmixer.org/contract/lv2#/components/schemas/LV2_CORE_TERMS",
                 "x-term": "OscillatorPlugin"
               }
-            ],
-            "x-group": "instruments"
+            ]
           },
           {
             "const": "lv2.Plugin",
