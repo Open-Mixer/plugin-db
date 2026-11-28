@@ -217,7 +217,7 @@ test-version-check:
 #   check-rendered      plugin_db_vocabulary.h and plugin_db_constants.h are what omx-contract renders from the domain plugin-db
 #   test-rendered-sabotage  check-rendered fails on a header changed by hand and on the domain changed and not rendered again
 #   check-contract-dir  the installed domains validate with the installed contract directory, and catalogs/ against them
-#   check-ci-matrix     no CI matrix names bookworm by hand: the cells follow OMX_RELEASE_MATRIX (ruling D25), self-tested
+#   check-ci-matrix     no CI matrix names bookworm: we build Debian trixie only, self-tested
 OMX_CONTRACT ?= omx-contract
 CONTRACTDIR = $(or $(shell $(PKG_CONFIG) --variable=contractdir omx-contract 2>/dev/null),$(DATADIR)/omx-contract/contract.d)
 # the contract directory holding plugin-hostd-protocol's domain pin (pin/pin.json), the words of a pin's verdict and pool

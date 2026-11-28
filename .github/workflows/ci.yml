@@ -40,8 +40,8 @@ jobs:
           wave: ${{ vars.OMX_RELEASE_MATRIX }}
           rpm-releases: '["45"]'
           rpm-arches: '["x86_64"]'
-          # bookworm is a full cell (ruling D25): named through OMX_RELEASE_MATRIX, as the image list on main did
-          deb-releases: ${{ vars.OMX_RELEASE_MATRIX == 'full' && '["bookworm", "trixie"]' || '["trixie"]' }}
+          # Debian trixie only: the releases the shared build-deb.yml publishes (no bookworm, owner 2026-11-28)
+          deb-releases: '["trixie"]'
           deb-arches: '["amd64", "arm64"]'
 
   test:
