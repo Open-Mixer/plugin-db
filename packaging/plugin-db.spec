@@ -1,5 +1,5 @@
 Name: plugin-db
-Version: 0.5.2
+Version: 0.5.3
 Release: 1%{?dist}
 License: GPL-3.0-or-later
 Summary: The plugin database: the pin, the address form, the store and the state
@@ -214,6 +214,12 @@ English source sentence.
 # END langpacks
 
 %changelog
+* Fri Nov 27 2026 Pau Aliagas <linuxnow@gmail.com> - 0.5.3-1
+- The domain plugin-feature (0.2.0) names the role group each CLAP plugin
+  feature and LV2 plugin class files under, PLUGIN_FEATURE_ROLES, as each
+  word's x-group: the table a console groups its plugin picker by, read from
+  the installed domain (#103).
+
 * Thu Nov 26 2026 Pau Aliagas <linuxnow@gmail.com> - 0.5.2-1
 - The RPMs are built for Fedora aarch64 as well as x86_64: the release
   matrix is Open-Mixer/.github's shared releases and architectures, with no

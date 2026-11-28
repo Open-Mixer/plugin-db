@@ -2,17 +2,16 @@
 # SPDX-License-Identifier: GPL-3.0-or-later
 # Copyright (C) 2026 Pau Aliagas <linuxnow@gmail.com>
 #
-# Ruling D25: a CI matrix follows the release set, never a hand list. bookworm is a full cell, built and served its
-# floors only by the wave-end full release; while the organisation variable OMX_RELEASE_MATRIX is quick it cannot
-# satisfy a floor released quick-only, so a hand-written bookworm cell turns every pull request red. A workflow line that
-# names bookworm outside a comment must choose it through OMX_RELEASE_MATRIX on that same line.
+# We build and serve Debian trixie only, never bookworm (owner 2026-11-28; the shared build-deb.yml publishes trixie):
+# a bookworm cell installs from a channel that serves nothing for it and turns every pull request red (#104). A workflow
+# line that names bookworm outside a comment is refused.
 # `ci-matrix-follows-set.sh [workflow...]`; with --self-test it also plants a hand cell and expects red.
 set -eu
 check() {
-  bad=$(awk '/^[[:space:]]*#/ { next } /bookworm/ && !/OMX_RELEASE_MATRIX/ { print FILENAME ":" FNR ": " $0 }' "$@")
+  bad=$(awk '/^[[:space:]]*#/ { next } /bookworm/ { print FILENAME ":" FNR ": " $0 }' "$@")
   if [ -n "$bad" ]; then
     printf '%s\n' "$bad" >&2
-    echo "FAIL a hand-written bookworm cell: CI follows the release set (vars.OMX_RELEASE_MATRIX, ruling D25)" >&2
+    echo "FAIL a bookworm cell: we build and serve Debian trixie only (owner 2026-11-28)" >&2
     return 1
   fi
 }
@@ -20,7 +19,7 @@ self_test=
 [ "${1:-}" = --self-test ] && { self_test=1; shift; }
 [ $# -gt 0 ] || set -- .github/workflows/*.yml
 check "$@"
-echo "ok   no workflow names bookworm outside the OMX_RELEASE_MATRIX switch ($#)"
+echo "ok   no workflow names bookworm ($#)"
 if [ -n "$self_test" ]; then
   tmp=$(mktemp -d); trap 'rm -rf "$tmp"' EXIT
   printf '    strategy:\n      matrix:\n        image: [%s]\n' "'fedora:45', 'debian:bookworm'" > "$tmp/planted.yml"
